@@ -26,6 +26,10 @@ public class PlayerCameraLook : MonoBehaviour
     private void Update()
     {
         CameraRotation();
+         if(Input.GetButtonDown("Pause"))
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
     }
 
     private void CameraRotation()

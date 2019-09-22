@@ -17,6 +17,9 @@ public class PlayerMovementController : MonoBehaviour
 
     private bool isJumping;
 
+    private float horizInput;
+    private float vertInput;
+
     private void Awake()
     {
         charController = GetComponent<CharacterController>();
@@ -25,12 +28,19 @@ public class PlayerMovementController : MonoBehaviour
     private void Update()
     {
         PlayerMovement();
+   
     }
 
     private void PlayerMovement()
     {
-        float horizInput = Input.GetAxis(horizontalInputName) * movementSpeed;
-        float vertInput = Input.GetAxis(verticalInputName) * movementSpeed;
+        horizInput = Input.GetAxis(horizontalInputName) * movementSpeed;
+        vertInput = Input.GetAxis(verticalInputName) * movementSpeed;
+
+        horizInput *= Time.deltaTime;
+        vertInput *= Time.deltaTime;
+
+        // float horizInput = Input.GetAxis("Horizontal") * movementSpeed;
+        // float vertInput = Input.GetAxis("Vertical") * movementSpeed;
 
         Vector3 forwardMovement = transform.forward * vertInput;
         Vector3 rightMovement = transform.right * horizInput;
