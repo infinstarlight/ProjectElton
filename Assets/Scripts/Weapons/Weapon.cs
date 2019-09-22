@@ -25,8 +25,6 @@ public class Weapon : MonoBehaviour
 
     public WeaponType MyWeaponType;
     public AmmoType MyAmmoType;
-    public float CurrentAmmo = 0;
-    public float MaxAmmo = 0;
 
     public AudioSource weaponAudio;
 
@@ -35,6 +33,8 @@ public class Weapon : MonoBehaviour
     public GameObject weaponProj;
     public GameObject gunEndGO;
     public RaycastHit hit;
+
+    public AudioClip[] WeaponSounds;
 
      public float fireRate = 0.25f;                                      // Number in seconds which controls how often the player can fire
     float weaponRange = 200f;    
@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CheckAmmo();
+        
     }
 
     // Update is called once per frame
@@ -59,15 +59,5 @@ public class Weapon : MonoBehaviour
     }
 
 
-    public void CheckAmmo()
-    {
-        if(CurrentAmmo > 0)
-        {
-            bCanFire = true;
-        }
-        else
-        {
-            bCanFire = false;
-        }
-    }
+   
 }

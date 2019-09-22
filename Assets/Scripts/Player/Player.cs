@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(PlayerMovementController))]
-[RequireComponent(typeof(PlayerCameraLook))]
+// [RequireComponent(typeof(PlayerMovementController))]
+// [RequireComponent(typeof(PlayerCameraLook))]
 public class Player : Character
 {
     // Start is called before the first frame update

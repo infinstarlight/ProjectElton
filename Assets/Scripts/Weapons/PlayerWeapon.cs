@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerWeapon : Weapon
 {
-
+    
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
     // Start is called before the first frame update
     void Start()
@@ -48,7 +48,7 @@ public class PlayerWeapon : Weapon
 
     private IEnumerator ShotEffect()
     {
-        
+        weaponAudio.clip = WeaponSounds[1];
         // Play the shooting sound effect
         weaponAudio.PlayOneShot(weaponAudio.clip);
 
