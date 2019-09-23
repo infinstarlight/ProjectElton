@@ -29,6 +29,8 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     float translation;
     float strafe;
 
+     Vector3 dashVelocity;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,7 +49,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+          bIsGounded = Physics.CheckSphere(groundChecker.position,GroundDistance,Ground,QueryTriggerInteraction.Ignore);
         if(Input.GetButtonDown("Jump"))
         {
               CurrentJumpCount = CurrentJumpCount + 1;
@@ -63,7 +65,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
 
         if(Input.GetButtonDown("Dash"))
         {
-            Vector3 dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+           dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
             rb.AddForce(dashVelocity,ForceMode.VelocityChange);
         }
         translation = Input.GetAxis("Vertical") * MovementSpeed;
@@ -82,7 +84,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(strafe,0,translation);
-         bIsGounded = Physics.CheckSphere(groundChecker.position,GroundDistance,Ground,QueryTriggerInteraction.Ignore);
+     
         //rb.MovePosition(rb.position + inputMovement * MovementSpeed * Time.fixedDeltaTime);
     }
 }
