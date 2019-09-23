@@ -36,6 +36,7 @@ public class CameraLook : MonoBehaviour
         mouseLook += smoothingVector;
 
         transform.localRotation = Quaternion.AngleAxis(-mouseLook.y,Vector3.right);
+        ///Commenting this line causes right angle turns, almost like Time Crisis
         PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x,PlayerCharacter.transform.up);
     }
 }
