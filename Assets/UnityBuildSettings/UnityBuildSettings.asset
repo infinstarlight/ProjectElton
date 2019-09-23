@@ -1,0 +1,245 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5558823381647911260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d88f7d353534a4fbdeb11196057db7, type: 3}
+  m_Name: UploadItch
+  m_EditorClassIdentifier: 
+  actionType: 1
+  actionName: UploadItch
+  note: 
+  actionEnabled: 1
+  filter:
+    condition: 0
+    clauses: []
+  pathToButlerExe: G:\Games Library\itch\Butler\butler.exe
+  nameOfItchUser: sleeplessstarlight
+  nameOfItchGame: TheChase
+  useGeneratedBuildVersion: 0
+  showUploadProgress: 1
+  itchChannelOverride: 
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5886119a5c7b34d8872ab527ca3e1b, type: 3}
+  m_Name: UnityBuildSettings
+  m_EditorClassIdentifier: 
+  _basicSettings:
+    baseBuildFolder: Builds
+    buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
+    openFolderPostBuild: 1
+  _productParameters:
+    buildCounter: 5
+    lastGeneratedVersion: 1.0.1726.394
+    version: 1.0.$DAYSSINCE("January 1, 2015").$SECONDS
+    autoGenerate: 1
+  _releaseTypeList:
+    releaseTypes:
+    - typeName: Development
+      bundleIndentifier: com.EchoLabs.TheChase
+      companyName: Echo Labs
+      productName: 'Aragon: The Chase - Development'
+      developmentBuild: 0
+      allowDebugging: 0
+      enableHeadlessMode: 0
+      customDefines: 
+      sceneList:
+        enabledScenes:
+        - fileGUID: bd033ea47334145bb9514de14882db40
+        - fileGUID: 42559232b27bd4dc8a8016477b23b18f
+        - fileGUID: 5fd80a9172cbc7145a53a2b5171ec893
+  _platformList:
+    platforms:
+    - enabled: 1
+      distributionList:
+        distributions:
+        - distributionName: Development
+          enabled: 1
+      architectures:
+      - target: 13
+        name: Android
+        enabled: 1
+      variants:
+      - variantName: Device Type
+        selectedIndex: 1
+        values:
+        - FAT
+        - ARMv7
+        - x86
+      - variantName: Texture Compression
+        selectedIndex: 0
+        values:
+        - ETC
+        - ETC2
+        - ASTC
+        - DXT
+        - PVRTC
+        - ATC
+        - Generic
+      - variantName: Build System
+        selectedIndex: 0
+        values:
+        - Internal
+        - Gradle
+        - ADT (Legacy)
+      platformName: Android
+      binaryNameFormat: '{0}.apk'
+      dataDirNameFormat: '{0}_Data'
+      targetGroup: 7
+    - enabled: 1
+      distributionList:
+        distributions: []
+      architectures:
+      - target: 5
+        name: Windows x86
+        enabled: 0
+      - target: 19
+        name: Windows x64
+        enabled: 1
+      variants: []
+      platformName: PC
+      binaryNameFormat: '{0}.exe'
+      dataDirNameFormat: '{0}_Data'
+      targetGroup: 1
+    - enabled: 1
+      distributionList:
+        distributions:
+        - distributionName: Development
+          enabled: 1
+      architectures:
+      - target: 20
+        name: WebGL
+        enabled: 1
+      variants: []
+      platformName: WebGL
+      binaryNameFormat: '{0}'
+      dataDirNameFormat: '{0}_Data'
+      targetGroup: 13
+    - enabled: 1
+      distributionList:
+        distributions: []
+      architectures:
+      - target: 2
+        name: OSX
+        enabled: 1
+      variants: []
+      platformName: OSX
+      binaryNameFormat: '{0}.app'
+      dataDirNameFormat: '{0}.app/Contents'
+      targetGroup: 1
+    - enabled: 1
+      distributionList:
+        distributions: []
+      architectures:
+      - target: 25
+        name: Linux Universal
+        enabled: 1
+      - target: 17
+        name: Linux x86
+        enabled: 0
+      - target: 24
+        name: Linux x64
+        enabled: 0
+      variants: []
+      platformName: Linux
+      binaryNameFormat: '{0}.x86'
+      dataDirNameFormat: '{0}_Data'
+      targetGroup: 1
+  _projectConfigurations:
+    configSet:
+      _Buckets: 09000000ffffffff0a00000005000000ffffffffffffffffffffffff0600000001000000ffffffff0b00000000000000ffffffffffffffff070000000c00000003000000
+      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a29e756831ab64dea22868c54346271f95ea767614900000000000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffff02000000ffffffffffffffffffffffff0800000000000000000000000000000000000000
+      _Count: 13
+      _Version: 13
+      _FreeList: -1
+      _FreeCount: 0
+      _Keys:
+      - Development/Android/Android (ARMv7,ETC,Internal)/Development
+      - Development/Android/Android (ARMv7,ETC,Internal)
+      - Development/Android
+      - Development/PC/Windows x64
+      - Development/PC
+      - Development/WebGL/WebGL/Development
+      - Development/WebGL/WebGL
+      - Development/WebGL
+      - Development/OSX/OSX
+      - Development/OSX
+      - Development/Linux/Linux Universal
+      - Development/Linux
+      - Development
+      - 
+      - 
+      - 
+      - 
+      _Values:
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Development/Android/Android (ARMv7,ETC,Internal)/Development
+      - enabled: 1
+        childKeys:
+        - Development/Android/Android (ARMv7,ETC,Internal)
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Development/PC/Windows x64
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Development/WebGL/WebGL/Development
+      - enabled: 1
+        childKeys:
+        - Development/WebGL/WebGL
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Development/OSX/OSX
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - Development/Linux/Linux Universal
+      - enabled: 1
+        childKeys:
+        - Development/Android
+        - Development/PC
+        - Development/WebGL
+        - Development/OSX
+        - Development/Linux
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
+    showViewOptions: 0
+    showConfigs: 0
+    showBuildInfo: 0
+    hideDisabled: 0
+    treeView: 0
+    selectedKeyChain: 
+  _preBuildActions:
+    buildActions: []
+  _postBuildActions:
+    buildActions:
+    - {fileID: -5558823381647911260}

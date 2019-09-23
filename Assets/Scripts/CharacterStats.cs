@@ -7,6 +7,11 @@ public class CharacterStats : MonoBehaviour
     public float CurrentHealth;
     public float MaxHealth = 100;
     public bool bIsDead = false;
+    public bool bCanTakeDamage = true;
+
+    public float healthPercentage;
+
+    public string CharacterName;
 
     void Awake()
     {
@@ -21,6 +26,11 @@ public class CharacterStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        healthPercentage = CurrentHealth / MaxHealth;
+    }
+
+     public void ModifyHealth(int ModAmount)
+    {
+        CurrentHealth += ModAmount;
     }
 }

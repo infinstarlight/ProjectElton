@@ -29,7 +29,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     float translation;
     float strafe;
 
-     Vector3 dashVelocity;
+    Vector3 dashVelocity;
 
     void Awake()
     {
@@ -40,7 +40,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(Cursor.lockState != CursorLockMode.Locked)
+        if (Cursor.lockState != CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -49,42 +49,52 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-          bIsGounded = Physics.CheckSphere(groundChecker.position,GroundDistance,Ground,QueryTriggerInteraction.Ignore);
-        if(Input.GetButtonDown("Jump"))
-        {
-              CurrentJumpCount = CurrentJumpCount + 1;
-                if(CurrentJumpCount <= MaxJumpCount)
-                {
-                     rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y),ForceMode.VelocityChange);  
-                }
-        }
-        if(CurrentJumpCount >= MaxJumpCount && bIsGounded)
+        bIsGounded = Physics.CheckSphere(groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+
+        if (bIsGounded && CurrentJumpCount >= 1)
         {
             CurrentJumpCount = 0;
         }
 
-        if(Input.GetButtonDown("Dash"))
-        {
-           dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-            rb.AddForce(dashVelocity,ForceMode.VelocityChange);
-        }
+
         translation = Input.GetAxis("Vertical") * MovementSpeed;
         strafe = Input.GetAxis("Horizontal") * MovementSpeed;
         translation *= Time.deltaTime;
         strafe *= Time.deltaTime;
 
-        
 
-     if(Input.GetButtonDown("Pause"))
-     {
-         Cursor.lockState = CursorLockMode.None;
-     }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     void FixedUpdate()
     {
-        transform.Translate(strafe,0,translation);
-     
-        //rb.MovePosition(rb.position + inputMovement * MovementSpeed * Time.fixedDeltaTime);
+        transform.Translate(strafe, 0, translation);
+        if (Input.GetButtonDown("Jump"))
+        {
+            CurrentJumpCount++;
+            if (CurrentJumpCount <= MaxJumpCount)
+            {
+                rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+            }
+        }
+        if (Input.GetButtonDown("Dash"))
+        {
+            dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+            rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (Application.isPlaying && Application.isEditor)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundChecker.position, GroundDistance);
+        }
+
     }
 }

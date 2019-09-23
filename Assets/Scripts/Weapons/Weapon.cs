@@ -30,16 +30,22 @@ public class Weapon : MonoBehaviour
 
     public float nextFire;
 
+    public bool bIsAutomatic = false;
+
     public GameObject weaponProj;
     public GameObject gunEndGO;
     public RaycastHit hit;
 
+    public float DamageAmount = 5.0f;
+
     public AudioClip[] WeaponSounds;
 
-     public float fireRate = 0.25f;                                      // Number in seconds which controls how often the player can fire
-    float weaponRange = 200f;    
+    public float fireRate = 0.25f;                                      // Number in seconds which controls how often the player can fire
 
-    private bool bCanFire = false;
+    //[SerializeField]
+    public float weaponRange = 200f;    
+
+    //private bool bCanFire = false;
 
     void Awake()
     {
@@ -52,11 +58,11 @@ public class Weapon : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // // Update is called once per frame
+    // void Update()
+    // {
         
-    }
+    // }
 
 
    

@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class PlayerWeapon : Weapon
 {
-    
+    //private bool bIsFiring = false;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
+
+    public GameObject FireEffect;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        // var effGO = Resources.Load<GameObject>("Weapons/FireEffect") as GameObject;
+        // FireEffect = effGO;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // // Update is called once per frame
+    // void Update()
+    // {
         
-    }
+    // }
 
     public void Fire()
     {
@@ -29,18 +33,26 @@ public class PlayerWeapon : Weapon
                 nextFire = Time.time + fireRate;
                 Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
 
-                float rayLength = 200f;
+                
 
                 // actual Ray
                 Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
 
                 // debug Ray
-                Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
+                Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
 
 
-                if (Physics.Raycast(ray, out hit, rayLength))
+                if (Physics.Raycast(ray, out hit, weaponRange))
                 {
                     GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
+                    GameObject VFXGo = Instantiate(FireEffect,gunEndGO.transform.position,Camera.main.transform.rotation);
+                    if(hit.collider != null)
+                    {
+                        if(hit.collider.gameObject.GetComponent<Character>())
+                        {
+                            hit.collider.gameObject.GetComponent<Character>().OnDamageApplied(DamageAmount);
+                        }
+                    }
                     //SFXInstance.SoundDesired = 3;
                 }
         }
@@ -52,7 +64,14 @@ public class PlayerWeapon : Weapon
         // Play the shooting sound effect
         weaponAudio.PlayOneShot(weaponAudio.clip);
 
+        
         //Wait for .07 seconds
         yield return shotDuration;
+    }
+
+    public IEnumerator AutoFire()
+    {
+        Fire();
+        yield return fireRate;
     }
 }
