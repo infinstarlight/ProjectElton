@@ -22,8 +22,8 @@ MonoBehaviour:
   pathToButlerExe: G:\Games Library\itch\Butler\butler.exe
   nameOfItchUser: sleeplessstarlight
   nameOfItchGame: TheChase
-  useGeneratedBuildVersion: 0
-  showUploadProgress: 1
+  useGeneratedBuildVersion: 1
+  showUploadProgress: 0
   itchChannelOverride: 
 --- !u!114 &11400000
 MonoBehaviour:
@@ -42,8 +42,8 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 5
-    lastGeneratedVersion: 1.0.1726.394
+    buildCounter: 1
+    lastGeneratedVersion: 1.0.1726.4637
     version: 1.0.$DAYSSINCE("January 1, 2015").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
@@ -130,7 +130,9 @@ MonoBehaviour:
       targetGroup: 13
     - enabled: 1
       distributionList:
-        distributions: []
+        distributions:
+        - distributionName: Development
+          enabled: 1
       architectures:
       - target: 2
         name: OSX
@@ -146,13 +148,13 @@ MonoBehaviour:
       architectures:
       - target: 25
         name: Linux Universal
-        enabled: 1
+        enabled: 0
       - target: 17
         name: Linux x86
         enabled: 0
       - target: 24
         name: Linux x64
-        enabled: 0
+        enabled: 1
       variants: []
       platformName: Linux
       binaryNameFormat: '{0}.x86'
@@ -160,11 +162,11 @@ MonoBehaviour:
       targetGroup: 1
   _projectConfigurations:
     configSet:
-      _Buckets: 09000000ffffffff0a00000005000000ffffffffffffffffffffffff0600000001000000ffffffff0b00000000000000ffffffffffffffff070000000c00000003000000
-      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a29e756831ab64dea22868c54346271f95ea767614900000000000000000000000000000000
-      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffff02000000ffffffffffffffffffffffff0800000000000000000000000000000000000000
-      _Count: 13
-      _Version: 13
+      _Buckets: 0a000000ffffffffffffffff05000000ffffffffffffffffffffffff0600000001000000ffffffff0c00000000000000ffffffff08000000070000000d00000003000000
+      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a2917cce93fe756831ab64dea22f15e3a406271f95ea7676149000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffff02000000ffffffff09000000ffffffff0b000000000000000000000000000000
+      _Count: 14
+      _Version: 14
       _FreeList: -1
       _FreeCount: 0
       _Keys:
@@ -176,12 +178,12 @@ MonoBehaviour:
       - Development/WebGL/WebGL/Development
       - Development/WebGL/WebGL
       - Development/WebGL
+      - Development/OSX/OSX/Development
       - Development/OSX/OSX
       - Development/OSX
-      - Development/Linux/Linux Universal
+      - Development/Linux/Linux x64
       - Development/Linux
       - Development
-      - 
       - 
       - 
       - 
@@ -211,12 +213,15 @@ MonoBehaviour:
         childKeys: []
       - enabled: 1
         childKeys:
+        - Development/OSX/OSX/Development
+      - enabled: 1
+        childKeys:
         - Development/OSX/OSX
       - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - Development/Linux/Linux Universal
+        - Development/Linux/Linux x64
       - enabled: 1
         childKeys:
         - Development/Android
@@ -224,8 +229,6 @@ MonoBehaviour:
         - Development/WebGL
         - Development/OSX
         - Development/Linux
-      - enabled: 1
-        childKeys: []
       - enabled: 1
         childKeys: []
       - enabled: 1
