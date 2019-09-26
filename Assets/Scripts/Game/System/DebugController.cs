@@ -9,6 +9,8 @@ public class DebugController : MonoBehaviour
     public bool bIsDebug = false;
     public bool bTestFPSLimit = false;
     public int testFrameRate = 30;
+    private ID_DebugCanvas debugCanvas;
+    private GameObject debugCanvasGO;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,8 @@ public class DebugController : MonoBehaviour
         {
             bIsDebug = true;
             Application.targetFrameRate = testFrameRate;
+            debugCanvas = FindObjectOfType<ID_DebugCanvas>();
+            debugCanvasGO = debugCanvas.gameObject;
         }
     }
 

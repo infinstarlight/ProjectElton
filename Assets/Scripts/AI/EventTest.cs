@@ -1,17 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
+[System.Serializable]
 
 public class EventTest : MonoBehaviour {
 
     private UnityAction someListener;
     private UnityAction DamageListener;
 
+    public MyFloatEvent StyleListener;
+    private PlayerStateScript playerState;
+    private float StyleMod;
+
     void Awake ()
     {
+        playerState = FindObjectOfType<PlayerStateScript>();
         someListener = new UnityAction (SomeFunction);
-        DamageListener = new UnityAction(AIDamageFunction);
-
+        DamageListener = new UnityAction (AIDamageFunction);
+      
+      
+        
     }
 
     void OnEnable ()
@@ -19,7 +27,8 @@ public class EventTest : MonoBehaviour {
         AIEventManager.StartListening ("test", someListener);
         AIEventManager.StartListening ("Spawn", SomeOtherFunction);
         AIEventManager.StartListening ("Destroy", SomeThirdFunction);
-        AIEventManager.StartListening("Damage",DamageListener);
+        AIEventManager.StartListening ("Damage",DamageListener);
+       
     }
 
     void OnDisable ()
@@ -27,7 +36,8 @@ public class EventTest : MonoBehaviour {
         AIEventManager.StopListening ("test", someListener);
         AIEventManager.StopListening ("Spawn", SomeOtherFunction);
         AIEventManager.StopListening ("Destroy", SomeThirdFunction);
-        AIEventManager.StopListening("Damage",DamageListener);
+        AIEventManager.StopListening ("Damage",DamageListener);
+      
     }
 
     void SomeFunction ()
@@ -38,6 +48,11 @@ public class EventTest : MonoBehaviour {
     void AIDamageFunction()
     {
         Debug.Log("This Character has taken damage!");
+    }
+
+    void RaiseStyle(float ModAmount)
+    {
+        playerState.ModStyle(ModAmount);
     }
 
 

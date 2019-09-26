@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : Character 
 {
+    public float StyleModAmount = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,5 +18,6 @@ public class Enemy : Character
     {
         base.OnDamageApplied(damageTaken);
         AIEventManager.TriggerEvent("Damage");
+        AIEventManager.TriggerFloatModEvent("RaiseStyle",StyleModAmount);
     }
 }

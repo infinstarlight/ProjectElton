@@ -3,9 +3,28 @@ using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
 
+public class MyFloatEvent : UnityEvent<float>
+{
+    public void AddListener(MyFloatEvent call)
+    {
+
+    }
+    public void RemoveListener(MyFloatEvent call)
+    {
+
+    }
+    public void Invoke()
+    {
+
+    }
+}
+
 public class AIEventManager : MonoBehaviour
 {
     private Dictionary<string, UnityEvent> eventDictionary;
+    private Dictionary<string,MyFloatEvent> floateventDictionary;
+
+    
 
     private static AIEventManager AIManager;
 
@@ -37,10 +56,28 @@ public class AIEventManager : MonoBehaviour
         {
             eventDictionary = new Dictionary<string, UnityEvent>();
         }
+        if(floateventDictionary == null)
+        {
+            floateventDictionary = new Dictionary<string, MyFloatEvent>();
+        }
     }
 
 
-
+    public static void StartListeningFloat(string eventName, MyFloatEvent floatListener)
+    {
+         if (AIManager == null) return;
+        MyFloatEvent thisFloatEvent = null;
+        if(instance.floateventDictionary.TryGetValue(eventName,out thisFloatEvent))
+        {
+            thisFloatEvent.AddListener(floatListener);
+        }
+        else
+        {
+            thisFloatEvent = new MyFloatEvent();
+            thisFloatEvent.AddListener(floatListener);
+            instance.floateventDictionary.Add(eventName,thisFloatEvent);
+        }
+    }
     public static void StartListening(string eventName, UnityAction listener)
     {
         UnityEvent thisEvent = null;
@@ -65,12 +102,35 @@ public class AIEventManager : MonoBehaviour
             thisEvent.RemoveListener(listener);
         }
     }
+
+    public static void StopListeningFloat(string eventName, MyFloatEvent floatListener)
+    {
+        if(AIManager == null) return;
+        MyFloatEvent thisFloatEvent = null;
+         if(instance.floateventDictionary.TryGetValue(eventName,out thisFloatEvent))
+        {
+            thisFloatEvent.AddListener(floatListener);
+        }
+        if (instance.floateventDictionary.TryGetValue(eventName, out thisFloatEvent))
+        {
+            thisFloatEvent.RemoveListener(floatListener);
+        }
+    }
     public static void TriggerEvent (string eventName)
     {
         UnityEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue (eventName, out thisEvent))
         {
             thisEvent.Invoke ();
+        }
+    }
+
+    public static void TriggerFloatModEvent(string eventName,float ModAmount)
+    {
+        MyFloatEvent thisFloatEvent = null;
+        if(instance.floateventDictionary.TryGetValue(eventName,out thisFloatEvent))
+        {
+            thisFloatEvent.Invoke();
         }
     }
 }

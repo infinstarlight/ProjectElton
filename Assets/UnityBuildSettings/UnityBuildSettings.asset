@@ -42,8 +42,8 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 1
-    lastGeneratedVersion: 1.0.1726.4637
+    buildCounter: 2
+    lastGeneratedVersion: 1.0.1729.508
     version: 1.0.$DAYSSINCE("January 1, 2015").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
@@ -61,6 +61,7 @@ MonoBehaviour:
         - fileGUID: bd033ea47334145bb9514de14882db40
         - fileGUID: 42559232b27bd4dc8a8016477b23b18f
         - fileGUID: 5fd80a9172cbc7145a53a2b5171ec893
+        - fileGUID: 9a78fd9253e3ddd479f1f74219d823e1
   _platformList:
     platforms:
     - enabled: 1

@@ -61,13 +61,5 @@ public class Character : MonoBehaviour,IKillable,IDamageable<float>
             }
         }
     }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
-
-    
   
 }
