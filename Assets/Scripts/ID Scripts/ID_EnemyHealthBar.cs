@@ -12,17 +12,14 @@ public class ID_EnemyHealthBar : MonoBehaviour
     {
         healthBar = GetComponent<Slider>();
         
-        enemyStats = FindObjectOfType<Enemy>().characterStats;
-        enemyStats.CharacterName = enemyStats.gameObject.name;
+        enemyStats = GetComponentInParent<Enemy>().characterStats;
+//        enemyStats.CharacterName = enemyStats.gameObject.name;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (enemyStats == null)
-        // {
-        //     enemyStats = FindObjectOfType<Character>().characterStats;
-        // }
+    
         if (enemyStats != null)
         {
             healthBar.value = enemyStats.healthPercentage;

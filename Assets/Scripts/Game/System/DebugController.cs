@@ -14,12 +14,20 @@ public class DebugController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        debugCanvas = FindObjectOfType<ID_DebugCanvas>();
+        debugCanvasGO = debugCanvas.gameObject;
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
             Application.targetFrameRate = testFrameRate;
-            debugCanvas = FindObjectOfType<ID_DebugCanvas>();
-            debugCanvasGO = debugCanvas.gameObject;
+            if (bShowFPS)
+            {
+                debugCanvasGO.SetActive(true);
+            }
+        }
+        else
+        {
+            debugCanvasGO.SetActive(false);
         }
     }
 
@@ -35,7 +43,20 @@ public class DebugController : MonoBehaviour
                 var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
                 Instantiate(StatGO);
             }
-            EnableFPSLimit();
+            if (Input.GetKeyDown(KeyCode.Home))
+            {
+                 bTestFPSLimit = !bTestFPSLimit;
+                EnableFPSLimit();
+            }
+
+            if (bShowFPS)
+            {
+                debugCanvasGO.SetActive(true);
+            }
+            else
+            {
+                debugCanvasGO.SetActive(false);
+            }
         }
     }
 

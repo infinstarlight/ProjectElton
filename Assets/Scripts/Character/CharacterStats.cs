@@ -27,6 +27,7 @@ public class CharacterStats : MonoBehaviour
     void Update()
     {
         healthPercentage = CurrentHealth / MaxHealth;
+        //Debug.Log(healthPercentage + "of: " + gameObject.name);
     }
 
      public void ModifyHealth(int ModAmount)

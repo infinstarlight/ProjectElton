@@ -8,7 +8,7 @@ public class EventTest : MonoBehaviour {
     private UnityAction someListener;
     private UnityAction DamageListener;
 
-    public MyFloatEvent StyleListener;
+    //public MyFloatEvent StyleListener;
     private PlayerStateScript playerState;
     private float StyleMod;
 
@@ -47,7 +47,7 @@ public class EventTest : MonoBehaviour {
 
     void AIDamageFunction()
     {
-        Debug.Log("This Character has taken damage!");
+      //  Debug.Log("This Character has taken damage!");
     }
 
     void RaiseStyle(float ModAmount)

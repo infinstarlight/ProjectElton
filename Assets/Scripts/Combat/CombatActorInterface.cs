@@ -10,4 +10,8 @@ public interface IKillable
 public interface IDamageable<T>
 {
     void OnDamageApplied(T damageTaken);
+
+    
 }
+
+

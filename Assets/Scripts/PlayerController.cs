@@ -5,15 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public bool bIsGamePaused = false;
-    private GameObject PauseMenuGO;
+    public bool bEnableInput = true;
+    public PlayerStateScript playerState;
+    public GameObject PauseMenuGO;
+
+    void Awake()
+    {
+         
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        playerState = GetComponentInChildren<PlayerStateScript>();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+       
         PauseMenuGO.SetActive(false);
     }
 
@@ -23,6 +32,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Pause"))
         {
             PauseGame();
+        }
+
+        if(PauseMenuGO == null)
+        {
+            PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
     }
 

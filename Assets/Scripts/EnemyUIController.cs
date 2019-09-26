@@ -26,7 +26,11 @@ public class EnemyUIController : MonoBehaviour
     {
         if (healthBar != null)
         {
-            transform.LookAt(Camera.main.transform);
+            if(PlayerCamera)
+            {
+                transform.LookAt(Camera.main.transform);
+            }
+            
             if (Bar.value <= 0)
             {
                // Destroy(this, 1f);

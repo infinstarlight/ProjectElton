@@ -14,6 +14,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     public LayerMask Ground;
 
     private Rigidbody rb;
+    private PlayerController pCon;
     private Vector3 inputMovement;
 
     // [SerializeField]
@@ -35,6 +36,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
 
     void Awake()
     {
+        pCon = GetComponentInChildren<PlayerController>();
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
     }
@@ -55,28 +57,33 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             CurrentJumpCount = 0;
         }
 
+        if (pCon.bEnableInput)
+        {
+            translation = Input.GetAxis("Vertical") * MovementSpeed;
+            strafe = Input.GetAxis("Horizontal") * MovementSpeed;
+            translation *= Time.deltaTime;
+            strafe *= Time.deltaTime;
 
-        translation = Input.GetAxis("Vertical") * MovementSpeed;
-        strafe = Input.GetAxis("Horizontal") * MovementSpeed;
-        translation *= Time.deltaTime;
-        strafe *= Time.deltaTime;
+            if (Input.GetButtonDown("Sprint"))
+            {
+                MovementSpeed = SprintSpeed;
+            }
+            if (Input.GetButtonUp("Sprint"))
+            {
+                MovementSpeed = oldMovementSpeed;
+            }
+        }
 
-    if(Input.GetButtonDown("Sprint"))
-    {
-        MovementSpeed = SprintSpeed;
-    }
-    if(Input.GetButtonUp("Sprint"))
-    {
-        MovementSpeed = oldMovementSpeed;
-    }
 
-       
+
     }
 
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
-        if (Input.GetButtonDown("Jump"))
+        if(pCon.bEnableInput)
+        {
+             if (Input.GetButtonDown("Jump"))
         {
             CurrentJumpCount++;
             if (CurrentJumpCount <= MaxJumpCount)
@@ -89,6 +96,8 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
             rb.AddForce(dashVelocity, ForceMode.VelocityChange);
         }
+        }
+       
     }
 
     void OnDrawGizmosSelected()

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6192252222207571429}
-  - component: {fileID: 6192252222207571430}
   - component: {fileID: 6192252222207571431}
+  - component: {fileID: 6192252222207571430}
   m_Layer: 0
   m_Name: BackgroundMusicPlayer
   m_TagString: Untagged
@@ -32,6 +32,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6192252222207571431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6192252222207571432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe97535ab47064890149432b074b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Playlist:
+  - {fileID: 8300000, guid: 759c670316fab59488dcf94436ea11c9, type: 3}
+  - {fileID: 8300000, guid: 17a0750cfdd5a7b44b53eae80b82230d, type: 3}
+  FadeTime: 3
+  bShouldFadeOut: 0
+  bShouldFadeIn: 1
 --- !u!82 &6192252222207571430
 AudioSource:
   m_ObjectHideFlags: 0
@@ -128,21 +146,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6192252222207571431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6192252222207571432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbe97535ab47064890149432b074b26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Playlist:
-  - {fileID: 8300000, guid: 759c670316fab59488dcf94436ea11c9, type: 3}
-  - {fileID: 8300000, guid: 17a0750cfdd5a7b44b53eae80b82230d, type: 3}
-  FadeTime: 3
-  bShouldFadeOut: 0
-  bShouldFadeIn: 1

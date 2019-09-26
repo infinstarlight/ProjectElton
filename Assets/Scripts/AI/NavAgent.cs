@@ -11,8 +11,8 @@ public class NavAgent : MonoBehaviour
     NavMeshAgent myNavAgent;
     Vector3 newTravelPosition;
 
-    //
-    public int NavIndex = 0;
+    [SerializeField]
+    private int NavIndex = 0;
 
     // Use this for initialization
     void Start()

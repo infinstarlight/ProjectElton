@@ -47,6 +47,7 @@ public class PlayerWeapon : Weapon
                // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
                 if (hit.collider != null)
                 {
+                   // Debug.Log(hit.collider.gameObject);
                     if (hit.collider.gameObject.GetComponent<Enemy>())
                     {
                         hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
