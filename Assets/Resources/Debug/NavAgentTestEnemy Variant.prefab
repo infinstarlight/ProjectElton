@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!195 &65875740
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172195018213996405}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: 0.5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!1001 &2217199605422162103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2064567551231244226, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_Name
+      value: NavAgentTestEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2824626
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2064567551231244251, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 156405231, guid: 09a4c82c3a9772047ac2513055e86789, type: 3}
+      propertyPath: m_Name
+      value: EnemyInfoCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7870143503788561106, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628186216578549902, guid: 09a4c82c3a9772047ac2513055e86789,
+        type: 3}
+      propertyPath: navPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 09a4c82c3a9772047ac2513055e86789, type: 3}
+--- !u!1 &172195018213996405 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2064567551231244226, guid: 09a4c82c3a9772047ac2513055e86789,
+    type: 3}
+  m_PrefabInstance: {fileID: 2217199605422162103}
+  m_PrefabAsset: {fileID: 0}

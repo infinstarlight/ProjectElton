@@ -7,41 +7,46 @@ public class PlayerCombatController : MonoBehaviour
 
     public GameObject currentWeapon;
     private PlayerWeapon weaponScript;
+    private PlayerController pCon;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pCon = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(currentWeapon.GetComponent<PlayerWeapon>())
+        if (!pCon.bIsGamePaused)
         {
-            if(weaponScript == null)
+            if (currentWeapon.GetComponent<PlayerWeapon>())
             {
-                weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
-            }
-            if(Input.GetButton("Fire1"))
-            {
-                if(weaponScript.bIsAutomatic)
+                if (weaponScript == null)
                 {
-                    weaponScript.StartCoroutine(weaponScript.AutoFire());
+                    weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+                }
+                if (Input.GetButton("Fire1"))
+                {
+                    if (weaponScript.bIsAutomatic)
+                    {
+                        weaponScript.StartCoroutine(weaponScript.AutoFire());
+                    }
+                }
+                if (Input.GetButtonDown("Fire1"))
+                {
+
+                    weaponScript.Fire();
+
                 }
             }
-            if(Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonUp("Fire1"))
             {
-                
-                weaponScript.Fire();
-                
-            }
-        }
-        if(Input.GetButtonUp("Fire1"))
-        {
-           if(weaponScript.bIsAutomatic)
+                if (weaponScript.bIsAutomatic)
                 {
                     weaponScript.StopCoroutine(weaponScript.AutoFire());
-                } 
+                }
+            }
         }
+
     }
 }

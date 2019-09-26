@@ -6,13 +6,12 @@ using UnityEngine;
 public class ID_EnemyHealthBar : MonoBehaviour
 {
     protected Slider healthBar;
-    public GameObject healthBarGO;
     private CharacterStats enemyStats;
     // Start is called before the first frame update
     void Start()
     {
         healthBar = GetComponent<Slider>();
-        healthBarGO = healthBar.gameObject;
+        
         enemyStats = FindObjectOfType<Enemy>().characterStats;
         enemyStats.CharacterName = enemyStats.gameObject.name;
     }
@@ -27,10 +26,7 @@ public class ID_EnemyHealthBar : MonoBehaviour
         if (enemyStats != null)
         {
             healthBar.value = enemyStats.healthPercentage;
-            if (healthBar.value <= 0)
-            {
-                Destroy(healthBarGO);
-            }
+            
         }
 
     }

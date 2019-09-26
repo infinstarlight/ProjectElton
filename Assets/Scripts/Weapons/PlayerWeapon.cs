@@ -8,7 +8,7 @@ public class PlayerWeapon : Weapon
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
     public GameObject FireEffect;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,42 +19,40 @@ public class PlayerWeapon : Weapon
     // // Update is called once per frame
     // void Update()
     // {
-        
+
     // }
 
     public void Fire()
     {
-        if(Time.time > nextFire)
+        if (Time.time > nextFire)
         {
-              // Start our ShotEffect coroutine to turn our laser line on and off
-                StartCoroutine(ShotEffect());
-                
-                // Update the time when our player can fire next
-                nextFire = Time.time + fireRate;
-                Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+            // Start our ShotEffect coroutine to turn our laser line on and off
+            StartCoroutine(ShotEffect());
 
-                
-
-                // actual Ray
-                Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
-
-                // debug Ray
-                Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
+            // Update the time when our player can fire next
+            nextFire = Time.time + fireRate;
+            Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
 
 
-                if (Physics.Raycast(ray, out hit, weaponRange))
+
+            // actual Ray
+            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+
+            // debug Ray
+            Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
+            GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, Camera.main.transform.rotation);
+
+            if (Physics.Raycast(ray, out hit, weaponRange))
+            {
+               // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
+                if (hit.collider != null)
                 {
-                    GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
-                    GameObject VFXGo = Instantiate(FireEffect,gunEndGO.transform.position,Camera.main.transform.rotation);
-                    if(hit.collider != null)
+                    if (hit.collider.gameObject.GetComponent<Enemy>())
                     {
-                        if(hit.collider.gameObject.GetComponent<Character>())
-                        {
-                            hit.collider.gameObject.GetComponent<Character>().OnDamageApplied(DamageAmount);
-                        }
+                        hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
                     }
-                    //SFXInstance.SoundDesired = 3;
                 }
+            }
         }
     }
 
@@ -64,7 +62,7 @@ public class PlayerWeapon : Weapon
         // Play the shooting sound effect
         weaponAudio.PlayOneShot(weaponAudio.clip);
 
-        
+
         //Wait for .07 seconds
         yield return shotDuration;
     }

@@ -12,10 +12,15 @@ public class CameraLook : MonoBehaviour
     public float LookSensitivity = 5.0f;
     public float SmoothingRate = 2.0f;
 
+    public float viewRange;
+
     GameObject PlayerCharacter;
+    Camera PlayerCamera;
+    Vector2 MouseDirection;
 
     void Awake()
     {
+        PlayerCamera = Camera.main;
         PlayerCharacter = FindObjectOfType<Player>().gameObject;
     }
 
@@ -28,20 +33,22 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
         ///Commenting this line causes right angle turns, almost like Time Crisis
         PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, PlayerCharacter.transform.up);
     }
 
     private void LateUpdate()
     {
-  var MouseDirection = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-
+        MouseDirection = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        
+        PlayerCamera.transform.localEulerAngles = new Vector3(MouseDirection.x,PlayerCamera.transform.localEulerAngles.y,PlayerCamera.transform.localEulerAngles.z);
+        
         MouseDirection = Vector2.Scale(MouseDirection, new Vector2(LookSensitivity * SmoothingRate, LookSensitivity * SmoothingRate));
         smoothingVector.x = Mathf.Lerp(smoothingVector.x, MouseDirection.x, 1f / SmoothingRate);
         smoothingVector.y = Mathf.Lerp(smoothingVector.y, MouseDirection.y, 1f / SmoothingRate);
         mouseLook += smoothingVector;
 
         transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
+        
     }
 }

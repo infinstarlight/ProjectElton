@@ -10,9 +10,12 @@ public class Enemy : Character
         
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+
+
+    
+   public void OnEnemyDamageApplied(float damageTaken)
+    {
+        base.OnDamageApplied(damageTaken);
+        AIEventManager.TriggerEvent("Damage");
+    }
 }

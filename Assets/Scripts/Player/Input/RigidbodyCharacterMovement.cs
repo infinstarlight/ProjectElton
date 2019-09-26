@@ -6,6 +6,7 @@ using UnityEngine;
 public class RigidbodyCharacterMovement : MonoBehaviour
 {
     public float MovementSpeed = 10.0f;
+    public float SprintSpeed = 20.0f;
 
     public float JumpHeight = 2f;
     public float GroundDistance = 0.2f;
@@ -30,6 +31,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     float strafe;
 
     Vector3 dashVelocity;
+    private float oldMovementSpeed;
 
     void Awake()
     {
@@ -40,10 +42,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (Cursor.lockState != CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+        oldMovementSpeed = MovementSpeed;
     }
 
     // Update is called once per frame
@@ -62,12 +61,16 @@ public class RigidbodyCharacterMovement : MonoBehaviour
         translation *= Time.deltaTime;
         strafe *= Time.deltaTime;
 
+    if(Input.GetButtonDown("Sprint"))
+    {
+        MovementSpeed = SprintSpeed;
+    }
+    if(Input.GetButtonUp("Sprint"))
+    {
+        MovementSpeed = oldMovementSpeed;
+    }
 
-
-        if (Input.GetButtonDown("Pause"))
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
+       
     }
 
     void FixedUpdate()
