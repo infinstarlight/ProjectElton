@@ -9,11 +9,6 @@ public class PlayerController : MonoBehaviour
     public PlayerStateScript playerState;
     public GameObject PauseMenuGO;
 
-    void Awake()
-    {
-         
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +17,7 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
-       
+        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         PauseMenuGO.SetActive(false);
     }
 
@@ -34,7 +29,7 @@ public class PlayerController : MonoBehaviour
             PauseGame();
         }
 
-        if(PauseMenuGO == null)
+        if (PauseMenuGO == null)
         {
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
@@ -47,6 +42,7 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.0f;
+            bEnableInput = false;
             if (PauseMenuGO)
             {
                 if (!PauseMenuGO.activeSelf)
@@ -59,6 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
+            bEnableInput = true;
             if (PauseMenuGO)
             {
                 if (PauseMenuGO.activeSelf)

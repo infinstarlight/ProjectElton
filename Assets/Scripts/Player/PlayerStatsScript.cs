@@ -21,7 +21,7 @@ public class PlayerStatsScript : MonoBehaviour
     void Start()
     {
         healthText = FindObjectOfType<HealthTextScript>();
-
+        UpdateHealthText();
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;

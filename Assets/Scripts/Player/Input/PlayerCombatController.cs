@@ -17,7 +17,7 @@ public class PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!pCon.bIsGamePaused)
+        if (!pCon.bIsGamePaused || !pCon.bEnableInput)
         {
             if (currentWeapon.GetComponent<PlayerWeapon>())
             {

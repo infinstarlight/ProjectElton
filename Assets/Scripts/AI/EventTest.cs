@@ -3,7 +3,8 @@ using UnityEngine.Events;
 using System.Collections;
 [System.Serializable]
 
-public class EventTest : MonoBehaviour {
+public class EventTest : MonoBehaviour 
+{
 
     private UnityAction someListener;
     private UnityAction DamageListener;
@@ -65,4 +66,5 @@ public class EventTest : MonoBehaviour {
     {
         Debug.Log ("Some Third Function was called!");
     }
+
 }

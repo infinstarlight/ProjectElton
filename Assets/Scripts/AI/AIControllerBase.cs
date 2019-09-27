@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class AIControllerBase : MonoBehaviour
 {
-    private NavAgent myNavAgent;
+    private Enemy myEnemy;
+    public NavAgent myNavAgent;
     void Awake() 
     {
-        myNavAgent = GetComponent<NavAgent>();    
+        myEnemy = GetComponentInParent<Enemy>();
+        myNavAgent = GetComponentInParent<NavAgent>();    
     }
     // Start is called before the first frame update
     void Start()
@@ -21,4 +23,6 @@ public class AIControllerBase : MonoBehaviour
     {
         
     }
+
+    
 }

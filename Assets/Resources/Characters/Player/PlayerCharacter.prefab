@@ -307,6 +307,7 @@ MonoBehaviour:
   bIsGamePaused: 0
   bEnableInput: 1
   playerState: {fileID: 0}
+  PauseMenuGO: {fileID: 0}
 --- !u!1 &8049263832974118025
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,13 +754,13 @@ PrefabInstance:
     - target: {fileID: 9193150938083973855, guid: 241361bb752ef6c4a8f01e89d27b4032,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.835
+      value: 1.789
       objectReference: {fileID: 0}
     - target: {fileID: 9193150938083973852, guid: 241361bb752ef6c4a8f01e89d27b4032,
         type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000,
+      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
         type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241361bb752ef6c4a8f01e89d27b4032, type: 3}
@@ -782,11 +783,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8049263832737416781}
     m_Modifications:
-    - target: {fileID: 4983820783249345337, guid: fd76c62fac4d38a40aeeb3611defd12f,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerState
-      objectReference: {fileID: 0}
     - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -841,6 +837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345337, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerState
       objectReference: {fileID: 0}
     - target: {fileID: 4983820783249345338, guid: fd76c62fac4d38a40aeeb3611defd12f,
         type: 3}

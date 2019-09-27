@@ -8,23 +8,33 @@ public class MovePlayerToPosition : MonoBehaviour
 
     public GameObject InstPlayerGO;
     public GameObject PlayerUIGO;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-//        PlayerGO = FindObjectOfType<Player>().gameObject;
-        if(PlayerGO)
+        
+        if (PlayerGO)
         {
             PlayerGO.transform.position = transform.position;
         }
-        else
+        if (!PlayerGO)
         {
-            Instantiate(PlayerUIGO);
-            Instantiate(InstPlayerGO,transform.position,transform.rotation);
+            PlayerGO = FindObjectOfType<Player>().gameObject;
+            PlayerGO.transform.position = transform.position;
+            // Instantiate(PlayerUIGO);
+            // Instantiate(InstPlayerGO, transform.position, transform.rotation);
             
         }
-        
+
     }
 
-  
+    void Update()
+    {
+        if (!PlayerGO)
+        {
+            PlayerGO = FindObjectOfType<Player>().gameObject;
+        }
+    }
+
+
 }

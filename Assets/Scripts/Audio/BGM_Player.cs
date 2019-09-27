@@ -86,18 +86,18 @@ public class BGM_Player : MonoBehaviour
         source.clip = Playlist[NextTrackNum];
     }
 
-    void OnGUI()
-    {
-        int w = Screen.width, h = Screen.height;
+    // void OnGUI()
+    // {
+    //     int w = Screen.width, h = Screen.height;
 
-        GUIStyle style = new GUIStyle();
+    //     GUIStyle style = new GUIStyle();
 
-        Rect rect = new Rect(0, 0, w, h * 2 / 100);
-        style.alignment = TextAnchor.LowerRight;
-        style.fontSize = h * 2 / 100;
-        style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
-        currentClipLength = source.clip.length;
-        string text = string.Format("{0:0.0} ms", currentClipLength);
-        GUI.Label(rect, text, style);
-    }
+    //     Rect rect = new Rect(0, 0, w, h * 2 / 100);
+    //     style.alignment = TextAnchor.LowerRight;
+    //     style.fontSize = h * 2 / 100;
+    //     style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
+    //     currentClipLength = source.clip.length;
+    //     string text = string.Format("{0:0.0} ms", currentClipLength);
+    //     GUI.Label(rect, text, style);
+    // }
 }

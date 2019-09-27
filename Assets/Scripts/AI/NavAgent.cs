@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[RequireComponent(typeof(Rigidbody),typeof(NavMeshAgent))]
+[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
 public class NavAgent : MonoBehaviour
 {
 
-    [SerializeField] NavPoint[] navPoints;
+    [SerializeField] public NavPoint[] navPoints;
+    public List<NavPoint> myNavPoints = new List<NavPoint>();
 
     NavMeshAgent myNavAgent;
     Vector3 newTravelPosition;
 
     [SerializeField]
     private int NavIndex = 0;
+    private int index;
 
     // Use this for initialization
     void Start()
@@ -20,6 +22,9 @@ public class NavAgent : MonoBehaviour
         myNavAgent = GetComponent<NavMeshAgent>();
         FindDestination();
         //Debug.Log(navPoints.Length);
+        index = myNavPoints.Count;
+        
+        
     }
 
 
@@ -27,6 +32,7 @@ public class NavAgent : MonoBehaviour
     void FindDestination()
     {
         newTravelPosition = navPoints[NavIndex].transform.position;
+        
         myNavAgent.SetDestination(newTravelPosition);
     }
 
@@ -39,8 +45,6 @@ public class NavAgent : MonoBehaviour
         {
             NavIndex = 0;
         }
-            
-
         FindDestination();
     }
 }

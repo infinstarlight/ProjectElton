@@ -14,8 +14,8 @@ public class MainMenuController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        PlayerGO = FindObjectOfType<Player>().gameObject;
-        PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
+        //PlayerGO = FindObjectOfType<Player>().gameObject;
+        //PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
     }
 
     void Update()

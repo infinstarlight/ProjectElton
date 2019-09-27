@@ -14,4 +14,9 @@ public interface IDamageable<T>
     
 }
 
+public interface ITracker
+{
+    void OnTrackTarget();
+}
+
 
