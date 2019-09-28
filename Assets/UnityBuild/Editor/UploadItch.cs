@@ -13,7 +13,7 @@ public class UploadItch : BuildAction, IPostBuildPerPlatformAction
     private const string OSX = "osx";
     private const string LINUX = "linux";
 
-    [FilePath(false, true, "Path to butler.exe")]
+    [FilePath(false, true, "/usr/local/bin/butler")]
     public string pathToButlerExe = "";
     public string nameOfItchUser = "sleeplessstarlight";
     public string nameOfItchGame = "TheChase"; 

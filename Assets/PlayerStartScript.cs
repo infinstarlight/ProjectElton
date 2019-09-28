@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerStartScript : MonoBehaviour
 {
-    //private GameObject PlayerGO;
-    //private GameObject PlayerUIGO;
+    private SpriteRenderer mySprite;
 
     void Awake()
     {
@@ -13,11 +12,12 @@ public class PlayerStartScript : MonoBehaviour
         Instantiate(PlayerGO, transform.position, transform.rotation);
         var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
         Instantiate(PlayerUIGO);
+        mySprite = GetComponent<SpriteRenderer>();
     }
     // Start is called before the first frame update
     void Start()
     {
-
+        mySprite.enabled = false;
     }
 
     // // Update is called once per frame

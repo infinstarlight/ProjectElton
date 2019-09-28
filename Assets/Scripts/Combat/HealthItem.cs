@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HealthItem : Item
 {
+    //public float ModAmount = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,15 +19,15 @@ public class HealthItem : Item
     // }
 
 
-     void OnCollisionEnter2D(Collision2D collision)
+     void OnCollisionEnter(Collision collision)
     {
         Debug.Log("This item collided with " + collision.gameObject.name);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         Debug.Log("This item collided with " + collision.name);
-        if(collision.gameObject.GetComponentInChildren<Player>() != null)
+        if(collision.gameObject.GetComponent<Player>() != null)
         {
             if(CurrentItemType == ItemType.Health)
             {

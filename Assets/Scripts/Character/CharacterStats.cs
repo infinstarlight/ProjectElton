@@ -30,7 +30,7 @@ public class CharacterStats : MonoBehaviour
         //Debug.Log(healthPercentage + "of: " + gameObject.name);
     }
 
-     public void ModifyHealth(int ModAmount)
+     public void ModifyHealth(float ModAmount)
     {
         CurrentHealth += ModAmount;
     }

@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public bool bIsGamePaused = false;
     public bool bEnableInput = true;
+    public bool bIsGamepad = false;
     public PlayerStateScript playerState;
     public GameObject PauseMenuGO;
 
@@ -32,6 +33,15 @@ public class PlayerController : MonoBehaviour
         if (PauseMenuGO == null)
         {
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        }
+
+        if(Input.GetButton("GPAttack") || Input.GetButton("GPAltAttack"))
+        {
+            bIsGamepad = true;
+        }
+        else
+        {
+            bIsGamepad = false;
         }
     }
 

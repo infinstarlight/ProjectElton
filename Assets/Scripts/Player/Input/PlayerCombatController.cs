@@ -25,21 +25,21 @@ public class PlayerCombatController : MonoBehaviour
                 {
                     weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
                 }
-                if (Input.GetButton("Fire1"))
+                if (Input.GetButton("Attack") || Input.GetButton("GPAttack"))
                 {
                     if (weaponScript.bIsAutomatic)
                     {
                         weaponScript.StartCoroutine(weaponScript.AutoFire());
                     }
                 }
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButtonDown("Attack") || Input.GetButtonDown("GPAttack"))
                 {
 
                     weaponScript.Fire();
 
                 }
             }
-            if (Input.GetButtonUp("Fire1"))
+            if (Input.GetButtonUp("Attack") || Input.GetButtonUp("GPAttack"))
             {
                 if (weaponScript.bIsAutomatic)
                 {
