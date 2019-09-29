@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 112000000, guid: 89be4fbb0cf12594e947b545851147eb,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3312,33 +3312,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
         type: 3}
-      propertyPath: Playlist.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
-        type: 3}
-      propertyPath: FadeTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
-        type: 3}
-      propertyPath: Playlist.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 759c670316fab59488dcf94436ea11c9, type: 3}
-    - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
-        type: 3}
-      propertyPath: Playlist.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 17a0750cfdd5a7b44b53eae80b82230d, type: 3}
-    - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
-        type: 3}
       propertyPath: FadeSpeed
       value: 0.001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
-        type: 3}
-      propertyPath: bShouldFadeIn
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6192252222207571430, guid: b8036a81e97ae474faa0d232fc52546d,
         type: 3}
@@ -3348,6 +3323,11 @@ PrefabInstance:
     - target: {fileID: 6192252222207571430, guid: b8036a81e97ae474faa0d232fc52546d,
         type: 3}
       propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6192252222207571430, guid: b8036a81e97ae474faa0d232fc52546d,
+        type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

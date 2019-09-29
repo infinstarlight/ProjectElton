@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Playlist:
-  - {fileID: 8300000, guid: 759c670316fab59488dcf94436ea11c9, type: 3}
-  - {fileID: 8300000, guid: 17a0750cfdd5a7b44b53eae80b82230d, type: 3}
-  FadeTime: 3
+  - {fileID: 8300000, guid: 2856514d2b369cc4fb8d8bf974f8bbea, type: 3}
+  - {fileID: 8300000, guid: 3ddd838c5c492c740bbf51d3366e4d01, type: 3}
+  FadeTime: 1
   bShouldFadeOut: 0
   bShouldFadeIn: 1
 --- !u!82 &6192252222207571430

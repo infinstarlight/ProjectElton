@@ -11,9 +11,9 @@ public class BGM_Player : MonoBehaviour
     public AudioClip[] Playlist;
     private int NextTrackNum = 0;
 
-    public float FadeTime;
+    private int PlaylistLength;
 
-    private float currentClipLength;
+    public float FadeTime;
 
     public bool bShouldFadeOut = false;
     public bool bShouldFadeIn = false;
@@ -22,27 +22,39 @@ public class BGM_Player : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
 
-       
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        source.clip = Playlist[0];
-        source.Play();
-         if (instance != null && instance != this)
+
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
         instance = this;
         DontDestroyOnLoad(gameObject);
+        PlayFirstTrack();
+        PlaylistLength = Playlist.Length;
     }
 
     // Update is called once per frame
     void Update()
     {
-        TrackChange();
+        // if(source.time >= source.clip.length)
+        // {
+        //     TrackChange();
+        // }
+        
+        StartCoroutine(TrackChange());
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            PlayNextTrack();
+            // ResetPlaylist();
+        }
     }
 
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
@@ -70,9 +82,42 @@ public class BGM_Player : MonoBehaviour
     {
         yield return new WaitForSeconds(source.clip.length);
         PlayNextTrack();
-        source.Play();
+
     }
     void PlayNextTrack()
+    {
+        if (NextTrackNum <= PlaylistLength)
+        {
+            NextTrackNum++;
+
+        }
+        else if (NextTrackNum >= PlaylistLength)
+        {
+            ResetPlaylist();
+
+        }
+        source.clip = Playlist[NextTrackNum];
+
+
+        if (bShouldFadeIn)
+        {
+            StartCoroutine(FadeIn(source, FadeTime));
+        }
+        if (bShouldFadeOut)
+        {
+            StartCoroutine(FadeOut(source, FadeTime));
+        }
+        source.Play();
+
+        
+
+    }
+
+    void ResetPlaylist()
+    {
+        NextTrackNum = 0;
+    }
+    void PlayFirstTrack()
     {
         if (bShouldFadeIn)
         {
@@ -82,8 +127,9 @@ public class BGM_Player : MonoBehaviour
         {
             StartCoroutine(FadeOut(source, FadeTime));
         }
-        NextTrackNum++;
+        NextTrackNum = 0;
         source.clip = Playlist[NextTrackNum];
+        source.Play();
     }
 
     // void OnGUI()
