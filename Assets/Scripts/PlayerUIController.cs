@@ -15,7 +15,7 @@ public class PlayerUIController : MonoBehaviour
     {
         pCon = FindObjectOfType<PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
-        //PauseMenu = pCon.PauseMenuGO;
+        PauseMenu = pCon.PauseMenuGO;
         
         if(Time.timeScale <= 1)
         {
@@ -36,24 +36,24 @@ public class PlayerUIController : MonoBehaviour
     //    }
     }
 
-    // public void UnpauseGame()
-    // {
-    //     if (PauseMenu)
-    //     {
-    //         if(Time.timeScale <= 1)
-    //     {
-    //         Time.timeScale = 1;
-    //     }
-    //         if (PauseMenu.activeSelf)
-    //         {
-    //             pCon.bIsGamePaused = false;
-    //             pCon.bEnableInput = true;
-    //             PauseMenu.SetActive(false);
-    //             Cursor.lockState = CursorLockMode.Locked;
+    public void UnpauseGame()
+    {
+        if (PauseMenu)
+        {
+            if(Time.timeScale <= 1)
+        {
+            Time.timeScale = 1;
+        }
+            if (PauseMenu.activeSelf)
+            {
+                pCon.bIsGamePaused = false;
+                pCon.bEnableInput = true;
+                PauseMenu.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
                 
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 
     public void RestartFromCheckpoint()
     {

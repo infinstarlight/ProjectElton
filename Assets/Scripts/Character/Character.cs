@@ -16,7 +16,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
 
     public float DestroyDelay;
 
-   public void Awake()
+    public void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
         source = GetComponent<AudioSource>();
@@ -38,7 +38,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
             source.PlayOneShot(source.clip);
 
             GameObject deathVX = Instantiate(DeathVFX, transform.position, transform.rotation);
-          
+
             //TODO: Disable player input on death
         }
 
@@ -49,8 +49,13 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
         if (characterStats.bCanTakeDamage)
         {
             characterStats.CurrentHealth -= damageTaken;
-            source.clip = hurtClips[Random.Range(0, hurtClips.Length)];
-            source.PlayOneShot(source.clip);
+            if (hurtClips.Length > 0)
+            {
+                source.clip = hurtClips[Random.Range(0, hurtClips.Length)];
+                source.PlayOneShot(source.clip);
+            }
+
+
             if (characterStats.CurrentHealth <= 0)
             {
                 characterStats.bIsDead = true;

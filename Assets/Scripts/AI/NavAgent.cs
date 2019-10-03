@@ -7,14 +7,14 @@ public class NavAgent : MonoBehaviour
 {
 
     [SerializeField] public NavPoint[] navPoints;
-    public List<NavPoint> myNavPoints = new List<NavPoint>();
+   // public List<NavPoint> myNavPoints = new List<NavPoint>();
 
     NavMeshAgent myNavAgent;
     Vector3 newTravelPosition;
 
     [SerializeField]
     private int NavIndex = 0;
-    private int index;
+    //private int index;
 
     // Use this for initialization
     void Start()
@@ -22,7 +22,7 @@ public class NavAgent : MonoBehaviour
         myNavAgent = GetComponent<NavMeshAgent>();
         FindDestination();
         //Debug.Log(navPoints.Length);
-        index = myNavPoints.Count;
+        //index = myNavPoints.Count;
         
         
     }
@@ -38,7 +38,7 @@ public class NavAgent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
+       // Debug.Log(other.gameObject);
         ++NavIndex;
 
         if (NavIndex >= navPoints.Length)

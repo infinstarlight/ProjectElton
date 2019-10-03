@@ -35,7 +35,14 @@ public class DebugController : MonoBehaviour
     void Update()
     {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-
+        if (!debugCanvas)
+        {
+            debugCanvas = FindObjectOfType<ID_DebugCanvas>();
+            // if (!debugCanvasGO)
+            // {
+            //     debugCanvasGO = debugCanvas.gameObject;
+            // }
+        }
         if (bIsDebug)
         {
             if (Input.GetKeyDown(KeyCode.End))
@@ -45,7 +52,7 @@ public class DebugController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Home))
             {
-                 bTestFPSLimit = !bTestFPSLimit;
+                bTestFPSLimit = !bTestFPSLimit;
                 EnableFPSLimit();
             }
 

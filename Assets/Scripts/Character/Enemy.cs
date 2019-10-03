@@ -30,7 +30,7 @@ public class Enemy : Character, ITracker
     public void OnTrackTarget()
     {
         NavPoint playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
-        AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
+        //AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
     }
 
     public void OnEnemyDamageApplied(float damageTaken)

@@ -14,6 +14,7 @@ public class BGM_Player : MonoBehaviour
     private int PlaylistLength;
 
     public float FadeTime;
+    public double startTime;
 
     public bool bShouldFadeOut = false;
     public bool bShouldFadeIn = false;
@@ -28,7 +29,7 @@ public class BGM_Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        startTime = AudioSettings.dspTime + 2;
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -47,7 +48,7 @@ public class BGM_Player : MonoBehaviour
         // {
         //     TrackChange();
         // }
-        
+
         StartCoroutine(TrackChange());
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -89,14 +90,15 @@ public class BGM_Player : MonoBehaviour
         if (NextTrackNum <= PlaylistLength)
         {
             NextTrackNum++;
+            source.clip = Playlist[NextTrackNum];
 
         }
-        else if (NextTrackNum >= PlaylistLength)
-        {
-            ResetPlaylist();
+        // else if (NextTrackNum >= PlaylistLength)
+        // {
+        //     ResetPlaylist();
 
-        }
-        source.clip = Playlist[NextTrackNum];
+        // }
+
 
 
         if (bShouldFadeIn)
@@ -109,7 +111,10 @@ public class BGM_Player : MonoBehaviour
         }
         source.Play();
 
-        
+        if (NextTrackNum >= PlaylistLength)
+        {
+            ResetPlaylist();
+        }
 
     }
 
