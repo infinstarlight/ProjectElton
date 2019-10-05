@@ -42,8 +42,8 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 2
-    lastGeneratedVersion: 1.0.1729.508
+    buildCounter: 3
+    lastGeneratedVersion: 1.0.1738.3874
     version: 1.0.$DAYSSINCE("January 1, 2015").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
@@ -143,7 +143,7 @@ MonoBehaviour:
       binaryNameFormat: '{0}.app'
       dataDirNameFormat: '{0}.app/Contents'
       targetGroup: 1
-    - enabled: 1
+    - enabled: 0
       distributionList:
         distributions: []
       architectures:
@@ -163,11 +163,11 @@ MonoBehaviour:
       targetGroup: 1
   _projectConfigurations:
     configSet:
-      _Buckets: 0a000000ffffffffffffffff05000000ffffffffffffffffffffffff0600000001000000ffffffff0c00000000000000ffffffff08000000070000000d00000003000000
-      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a2917cce93fe756831ab64dea22f15e3a406271f95ea7676149000000000000000000000000
-      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffff02000000ffffffff09000000ffffffff0b000000000000000000000000000000
-      _Count: 14
-      _Version: 14
+      _Buckets: 0a000000ffffffffffffffff05000000ffffffffffffffffffffffff0600000001000000ffffffffffffffff00000000ffffffff08000000070000000b00000003000000
+      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a2917cce93fe756831ab64dea22a76761490000000000000000000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffff02000000ffffffff090000000000000000000000000000000000000000000000
+      _Count: 12
+      _Version: 12
       _FreeList: -1
       _FreeCount: 0
       _Keys:
@@ -182,9 +182,9 @@ MonoBehaviour:
       - Development/OSX/OSX/Development
       - Development/OSX/OSX
       - Development/OSX
-      - Development/Linux/Linux x64
-      - Development/Linux
       - Development
+      - 
+      - 
       - 
       - 
       - 
@@ -219,17 +219,15 @@ MonoBehaviour:
         childKeys:
         - Development/OSX/OSX
       - enabled: 1
-        childKeys: []
-      - enabled: 1
-        childKeys:
-        - Development/Linux/Linux x64
-      - enabled: 1
         childKeys:
         - Development/Android
         - Development/PC
         - Development/WebGL
         - Development/OSX
-        - Development/Linux
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
       - enabled: 1
         childKeys: []
       - enabled: 1

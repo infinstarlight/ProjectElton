@@ -74,30 +74,30 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             }
         }
 
-
+        // Debug.Log(Input.GetAxisRaw("Horizontal"));
 
     }
 
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
-        if(pCon.bEnableInput)
+        if (pCon.bEnableInput)
         {
-             if (Input.GetButtonDown("Jump"))
-        {
-            CurrentJumpCount++;
-            if (CurrentJumpCount <= MaxJumpCount)
+            if (Input.GetButtonDown("Jump"))
             {
-                rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+                CurrentJumpCount++;
+                if (CurrentJumpCount <= MaxJumpCount)
+                {
+                    rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+                }
+            }
+            if (Input.GetButtonDown("Dash"))
+            {
+                dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+                rb.AddForce(dashVelocity, ForceMode.VelocityChange);
             }
         }
-        if (Input.GetButtonDown("Dash"))
-        {
-            dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-            rb.AddForce(dashVelocity, ForceMode.VelocityChange);
-        }
-        }
-       
+
     }
 
     void OnDrawGizmosSelected()

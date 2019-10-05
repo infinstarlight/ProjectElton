@@ -49,7 +49,7 @@ public class BGM_Player : MonoBehaviour
         //     TrackChange();
         // }
 
-        StartCoroutine(TrackChange());
+       // StartCoroutine(TrackChange());
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -93,11 +93,11 @@ public class BGM_Player : MonoBehaviour
             source.clip = Playlist[NextTrackNum];
 
         }
-        // else if (NextTrackNum >= PlaylistLength)
-        // {
-        //     ResetPlaylist();
+        else if (NextTrackNum >= PlaylistLength)
+        {
+            ResetPlaylist();
 
-        // }
+        }
 
 
 

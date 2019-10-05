@@ -8,16 +8,19 @@ public class Enemy : Character, ITracker
     private PlayerStateScript playerState;
 
     private AIControllerBase AIController;
+    public EnemyUIController enemyUIController;
 
     void EnemyAwake()
     {
         base.Awake();
+        
     }
     // Start is called before the first frame update
     void Start()
     {
         playerState = FindObjectOfType<PlayerStateScript>();
         AIController = GetComponentInChildren<AIControllerBase>();
+        enemyUIController = GetComponentInChildren<EnemyUIController>();
     }
 
     private void Update()

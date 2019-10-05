@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.GetButtonDown("Pause"))
         {
             PauseGame();
@@ -35,13 +36,31 @@ public class PlayerController : MonoBehaviour
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
 
-        if(Input.GetButton("GPAttack") || Input.GetButton("GPAltAttack"))
+        if(Input.GetButton("GPAttack") || Input.GetButton("GPAltAttack") || Input.GetKeyDown("joystick button 0"))
         {
             bIsGamepad = true;
+            Debug.LogWarning("Now using Gamepad Input!");
         }
-        else
+        else if(Input.GetKeyDown(KeyCode.Space))
         {
             bIsGamepad = false;
+            Debug.LogWarning("Now using KB Input!");
+        }
+
+         if(Application.isEditor)
+        {
+            if(Input.GetKeyDown(KeyCode.F1))
+            {
+                if(Cursor.lockState == CursorLockMode.Locked)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                
+            }
         }
     }
 

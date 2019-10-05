@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStatsScript))]
 public class Player : Character
 {
-    private PlayerStatsScript PlayerStats;
+    public PlayerStatsScript PlayerStats;
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;

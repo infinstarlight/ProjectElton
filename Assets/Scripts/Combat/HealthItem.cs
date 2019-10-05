@@ -9,32 +9,35 @@ public class HealthItem : Item
     void Start()
     {
         CurrentItemType = ItemType.Health;
-
+        itemSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
-
-
-     void OnCollisionEnter(Collision collision)
+    //Update is called once per frame
+    private void Update()
     {
-        Debug.Log("This item collided with " + collision.gameObject.name);
+        if (!GetPlayer)
+        {
+            GetPlayer = FindObjectOfType<Player>();
+        }
     }
+
+
+    // void OnCollisionEnter(Collision collision)
+    // {
+    //     Debug.Log("This item collided with " + collision.gameObject.name);
+    // }
 
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log("This item collided with " + collision.name);
-        if(collision.gameObject.GetComponent<Player>() != null)
+        if (collision.gameObject.GetComponent<Player>() != null)
         {
-            if(CurrentItemType == ItemType.Health)
+            if (CurrentItemType == ItemType.Health)
             {
                 RecoverHealth();
             }
-            
-            Destroy(gameObject);
+
+            Destroy(gameObject, 2f);
         }
     }
 }

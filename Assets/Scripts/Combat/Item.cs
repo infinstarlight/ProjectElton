@@ -11,22 +11,29 @@ public class Item : MonoBehaviour
         PowerUp
     }
     public float RecoverAmount = 0;
-    private Player GetPlayer;
+    public Player GetPlayer;
     public AudioSource itemSource;
 
     public ItemType CurrentItemType;
 
-    private void Start()
+    void Start()
     {
 
         GetPlayer = FindObjectOfType<Player>();
         itemSource = GetComponent<AudioSource>();
     }
 
+   
+
     public void RecoverHealth()
     {
         GetPlayer.characterStats.ModifyHealth(RecoverAmount);
+        GetPlayer.PlayerStats.UpdateHealthText();
+        itemSource.PlayOneShot(itemSource.clip);
     }
+
+    //Update is called once per frame
+   
 
 
    
