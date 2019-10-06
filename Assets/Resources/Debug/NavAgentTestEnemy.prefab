@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2578673211354513567}
   - component: {fileID: 2578673211354513566}
   - component: {fileID: 2578673211354513565}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: EnemyLockOnImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 2578673211487101114}
   - component: {fileID: 2578673211487101108}
   - component: {fileID: 2578673211487101115}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 2578673211751269752}
   - component: {fileID: 2578673211751269759}
   - component: {fileID: 2578673211751269754}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NavAgentTestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1.1}
+  m_Size: {x: 1.05, y: 1.1, z: 1.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2578673211751269748
 MonoBehaviour:
@@ -452,10 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fc21cbc5ad19f42afd0b1969dd534c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  navPoints: []
   NavIndex: 0
 --- !u!1 &2578673212319184185
 GameObject:
@@ -466,7 +463,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2578673212319184186}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -504,7 +501,7 @@ GameObject:
   - component: {fileID: 2578673212519692571}
   - component: {fileID: 2578673212519692565}
   - component: {fileID: 2578673212519692564}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -607,7 +604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2578673212654152511}
   - component: {fileID: 2578673212654152504}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: AIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +651,7 @@ GameObject:
   - component: {fileID: 2578673212778556441}
   - component: {fileID: 2578673212778556443}
   - component: {fileID: 2578673212778556442}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -729,7 +726,7 @@ GameObject:
   - component: {fileID: 2578673212813627430}
   - component: {fileID: 2578673212813627424}
   - component: {fileID: 2578673212813627431}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -806,7 +803,7 @@ GameObject:
   - component: {fileID: 2578673213045506707}
   - component: {fileID: 2578673213045506706}
   - component: {fileID: 2578673213045506705}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: EnemyInfoCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2578673213174077215}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

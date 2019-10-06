@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2064567551231244231}
   - component: {fileID: 2064567551231244224}
   - component: {fileID: 1040044324607905479}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_LocalPosition: {x: -2.2824626, y: 3.3659995, z: 7.0688696}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
-  - {fileID: 156405232}
+  - {fileID: 2587807967106610271}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyInfoCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2587807967252462316, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2587807967252462323, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -357,6 +362,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7921298767179572122, guid: 81d16ebe14df57e47baf2f61a924b3a2,
         type: 3}
+    - target: {fileID: 5679567390652042455, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567390986584160, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567390911291225, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567390068461947, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567389633209809, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567391204622468, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587807968358242713, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2587807968358242712, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -399,7 +439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca26769c0e15c34bb9c16d14de4af4d, type: 3}
---- !u!224 &156405232 stripped
+--- !u!224 &2587807967106610271 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2587807967252462323, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
     type: 3}

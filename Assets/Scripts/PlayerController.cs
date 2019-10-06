@@ -10,22 +10,27 @@ public class PlayerController : MonoBehaviour
     public PlayerStateScript playerState;
     public GameObject PauseMenuGO;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         playerState = GetComponentInChildren<PlayerStateScript>();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
-        PauseMenuGO.SetActive(false);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
         if (Input.GetButtonDown("Pause"))
         {
             PauseGame();
@@ -36,22 +41,22 @@ public class PlayerController : MonoBehaviour
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
 
-        if(Input.GetButton("GPAttack") || Input.GetButton("GPAltAttack") || Input.GetKeyDown("joystick button 0"))
+        if (Input.GetKeyDown("joystick button 0"))
         {
             bIsGamepad = true;
             Debug.LogWarning("Now using Gamepad Input!");
         }
-        else if(Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             bIsGamepad = false;
             Debug.LogWarning("Now using KB Input!");
         }
 
-         if(Application.isEditor)
+        if (Application.isEditor)
         {
-            if(Input.GetKeyDown(KeyCode.F1))
+            if (Input.GetKeyDown(KeyCode.F1))
             {
-                if(Cursor.lockState == CursorLockMode.Locked)
+                if (Cursor.lockState == CursorLockMode.Locked)
                 {
                     Cursor.lockState = CursorLockMode.None;
                 }
@@ -59,7 +64,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                 }
-                
+
             }
         }
     }

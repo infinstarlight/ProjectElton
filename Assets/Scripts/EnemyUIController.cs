@@ -10,7 +10,7 @@ public class EnemyUIController : MonoBehaviour
     private GameObject BarPrefab;
     private GameObject ImagePrefab;
 
-  
+
     private Camera PlayerCamera;
     public Vector3 BarLocationMod = Vector3.up;
     public bool bIsTargeted = false;
@@ -24,8 +24,8 @@ public class EnemyUIController : MonoBehaviour
         ImagePrefab = GetComponentInChildren<ID_EnemyLockOnImage>().gameObject;
         lockOnImage = ImagePrefab.GetComponent<ID_EnemyLockOnImage>();
         ImagePrefab.SetActive(false);
-        
-        
+
+
 
     }
 
@@ -36,7 +36,7 @@ public class EnemyUIController : MonoBehaviour
         {
             if (PlayerCamera)
             {
-                transform.LookAt(Camera.main.transform);
+                transform.LookAt(PlayerCamera.transform);
             }
 
             // if (Bar.value <= 0)
@@ -49,11 +49,12 @@ public class EnemyUIController : MonoBehaviour
             if (bIsTargeted)
             {
                 ImagePrefab.SetActive(true);
-
+                ImagePrefab.transform.LookAt(PlayerCamera.transform);
             }
             else
             {
                 ImagePrefab.SetActive(false);
+                //ImagePrefab.transform.LookAt(PlayerCamera.transform);
             }
         }
 

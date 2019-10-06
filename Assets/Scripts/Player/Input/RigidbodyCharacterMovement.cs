@@ -74,7 +74,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             }
         }
 
-        // Debug.Log(Input.GetAxisRaw("Horizontal"));
+        
 
     }
 

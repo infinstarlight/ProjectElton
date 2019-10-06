@@ -36,7 +36,7 @@ public class BGM_Player : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(this);
         PlayFirstTrack();
         PlaylistLength = Playlist.Length;
     }

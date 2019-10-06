@@ -22,14 +22,9 @@ public class HealthItem : Item
     }
 
 
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     Debug.Log("This item collided with " + collision.gameObject.name);
-    // }
-
-    private void OnTriggerEnter(Collider collision)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("This item collided with " + collision.name);
+        Debug.Log("This item collided with " + collision.gameObject.name);
         if (collision.gameObject.GetComponent<Player>() != null)
         {
             if (CurrentItemType == ItemType.Health)
@@ -39,5 +34,21 @@ public class HealthItem : Item
 
             Destroy(gameObject, 2f);
         }
+    }
+
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        // Debug.Log("This item collided with " + collision.name);
+        if (collision.gameObject.GetComponent<Player>() != null)
+        {
+            if (CurrentItemType == ItemType.Health)
+            {
+                RecoverHealth();
+            }
+
+            Destroy(gameObject, 2f);
+        }
+
     }
 }

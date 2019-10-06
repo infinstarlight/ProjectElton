@@ -10,16 +10,28 @@ public class PlayerUIController : MonoBehaviour
     private GameObject PauseMenu;
     private ID_StyleSlider styleSliderScript;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         pCon = FindObjectOfType<PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
         PauseMenu = pCon.PauseMenuGO;
-        
-        if(Time.timeScale <= 1)
+
+        if (Time.timeScale <= 1)
         {
             Time.timeScale = 1;
+        }
+
+        if(PauseMenu)
+        {
+            PauseMenu.SetActive(false);
         }
     }
 
@@ -29,28 +41,28 @@ public class PlayerUIController : MonoBehaviour
         {
             styleSliderScript.styleSlider.value = pCon.playerState.StylePercent;
         }
-       
-    //    if(PauseMenu == null)
-    //    {
-    //        PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
-    //    }
+
+        if (PauseMenu == null)
+        {
+            PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
+        }
     }
 
     public void UnpauseGame()
     {
         if (PauseMenu)
         {
-            if(Time.timeScale <= 1)
-        {
-            Time.timeScale = 1;
-        }
+            if (Time.timeScale <= 1)
+            {
+                Time.timeScale = 1;
+            }
             if (PauseMenu.activeSelf)
             {
                 pCon.bIsGamePaused = false;
                 pCon.bEnableInput = true;
                 PauseMenu.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
-                
+
             }
         }
     }
