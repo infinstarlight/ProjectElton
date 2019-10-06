@@ -10,21 +10,30 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(Cursor.lockState != CursorLockMode.None)
+        if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        //PlayerGO = FindObjectOfType<Player>().gameObject;
-        //PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
+        if (!PlayerGO)
+        {
+            PlayerGO = FindObjectOfType<Player>().gameObject;
+
+        }
+        if (!PlayerUIGO)
+        {
+            PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
+        }
+
     }
 
     void Update()
     {
-        if(PlayerGO)
+
+        if (PlayerGO)
         {
             Destroy(PlayerGO);
         }
-        if(PlayerUIGO)
+        if (PlayerUIGO)
         {
             Destroy(PlayerUIGO);
         }
@@ -35,6 +44,10 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("Demo_LevelTest");
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
+    }
     public void LeaveGame()
     {
         //#if UNITY_STANDALONE
