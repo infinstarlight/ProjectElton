@@ -41,7 +41,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Demo_LevelTest");
+        SceneManager.LoadScene("TestLevel");
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
