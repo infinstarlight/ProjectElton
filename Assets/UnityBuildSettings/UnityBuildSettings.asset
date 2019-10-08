@@ -42,16 +42,16 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 3
+    buildCounter: 0
     lastGeneratedVersion: 1.0.1738.3874
-    version: 1.0.$DAYSSINCE("January 1, 2015").$SECONDS
+    version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
     releaseTypes:
-    - typeName: Development
+    - typeName: DevBuild
       bundleIndentifier: com.EchoLabs.TheChase
       companyName: Echo Labs
-      productName: 'Aragon: The Chase - Development'
+      productName: 'Aragon: The Chase'
       developmentBuild: 1
       allowDebugging: 0
       enableHeadlessMode: 0
@@ -163,26 +163,26 @@ MonoBehaviour:
       targetGroup: 1
   _projectConfigurations:
     configSet:
-      _Buckets: 0a000000ffffffffffffffff05000000ffffffffffffffffffffffff0600000001000000ffffffffffffffff00000000ffffffff08000000070000000b00000003000000
-      _HashCodes: c4c6b233ea2dd64c53b5ba3ac53df85883c4795217489c3aa728bd13b7d47a2917cce93fe756831ab64dea22a76761490000000000000000000000000000000000000000
-      _Next: ffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffff02000000ffffffff090000000000000000000000000000000000000000000000
+      _Buckets: 020000000700000003000000ffffffff0600000005000000ffffffffffffffff08000000ffffffff04000000090000000b000000ffffffff01000000ffffffff0a000000
+      _HashCodes: 3cc9781c8a1aa22d59a57932d7a5f34c7de9e3361dec6c2819277e23b1a1fd495d06af4a1955b1510a934f23d9949a140000000000000000000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000ffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000
       _Count: 12
       _Version: 12
       _FreeList: -1
       _FreeCount: 0
       _Keys:
-      - Development/Android/Android (ARMv7,ETC,Internal)/Development
-      - Development/Android/Android (ARMv7,ETC,Internal)
-      - Development/Android
-      - Development/PC/Windows x64
-      - Development/PC
-      - Development/WebGL/WebGL/Development
-      - Development/WebGL/WebGL
-      - Development/WebGL
-      - Development/OSX/OSX/Development
-      - Development/OSX/OSX
-      - Development/OSX
-      - Development
+      - DevBuild/Android/Android (ARMv7,ETC,Internal)/Development
+      - DevBuild/Android/Android (ARMv7,ETC,Internal)
+      - DevBuild/Android
+      - DevBuild/PC/Windows x64
+      - DevBuild/PC
+      - DevBuild/WebGL/WebGL/Development
+      - DevBuild/WebGL/WebGL
+      - DevBuild/WebGL
+      - DevBuild/OSX/OSX/Development
+      - DevBuild/OSX/OSX
+      - DevBuild/OSX
+      - DevBuild
       - 
       - 
       - 
@@ -193,37 +193,37 @@ MonoBehaviour:
         childKeys: []
       - enabled: 1
         childKeys:
-        - Development/Android/Android (ARMv7,ETC,Internal)/Development
+        - DevBuild/Android/Android (ARMv7,ETC,Internal)/Development
       - enabled: 1
         childKeys:
-        - Development/Android/Android (ARMv7,ETC,Internal)
+        - DevBuild/Android/Android (ARMv7,ETC,Internal)
       - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - Development/PC/Windows x64
+        - DevBuild/PC/Windows x64
       - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - Development/WebGL/WebGL/Development
+        - DevBuild/WebGL/WebGL/Development
       - enabled: 1
         childKeys:
-        - Development/WebGL/WebGL
+        - DevBuild/WebGL/WebGL
       - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - Development/OSX/OSX/Development
+        - DevBuild/OSX/OSX/Development
       - enabled: 1
         childKeys:
-        - Development/OSX/OSX
+        - DevBuild/OSX/OSX
       - enabled: 1
         childKeys:
-        - Development/Android
-        - Development/PC
-        - Development/WebGL
-        - Development/OSX
+        - DevBuild/Android
+        - DevBuild/PC
+        - DevBuild/WebGL
+        - DevBuild/OSX
       - enabled: 1
         childKeys: []
       - enabled: 1

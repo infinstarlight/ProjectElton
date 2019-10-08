@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraLook : MonoBehaviour
 {
 
-    Vector2 mouseLook;
+    public Vector2 mouseLook;
     //Ensures smooth motion
     Vector2 smoothingVector;
     //How sensitive should the change be

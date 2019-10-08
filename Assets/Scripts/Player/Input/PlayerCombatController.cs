@@ -6,12 +6,15 @@ public class PlayerCombatController : MonoBehaviour
 {
 
     public GameObject currentWeapon;
+    public Dictionary<int,PlayerWeapon> weaponInventory = new Dictionary<int,PlayerWeapon>();
     private PlayerWeapon weaponScript;
     private PlayerController pCon;
     // Start is called before the first frame update
     void Start()
     {
         pCon = GetComponent<PlayerController>();
+
+        
     }
 
     // Update is called once per frame
@@ -48,5 +51,10 @@ public class PlayerCombatController : MonoBehaviour
             }
         }
 
+    }
+
+    void FindPrimaryWeapon()
+    {
+        
     }
 }

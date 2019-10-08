@@ -7,9 +7,11 @@ public class MainMenuController : MonoBehaviour
 {
     private GameObject PlayerGO;
     private GameObject PlayerUIGO;
+    private GameObject MusicPlayerGO;
     // Start is called before the first frame update
     void Start()
     {
+        MusicPlayerGO = FindObjectOfType<BGM_Player>().gameObject;
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -41,7 +43,9 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
+        Destroy(MusicPlayerGO);
         SceneManager.LoadScene("TestLevel");
+        
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)

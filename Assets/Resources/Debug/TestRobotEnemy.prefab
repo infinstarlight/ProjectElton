@@ -1431,7 +1431,7 @@ Transform:
   - {fileID: 3536201172900150711}
   - {fileID: 3536274062302038529}
   - {fileID: 1813860930}
-  - {fileID: 809415137}
+  - {fileID: 2587807966987847758}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 178.43001, z: 0}
@@ -1631,9 +1631,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterStats: {fileID: 0}
-  hurtClips: []
-  deathClip: {fileID: 0}
-  DeathVFX: {fileID: 0}
+  hurtClips:
+  - {fileID: 8300000, guid: 8df249cd3aa450343a70c8b05806bf31, type: 3}
+  - {fileID: 8300000, guid: 7723b84e09f0af342ad7e295a19b379f, type: 3}
+  deathClip: {fileID: 8300000, guid: 62da329cb62cdcd4eb1f86e42768edcf, type: 3}
+  DeathVFX: {fileID: 5527279094547357325, guid: 3cb2503db42ec654d80629eb71c32110,
+    type: 3}
   bShouldDestroyOnDeath: 0
   DestroyDelay: 0
   StyleModAmount: 1
@@ -3645,6 +3648,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 5679567390068461940, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567390068461940, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2587807967252462323, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3770,16 +3783,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 5679567390068461940, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679567390068461940, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5679567389633209809, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
@@ -3827,7 +3830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ca26769c0e15c34bb9c16d14de4af4d, type: 3}
---- !u!224 &809415137 stripped
+--- !u!224 &2587807966987847758 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2587807967252462323, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
     type: 3}

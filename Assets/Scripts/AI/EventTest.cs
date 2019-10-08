@@ -64,7 +64,7 @@ public class EventTest : MonoBehaviour
 
     void SomeThirdFunction ()
     {
-        Debug.Log ("Some Third Function was called!");
+//        Debug.Log ("Some Third Function was called!");
     }
 
 }

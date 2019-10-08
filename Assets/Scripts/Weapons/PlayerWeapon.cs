@@ -7,20 +7,23 @@ public class PlayerWeapon : Weapon
     //private bool bIsFiring = false;
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
+    private Camera PlayerCamera;
     public GameObject FireEffect;
 
     // Start is called before the first frame update
     void Start()
     {
+        PlayerCamera = Camera.main;
         // var effGO = Resources.Load<GameObject>("Weapons/FireEffect") as GameObject;
         // FireEffect = effGO;
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
+    // Update is called once per frame
+    void Update()
+    {
+        // transform.localRotation = Quaternion.AngleAxis(-PlayerCamera.GetComponent<CameraLook>().mouseLook.y,Vector3.right);
 
-    // }
+    }
 
     public void Fire()
     {
@@ -40,14 +43,14 @@ public class PlayerWeapon : Weapon
 
             // debug Ray
             Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
-            GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, Camera.main.transform.rotation);
+            GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, PlayerCamera.transform.rotation);
 
             if (Physics.Raycast(ray, out hit, weaponRange))
             {
-               // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
+                // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
                 if (hit.collider != null)
                 {
-                   // Debug.Log(hit.collider.gameObject);
+                    // Debug.Log(hit.collider.gameObject);
                     if (hit.collider.gameObject.GetComponent<Enemy>())
                     {
                         hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
