@@ -21,8 +21,7 @@ public class MovePlayerToPosition : MonoBehaviour
         {
             PlayerGO = FindObjectOfType<Player>().gameObject;
             PlayerGO.transform.position = transform.position;
-            // Instantiate(PlayerUIGO);
-            // Instantiate(InstPlayerGO, transform.position, transform.rotation);
+           
             
         }
 
