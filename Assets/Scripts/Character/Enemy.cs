@@ -10,6 +10,7 @@ public class Enemy : Character, ITracker
     private AIControllerBase AIController;
     public EnemyUIController enemyUIController;
     private NavPoint playerNavPoint;
+    public GameObject AI_Weapon;
 
     void EnemyAwake()
     {
@@ -31,6 +32,14 @@ public class Enemy : Character, ITracker
         if (!playerState)
         {
             playerState = FindObjectOfType<PlayerStateScript>();
+        }
+        if(AIController.bIsPlayerVisible)
+        {
+            //Attempt to attack
+            if(AI_Weapon)
+            {
+                AI_Weapon.GetComponent<Weapon>().AIFire();
+            }
         }
     }
     public void OnTrackTarget()

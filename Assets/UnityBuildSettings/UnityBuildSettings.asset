@@ -52,7 +52,7 @@ MonoBehaviour:
       bundleIndentifier: com.EchoLabs.TheChase
       companyName: Echo Labs
       productName: 'Aragon: The Chase'
-      developmentBuild: 1
+      developmentBuild: 0
       allowDebugging: 0
       enableHeadlessMode: 0
       customDefines: 

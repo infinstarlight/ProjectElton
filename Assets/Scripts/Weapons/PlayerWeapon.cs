@@ -8,7 +8,7 @@ public class PlayerWeapon : Weapon
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
     private Camera PlayerCamera;
-    public GameObject FireEffect;
+   
 
     // Start is called before the first frame update
     void Start()

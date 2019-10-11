@@ -18,6 +18,7 @@ public class RobotAIController : AIControllerBase
     // Update is called once per frame
     void Update()
     {
+        VisionRaycast();
         DistanceRemaining = myNavMeshAgent.remainingDistance;
         
         if(myNavMeshAgent.remainingDistance <= 5.0f)
