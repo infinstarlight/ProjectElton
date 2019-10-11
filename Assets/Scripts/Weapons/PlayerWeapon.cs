@@ -42,7 +42,7 @@ public class PlayerWeapon : Weapon
             Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
 
             // debug Ray
-            Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
+            Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.white);
             GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, PlayerCamera.transform.rotation);
 
             if (Physics.Raycast(ray, out hit, weaponRange))

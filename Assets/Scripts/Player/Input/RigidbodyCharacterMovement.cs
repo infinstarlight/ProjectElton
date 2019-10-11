@@ -15,6 +15,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
 
     private Rigidbody rb;
     private PlayerController pCon;
+    private PlayerStatsScript playerStats;
     private Vector3 inputMovement;
 
     // [SerializeField]
@@ -39,12 +40,14 @@ public class RigidbodyCharacterMovement : MonoBehaviour
         pCon = GetComponentInChildren<PlayerController>();
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
+        playerStats = GetComponent<PlayerStatsScript>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         oldMovementSpeed = MovementSpeed;
+        playerStats.currentSpecialAbility = PlayerStatsScript.ESpecialAbility.Dash;
     }
 
     // Update is called once per frame
@@ -74,7 +77,7 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             }
         }
 
-        
+
 
     }
 
@@ -91,10 +94,14 @@ public class RigidbodyCharacterMovement : MonoBehaviour
                     rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
                 }
             }
-            if (Input.GetButtonDown("Dash"))
+            if (Input.GetButtonDown("Special Ability"))
             {
-                dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-                rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+                if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+                {
+                    dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+                    rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+                }
+
             }
         }
 

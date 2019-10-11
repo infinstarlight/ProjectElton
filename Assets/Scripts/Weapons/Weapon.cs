@@ -31,8 +31,6 @@ public class Weapon : MonoBehaviour
     public float nextFire;
 
     public bool bIsAutomatic = false;
-
-    public GameObject weaponProj;
     public GameObject gunEndGO;
     public RaycastHit hit;
 

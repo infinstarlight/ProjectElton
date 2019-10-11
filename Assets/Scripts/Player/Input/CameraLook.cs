@@ -24,6 +24,10 @@ public class CameraLook : MonoBehaviour
     //Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
     Ray lockOnRay;
     private Enemy currentEnemy;
+    public float DefaultFOV = 90.0f;
+    public float ZoomFOV = 65.0f;
+    float newFOV;
+    public float lockOnRadius = 24f;
 
     void Awake()
     {
@@ -35,7 +39,7 @@ public class CameraLook : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        PlayerCamera.fieldOfView = DefaultFOV;
     }
 
     // Update is called once per frame
@@ -48,6 +52,7 @@ public class CameraLook : MonoBehaviour
         }
         if (Input.GetButtonDown("AltAttack"))
         {
+
             bStartLockOn = true;
         }
         if (Input.GetButtonUp("AltAttack"))
@@ -60,7 +65,13 @@ public class CameraLook : MonoBehaviour
             }
         }
 
+        //PlayerCamera.fieldOfView
 
+
+    }
+
+    private void FixedUpdate()
+    {
 
     }
 
@@ -80,14 +91,19 @@ public class CameraLook : MonoBehaviour
 
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
             //}
+
+
+            newFOV = Input.GetAxis("Zoom") * 10.0f;
             LockOn();
+            PlayerCamera.fieldOfView += newFOV;
+            PlayerCamera.fieldOfView = Mathf.Clamp(PlayerCamera.fieldOfView, ZoomFOV, DefaultFOV);
 
         }
     }
 
     void LockOn()
     {
-        int layerMask = 1 << 11;
+        //int layerMask = 1 << 11;
 
 
 
@@ -99,19 +115,6 @@ public class CameraLook : MonoBehaviour
             lockOnRay = PlayerCamera.ViewportPointToRay(rayOrigin);
             // actual Ray
 
-            if (Physics.SphereCast(lockOnRay, 24f, out LockOnHit, lockOnRange, layerMask, QueryTriggerInteraction.Collide))
-            {
-
-                if (LockOnHit.collider)
-                {
-                    currentEnemy = LockOnHit.collider.gameObject.GetComponent<Enemy>();
-                    if (currentEnemy)
-                    {
-                        transform.LookAt(currentEnemy.gameObject.transform);
-                        currentEnemy.enemyUIController.bIsTargeted = true;
-                    }
-                }
-            }
             // if (Physics.Raycast(lockOnRay, out LockOnHit, lockOnRange))
             // {
             //     if (LockOnHit.collider)
@@ -121,9 +124,45 @@ public class CameraLook : MonoBehaviour
             //         {
             //             transform.LookAt(currentEnemy.gameObject.transform);
             //             currentEnemy.enemyUIController.bIsTargeted = true;
+            //             Debug.Log("Hit: " + currentEnemy.name);
             //         }
             //     }
             // }
+            if (Physics.SphereCast(lockOnRay.origin, lockOnRadius, lockOnRay.direction, out LockOnHit, lockOnRange))
+            {
+                if (LockOnHit.collider)
+                {
+                    currentEnemy = LockOnHit.collider.gameObject.GetComponent<Enemy>();
+                    if (currentEnemy)
+                    {
+                        transform.LookAt(currentEnemy.gameObject.transform);
+                        currentEnemy.enemyUIController.bIsTargeted = true;
+                        Debug.Log("Hit: " + currentEnemy.name);
+                    }
+                }
+            }
+        }
+
+    }
+    void OnDrawGizmos()
+    {
+        if (bStartLockOn)
+        {
+            if (LockOnHit.collider)
+            {
+                //Draw a Ray forward from GameObject toward the hit
+                Gizmos.DrawRay(transform.position, transform.forward * LockOnHit.distance);
+                //Draw a cube that extends to where the hit exists
+                Gizmos.DrawWireSphere(transform.position + transform.forward * LockOnHit.distance, lockOnRadius);
+            }
+            //If there hasn't been a hit yet, draw the ray at the maximum distance
+            else
+            {
+                //Draw a Ray forward from GameObject toward the maximum distance
+                Gizmos.DrawRay(transform.position, transform.forward * lockOnRange);
+                //Draw a cube at the maximum distance
+                Gizmos.DrawWireSphere(transform.position + transform.forward * lockOnRange, lockOnRadius);
+            }
         }
 
     }

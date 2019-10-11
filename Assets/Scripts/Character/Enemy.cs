@@ -9,11 +9,12 @@ public class Enemy : Character, ITracker
 
     private AIControllerBase AIController;
     public EnemyUIController enemyUIController;
+    private NavPoint playerNavPoint;
 
     void EnemyAwake()
     {
         base.Awake();
-        
+
     }
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,8 @@ public class Enemy : Character, ITracker
         playerState = FindObjectOfType<PlayerStateScript>();
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
+        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
+
     }
 
     private void Update()
@@ -32,8 +35,10 @@ public class Enemy : Character, ITracker
     }
     public void OnTrackTarget()
     {
-        NavPoint playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
-        //AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
+        AIController.myNavAgent.bIsTrackingPlayer = true;
+        AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
+        AIController.myNavMeshAgent.SetDestination(playerNavPoint.transform.position);
+
     }
 
     public void OnEnemyDamageApplied(float damageTaken)
@@ -41,10 +46,10 @@ public class Enemy : Character, ITracker
         base.OnDamageApplied(damageTaken);
         if (characterStats.bCanTakeDamage)
         {
-            //OnTrackTarget();
+            OnTrackTarget();
             AIEventManager.TriggerEvent("Damage");
             playerState.ModStyle(StyleModAmount);
-            if(characterStats.CurrentHealth <= 0)
+            if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();
             }

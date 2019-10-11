@@ -6,9 +6,10 @@ using UnityEngine.AI;
 public class NavAgent : MonoBehaviour
 {
 
-    [SerializeField] public NavPoint[] navPoints;
-   // public List<NavPoint> myNavPoints = new List<NavPoint>();
+    //[SerializeField] public NavPoint[] navPoints;
+    public List<NavPoint> myNavPoints = new List<NavPoint>();
 
+    public bool bIsTrackingPlayer = false;
     NavMeshAgent myNavAgent;
     Vector3 newTravelPosition;
 
@@ -21,27 +22,27 @@ public class NavAgent : MonoBehaviour
     {
         myNavAgent = GetComponent<NavMeshAgent>();
         FindDestination();
-        //Debug.Log(navPoints.Length);
-        //index = myNavPoints.Count;
-        
-        
     }
 
 
 
-    void FindDestination()
+    public void FindDestination()
     {
-        newTravelPosition = navPoints[NavIndex].transform.position;
-        
-        myNavAgent.SetDestination(newTravelPosition);
+        if (!bIsTrackingPlayer)
+        {
+            newTravelPosition = myNavPoints[NavIndex].transform.position;
+            myNavAgent.SetDestination(newTravelPosition);
+        }
+        //newTravelPosition = navPoints[NavIndex].transform.position;
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-       // Debug.Log(other.gameObject);
+        // Debug.Log(other.gameObject);
         ++NavIndex;
 
-        if (NavIndex >= navPoints.Length)
+        if (NavIndex >= myNavPoints.Capacity)
         {
             NavIndex = 0;
         }

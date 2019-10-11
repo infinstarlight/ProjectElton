@@ -6,14 +6,16 @@ public class PlayerCombatController : MonoBehaviour
 {
 
     public GameObject currentWeapon;
-    public Dictionary<int,PlayerWeapon> weaponInventory = new Dictionary<int,PlayerWeapon>();
+    
+    public GameObject[] Weapons;
     private PlayerWeapon weaponScript;
     private PlayerController pCon;
     // Start is called before the first frame update
     void Start()
     {
         pCon = GetComponent<PlayerController>();
-
+        currentWeapon = Weapons[0];
+        Weapons[1].gameObject.SetActive(false);
         
     }
 
@@ -49,6 +51,27 @@ public class PlayerCombatController : MonoBehaviour
                     weaponScript.StopCoroutine(weaponScript.AutoFire());
                 }
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            if(currentWeapon != Weapons[0])
+            {
+                currentWeapon.SetActive(false);
+            }
+            Weapons[0].SetActive(true);
+            weaponScript = Weapons[0].GetComponent<PlayerWeapon>();
+            currentWeapon = Weapons[0];
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+             if(currentWeapon != Weapons[1])
+            {
+                currentWeapon.SetActive(false);
+            }
+            Weapons[1].SetActive(true);
+            weaponScript = Weapons[1].GetComponent<PlayerWeapon>();
+            currentWeapon = Weapons[1];
         }
 
     }

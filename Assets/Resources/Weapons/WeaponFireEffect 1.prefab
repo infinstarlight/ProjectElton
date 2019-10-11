@@ -49,7 +49,7 @@ MonoBehaviour:
   UseLightShadows: 1
   UseFastFlatDecalsForMobiles: 1
   UseCustomColor: 1
-  EffectColor: {r: 1, g: 0, b: 0.008334637, a: 1}
+  EffectColor: {r: 0.9150943, g: 0, b: 0.007177101, a: 1}
   IsVisible: 1
   FadeoutTime: 1.5
   UseCollisionDetection: 1

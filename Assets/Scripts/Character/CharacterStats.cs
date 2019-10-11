@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
+
+    public enum ECharacterStyle
+    {
+        Standard,
+        Offense,
+        Defense,
+        Speed,
+        Regen
+    }
     public float CurrentHealth;
     public float MaxHealth = 100;
     public bool bIsDead = false;
     public bool bCanTakeDamage = true;
 
     public float healthPercentage;
+    public ECharacterStyle currentCharacterStyle;
 
     public string CharacterName;
 
