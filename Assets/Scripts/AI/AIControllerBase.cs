@@ -22,11 +22,12 @@ public class AIControllerBase : MonoBehaviour
         myEnemy = GetComponentInParent<Enemy>();
         myNavAgent = GetComponentInParent<NavAgent>();
         myNavMeshAgent = GetComponentInParent<NavMeshAgent>();
+        AIEyes = GetComponentInChildren<ID_AI_Eyes>().gameObject;
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -37,21 +38,7 @@ public class AIControllerBase : MonoBehaviour
 
     public void VisionRaycast()
     {
-        // Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f);
-        //     Ray visionRay = new Ray(AIEyes.transform.position, AIEyes.transform.forward);
 
-        //     Debug.DrawRay(visionRay.origin,visionRay.direction * visionRange,Color.cyan);
-
-        //     if(Physics.Raycast(visionRay,out visionHit,visionRange))
-        //     {
-        //         if(visionHit.collider)
-        //         {
-        //             if(visionHit.collider.gameObject.GetComponent<Player>())
-        //             {
-        //                 bIsPlayerVisible = true;
-        //             }
-        //         }
-        //     }
         if (Time.time > nextFire)
         {
             nextFire = Time.time + visionPollRate;
@@ -64,15 +51,17 @@ public class AIControllerBase : MonoBehaviour
             {
                 if (visionHit.collider)
                 {
-                   Debug.Log("Hit: " + visionHit.collider.gameObject.name);
-                    if (visionHit.collider.gameObject.GetComponent<Player>())
-                    {
-                        bIsPlayerVisible = true;
-                    }
-                    else
-                    {
-                        bIsPlayerVisible = false;
-                    }
+                    //Debug.Log("Hit: " + visionHit.collider.gameObject.name);
+
+                }
+                if (visionHit.collider.gameObject.GetComponent<Player>())
+                {
+                    bIsPlayerVisible = true;
+                }
+                else
+                {
+                    bIsPlayerVisible = false;
+
                 }
             }
 

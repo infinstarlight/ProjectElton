@@ -18,13 +18,6 @@ public class PlayerWeapon : Weapon
         // FireEffect = effGO;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // transform.localRotation = Quaternion.AngleAxis(-PlayerCamera.GetComponent<CameraLook>().mouseLook.y,Vector3.right);
-
-    }
-
     public void Fire()
     {
         if (Time.time > nextFire)
@@ -50,7 +43,7 @@ public class PlayerWeapon : Weapon
                 // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
                 if (hit.collider != null)
                 {
-                    // Debug.Log(hit.collider.gameObject);
+                     Debug.Log(hit.collider.gameObject);
                     if (hit.collider.gameObject.GetComponent<Enemy>())
                     {
                         hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
@@ -60,16 +53,16 @@ public class PlayerWeapon : Weapon
         }
     }
 
-    private IEnumerator ShotEffect()
-    {
-        weaponAudio.clip = WeaponSounds[1];
-        // Play the shooting sound effect
-        weaponAudio.PlayOneShot(weaponAudio.clip);
+    // private IEnumerator ShotEffect()
+    // {
+    //     weaponAudio.clip = WeaponSounds[1];
+    //     // Play the shooting sound effect
+    //     weaponAudio.PlayOneShot(weaponAudio.clip);
 
 
-        //Wait for .07 seconds
-        yield return shotDuration;
-    }
+    //     //Wait for .07 seconds
+    //     yield return shotDuration;
+    // }
 
     public IEnumerator AutoFire()
     {

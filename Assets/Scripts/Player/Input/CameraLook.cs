@@ -70,10 +70,7 @@ public class CameraLook : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
-    {
 
-    }
 
     private void LateUpdate()
     {

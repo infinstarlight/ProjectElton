@@ -11,6 +11,7 @@ public class Enemy : Character, ITracker
     public EnemyUIController enemyUIController;
     private NavPoint playerNavPoint;
     public GameObject AI_Weapon;
+    private EnemyWeapon myWeapon;
 
     void EnemyAwake()
     {
@@ -24,7 +25,8 @@ public class Enemy : Character, ITracker
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
         playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
-
+        AI_Weapon = GetComponentInChildren<EnemyWeapon>().gameObject;
+        myWeapon = AI_Weapon.GetComponent<EnemyWeapon>();
     }
 
     private void Update()
@@ -38,7 +40,14 @@ public class Enemy : Character, ITracker
             //Attempt to attack
             if(AI_Weapon)
             {
-                AI_Weapon.GetComponent<Weapon>().AIFire();
+                AI_Weapon.GetComponent<EnemyWeapon>().AIFire();
+            }
+        }
+        else
+        {
+            if(AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
+            {
+                AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
             }
         }
     }

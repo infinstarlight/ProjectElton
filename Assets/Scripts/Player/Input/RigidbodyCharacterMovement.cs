@@ -83,9 +83,10 @@ public class RigidbodyCharacterMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Translate(strafe, 0, translation);
+
         if (pCon.bEnableInput)
         {
+            transform.Translate(strafe, 0, translation);
             if (Input.GetButtonDown("Jump"))
             {
                 CurrentJumpCount++;

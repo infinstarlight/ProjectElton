@@ -92,7 +92,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 3
+  m_Height: 3.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8049263832511038752
@@ -455,11 +455,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8049263832511038754}
     m_Modifications:
-    - target: {fileID: 2143988540467156298, guid: 126bcc64a34757144979400670e09997,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerController
-      objectReference: {fileID: 0}
     - target: {fileID: 2143988540467156297, guid: 126bcc64a34757144979400670e09997,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -514,6 +509,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2143988540467156298, guid: 126bcc64a34757144979400670e09997,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 2143988540467156294, guid: 126bcc64a34757144979400670e09997,
         type: 3}

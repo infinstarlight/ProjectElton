@@ -8,10 +8,13 @@ public class PlayerController : MonoBehaviour
     public bool bEnableInput = true;
     public bool bIsGamepad = false;
     public PlayerStateScript playerState;
+    public RigidbodyCharacterMovement rbMovementScript;
+    public CameraLook cameraScript;
     public GameObject PauseMenuGO;
 
     void Awake()
     {
+        rbMovementScript = GetComponentInParent<RigidbodyCharacterMovement>();
         playerState = GetComponentInChildren<PlayerStateScript>();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
