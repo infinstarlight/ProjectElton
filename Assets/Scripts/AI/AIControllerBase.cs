@@ -22,7 +22,7 @@ public class AIControllerBase : MonoBehaviour
         myEnemy = GetComponentInParent<Enemy>();
         myNavAgent = GetComponentInParent<NavAgent>();
         myNavMeshAgent = GetComponentInParent<NavMeshAgent>();
-        AIEyes = GetComponentInChildren<ID_AI_Eyes>().gameObject;
+        //AIEyes = GetComponentInChildren<ID_AI_Eyes>().gameObject;
     }
     // Start is called before the first frame update
     void Start()

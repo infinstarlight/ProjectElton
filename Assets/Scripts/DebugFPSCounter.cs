@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.TextCore;
 using TMPro;
 
 public class DebugFPSCounter : MonoBehaviour
@@ -23,6 +22,7 @@ public class DebugFPSCounter : MonoBehaviour
     private float timeleft; // Left time for current interval
 
     public TextMeshProUGUI fpsTextMesh;
+
 
     void Start()
     {

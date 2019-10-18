@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class CameraLook : MonoBehaviour
@@ -28,6 +29,7 @@ public class CameraLook : MonoBehaviour
     public float ZoomFOV = 65.0f;
     float newFOV;
     public float lockOnRadius = 24f;
+    private float m_Look;
 
     void Awake()
     {
@@ -70,7 +72,10 @@ public class CameraLook : MonoBehaviour
 
     }
 
-
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        m_Look = context.ReadValue<float>();
+    }
 
     private void LateUpdate()
     {

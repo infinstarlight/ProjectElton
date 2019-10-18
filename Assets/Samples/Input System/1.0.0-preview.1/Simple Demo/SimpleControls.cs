@@ -38,7 +38,7 @@ public class SimpleControls : IInputActionCollection, IDisposable
                     ""name"": ""look"",
                     ""type"": ""Value"",
                     ""id"": ""c60e0974-d140-4597-a40e-9862193067e9"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }

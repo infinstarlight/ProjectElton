@@ -11,7 +11,7 @@ public class PlayerStatsScript : MonoBehaviour
         Regen,
         Booster,
     }
-    private HealthTextScript healthText;
+    //private HealthTextScript healthText;
     private CharacterStats playerStats;
     private Player player;
     public ESpecialAbility currentSpecialAbility;
@@ -30,8 +30,8 @@ public class PlayerStatsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthText = FindObjectOfType<HealthTextScript>();
-        UpdateHealthText();
+        // healthText = FindObjectOfType<HealthTextScript>();
+        // UpdateHealthText();
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
@@ -54,10 +54,10 @@ public class PlayerStatsScript : MonoBehaviour
 
     public void UpdateHealthText()
     {
-        if (healthText)
-        {
-            healthText.TextMesh.text = playerStats.CurrentHealth.ToString();
-        }
+        // if (healthText)
+        // {
+        //     healthText.TextMesh.text = playerStats.CurrentHealth.ToString();
+        // }
     }
 
     void ModifyCurrentStyle()

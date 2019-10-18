@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -12,14 +13,12 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     public float GroundDistance = 0.2f;
     public float DashDistance = 5f;
     public LayerMask Ground;
+    private GameInputControls myControls;
 
     private Rigidbody rb;
     private PlayerController pCon;
     private PlayerStatsScript playerStats;
     private Vector3 inputMovement;
-
-    // [SerializeField]
-    // private bool bIsJumping = false;
 
     [SerializeField]
     private bool bIsGounded = true;
@@ -30,10 +29,25 @@ public class RigidbodyCharacterMovement : MonoBehaviour
     private int MaxJumpCount = 2;
     public Transform groundChecker;
     float translation;
+    private Vector2 moveVector;
     float strafe;
+    private float MoveX;
+    private float MoveY;
 
     Vector3 dashVelocity;
     private float oldMovementSpeed;
+
+
+    public void OnEnable()
+    {
+
+    }
+
+    public void OnDisable()
+    {
+
+    }
+
 
     void Awake()
     {
@@ -41,6 +55,13 @@ public class RigidbodyCharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
         playerStats = GetComponent<PlayerStatsScript>();
+        myControls = new GameInputControls();
+        var moveUpAction = new InputAction("MoveUp");
+        moveUpAction.AddCompositeBinding("Axis").With("Positive","<Keyboard>/w").With("Negative","<Keyboard>/s");
+       
+
+
+
     }
 
     // Start is called before the first frame update
@@ -60,33 +81,20 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             CurrentJumpCount = 0;
         }
 
-        if (pCon.bEnableInput)
-        {
-            translation = Input.GetAxis("Vertical") * MovementSpeed;
-            strafe = Input.GetAxis("Horizontal") * MovementSpeed;
-            translation *= Time.deltaTime;
-            strafe *= Time.deltaTime;
+        MoveX = Keyboard.current.dKey.ReadValue();
 
-            if (Input.GetButtonDown("Sprint"))
-            {
-                MovementSpeed = SprintSpeed;
-            }
-            if (Input.GetButtonUp("Sprint"))
-            {
-                MovementSpeed = oldMovementSpeed;
-            }
-        }
-
+        MoveY = Keyboard.current.wKey.ReadValue();
+        OnMoveRight(MoveX);
+        OnMoveUp(MoveY);
 
 
     }
 
     void FixedUpdate()
     {
-
         if (pCon.bEnableInput)
         {
-            transform.Translate(strafe, 0, translation);
+
             if (Input.GetButtonDown("Jump"))
             {
                 CurrentJumpCount++;
@@ -106,6 +114,33 @@ public class RigidbodyCharacterMovement : MonoBehaviour
             }
         }
 
+    }
+
+    public void PlayerMoveRight(InputAction.CallbackContext context)
+    {
+        OnMoveRight(MoveX);
+    }
+
+    public void PlayerMoveUp(InputAction.CallbackContext context)
+    {
+        OnMoveRight(MoveY);
+    }
+
+    public void OnMoveUp(float moveY)
+    {
+        strafe = moveY * MovementSpeed;
+        strafe *= Time.deltaTime;
+    }
+
+    public void OnMoveRight(float moveX)
+    {
+        translation = moveX * MovementSpeed;
+        translation *= Time.deltaTime;
+    }
+
+    public void IS_Move(float moveX, float moveY)
+    {
+        transform.Translate(strafe, 0, translation);
     }
 
     void OnDrawGizmosSelected()
