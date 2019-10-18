@@ -45,13 +45,13 @@ public class Player : Character
 
         }
         PlayerStats.UpdateHealthText();
-        playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
-        if (playerUI == null)
-        {
-            var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
-            Instantiate(StatGO);
-            playerUI = StatGO;
-        }
+        // playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
+        // if (playerUI == null)
+        // {
+        //     var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
+        //     Instantiate(StatGO);
+        //     playerUI = StatGO;
+        // }
 
     }
 

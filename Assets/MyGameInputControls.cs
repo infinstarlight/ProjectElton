@@ -43,18 +43,18 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""LookUp"",
+                    ""name"": ""Look"",
                     ""type"": ""Value"",
                     ""id"": ""c345672a-5bc1-435d-841b-6d236c350c0f"",
-                    ""expectedControlType"": ""Axis"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""LookRight"",
-                    ""type"": ""Value"",
-                    ""id"": ""eadcb8a7-5bdc-4f37-9f66-4b99a9ca772e"",
-                    ""expectedControlType"": ""Axis"",
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f1f7568-2bcb-43d5-9e6c-b5a8b142d45c"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -66,7 +66,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": ""Hold"",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -77,7 +77,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -151,22 +151,22 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""96529613-4d73-4758-a3fa-319e1201a66b"",
-                    ""path"": ""<Gamepad>/rightStick/y"",
+                    ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookUp"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""6a8f7cbe-8b68-4969-beb1-4cde2cede081"",
-                    ""path"": ""<Mouse>/delta/y"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookUp"",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -238,23 +238,23 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3901ed71-5f6f-4e48-95f7-72e57405e580"",
-                    ""path"": ""<Gamepad>/rightStick/x"",
+                    ""id"": ""008d6cd9-d6a1-4dc2-9181-7e7506787d30"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookRight"",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""deb77a61-381f-4382-910b-105bdd3d6255"",
-                    ""path"": ""<Mouse>/delta/x"",
+                    ""id"": ""cbdfd97a-cecb-4689-8005-358fab3ad79f"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""LookRight"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -323,8 +323,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_Fire = m_gameplay.FindAction("Fire", throwIfNotFound: true);
         m_gameplay_MoveUp = m_gameplay.FindAction("MoveUp", throwIfNotFound: true);
         m_gameplay_MoveRight = m_gameplay.FindAction("MoveRight", throwIfNotFound: true);
-        m_gameplay_LookUp = m_gameplay.FindAction("LookUp", throwIfNotFound: true);
-        m_gameplay_LookRight = m_gameplay.FindAction("LookRight", throwIfNotFound: true);
+        m_gameplay_Look = m_gameplay.FindAction("Look", throwIfNotFound: true);
+        m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Newaction = m_ui.FindAction("New action", throwIfNotFound: true);
@@ -380,8 +380,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_Fire;
     private readonly InputAction m_gameplay_MoveUp;
     private readonly InputAction m_gameplay_MoveRight;
-    private readonly InputAction m_gameplay_LookUp;
-    private readonly InputAction m_gameplay_LookRight;
+    private readonly InputAction m_gameplay_Look;
+    private readonly InputAction m_gameplay_Jump;
     public struct GameplayActions
     {
         private GameInputControls m_Wrapper;
@@ -389,8 +389,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_gameplay_Fire;
         public InputAction @MoveUp => m_Wrapper.m_gameplay_MoveUp;
         public InputAction @MoveRight => m_Wrapper.m_gameplay_MoveRight;
-        public InputAction @LookUp => m_Wrapper.m_gameplay_LookUp;
-        public InputAction @LookRight => m_Wrapper.m_gameplay_LookRight;
+        public InputAction @Look => m_Wrapper.m_gameplay_Look;
+        public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -409,12 +409,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 MoveRight.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveRight;
                 MoveRight.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveRight;
                 MoveRight.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveRight;
-                LookUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookUp;
-                LookUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookUp;
-                LookUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookUp;
-                LookRight.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookRight;
-                LookRight.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookRight;
-                LookRight.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLookRight;
+                Look.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
+                Look.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
+                Look.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnLook;
+                Jump.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                Jump.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
+                Jump.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -428,12 +428,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 MoveRight.started += instance.OnMoveRight;
                 MoveRight.performed += instance.OnMoveRight;
                 MoveRight.canceled += instance.OnMoveRight;
-                LookUp.started += instance.OnLookUp;
-                LookUp.performed += instance.OnLookUp;
-                LookUp.canceled += instance.OnLookUp;
-                LookRight.started += instance.OnLookRight;
-                LookRight.performed += instance.OnLookRight;
-                LookRight.canceled += instance.OnLookRight;
+                Look.started += instance.OnLook;
+                Look.performed += instance.OnLook;
+                Look.canceled += instance.OnLook;
+                Jump.started += instance.OnJump;
+                Jump.performed += instance.OnJump;
+                Jump.canceled += instance.OnJump;
             }
         }
     }
@@ -494,8 +494,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
-        void OnLookUp(InputAction.CallbackContext context);
-        void OnLookRight(InputAction.CallbackContext context);
+        void OnLook(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

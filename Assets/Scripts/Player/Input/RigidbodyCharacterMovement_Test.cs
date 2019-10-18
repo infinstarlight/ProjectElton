@@ -45,11 +45,11 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
         {
             myControls = new GameInputControls();
         }
-        //myControls.gameplay.Fire.performed += OnAttack;
+
         myControls.gameplay.MoveRight.performed += OnMoveRight;
         myControls.gameplay.MoveUp.performed += OnMoveUp;
-        
-        // myControls.gameplay.Fire.Enable();
+
+
         myControls.gameplay.MoveRight.Enable();
         myControls.gameplay.MoveUp.Enable();
     }
@@ -57,7 +57,7 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
     void OnDisable()
     {
         myControls.Disable();
-        // myControls.gameplay.Fire.Disable();
+
         myControls.gameplay.MoveRight.Disable();
         myControls.gameplay.MoveUp.Disable();
     }
@@ -91,13 +91,13 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
         }
         // strafe *= Time.deltaTime;
         // translation *= Time.deltaTime;
-        transform.Translate(strafe, 0, translation);
+
 
     }
 
     void FixedUpdate()
     {
-
+        transform.Translate(strafe, 0, translation);
         // if (pCon.bEnableInput)
         // {
 
