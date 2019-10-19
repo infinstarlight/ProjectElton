@@ -8,22 +8,22 @@ public class MyInputSystemController : MonoBehaviour
     public float xAxis = 0.0f;
     public float yAxis = 0.0f;
     public InputSystem_CameraLook cameraLook;
+    public InputSystem_PlayerCombatController combatController;
  
     
     void OnEnable()
     {
         cameraLook = GetComponentInChildren<InputSystem_CameraLook>();
+        combatController = GetComponentInChildren<InputSystem_PlayerCombatController>();
         if(myControls == null)
         {
             myControls = new GameInputControls();
         }
         myControls.gameplay.Look.performed += cameraLook.OnLook;
-        myControls.gameplay.Fire.performed += OnAttack;
-        // myControls.gameplay.MoveRight.performed += OnMoveRight;
-        // myControls.gameplay.MoveUp.performed += OnMoveUp;
+        myControls.gameplay.Fire.performed += combatController.OnFire;
+        
         myControls.gameplay.Fire.Enable();
-        // myControls.gameplay.MoveRight.Enable();
-        // myControls.gameplay.MoveUp.Enable();
+        
         myControls.gameplay.Look.Enable();
     }
 

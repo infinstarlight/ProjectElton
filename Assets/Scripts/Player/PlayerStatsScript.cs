@@ -11,27 +11,28 @@ public class PlayerStatsScript : MonoBehaviour
         Regen,
         Booster,
     }
-    //private HealthTextScript healthText;
-    private CharacterStats playerStats;
+    private HealthTextScript healthText;
+    private CharacterStats pcStats;
     private Player player;
     public ESpecialAbility currentSpecialAbility;
-    private int styleIndex;
+    private int styleIndex = 0;
 
     private bool bIsDebug = false;
 
     void Awake()
     {
-        playerStats = GetComponent<CharacterStats>();
-        playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Standard;
+        pcStats = GetComponent<CharacterStats>();
+        pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Standard;
         player = GetComponent<Player>();
-        //healthText = FindObjectOfType<HealthTextScript>();
+        healthText = FindObjectOfType<HealthTextScript>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         // healthText = FindObjectOfType<HealthTextScript>();
-        // UpdateHealthText();
+        UpdateHealthText();
+        ModifyCurrentStyle();
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
@@ -48,90 +49,64 @@ public class PlayerStatsScript : MonoBehaviour
                 player.PlayerDamageTaken(10.0f);
             }
         }
-        ModifyCurrentStyle();
-//        Debug.Log(playerStats.currentCharacterStyle);
     }
 
     public void UpdateHealthText()
     {
-        // if (healthText)
-        // {
-        //     healthText.TextMesh.text = playerStats.CurrentHealth.ToString();
-        // }
+        if (healthText)
+        {
+            healthText.TextMesh.text = pcStats.CurrentHealth.ToString();
+        }
     }
 
-    void ModifyCurrentStyle()
+    public void ModifyCurrentStyle()
     {
-        if (Input.GetButtonDown("Style Switch Up"))
+        Debug.Log(pcStats.currentCharacterStyle);
+        styleIndex = styleIndex + 1;
+        switch (styleIndex)
         {
-            styleIndex++;
-            switch (styleIndex)
-            {
-                case 1:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-                case 2:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-                    break;
-                case 3:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-                    break;
-                case 4:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-                    break;
-                case 5:
-                    styleIndex = 0;
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-            }
+            case 1:
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+                break;
+            case 2:
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
+                break;
+            case 3:
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
+                break;
+            case 4:
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
+                break;
+            case 5:
+                styleIndex = 0;
+                //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+                break;
+
         }
 
-        if (Input.GetButtonDown("Style Switch Down"))
-        {
-            styleIndex--;
-            switch (styleIndex)
-            {
-                case 1:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-                case 2:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-                    break;
-                case 3:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-                    break;
-                case 4:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-                    break;
-                case 5:
-                    styleIndex = 0;
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-            }
-        }
-        if (Input.GetAxisRaw("Style Switch") >= 0.75f)
-        {
-            styleIndex++;
-            switch (styleIndex)
-            {
-                case 1:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-                case 2:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-                    break;
-                case 3:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-                    break;
-                case 4:
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-                    break;
-                case 5:
-                    styleIndex = 0;
-                    playerStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                    break;
-            }
-        }
+
+        //     styleIndex--;
+        //     switch (styleIndex)
+        //     {
+        //         case 1:
+        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+        //             break;
+        //         case 2:
+        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
+        //             break;
+        //         case 3:
+        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
+        //             break;
+        //         case 4:
+        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
+        //             break;
+        //         case 5:
+        //             styleIndex = 0;
+        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+        //             break;
+        //     }
+
+
     }
 
 }

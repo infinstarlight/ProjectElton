@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem.Interactions;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class RigidbodyCharacterMovement_Test : MonoBehaviour
+public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 {
     public float MovementSpeed = 10.0f;
     public float SprintSpeed = 20.0f;
@@ -32,6 +33,7 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
     private Vector2 moveVector;
     float strafe;
     private float MoveX;
+    public bool bHoldSprint = false;
     private float MoveY;
 
     Vector3 dashVelocity;
@@ -48,8 +50,12 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
 
         myControls.gameplay.MoveRight.performed += OnMoveRight;
         myControls.gameplay.MoveUp.performed += OnMoveUp;
-
-
+        myControls.gameplay.Sprint.performed += OnSprint;
+        myControls.gameplay.Jump.performed += OnJump;
+        myControls.gameplay.SpecialAbility.performed += OnSpecialAbility;
+        myControls.gameplay.SpecialAbility.Enable();
+        myControls.gameplay.Sprint.Enable();
+        myControls.gameplay.Jump.Enable();
         myControls.gameplay.MoveRight.Enable();
         myControls.gameplay.MoveUp.Enable();
     }
@@ -57,7 +63,9 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
     void OnDisable()
     {
         myControls.Disable();
-
+        myControls.gameplay.Sprint.Disable();
+        myControls.gameplay.SpecialAbility.Disable();
+        myControls.gameplay.Jump.Disable();
         myControls.gameplay.MoveRight.Disable();
         myControls.gameplay.MoveUp.Disable();
     }
@@ -68,7 +76,7 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
         //pCon = GetComponentInChildren<PlayerController>();
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
-        //playerStats = GetComponent<PlayerStatsScript>();
+        playerStats = GetComponent<PlayerStatsScript>();
 
 
     }
@@ -77,7 +85,7 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
     void Start()
     {
         oldMovementSpeed = MovementSpeed;
-        //playerStats.currentSpecialAbility = PlayerStatsScript.ESpecialAbility.Dash;
+        playerStats.currentSpecialAbility = PlayerStatsScript.ESpecialAbility.Dash;
     }
 
     // Update is called once per frame
@@ -98,36 +106,63 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
-        // if (pCon.bEnableInput)
-        // {
-
-        //     if (Input.GetButtonDown("Jump"))
-        //     {
-        //         CurrentJumpCount++;
-        //         if (CurrentJumpCount <= MaxJumpCount)
-        //         {
-        //             rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
-        //         }
-        //     }
-        //     // if (Input.GetButtonDown("Special Ability"))
-        //     // {
-        //     //     if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
-        //     //     {
-        //     //         dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-        //     //         rb.AddForce(dashVelocity, ForceMode.VelocityChange);
-        //     //     }
-
-        //     // }
-        // }
+       
 
     }
 
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                {
+                    MovementSpeed = SprintSpeed;
+                }
+                break;
+
+            case InputActionPhase.Started:
+                {
+                    if (context.interaction is HoldInteraction)
+                    {
+                        if (bHoldSprint)
+                        {
+                            MovementSpeed = SprintSpeed;
+                        }
+                    }
+                }
+                break;
+            case InputActionPhase.Canceled:
+                {
+                    MovementSpeed = oldMovementSpeed;
+                }
+                break;
+        }
+    }
+
+    public void OnSpecialAbility(InputAction.CallbackContext context)
+    {
+        if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+                {
+                    dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+                    rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+                }
+    }
+
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        CurrentJumpCount++;
+        if (CurrentJumpCount <= MaxJumpCount)
+        {
+            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+        }
+    }
     public void OnMoveUp(InputAction.CallbackContext context)
     {
         var yValue = context.ReadValue<float>();
         //Debug.Log(yValue);
         translation = yValue * MovementSpeed * Time.deltaTime;
-        Debug.Log("Y value is: " + translation);
+        // Debug.Log("Y value is: " + translation);
 
     }
 
@@ -136,7 +171,7 @@ public class RigidbodyCharacterMovement_Test : MonoBehaviour
         var xValue = context.ReadValue<float>();
         //Debug.Log(xValue);
         strafe = xValue * MovementSpeed * Time.deltaTime;
-        Debug.Log("X value is: " + strafe);
+        //Debug.Log("X value is: " + strafe);
 
     }
 

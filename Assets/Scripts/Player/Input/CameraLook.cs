@@ -14,7 +14,7 @@ public class CameraLook : MonoBehaviour
     public float SmoothingRate = 2.0f;
 
     private GameObject PlayerCharacter;
-    private PlayerController pCon;
+    private InputSystem_PlayerController pCon;
     private Camera PlayerCamera;
     private bool bStartLockOn = false;
     Vector2 LookDirection;
@@ -33,7 +33,7 @@ public class CameraLook : MonoBehaviour
 
     void Awake()
     {
-        pCon = GetComponentInParent<PlayerController>();
+        pCon = GetComponentInParent<InputSystem_PlayerController>();
         PlayerCamera = Camera.main;
         PlayerCharacter = FindObjectOfType<Player>().gameObject;
     }

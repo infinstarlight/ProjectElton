@@ -1,44 +1,79 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.InputSystem.Interactions;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class InputSystem_PlayerController : MonoBehaviour
 {
-    public InputAction moveAction;
-    private RigidbodyCharacterMovement rbMovement;
-    private float MoveX;
-    private float MoveY;
-    private float LookX;
-    private float LookY;
-    GameInputControls myControls;
+
+
+    private InputSystem_RigidbodyCharacterMovement rbMovement;
+    private InputSystem_CameraLook cameraLook;
+    private InputSystem_PlayerCombatController combatController;
+    private GameInputControls myControls;
+    public PlayerStateScript playerState;
+    public bool bIsGamePaused = false;
+    public bool bEnableInput = true;
+    public GameObject PauseMenuGO;
+    void OnEnable()
+    {
+        rbMovement = GetComponentInParent<InputSystem_RigidbodyCharacterMovement>();
+        cameraLook = GetComponentInChildren<InputSystem_CameraLook>();
+        combatController = GetComponent<InputSystem_PlayerCombatController>();
+        if (myControls == null)
+        {
+            myControls = new GameInputControls();
+        }
+
+        myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
+        myControls.gameplay.MoveUp.performed += rbMovement.OnMoveUp;
+        myControls.gameplay.Sprint.performed += rbMovement.OnSprint;
+        myControls.gameplay.Jump.performed += rbMovement.OnJump;
+        myControls.gameplay.SpecialAbility.performed += rbMovement.OnSpecialAbility;
+        myControls.gameplay.StyleSwitchUp.performed += combatController.StyleSwitcher;
+        myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
+        myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
+        myControls.gameplay.SelectWeaponOne.Enable();
+        myControls.gameplay.SelectWeaponTwo.Enable();
+        myControls.gameplay.SpecialAbility.Enable();
+        myControls.gameplay.Sprint.Enable();
+        myControls.gameplay.Jump.Enable();
+        myControls.gameplay.MoveRight.Enable();
+        myControls.gameplay.MoveUp.Enable();
+        myControls.gameplay.StyleSwitchUp.Enable();
+    }
+
+    void OnDisable()
+    {
+        myControls.Disable();
+        myControls.gameplay.SelectWeaponOne.Disable();
+        myControls.gameplay.SelectWeaponTwo.Disable();
+        myControls.gameplay.Sprint.Disable();
+        myControls.gameplay.SpecialAbility.Disable();
+        myControls.gameplay.Jump.Disable();
+        myControls.gameplay.MoveRight.Disable();
+        myControls.gameplay.MoveUp.Disable();
+        myControls.gameplay.StyleSwitchUp.Disable();
+    }
 
     void Awake()
     {
-        myControls = new GameInputControls();
-        
-        rbMovement = GetComponentInParent<RigidbodyCharacterMovement>();
-        
-        moveAction.AddCompositeBinding("Axis").With("Positive","<Keyboard>/w").With("Negative","<Keyboard>/s");
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        playerState = GetComponentInChildren<PlayerStateScript>();
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
 
     }
-
     // Update is called once per frame
     void Update()
     {
-
+        if (PauseMenuGO == null)
+        {
+            PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        }
     }
 
-     public void OnMove(InputAction.CallbackContext context)
-    {
-        MoveX = context.ReadValue<float>();
-        MoveY = context.ReadValue<float>();
-    }
 
     void CheckForNewDevice()
     {
@@ -63,7 +98,7 @@ public class InputSystem_PlayerController : MonoBehaviour
                     // See InputDeviceChange reference for other event types.
                     break;
             }
-        }; 
+        };
     }
 
 

@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class PlayerUIController : MonoBehaviour
 {
-    private PlayerController pCon;
+    private InputSystem_PlayerController pCon;
     private GameObject PauseMenu;
     private ID_StyleSlider styleSliderScript;
 
     private void Awake()
     {
-        pCon = FindObjectOfType<PlayerController>();
+        pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
 
 
