@@ -416,7 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b99f73b9d7347209905b6e1dc70c0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 3520910308573500092}
+  currentWeapon: {fileID: 0}
   Weapons:
   - {fileID: 3520910308573500092}
   - {fileID: 4091321458380183419}
@@ -584,13 +584,81 @@ MonoBehaviour:
     m_ActionId: bcffbb1a-86d1-4779-851e-333caf745b1f
     m_ActionName: ui/Return[/Keyboard/backspace]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1152287524}
+        m_MethodName: OnGamePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0f6b9c69-6b37-49f3-a1a7-6976b1b91c86
     m_ActionName: gameplay/Pause[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 66a2b395-0075-4d46-9e91-77bcbb5151a2
     m_ActionName: gameplay/Character Menu[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1152287525}
+        m_MethodName: OnPrimaryWeaponSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fcc8f5c7-1392-4de8-a306-6c207f20192a
+    m_ActionName: gameplay/Select Weapon One[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1152287525}
+        m_MethodName: OnSecondWeaponSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bda868a3-2c20-43e5-91e9-7c9ea0faa2ae
+    m_ActionName: gameplay/Select Weapon Two[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 533008909}
+        m_MethodName: OnLockOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d5e41e2d-8138-4471-9d29-47ca04ba56b2
+    m_ActionName: gameplay/AltFire[/Mouse/rightButton,/Keyboard/rightAlt]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5dcc0afc-d3e9-46a7-a7c9-c9d90ba94100
+    m_ActionName: ui/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94830c29-7b16-403e-ad2a-cd85c44a1183
+    m_ActionName: ui/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f23be39-625b-46b6-a0ab-88f60901b6f6
+    m_ActionName: ui/Click[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: 4bc61230-eb0c-4413-8d72-0106f7a518e3
@@ -668,7 +736,9 @@ PrefabInstance:
       propertyPath: field of view
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2143988540467156294, guid: 126bcc64a34757144979400670e09997, type: 3}
+    - {fileID: 8247288255309188548, guid: 126bcc64a34757144979400670e09997, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 126bcc64a34757144979400670e09997, type: 3}
 --- !u!1 &3520910307646812889 stripped
 GameObject:

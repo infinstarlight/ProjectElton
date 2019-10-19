@@ -25,7 +25,7 @@ public class EventTest : MonoBehaviour
 
     void OnEnable ()
     {
-        AIEventManager.StartListening ("test", someListener);
+        //AIEventManager.StartListening ("test", someListener);
         AIEventManager.StartListening ("Spawn", SomeOtherFunction);
         AIEventManager.StartListening ("Destroy", SomeThirdFunction);
         AIEventManager.StartListening ("Damage",DamageListener);
@@ -34,7 +34,7 @@ public class EventTest : MonoBehaviour
 
     void OnDisable ()
     {
-        AIEventManager.StopListening ("test", someListener);
+        //AIEventManager.StopListening ("test", someListener);
         AIEventManager.StopListening ("Spawn", SomeOtherFunction);
         AIEventManager.StopListening ("Destroy", SomeThirdFunction);
         AIEventManager.StopListening ("Damage",DamageListener);

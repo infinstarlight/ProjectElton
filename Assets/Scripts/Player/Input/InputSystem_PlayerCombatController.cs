@@ -8,16 +8,19 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 {
     private PlayerStatsScript playerStats;
     public GameObject currentWeapon;
+    private AudioSource styleAudioSource;
+    public AudioClip[] styleClips;
 
     public GameObject[] Weapons;
     private PlayerWeapon weaponScript;
     private int styleIndex = 1;
-    //private PlayerController pCon;
+    
 
 
 
     void Awake()
     {
+        styleAudioSource = GetComponent<AudioSource>();
         playerStats = GetComponentInParent<PlayerStatsScript>();
         //pCon = GetComponent<PlayerController>();
         currentWeapon = Weapons[0];
@@ -44,13 +47,72 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
     }
 
-    public void StyleSwitcher(InputAction.CallbackContext context)
+    public void OnStyleSwitchDown(InputAction.CallbackContext context)
+    {
+        playerStats.ModifyCurrentStyleDown();
+                    switch (playerStats.pcStats.currentCharacterStyle)
+                    {
+                        case CharacterStats.ECharacterStyle.Offense:
+                        {
+                            styleAudioSource.clip = styleClips[0];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Defense:
+                        {
+                            styleAudioSource.clip = styleClips[1];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Speed:
+                        {
+                            styleAudioSource.clip = styleClips[2];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Regen:
+                        {
+                            styleAudioSource.clip = styleClips[3];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                    }
+    }
+
+    public void OnStyleSwitchUp(InputAction.CallbackContext context)
     {
         switch (context.phase)
         {
             case InputActionPhase.Performed:
                 {
-                    playerStats.ModifyCurrentStyle();
+                    playerStats.ModifyCurrentStyleUp();
+                    switch (playerStats.pcStats.currentCharacterStyle)
+                    {
+                        case CharacterStats.ECharacterStyle.Offense:
+                        {
+                            styleAudioSource.clip = styleClips[0];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Defense:
+                        {
+                            styleAudioSource.clip = styleClips[1];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Speed:
+                        {
+                            styleAudioSource.clip = styleClips[2];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                        case CharacterStats.ECharacterStyle.Regen:
+                        {
+                            styleAudioSource.clip = styleClips[3];
+                            styleAudioSource.PlayOneShot(styleAudioSource.clip);
+                        }
+                        break;
+                    }
                 }
                 break;
             case InputActionPhase.Canceled:
@@ -76,13 +138,30 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 {
                     if (context.interaction is HoldInteraction)
                     {
-                        weaponScript.StartCoroutine(weaponScript.AutoFire());
+                        if(!weaponScript.bIsChargeWeapon)
+                        {
+                            weaponScript.StartCoroutine(weaponScript.AutoFire());
+                        }
+                        else
+                        {
+                            weaponScript.StartCoroutine(weaponScript.ChargeShot());
+                        }
+                        
                     }
                 }
                 break;
             case InputActionPhase.Canceled:
                 {
-                    weaponScript.StopCoroutine(weaponScript.AutoFire());
+                    if(!weaponScript.bIsChargeWeapon)
+                    {
+                        weaponScript.StopCoroutine(weaponScript.AutoFire());
+                    }
+                    else
+                    {
+                        weaponScript.StopCoroutine(weaponScript.ChargeShot());
+                        weaponScript.FireChargedShot();
+                    }
+                    
                 }
                 break;
         }
@@ -110,5 +189,16 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         weaponScript = Weapons[1].GetComponent<PlayerWeapon>();
         currentWeapon = Weapons[1];
 
+    }
+
+    public void OnThirdWeaponSelect(InputAction.CallbackContext context)
+    {
+        if(currentWeapon != Weapons[2])
+        {
+            currentWeapon.SetActive(false);
+        }
+        Weapons[2].SetActive(true);
+        weaponScript = Weapons[2].GetComponent<PlayerWeapon>();
+        currentWeapon = Weapons[2];
     }
 }

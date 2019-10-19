@@ -14,7 +14,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     public float SmoothingRate = 2.0f;
 
     private GameObject PlayerCharacter;
-    private PlayerController pCon;
+    private InputSystem_PlayerController pCon;
     private Camera PlayerCamera;
     private bool bStartLockOn = false;
     Vector2 LookDirection;
@@ -29,11 +29,11 @@ public class InputSystem_CameraLook : MonoBehaviour
     public float ZoomFOV = 65.0f;
     float newFOV;
     public float lockOnRadius = 24f;
-    private float m_Look;
+
 
     void Awake()
     {
-        //pCon = GetComponentInParent<PlayerController>();
+        pCon = GetComponentInParent<InputSystem_PlayerController>();
         PlayerCamera = Camera.main;
         PlayerCharacter = FindObjectOfType<Player>().gameObject;
     }
@@ -49,8 +49,8 @@ public class InputSystem_CameraLook : MonoBehaviour
     {
         // if (pCon.bEnableInput)
         // {
-            ///Commenting this line causes right angle turns, almost like Time Crisis
-            PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, PlayerCharacter.transform.up);
+        ///Commenting this line causes right angle turns, almost like Time Crisis
+        PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, PlayerCharacter.transform.up);
         //}
         if (Input.GetButtonDown("AltAttack"))
         {
@@ -60,11 +60,7 @@ public class InputSystem_CameraLook : MonoBehaviour
         if (Input.GetButtonUp("AltAttack"))
         {
             bStartLockOn = false;
-            if (currentEnemy)
-            {
-                currentEnemy.enemyUIController.bIsTargeted = false;
-                currentEnemy = null;
-            }
+
         }
 
         //PlayerCamera.fieldOfView
@@ -78,12 +74,33 @@ public class InputSystem_CameraLook : MonoBehaviour
         lookInput = lookValue;
     }
 
+    public void OnLockOn(InputAction.CallbackContext context)
+    {
+        bStartLockOn = !bStartLockOn;
+
+    }
+    public void OnLockOnStop(InputAction.CallbackContext context)
+    {
+        bStartLockOn = false;
+        if (currentEnemy)
+        {
+            currentEnemy.enemyUIController.bIsTargeted = false;
+            currentEnemy = null;
+        }
+    }
+
+    public void OnZoom(InputAction.CallbackContext context)
+    {
+        var zoomValue = context.ReadValue<float>();
+        newFOV = zoomValue * 10.0f;
+    }
+
 
 
     private void LateUpdate()
     {
-        // if (pCon.bEnableInput)
-        // {
+        if (pCon.bEnableInput)
+        {
             //This section of code was originally done by someone(s) else, I cannot find where at this time, will update when found
             LookDirection = new Vector2(lookInput.x, lookInput.y);
             PlayerCamera.transform.localEulerAngles = new Vector3(LookDirection.x, PlayerCamera.transform.localEulerAngles.y, PlayerCamera.transform.localEulerAngles.z);
@@ -95,15 +112,15 @@ public class InputSystem_CameraLook : MonoBehaviour
             mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
 
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
-            //}
 
 
-            newFOV = Input.GetAxis("Zoom") * 10.0f;
+
+            //newFOV = Input.GetAxis("Zoom") * 10.0f;
             LockOn();
             PlayerCamera.fieldOfView += newFOV;
             PlayerCamera.fieldOfView = Mathf.Clamp(PlayerCamera.fieldOfView, ZoomFOV, DefaultFOV);
 
-        //}
+        }
     }
 
     void LockOn()

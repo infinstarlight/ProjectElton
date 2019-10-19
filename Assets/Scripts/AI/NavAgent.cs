@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
@@ -28,6 +27,7 @@ public class NavAgent : MonoBehaviour
 
     public void FindDestination()
     {
+        //TODO: May need to implement state machine code to better handle runtime navigation
         if (!bIsTrackingPlayer)
         {
             newTravelPosition = myNavPoints[NavIndex].transform.position;
@@ -39,7 +39,7 @@ public class NavAgent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log(other.gameObject);
+
         ++NavIndex;
 
         if (NavIndex >= myNavPoints.Capacity)

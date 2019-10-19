@@ -61,6 +61,13 @@ public class AIControllerBase : MonoBehaviour
                 else
                 {
                     bIsPlayerVisible = false;
+                    if (myNavAgent.bIsTrackingPlayer)
+                    {
+                        myNavAgent.bIsTrackingPlayer = false;
+
+                    }
+                    
+                    //myNavAgent.FindDestination();
 
                 }
             }

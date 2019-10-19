@@ -11,14 +11,19 @@ public class CharacterStats : MonoBehaviour
         Offense,
         Defense,
         Speed,
-        Regen
+        Regen,
+        Special
     }
+    [Header("Character Health")]
     public float CurrentHealth;
     public float MaxHealth = 100;
+    public float healthPercentage = 0.0f;
+
+    [Header("Damage & Death")]
     public bool bIsDead = false;
     public bool bCanTakeDamage = true;
 
-    public float healthPercentage;
+    [Header("Special Info")]
     public ECharacterStyle currentCharacterStyle;
 
     public string CharacterName;
@@ -26,6 +31,7 @@ public class CharacterStats : MonoBehaviour
     void Awake()
     {
         CurrentHealth = MaxHealth;
+        
     }
     // Start is called before the first frame update
     void Start()

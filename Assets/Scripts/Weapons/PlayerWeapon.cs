@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerWeapon : Weapon
 {
     //private bool bIsFiring = false;
-    private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
+    //private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
     private Camera PlayerCamera;
    
@@ -53,16 +53,12 @@ public class PlayerWeapon : Weapon
         }
     }
 
-    // private IEnumerator ShotEffect()
-    // {
-    //     weaponAudio.clip = WeaponSounds[1];
-    //     // Play the shooting sound effect
-    //     weaponAudio.PlayOneShot(weaponAudio.clip);
-
-
-    //     //Wait for .07 seconds
-    //     yield return shotDuration;
-    // }
+   public void FireChargedShot()
+   {
+       DamageAmount *= CurrentChargeTime;
+       Fire();
+       DamageAmount = oldDamageAmount;
+   }
 
     public IEnumerator AutoFire()
     {

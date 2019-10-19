@@ -11,7 +11,15 @@
                     "id": "5d90ba52-c2ff-4baf-88d4-73c530aac37a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press,Press(pressPoint=1,behavior=2)"
+                },
+                {
+                    "name": "AltFire",
+                    "type": "Button",
+                    "id": "d5e41e2d-8138-4471-9d29-47ca04ba56b2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 },
                 {
                     "name": "MoveUp",
@@ -70,6 +78,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Style Switch Down",
+                    "type": "Button",
+                    "id": "32a0a6e6-4f45-4249-89a0-3053f9bcec39",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "0f6b9c69-6b37-49f3-a1a7-6976b1b91c86",
@@ -98,6 +114,22 @@
                     "type": "Button",
                     "id": "bda868a3-2c20-43e5-91e9-7c9ea0faa2ae",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Select Weapon Three",
+                    "type": "Button",
+                    "id": "4e682c50-e098-43c4-984d-b36a32757fef",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "cee16f88-85e2-497a-9502-3ee52b03dcea",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
                 }
@@ -432,6 +464,83 @@
                     "action": "Select Weapon Two",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "612a6aa1-8dc6-4a28-b5a5-3ded654448ec",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "AltFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b04cd459-8616-4aaf-9ce2-1952cf6acb77",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AltFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce98fa7e-36dc-4a1b-a222-d691f0c7dd70",
+                    "path": "<Keyboard>/rightAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AltFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55a342c9-cfca-4fb6-ada5-aa48193925f7",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88069a39-5f9c-415f-ab83-bbf84fec24dd",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Select Weapon Three",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fc91609-0274-44d1-ba1c-5440fab36811",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Style Switch Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c777fc48-ddb1-4759-b92c-0876a1198833",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Style Switch Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -448,8 +557,32 @@
                     "interactions": ""
                 },
                 {
+                    "name": "MiddleClick",
+                    "type": "PassThrough",
+                    "id": "5dcc0afc-d3e9-46a7-a7c9-c9d90ba94100",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RightClick",
+                    "type": "PassThrough",
+                    "id": "94830c29-7b16-403e-ad2a-cd85c44a1183",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Click",
+                    "type": "PassThrough",
+                    "id": "2f23be39-625b-46b6-a0ab-88f60901b6f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pointer",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "03b0c819-94c8-4c2d-b71a-7588023ba1b6",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -665,6 +798,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "Return",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fd81cc7-6b8f-4810-9d7c-ed96d79b82bb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe34a3fa-5425-4d29-9956-a743449a3268",
+                    "path": "<Pen>/tip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8135aebb-1be4-40a0-adc7-76599cb1a506",
+                    "path": "<Touchscreen>/touch*/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "649e2192-4c74-43e0-9651-17923ab82a01",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RightClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "327de879-f33d-4361-bf90-0c658f2f0024",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MiddleClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -24,7 +24,15 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""5d90ba52-c2ff-4baf-88d4-73c530aac37a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press(behavior=2)""
+                    ""interactions"": ""Press,Press(pressPoint=1,behavior=2)""
+                },
+                {
+                    ""name"": ""AltFire"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5e41e2d-8138-4471-9d29-47ca04ba56b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""MoveUp"",
@@ -83,6 +91,14 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Style Switch Down"",
+                    ""type"": ""Button"",
+                    ""id"": ""32a0a6e6-4f45-4249-89a0-3053f9bcec39"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press""
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""0f6b9c69-6b37-49f3-a1a7-6976b1b91c86"",
@@ -111,6 +127,22 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""bda868a3-2c20-43e5-91e9-7c9ea0faa2ae"",
                     ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select Weapon Three"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e682c50-e098-43c4-984d-b36a32757fef"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""cee16f88-85e2-497a-9502-3ee52b03dcea"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -445,6 +477,83 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Select Weapon Two"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""612a6aa1-8dc6-4a28-b5a5-3ded654448ec"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""AltFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b04cd459-8616-4aaf-9ce2-1952cf6acb77"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""AltFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce98fa7e-36dc-4a1b-a222-d691f0c7dd70"",
+                    ""path"": ""<Keyboard>/rightAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AltFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55a342c9-cfca-4fb6-ada5-aa48193925f7"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88069a39-5f9c-415f-ab83-bbf84fec24dd"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Select Weapon Three"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fc91609-0274-44d1-ba1c-5440fab36811"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Style Switch Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c777fc48-ddb1-4759-b92c-0876a1198833"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Style Switch Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -461,8 +570,32 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""MiddleClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""5dcc0afc-d3e9-46a7-a7c9-c9d90ba94100"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""94830c29-7b16-403e-ad2a-cd85c44a1183"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2f23be39-625b-46b6-a0ab-88f60901b6f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Pointer"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""03b0c819-94c8-4c2d-b71a-7588023ba1b6"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -680,6 +813,61 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Return"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0fd81cc7-6b8f-4810-9d7c-ed96d79b82bb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fe34a3fa-5425-4d29-9956-a743449a3268"",
+                    ""path"": ""<Pen>/tip"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8135aebb-1be4-40a0-adc7-76599cb1a506"",
+                    ""path"": ""<Touchscreen>/touch*/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""649e2192-4c74-43e0-9651-17923ab82a01"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""327de879-f33d-4361-bf90-0c658f2f0024"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MiddleClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -717,6 +905,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
         // gameplay
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_Fire = m_gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_gameplay_AltFire = m_gameplay.FindAction("AltFire", throwIfNotFound: true);
         m_gameplay_MoveUp = m_gameplay.FindAction("MoveUp", throwIfNotFound: true);
         m_gameplay_MoveRight = m_gameplay.FindAction("MoveRight", throwIfNotFound: true);
         m_gameplay_Look = m_gameplay.FindAction("Look", throwIfNotFound: true);
@@ -724,13 +913,19 @@ public class GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_Sprint = m_gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_gameplay_SpecialAbility = m_gameplay.FindAction("Special Ability", throwIfNotFound: true);
         m_gameplay_StyleSwitchUp = m_gameplay.FindAction("Style Switch Up", throwIfNotFound: true);
+        m_gameplay_StyleSwitchDown = m_gameplay.FindAction("Style Switch Down", throwIfNotFound: true);
         m_gameplay_Pause = m_gameplay.FindAction("Pause", throwIfNotFound: true);
         m_gameplay_CharacterMenu = m_gameplay.FindAction("Character Menu", throwIfNotFound: true);
         m_gameplay_SelectWeaponOne = m_gameplay.FindAction("Select Weapon One", throwIfNotFound: true);
         m_gameplay_SelectWeaponTwo = m_gameplay.FindAction("Select Weapon Two", throwIfNotFound: true);
+        m_gameplay_SelectWeaponThree = m_gameplay.FindAction("Select Weapon Three", throwIfNotFound: true);
+        m_gameplay_Zoom = m_gameplay.FindAction("Zoom", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Confirm = m_ui.FindAction("Confirm", throwIfNotFound: true);
+        m_ui_MiddleClick = m_ui.FindAction("MiddleClick", throwIfNotFound: true);
+        m_ui_RightClick = m_ui.FindAction("RightClick", throwIfNotFound: true);
+        m_ui_Click = m_ui.FindAction("Click", throwIfNotFound: true);
         m_ui_Pointer = m_ui.FindAction("Pointer", throwIfNotFound: true);
         m_ui_Navigate = m_ui.FindAction("Navigate", throwIfNotFound: true);
         m_ui_Scroll = m_ui.FindAction("Scroll", throwIfNotFound: true);
@@ -785,6 +980,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
     private readonly InputAction m_gameplay_Fire;
+    private readonly InputAction m_gameplay_AltFire;
     private readonly InputAction m_gameplay_MoveUp;
     private readonly InputAction m_gameplay_MoveRight;
     private readonly InputAction m_gameplay_Look;
@@ -792,15 +988,19 @@ public class GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_Sprint;
     private readonly InputAction m_gameplay_SpecialAbility;
     private readonly InputAction m_gameplay_StyleSwitchUp;
+    private readonly InputAction m_gameplay_StyleSwitchDown;
     private readonly InputAction m_gameplay_Pause;
     private readonly InputAction m_gameplay_CharacterMenu;
     private readonly InputAction m_gameplay_SelectWeaponOne;
     private readonly InputAction m_gameplay_SelectWeaponTwo;
+    private readonly InputAction m_gameplay_SelectWeaponThree;
+    private readonly InputAction m_gameplay_Zoom;
     public struct GameplayActions
     {
         private GameInputControls m_Wrapper;
         public GameplayActions(GameInputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Fire => m_Wrapper.m_gameplay_Fire;
+        public InputAction @AltFire => m_Wrapper.m_gameplay_AltFire;
         public InputAction @MoveUp => m_Wrapper.m_gameplay_MoveUp;
         public InputAction @MoveRight => m_Wrapper.m_gameplay_MoveRight;
         public InputAction @Look => m_Wrapper.m_gameplay_Look;
@@ -808,10 +1008,13 @@ public class GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Sprint => m_Wrapper.m_gameplay_Sprint;
         public InputAction @SpecialAbility => m_Wrapper.m_gameplay_SpecialAbility;
         public InputAction @StyleSwitchUp => m_Wrapper.m_gameplay_StyleSwitchUp;
+        public InputAction @StyleSwitchDown => m_Wrapper.m_gameplay_StyleSwitchDown;
         public InputAction @Pause => m_Wrapper.m_gameplay_Pause;
         public InputAction @CharacterMenu => m_Wrapper.m_gameplay_CharacterMenu;
         public InputAction @SelectWeaponOne => m_Wrapper.m_gameplay_SelectWeaponOne;
         public InputAction @SelectWeaponTwo => m_Wrapper.m_gameplay_SelectWeaponTwo;
+        public InputAction @SelectWeaponThree => m_Wrapper.m_gameplay_SelectWeaponThree;
+        public InputAction @Zoom => m_Wrapper.m_gameplay_Zoom;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -824,6 +1027,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Fire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 Fire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
                 Fire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnFire;
+                AltFire.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAltFire;
+                AltFire.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAltFire;
+                AltFire.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnAltFire;
                 MoveUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveUp;
                 MoveUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveUp;
                 MoveUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMoveUp;
@@ -845,6 +1051,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 StyleSwitchUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
                 StyleSwitchUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
                 StyleSwitchUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
+                StyleSwitchDown.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
+                StyleSwitchDown.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
+                StyleSwitchDown.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
                 Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -857,6 +1066,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 SelectWeaponTwo.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponTwo;
                 SelectWeaponTwo.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponTwo;
                 SelectWeaponTwo.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponTwo;
+                SelectWeaponThree.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponThree;
+                SelectWeaponThree.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponThree;
+                SelectWeaponThree.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectWeaponThree;
+                Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -864,6 +1079,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Fire.started += instance.OnFire;
                 Fire.performed += instance.OnFire;
                 Fire.canceled += instance.OnFire;
+                AltFire.started += instance.OnAltFire;
+                AltFire.performed += instance.OnAltFire;
+                AltFire.canceled += instance.OnAltFire;
                 MoveUp.started += instance.OnMoveUp;
                 MoveUp.performed += instance.OnMoveUp;
                 MoveUp.canceled += instance.OnMoveUp;
@@ -885,6 +1103,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 StyleSwitchUp.started += instance.OnStyleSwitchUp;
                 StyleSwitchUp.performed += instance.OnStyleSwitchUp;
                 StyleSwitchUp.canceled += instance.OnStyleSwitchUp;
+                StyleSwitchDown.started += instance.OnStyleSwitchDown;
+                StyleSwitchDown.performed += instance.OnStyleSwitchDown;
+                StyleSwitchDown.canceled += instance.OnStyleSwitchDown;
                 Pause.started += instance.OnPause;
                 Pause.performed += instance.OnPause;
                 Pause.canceled += instance.OnPause;
@@ -897,6 +1118,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 SelectWeaponTwo.started += instance.OnSelectWeaponTwo;
                 SelectWeaponTwo.performed += instance.OnSelectWeaponTwo;
                 SelectWeaponTwo.canceled += instance.OnSelectWeaponTwo;
+                SelectWeaponThree.started += instance.OnSelectWeaponThree;
+                SelectWeaponThree.performed += instance.OnSelectWeaponThree;
+                SelectWeaponThree.canceled += instance.OnSelectWeaponThree;
+                Zoom.started += instance.OnZoom;
+                Zoom.performed += instance.OnZoom;
+                Zoom.canceled += instance.OnZoom;
             }
         }
     }
@@ -906,6 +1133,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_ui;
     private IUiActions m_UiActionsCallbackInterface;
     private readonly InputAction m_ui_Confirm;
+    private readonly InputAction m_ui_MiddleClick;
+    private readonly InputAction m_ui_RightClick;
+    private readonly InputAction m_ui_Click;
     private readonly InputAction m_ui_Pointer;
     private readonly InputAction m_ui_Navigate;
     private readonly InputAction m_ui_Scroll;
@@ -915,6 +1145,9 @@ public class GameInputControls : IInputActionCollection, IDisposable
         private GameInputControls m_Wrapper;
         public UiActions(GameInputControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Confirm => m_Wrapper.m_ui_Confirm;
+        public InputAction @MiddleClick => m_Wrapper.m_ui_MiddleClick;
+        public InputAction @RightClick => m_Wrapper.m_ui_RightClick;
+        public InputAction @Click => m_Wrapper.m_ui_Click;
         public InputAction @Pointer => m_Wrapper.m_ui_Pointer;
         public InputAction @Navigate => m_Wrapper.m_ui_Navigate;
         public InputAction @Scroll => m_Wrapper.m_ui_Scroll;
@@ -931,6 +1164,15 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Confirm.started -= m_Wrapper.m_UiActionsCallbackInterface.OnConfirm;
                 Confirm.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnConfirm;
                 Confirm.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnConfirm;
+                MiddleClick.started -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
+                MiddleClick.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
+                MiddleClick.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
+                RightClick.started -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
+                RightClick.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
+                RightClick.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
+                Click.started -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
+                Click.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
+                Click.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
                 Pointer.started -= m_Wrapper.m_UiActionsCallbackInterface.OnPointer;
                 Pointer.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnPointer;
                 Pointer.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnPointer;
@@ -950,6 +1192,15 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Confirm.started += instance.OnConfirm;
                 Confirm.performed += instance.OnConfirm;
                 Confirm.canceled += instance.OnConfirm;
+                MiddleClick.started += instance.OnMiddleClick;
+                MiddleClick.performed += instance.OnMiddleClick;
+                MiddleClick.canceled += instance.OnMiddleClick;
+                RightClick.started += instance.OnRightClick;
+                RightClick.performed += instance.OnRightClick;
+                RightClick.canceled += instance.OnRightClick;
+                Click.started += instance.OnClick;
+                Click.performed += instance.OnClick;
+                Click.canceled += instance.OnClick;
                 Pointer.started += instance.OnPointer;
                 Pointer.performed += instance.OnPointer;
                 Pointer.canceled += instance.OnPointer;
@@ -987,6 +1238,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
     public interface IGameplayActions
     {
         void OnFire(InputAction.CallbackContext context);
+        void OnAltFire(InputAction.CallbackContext context);
         void OnMoveUp(InputAction.CallbackContext context);
         void OnMoveRight(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
@@ -994,14 +1246,20 @@ public class GameInputControls : IInputActionCollection, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnSpecialAbility(InputAction.CallbackContext context);
         void OnStyleSwitchUp(InputAction.CallbackContext context);
+        void OnStyleSwitchDown(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCharacterMenu(InputAction.CallbackContext context);
         void OnSelectWeaponOne(InputAction.CallbackContext context);
         void OnSelectWeaponTwo(InputAction.CallbackContext context);
+        void OnSelectWeaponThree(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {
         void OnConfirm(InputAction.CallbackContext context);
+        void OnMiddleClick(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
         void OnPointer(InputAction.CallbackContext context);
         void OnNavigate(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);

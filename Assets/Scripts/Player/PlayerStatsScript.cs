@@ -12,7 +12,7 @@ public class PlayerStatsScript : MonoBehaviour
         Booster,
     }
     private HealthTextScript healthText;
-    private CharacterStats pcStats;
+    public CharacterStats pcStats;
     private Player player;
     public ESpecialAbility currentSpecialAbility;
     private int styleIndex = 0;
@@ -25,6 +25,7 @@ public class PlayerStatsScript : MonoBehaviour
         pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Standard;
         player = GetComponent<Player>();
         healthText = FindObjectOfType<HealthTextScript>();
+
     }
 
     // Start is called before the first frame update
@@ -32,7 +33,7 @@ public class PlayerStatsScript : MonoBehaviour
     {
         // healthText = FindObjectOfType<HealthTextScript>();
         UpdateHealthText();
-        ModifyCurrentStyle();
+        ModifyCurrentStyleUp();
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
@@ -49,6 +50,10 @@ public class PlayerStatsScript : MonoBehaviour
                 player.PlayerDamageTaken(10.0f);
             }
         }
+        if (styleIndex <= 0)
+        {
+            styleIndex = 1;
+        }
     }
 
     public void UpdateHealthText()
@@ -59,22 +64,26 @@ public class PlayerStatsScript : MonoBehaviour
         }
     }
 
-    public void ModifyCurrentStyle()
+    public void ModifyCurrentStyleUp()
     {
         Debug.Log(pcStats.currentCharacterStyle);
         styleIndex = styleIndex + 1;
         switch (styleIndex)
         {
             case 1:
+                styleIndex = 1;
                 pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
                 break;
             case 2:
+                styleIndex = 2;
                 pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
                 break;
             case 3:
+                styleIndex = 3;
                 pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
                 break;
             case 4:
+                styleIndex = 4;
                 pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
                 break;
             case 5:
@@ -85,28 +94,37 @@ public class PlayerStatsScript : MonoBehaviour
         }
 
 
-        //     styleIndex--;
-        //     switch (styleIndex)
-        //     {
-        //         case 1:
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-        //             break;
-        //         case 2:
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-        //             break;
-        //         case 3:
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-        //             break;
-        //         case 4:
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-        //             break;
-        //         case 5:
-        //             styleIndex = 0;
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-        //             break;
-        //     }
 
 
+
+    }
+
+    public void ModifyCurrentStyleDown()
+    {
+        styleIndex = styleIndex - 1;
+        switch (styleIndex)
+        {
+            case 1:
+                styleIndex = 1;
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+                break;
+            case 2:
+                styleIndex = 2;
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
+                break;
+            case 3:
+                styleIndex = 3;
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
+                break;
+            case 4:
+                styleIndex = 4;
+                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
+                break;
+            // case 5:
+            //     styleIndex = 1;
+            //     //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
+            //     break;
+        }
     }
 
 }
