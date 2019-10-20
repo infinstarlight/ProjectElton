@@ -5,10 +5,9 @@ using UnityEngine;
 public class InputSystem_PlayerController : MonoBehaviour
 {
 
-
-    private InputSystem_RigidbodyCharacterMovement rbMovement;
-    private InputSystem_CameraLook cameraLook;
-    private InputSystem_PlayerCombatController combatController;
+    public InputSystem_RigidbodyCharacterMovement rbMovement;
+    public InputSystem_CameraLook cameraLook;
+    public InputSystem_PlayerCombatController combatController;
     private GameInputControls myControls;
     public PlayerStateScript playerState;
     public bool bIsGamePaused = false;

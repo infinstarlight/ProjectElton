@@ -6,11 +6,12 @@ using UnityEngine;
 public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
+    
     private SaveManager GetSaveManager;
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
-    private PlayerController pCon;
+    public InputSystem_PlayerController pCon;
 
     public float StyleDamageMod = 2.5f;
 
@@ -29,7 +30,7 @@ public class Player : Character
     {
         GetSaveManager = FindObjectOfType<SaveManager>();
         bShouldDestroyOnDeath = false;
-        pCon = GetComponentInChildren<PlayerController>();
+        pCon = GetComponentInChildren<InputSystem_PlayerController>();
         playerState = GetComponentInChildren<PlayerStateScript>();
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
@@ -55,11 +56,11 @@ public class Player : Character
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha8))
         {
             GetSaveManager.SavePlayerData();
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if(Input.GetKeyDown(KeyCode.Alpha9))
         {
             GetSaveManager.LoadPlayerData();
         }
