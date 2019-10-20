@@ -24,7 +24,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""5d90ba52-c2ff-4baf-88d4-73c530aac37a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press,Press(pressPoint=1,behavior=2)""
+                    ""interactions"": """"
                 },
                 {
                     ""name"": ""AltFire"",
@@ -152,7 +152,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""0e60d367-2c42-435a-88dc-3b2a550e192e"",
                     ""path"": ""<Gamepad>/rightShoulder"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Fire"",

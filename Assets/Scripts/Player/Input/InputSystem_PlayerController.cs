@@ -104,6 +104,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.MoveUp.performed += rbMovement.OnMoveUp;
         myControls.gameplay.Sprint.performed += rbMovement.OnSprint;
         myControls.gameplay.Jump.performed += rbMovement.OnJump;
+        myControls.gameplay.Fire.performed += combatController.OnFire;
         myControls.gameplay.AltFire.performed += cameraLook.OnLockOn;
         myControls.gameplay.AltFire.canceled += cameraLook.OnLockOnStop;
         myControls.gameplay.SpecialAbility.performed += rbMovement.OnSpecialAbility;
@@ -112,6 +113,9 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
         myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
         myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
+        myControls.gameplay.Look.performed += cameraLook.OnLook;
+        myControls.gameplay.Fire.Enable();
+        myControls.gameplay.Look.Enable();
         myControls.gameplay.Pause.Enable();
         myControls.gameplay.CharacterMenu.Enable();
         myControls.gameplay.AltFire.Enable();
@@ -129,6 +133,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     void DisableGameControls()
     {
         myControls.Disable();
+        myControls.gameplay.Fire.Disable();
+        myControls.gameplay.Look.Disable();
         myControls.gameplay.CharacterMenu.Disable();
         myControls.gameplay.SelectWeaponOne.Disable();
         myControls.gameplay.AltFire.Disable();

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
+    private SaveManager GetSaveManager;
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
@@ -16,15 +17,17 @@ public class Player : Character
     private static Player instance = null;
     public static Player Instance { get { return instance; } }
 
-    // void Awake()
-    // {
-    //     //source = GetComponent<AudioSource>();
-    //     //PlayerStats = GetComponent<PlayerStatsScript>();
-    // }
+    void PlayerAwake()
+    {
+        // playerSource = GetComponent<AudioSource>();
+        // PlayerStats = GetComponent<PlayerStatsScript>();
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        GetSaveManager = FindObjectOfType<SaveManager>();
         bShouldDestroyOnDeath = false;
         pCon = GetComponentInChildren<PlayerController>();
         playerState = GetComponentInChildren<PlayerStateScript>();
@@ -45,21 +48,22 @@ public class Player : Character
 
         }
         PlayerStats.UpdateHealthText();
-        // playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
-        // if (playerUI == null)
-        // {
-        //     var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
-        //     Instantiate(StatGO);
-        //     playerUI = StatGO;
-        // }
+        playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
 
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    // Update is called once per frame
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            GetSaveManager.SavePlayerData();
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            GetSaveManager.LoadPlayerData();
+        }
+    }
 
     public void PlayerDamageTaken(float damageTaken)
     {

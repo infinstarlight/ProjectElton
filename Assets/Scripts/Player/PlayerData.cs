@@ -6,6 +6,7 @@ public class PlayerData
 {
     public float health;
     public float[] position;
+    
 
     public PlayerData(Player player)
     {
