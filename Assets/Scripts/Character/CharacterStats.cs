@@ -7,12 +7,12 @@ public class CharacterStats : MonoBehaviour
 
     public enum ECharacterStyle
     {
-        Standard,
-        Offense,
-        Defense,
-        Speed,
-        Regen,
-        Special
+        Standard = 0,
+        Offense = 1,
+        Defense = 2,
+        Speed = 3,
+        Regen = 4,
+        Special = 5
     }
     [Header("Character Health")]
     public float CurrentHealth;

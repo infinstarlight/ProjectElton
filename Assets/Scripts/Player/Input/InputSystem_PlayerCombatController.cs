@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InputSystem_PlayerCombatController : MonoBehaviour
 {
-    private PlayerStatsScript playerStats;
+    public PlayerStatsScript playerStats;
     public GameObject currentWeapon;
     private AudioSource styleAudioSource;
     public AudioClip[] styleClips;
@@ -22,7 +22,6 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     {
         styleAudioSource = GetComponent<AudioSource>();
         playerStats = GetComponentInParent<PlayerStatsScript>();
-        //pCon = GetComponent<PlayerController>();
         currentWeapon = Weapons[0];
         Weapons[1].gameObject.SetActive(false);
         weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
@@ -32,7 +31,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //If we can get the right GameObject, but not the right PlayerScript reference
         if (currentWeapon.GetComponent<PlayerWeapon>())
         {
             if (weaponScript == null)
@@ -40,11 +39,6 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
             }
         }
-    }
-
-    void FindPrimaryWeapon()
-    {
-
     }
 
     public void OnStyleSwitchDown(InputAction.CallbackContext context)
@@ -124,6 +118,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
     }
 
+    //Thanks to the new Input System
     public void OnFire(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -166,7 +161,8 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 break;
         }
     }
-
+    //These functions are all basically the same, but for the sake of laziness - they are all separate for now
+#region Weapon Selection
     public void OnPrimaryWeaponSelect(InputAction.CallbackContext context)
     {
         if (currentWeapon != Weapons[0])
@@ -201,4 +197,6 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         weaponScript = Weapons[2].GetComponent<PlayerWeapon>();
         currentWeapon = Weapons[2];
     }
+
+    #endregion
 }

@@ -14,6 +14,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     public bool bIsGamePaused = false;
     public bool bEnableInput = true;
     public GameObject PauseMenuGO;
+    public GameObject CharMenuGO;
+    public PlayerStatsScript playerStats;
     void OnEnable()
     {
         EnableGameControls();
@@ -26,20 +28,26 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Awake()
     {
+        playerStats = GetComponentInParent<PlayerStatsScript>();
         playerState = GetComponentInChildren<PlayerStateScript>();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
 
     }
     // Update is called once per frame
     void Update()
     {
-        if (PauseMenuGO == null)
+        if (!PauseMenuGO)
         {
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        }
+        if (!CharMenuGO)
+        {
+            CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         }
     }
 
@@ -91,6 +99,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         }
 
         myControls.gameplay.Pause.performed += OnGamePause;
+        myControls.gameplay.CharacterMenu.performed += OnCharMenu;
         myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
         myControls.gameplay.MoveUp.performed += rbMovement.OnMoveUp;
         myControls.gameplay.Sprint.performed += rbMovement.OnSprint;
@@ -104,6 +113,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
         myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
         myControls.gameplay.Pause.Enable();
+        myControls.gameplay.CharacterMenu.Enable();
         myControls.gameplay.AltFire.Enable();
         myControls.gameplay.SelectWeaponOne.Enable();
         myControls.gameplay.SelectWeaponTwo.Enable();
@@ -119,6 +129,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     void DisableGameControls()
     {
         myControls.Disable();
+        myControls.gameplay.CharacterMenu.Disable();
         myControls.gameplay.SelectWeaponOne.Disable();
         myControls.gameplay.AltFire.Disable();
         myControls.gameplay.SelectWeaponTwo.Disable();
@@ -134,7 +145,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     void EnableUIControls()
     {
         myControls.gameplay.Disable();
-        
+
         myControls.ui.Enable();
     }
 
@@ -147,6 +158,11 @@ public class InputSystem_PlayerController : MonoBehaviour
     public void OnGamePause(InputAction.CallbackContext context)
     {
         PauseGame();
+    }
+
+    public void OnCharMenu(InputAction.CallbackContext context)
+    {
+        ShowCharMenu();
     }
 
 
@@ -178,6 +194,40 @@ public class InputSystem_PlayerController : MonoBehaviour
                 if (PauseMenuGO.activeSelf)
                 {
                     PauseMenuGO.SetActive(false);
+                }
+            }
+        }
+
+    }
+
+    public void ShowCharMenu()
+    {
+        bIsGamePaused = !bIsGamePaused;
+        if (bIsGamePaused)
+        {
+            EnableUIControls();
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0.0f;
+            bEnableInput = false;
+            if (CharMenuGO)
+            {
+                if (!CharMenuGO.activeSelf)
+                {
+                    CharMenuGO.SetActive(true);
+                }
+            }
+        }
+        else
+        {
+            DisableUIControls();
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1.0f;
+            bEnableInput = true;
+            if (CharMenuGO)
+            {
+                if (CharMenuGO.activeSelf)
+                {
+                    CharMenuGO.SetActive(false);
                 }
             }
         }

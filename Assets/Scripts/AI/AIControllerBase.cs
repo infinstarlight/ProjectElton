@@ -15,6 +15,7 @@ public class AIControllerBase : MonoBehaviour
     public float visionRange;
     private RaycastHit visionHit;
     public bool bIsPlayerVisible = false;
+    private Player GetPlayer;
 
     public float DistanceRemaining;
     void Awake()
@@ -56,11 +57,17 @@ public class AIControllerBase : MonoBehaviour
                 }
                 if (visionHit.collider.gameObject.GetComponent<Player>())
                 {
+                    GetPlayer = visionHit.collider.gameObject.GetComponent<Player>();
                     bIsPlayerVisible = true;
+                    myEnemy.gameObject.transform.LookAt(GetPlayer.transform.position);
                 }
                 else
                 {
                     bIsPlayerVisible = false;
+                    if(GetPlayer)
+                    {
+                        GetPlayer = null;
+                    }
                     if (myNavAgent.bIsTrackingPlayer)
                     {
                         myNavAgent.bIsTrackingPlayer = false;
