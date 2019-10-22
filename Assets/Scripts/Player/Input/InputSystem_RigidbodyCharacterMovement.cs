@@ -13,13 +13,11 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     public float JumpHeight = 2f;
     public float GroundDistance = 0.2f;
     public float DashDistance = 5f;
-    public LayerMask Ground;
+    public LayerMask GroundLayer;
 
 
     private Rigidbody rb;
-    private PlayerController pCon;
     private PlayerStatsScript playerStats;
-    private Vector3 inputMovement;
 
     [SerializeField]
     private bool bIsGounded = true;
@@ -32,48 +30,15 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     float translation;
     private Vector2 moveVector;
     float strafe;
-    private float MoveX;
     public bool bHoldSprint = false;
-    private float MoveY;
 
     Vector3 dashVelocity;
     private float oldMovementSpeed;
-    private GameInputControls myControls;
-
-
-    void OnEnable()
-    {
-        if (myControls == null)
-        {
-            myControls = new GameInputControls();
-        }
-
-        myControls.gameplay.MoveRight.performed += OnMoveRight;
-        myControls.gameplay.MoveUp.performed += OnMoveUp;
-        myControls.gameplay.Sprint.performed += OnSprint;
-        myControls.gameplay.Jump.performed += OnJump;
-        myControls.gameplay.SpecialAbility.performed += OnSpecialAbility;
-        myControls.gameplay.SpecialAbility.Enable();
-        myControls.gameplay.Sprint.Enable();
-        myControls.gameplay.Jump.Enable();
-        myControls.gameplay.MoveRight.Enable();
-        myControls.gameplay.MoveUp.Enable();
-    }
-
-    void OnDisable()
-    {
-        myControls.Disable();
-        myControls.gameplay.Sprint.Disable();
-        myControls.gameplay.SpecialAbility.Disable();
-        myControls.gameplay.Jump.Disable();
-        myControls.gameplay.MoveRight.Disable();
-        myControls.gameplay.MoveUp.Disable();
-    }
-
+    
 
     void Awake()
     {
-        //pCon = GetComponentInChildren<PlayerController>();
+        //pCon = GetComponentInChildren<InputSystem_PlayerController>();
         rb = GetComponent<Rigidbody>();
         groundChecker = transform.GetChild(0);
         playerStats = GetComponent<PlayerStatsScript>();
@@ -91,23 +56,17 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bIsGounded = Physics.CheckSphere(groundChecker.position, GroundDistance, Ground, QueryTriggerInteraction.Ignore);
+        bIsGounded = Physics.CheckSphere(groundChecker.position, GroundDistance, GroundLayer, QueryTriggerInteraction.Ignore);
 
         if (bIsGounded && CurrentJumpCount >= 1)
         {
             CurrentJumpCount = 0;
         }
-        // strafe *= Time.deltaTime;
-        // translation *= Time.deltaTime;
-
-
     }
 
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
-       
-
     }
 
     public void OnSprint(InputAction.CallbackContext context)
@@ -160,18 +119,14 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     public void OnMoveUp(InputAction.CallbackContext context)
     {
         var yValue = context.ReadValue<float>();
-        //Debug.Log(yValue);
         translation = yValue * MovementSpeed * Time.deltaTime;
-        // Debug.Log("Y value is: " + translation);
 
     }
 
     public void OnMoveRight(InputAction.CallbackContext context)
     {
         var xValue = context.ReadValue<float>();
-        //Debug.Log(xValue);
         strafe = xValue * MovementSpeed * Time.deltaTime;
-        //Debug.Log("X value is: " + strafe);
 
     }
 

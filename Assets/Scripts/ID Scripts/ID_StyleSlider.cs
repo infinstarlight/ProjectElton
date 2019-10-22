@@ -12,9 +12,5 @@ public class ID_StyleSlider : MonoBehaviour
         styleSlider = GetComponent<Slider>();
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
+
 }

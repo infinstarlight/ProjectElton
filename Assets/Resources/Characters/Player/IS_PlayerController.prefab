@@ -1,0 +1,661 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6948198054562237531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6948198054562237528}
+  - component: {fileID: 5814213176419481192}
+  - component: {fileID: 5814213176318508454}
+  - component: {fileID: 5814213176318508455}
+  - component: {fileID: 5814213176318508452}
+  m_Layer: 0
+  m_Name: IS_PlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6948198054562237528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948198054562237531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3524403543320510880}
+  - {fileID: 2924956443674816988}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &5814213176419481192
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948198054562237531}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 11
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5814213176318508454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948198054562237531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a2b3b23b9044a96881a64003fd3127, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rbMovement: {fileID: 0}
+  cameraLook: {fileID: 0}
+  combatController: {fileID: 0}
+  playerState: {fileID: 0}
+  bIsGamePaused: 0
+  bEnableInput: 1
+  PauseMenuGO: {fileID: 0}
+  CharMenuGO: {fileID: 0}
+  playerStats: {fileID: 0}
+--- !u!114 &5814213176318508455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948198054562237531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b99f73b9d7347209905b6e1dc70c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  currentWeapon: {fileID: 0}
+  styleClips:
+  - {fileID: 8300000, guid: a646d80b4fe7742488f863e9f5195b46, type: 3}
+  - {fileID: 8300000, guid: 5e7fa2b2ff82e404aa99d77a36ce6a83, type: 3}
+  - {fileID: 8300000, guid: fa423a23454c84a29aaa44d35f671c02, type: 3}
+  - {fileID: 8300000, guid: f237ae988548b4349aa1f38ca563cd71, type: 3}
+  Weapons:
+  - {fileID: 346688260199785037}
+  - {fileID: 4989322703412061484}
+  - {fileID: 6944143825630834049}
+--- !u!114 &5814213176318508452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948198054562237531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5d90ba52-c2ff-4baf-88d4-73c530aac37a
+    m_ActionName: gameplay/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c223f0ff-795e-4c43-acdc-607a91b1b14e
+    m_ActionName: ui/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnMoveUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 73212634-9bf3-41b0-b818-707fd9db978e
+    m_ActionName: gameplay/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c345672a-5bc1-435d-841b-6d236c350c0f
+    m_ActionName: gameplay/look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnMoveRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bbc09ef9-618c-49ec-9552-44d0f182c03c
+    m_ActionName: gameplay/MoveRight[/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0f1f7568-2bcb-43d5-9e6c-b5a8b142d45c
+    m_ActionName: gameplay/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 54b32bf7-d30d-4970-871c-ff207bb0fb60
+    m_ActionName: gameplay/Sprint[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnSpecialAbility
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cbc696ba-0136-4afb-b1f6-a977f822c8a7
+    m_ActionName: gameplay/Special Ability[/Keyboard/v]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnStyleSwitchUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d4091cdc-89be-4e58-8878-5d668b5962e9
+    m_ActionName: gameplay/Style Switch[/Keyboard/q,/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03b0c819-94c8-4c2d-b71a-7588023ba1b6
+    m_ActionName: ui/Pointer[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ca1fd091-d01e-48a5-b70a-d324d8fc35a9
+    m_ActionName: ui/Navigate
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 642b9341-a31f-4790-801a-96e39461134b
+    m_ActionName: ui/Scroll[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bcffbb1a-86d1-4779-851e-333caf745b1f
+    m_ActionName: ui/Return[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508454}
+        m_MethodName: OnGamePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0f6b9c69-6b37-49f3-a1a7-6976b1b91c86
+    m_ActionName: gameplay/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508454}
+        m_MethodName: OnCharMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 66a2b395-0075-4d46-9e91-77bcbb5151a2
+    m_ActionName: gameplay/Character Menu[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnPrimaryWeaponSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fcc8f5c7-1392-4de8-a306-6c207f20192a
+    m_ActionName: gameplay/Select Weapon One[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnSecondWeaponSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bda868a3-2c20-43e5-91e9-7c9ea0faa2ae
+    m_ActionName: gameplay/Select Weapon Two[/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnLockOn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d5e41e2d-8138-4471-9d29-47ca04ba56b2
+    m_ActionName: gameplay/AltFire[/Mouse/rightButton,/Keyboard/rightAlt]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5dcc0afc-d3e9-46a7-a7c9-c9d90ba94100
+    m_ActionName: ui/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94830c29-7b16-403e-ad2a-cd85c44a1183
+    m_ActionName: ui/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2f23be39-625b-46b6-a0ab-88f60901b6f6
+    m_ActionName: ui/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnThirdWeaponSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4e682c50-e098-43c4-984d-b36a32757fef
+    m_ActionName: gameplay/Select Weapon Three[/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: OnZoom
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cee16f88-85e2-497a-9502-3ee52b03dcea
+    m_ActionName: gameplay/Zoom[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5814213176318508455}
+        m_MethodName: OnStyleSwitchDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 32a0a6e6-4f45-4249-89a0-3053f9bcec39
+    m_ActionName: gameplay/Style Switch Down[/Keyboard/q]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: 4bc61230-eb0c-4413-8d72-0106f7a518e3
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!1001 &259765675993208905
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6948198054562237528}
+    m_Modifications:
+    - target: {fileID: 9125017870914452967, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_Name
+      value: IS_AuraPlayerCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478600341203437601, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: frustumSettings.baseSettings
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478600341203437601, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+        type: 3}
+      propertyPath: frustumSettings.qualitySettings
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9, type: 3}
+--- !u!4 &3524403543320510880 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3707568434365946345, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 259765675993208905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &346688260199785037 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 528452378000341508, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 259765675993208905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4989322703412061484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5091175419571404133, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 259765675993208905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6944143825630834049 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7188960536889439688, guid: b4e5a2e2d1e4bf840b2b07174fe2d7d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 259765675993208905}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7907651324315138791
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6948198054562237528}
+    m_Modifications:
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345337, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerState
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983820783249345338, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: MaxStyleAmount
+      value: 128
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd76c62fac4d38a40aeeb3611defd12f, type: 3}
+--- !u!4 &2924956443674816988 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7907651324315138791}
+  m_PrefabAsset: {fileID: 0}

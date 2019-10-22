@@ -145,20 +145,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyWeaponType: 4
   MyAmmoType: 1
-  weaponAudio: {fileID: 0}
-  nextFire: 0
+  bIsChargeWeapon: 0
   bIsAutomatic: 0
+  MaxChargeLimit: 0
+  CurrentChargeTime: 0
+  ChargeModAmount: 0
+  weaponRange: 50
+  nextFire: 0
+  fireRate: 0
+  DamageAmount: 6
+  oldDamageAmount: 0
+  weaponAudio: {fileID: 0}
   gunEndGO: {fileID: 0}
-  DamageAmount: 3
   WeaponSounds:
   - {fileID: 8300000, guid: fe6b25da963b71a40ae6130491a51b45, type: 3}
   - {fileID: 8300000, guid: 5c85a9f531dd83b418b5e7c67489ebad, type: 3}
-  AIEyes: {fileID: 0}
-  fireRate: 0
-  weaponRange: 50
   FireEffect: {fileID: 3848898404133243097, guid: 3c1912ef84c486b439c1e5287a25a48d,
     type: 3}
-  WeaponOwner: {fileID: 0}
+  GetAICon: {fileID: 0}
+  ShotWaitPeriod: 3
+  AIEyes: {fileID: 0}
 --- !u!1 &4026539492584651207
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,10 +263,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 6db98b9e01d705045b1da80b990511e6, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: de181f37c4da71b449170aa0d7317068, type: 2}
     - target: {fileID: 400002, guid: 6db98b9e01d705045b1da80b990511e6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.75
@@ -273,6 +275,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 6db98b9e01d705045b1da80b990511e6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: de181f37c4da71b449170aa0d7317068, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db98b9e01d705045b1da80b990511e6, type: 3}
 --- !u!4 &4026539492349618486 stripped

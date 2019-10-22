@@ -11,7 +11,7 @@
                     "id": "5d90ba52-c2ff-4baf-88d4-73c530aac37a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "AltFire",
@@ -138,7 +138,7 @@
                 {
                     "name": "",
                     "id": "0e60d367-2c42-435a-88dc-3b2a550e192e",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -369,7 +369,7 @@
                 {
                     "name": "",
                     "id": "d6473262-a3fa-4de5-87ea-4ea40fdd5f8d",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -468,7 +468,7 @@
                 {
                     "name": "",
                     "id": "612a6aa1-8dc6-4a28-b5a5-3ded654448ec",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -483,17 +483,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "AltFire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ce98fa7e-36dc-4a1b-a222-d691f0c7dd70",
-                    "path": "<Keyboard>/rightAlt",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
                     "action": "AltFire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -609,6 +598,22 @@
                     "type": "Button",
                     "id": "bcffbb1a-86d1-4779-851e-333caf745b1f",
                     "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "45c7293b-336d-4dca-a441-595d4873c5e9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "40325140-d487-4e71-9a6e-a6e30ba7145a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -853,6 +858,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MiddleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53d5dbcc-8eee-4a07-b62f-34f8ab514f89",
+                    "path": "*/{Submit}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5724e97b-931e-497e-b214-b7b37dc9e657",
+                    "path": "*/{Cancel}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

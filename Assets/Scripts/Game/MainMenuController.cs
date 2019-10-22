@@ -19,18 +19,12 @@ public class MainMenuController : MonoBehaviour
         if (!PlayerGO)
         {
             PlayerGO = FindObjectOfType<Player>().gameObject;
-
         }
+
         if (!PlayerUIGO)
         {
             PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
         }
-
-    }
-
-    void Update()
-    {
-
         if (PlayerGO)
         {
             Destroy(PlayerGO);
@@ -39,18 +33,32 @@ public class MainMenuController : MonoBehaviour
         {
             Destroy(PlayerUIGO);
         }
+
+    }
+
+    void Update()
+    {
+
+        // if (PlayerGO)
+        // {
+        //     Destroy(PlayerGO);
+        // }
+        // if (PlayerUIGO)
+        // {
+        //     Destroy(PlayerUIGO);
+        // }
     }
 
     public void StartNewGame()
     {
         Destroy(MusicPlayerGO);
         SceneManager.LoadScene("TestLevel");
-        
+
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+
     }
     public void LeaveGame()
     {

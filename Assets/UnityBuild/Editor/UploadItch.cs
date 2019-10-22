@@ -152,12 +152,12 @@ public class UploadItch : BuildAction, IPostBuildPerPlatformAction
                 return WINDOWS + "-x64";
 
             // Linux
-            case BuildTarget.StandaloneLinux:
-                return LINUX + "-x86";
+            // case BuildTarget.StandaloneLinux:
+            //     return LINUX + "-x86";
             case BuildTarget.StandaloneLinux64:
                 return LINUX + "-x64";
-            case BuildTarget.StandaloneLinuxUniversal:
-                return LINUX + "-universal";
+            // case BuildTarget.StandaloneLinuxUniversal:
+            //     return LINUX + "-universal";
 
             // OSX
 #if UNITY_2017_3_OR_NEWER

@@ -13,27 +13,27 @@ public class PlayerUIController : MonoBehaviour
     private ID_StyleSlider styleSliderScript;
     private ID_PlayerHealthSlider healthbar;
 
-    private void Awake()
+    private void OnEnable()
     {
         pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
+
+        // if (Time.timeScale <= 1)
+        // {
+        //     Time.timeScale = 1;
+        // }
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        CharMenu = pCon.CharMenuGO;
+       // CharMenu = pCon.CharMenuGO;
         PauseMenu = pCon.PauseMenuGO;
-
-        if (Time.timeScale <= 1)
-        {
-            Time.timeScale = 1;
-        }
-
-        if(PauseMenu)
+        if (PauseMenu)
         {
             PauseMenu.SetActive(false);
         }
@@ -42,10 +42,15 @@ public class PlayerUIController : MonoBehaviour
             CharMenu.SetActive(false);
         }
 
+        
     }
 
     private void Update()
     {
+        if (!styleSliderScript)
+        {
+            styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        }
         //TODO: Maybe move this to SendMessage on enemy
         if (styleSliderScript != null)
         {
@@ -53,17 +58,22 @@ public class PlayerUIController : MonoBehaviour
         }
 
         //TODO: Move this to UpdateHealthText function
+
+        if (healthbar)
         {
-            if(healthbar)
-            {
-                healthbar.healthSlider.value = pCon.playerStats.pcStats.healthPercentage;
-            }
+            healthbar.healthSlider.value = pCon.playerStats.pcStats.healthPercentage;
         }
 
-        if (PauseMenu == null)
-        {
-            PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
-        }
+
+        // if (PauseMenu == null)
+        // {
+        //     PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
+        // }
+        // //  if (!CharMenu)
+        // // {
+        // //     CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
+
+        // // }
     }
 
     public void UnpauseGame()

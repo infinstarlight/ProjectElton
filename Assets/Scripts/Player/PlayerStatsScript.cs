@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerStatsScript : MonoBehaviour
@@ -18,6 +19,7 @@ public class PlayerStatsScript : MonoBehaviour
     private int styleIndex = 0;
 
     private bool bIsDebug = false;
+    Keyboard currentKeyboard;
 
     void Awake()
     {
@@ -25,27 +27,26 @@ public class PlayerStatsScript : MonoBehaviour
         styleIndex = 1;
         //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
         player = GetComponent<Player>();
-        healthText = FindObjectOfType<HealthTextScript>();
+        //healthText = FindObjectOfType<HealthTextScript>();
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        // healthText = FindObjectOfType<HealthTextScript>();
+        healthText = FindObjectOfType<HealthTextScript>();
         UpdateHealthText();
-        //ModifyCurrentStyleUp();
-
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
         }
+        currentKeyboard = Keyboard.current;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Slash))
+        if (currentKeyboard.slashKey.wasPressedThisFrame)
         {
             if (bIsDebug)
             {

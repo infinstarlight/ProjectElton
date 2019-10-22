@@ -6,12 +6,16 @@ public class PlayerStartScript : MonoBehaviour
 {
     private SpriteRenderer mySprite;
 
-    void Awake()
+    private void OnEnable() 
     {
-        var PlayerGO = Resources.Load<GameObject>("Characters/Player/PlayerCharacter") as GameObject;
+        var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
         Instantiate(PlayerGO, transform.position, transform.rotation);
         var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
         Instantiate(PlayerUIGO);
+    }
+
+    void Awake()
+    {   
         mySprite = GetComponent<SpriteRenderer>();
     }
     // Start is called before the first frame update
@@ -20,9 +24,4 @@ public class PlayerStartScript : MonoBehaviour
         mySprite.enabled = false;
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 }

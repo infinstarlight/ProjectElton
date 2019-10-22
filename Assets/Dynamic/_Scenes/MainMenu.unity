@@ -213,8 +213,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &64490517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,8 +231,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -586,16 +582,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139253128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_RepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_PointAction: {fileID: 4455602356786343346, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_MoveAction: {fileID: 8478365983443914875, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_SubmitAction: {fileID: -8423366571171437717, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_CancelAction: {fileID: 8479618966682302115, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_LeftClickAction: {fileID: 3486326102979511260, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_MiddleClickAction: {fileID: 2172824257808640217, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_RightClickAction: {fileID: -8983799153350015249, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_ScrollWheelAction: {fileID: -8452200754271538729, guid: 8ec186d5fafec4253b6723e8d45b516c,
+    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_TrackedDeviceSelectAction: {fileID: 0}
 --- !u!114 &1139253130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,8 +814,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1216401760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,8 +832,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -897,8 +905,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: 'Quit Game
 
 '
@@ -1056,8 +1062,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: Start Game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

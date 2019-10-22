@@ -24,7 +24,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""5d90ba52-c2ff-4baf-88d4-73c530aac37a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""AltFire"",
@@ -151,7 +151,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0e60d367-2c42-435a-88dc-3b2a550e192e"",
-                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -382,7 +382,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""d6473262-a3fa-4de5-87ea-4ea40fdd5f8d"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -481,7 +481,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""612a6aa1-8dc6-4a28-b5a5-3ded654448ec"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -496,17 +496,6 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""AltFire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ce98fa7e-36dc-4a1b-a222-d691f0c7dd70"",
-                    ""path"": ""<Keyboard>/rightAlt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
                     ""action"": ""AltFire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -622,6 +611,22 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""type"": ""Button"",
                     ""id"": ""bcffbb1a-86d1-4779-851e-333caf745b1f"",
                     ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""45c7293b-336d-4dca-a441-595d4873c5e9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""40325140-d487-4e71-9a6e-a6e30ba7145a"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 }
@@ -868,6 +873,28 @@ public class GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""MiddleClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53d5dbcc-8eee-4a07-b62f-34f8ab514f89"",
+                    ""path"": ""*/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5724e97b-931e-497e-b214-b7b37dc9e657"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -930,6 +957,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
         m_ui_Navigate = m_ui.FindAction("Navigate", throwIfNotFound: true);
         m_ui_Scroll = m_ui.FindAction("Scroll", throwIfNotFound: true);
         m_ui_Return = m_ui.FindAction("Return", throwIfNotFound: true);
+        m_ui_Submit = m_ui.FindAction("Submit", throwIfNotFound: true);
+        m_ui_Cancel = m_ui.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1140,6 +1169,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_ui_Navigate;
     private readonly InputAction m_ui_Scroll;
     private readonly InputAction m_ui_Return;
+    private readonly InputAction m_ui_Submit;
+    private readonly InputAction m_ui_Cancel;
     public struct UiActions
     {
         private GameInputControls m_Wrapper;
@@ -1152,6 +1183,8 @@ public class GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Navigate => m_Wrapper.m_ui_Navigate;
         public InputAction @Scroll => m_Wrapper.m_ui_Scroll;
         public InputAction @Return => m_Wrapper.m_ui_Return;
+        public InputAction @Submit => m_Wrapper.m_ui_Submit;
+        public InputAction @Cancel => m_Wrapper.m_ui_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_ui; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1185,6 +1218,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Return.started -= m_Wrapper.m_UiActionsCallbackInterface.OnReturn;
                 Return.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnReturn;
                 Return.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnReturn;
+                Submit.started -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
+                Submit.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
+                Submit.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
+                Cancel.started -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
+                Cancel.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
+                Cancel.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
             }
             m_Wrapper.m_UiActionsCallbackInterface = instance;
             if (instance != null)
@@ -1213,6 +1252,12 @@ public class GameInputControls : IInputActionCollection, IDisposable
                 Return.started += instance.OnReturn;
                 Return.performed += instance.OnReturn;
                 Return.canceled += instance.OnReturn;
+                Submit.started += instance.OnSubmit;
+                Submit.performed += instance.OnSubmit;
+                Submit.canceled += instance.OnSubmit;
+                Cancel.started += instance.OnCancel;
+                Cancel.performed += instance.OnCancel;
+                Cancel.canceled += instance.OnCancel;
             }
         }
     }
@@ -1264,5 +1309,7 @@ public class GameInputControls : IInputActionCollection, IDisposable
         void OnNavigate(InputAction.CallbackContext context);
         void OnScroll(InputAction.CallbackContext context);
         void OnReturn(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

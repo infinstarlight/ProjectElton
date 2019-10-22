@@ -22,7 +22,6 @@ public class InputSystem_CameraLook : MonoBehaviour
 
     public RaycastHit LockOnHit;
     public float lockOnRange = 200f;
-    //Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
     Ray lockOnRay;
     private Enemy currentEnemy;
     public float DefaultFOV = 90.0f;
@@ -52,20 +51,6 @@ public class InputSystem_CameraLook : MonoBehaviour
         ///Commenting this line causes right angle turns, almost like Time Crisis
         PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, PlayerCharacter.transform.up);
         //}
-        if (Input.GetButtonDown("AltAttack"))
-        {
-
-            bStartLockOn = true;
-        }
-        if (Input.GetButtonUp("AltAttack"))
-        {
-            bStartLockOn = false;
-
-        }
-
-        //PlayerCamera.fieldOfView
-
-
     }
 
     public void OnLook(InputAction.CallbackContext context)
@@ -113,9 +98,6 @@ public class InputSystem_CameraLook : MonoBehaviour
 
             transform.localRotation = Quaternion.AngleAxis(-mouseLook.y, Vector3.right);
 
-
-
-            //newFOV = Input.GetAxis("Zoom") * 10.0f;
             LockOn();
             PlayerCamera.fieldOfView += newFOV;
             PlayerCamera.fieldOfView = Mathf.Clamp(PlayerCamera.fieldOfView, ZoomFOV, DefaultFOV);
@@ -125,10 +107,6 @@ public class InputSystem_CameraLook : MonoBehaviour
 
     void LockOn()
     {
-        //int layerMask = 1 << 11;
-
-
-
         if (bStartLockOn)
         {
             Debug.DrawRay(lockOnRay.origin, lockOnRay.direction * lockOnRange, Color.blue);

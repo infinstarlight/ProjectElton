@@ -145,17 +145,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyWeaponType: 4
   MyAmmoType: 1
-  weaponAudio: {fileID: 0}
-  nextFire: 0
+  bIsChargeWeapon: 0
   bIsAutomatic: 0
-  weaponProj: {fileID: 0}
-  gunEndGO: {fileID: 0}
+  MaxChargeLimit: 0
+  CurrentChargeTime: 0
+  ChargeModAmount: 0
+  weaponRange: 20
+  nextFire: 0
+  fireRate: 0
   DamageAmount: 15
+  oldDamageAmount: 0
+  weaponAudio: {fileID: 0}
+  gunEndGO: {fileID: 0}
   WeaponSounds:
   - {fileID: 8300000, guid: fe6b25da963b71a40ae6130491a51b45, type: 3}
   - {fileID: 8300000, guid: 5c85a9f531dd83b418b5e7c67489ebad, type: 3}
-  fireRate: 0.25
-  weaponRange: 20
   FireEffect: {fileID: 3848898404133243097, guid: 3c1912ef84c486b439c1e5287a25a48d,
     type: 3}
 --- !u!1 &7471252682449945660

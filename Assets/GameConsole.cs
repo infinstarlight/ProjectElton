@@ -15,9 +15,4 @@ public class GameConsole : MonoBehaviour
     {
         
     }
-
-    void OnGUI()
-    {
-        
-    }
 }

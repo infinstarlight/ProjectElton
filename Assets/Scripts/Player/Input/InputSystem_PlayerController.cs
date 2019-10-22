@@ -15,6 +15,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     public GameObject PauseMenuGO;
     public GameObject CharMenuGO;
     public PlayerStatsScript playerStats;
+    private Keyboard currentKeyboard;
+    private SaveManager GetSaveManager;
     void OnEnable()
     {
         EnableGameControls();
@@ -27,15 +29,15 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Awake()
     {
-        playerStats = GetComponentInParent<PlayerStatsScript>();
-        playerState = GetComponentInChildren<PlayerStateScript>();
-        if (Cursor.lockState != CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
-        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
+    void Start()
+    {
+        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        PauseMenuGO.SetActive(false);
+        GetSaveManager = FindObjectOfType<SaveManager>();
+        currentKeyboard = Keyboard.current;
     }
     // Update is called once per frame
     void Update()
@@ -44,10 +46,16 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
-        if (!CharMenuGO)
+
+        if(currentKeyboard.digit9Key.wasPressedThisFrame)
         {
-            CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
+            GetSaveManager.SavePlayerData();
         }
+        if(currentKeyboard.digit0Key.wasPressedThisFrame)
+        {
+            GetSaveManager.LoadPlayerData();
+        }
+      
     }
 
 
@@ -79,6 +87,15 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void EnableGameControls()
     {
+        if (!playerStats)
+        {
+            playerStats = GetComponentInParent<PlayerStatsScript>();
+        }
+        if (!playerState)
+        {
+            playerState = GetComponentInChildren<PlayerStateScript>();
+        }
+
         if (!rbMovement)
         {
             rbMovement = GetComponentInParent<InputSystem_RigidbodyCharacterMovement>();
@@ -111,6 +128,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.StyleSwitchDown.performed += combatController.OnStyleSwitchDown;
         myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
         myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
+        myControls.gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
         myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
         myControls.gameplay.Look.performed += cameraLook.OnLook;
         myControls.gameplay.Fire.Enable();
@@ -120,6 +138,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.AltFire.Enable();
         myControls.gameplay.SelectWeaponOne.Enable();
         myControls.gameplay.SelectWeaponTwo.Enable();
+        myControls.gameplay.SelectWeaponThree.Enable();
         myControls.gameplay.SpecialAbility.Enable();
         myControls.gameplay.Sprint.Enable();
         myControls.gameplay.Jump.Enable();
@@ -134,12 +153,14 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.Disable();
         myControls.gameplay.Fire.Disable();
         myControls.gameplay.Look.Disable();
+        myControls.gameplay.Pause.Disable();
         myControls.gameplay.CharacterMenu.Disable();
-        myControls.gameplay.SelectWeaponOne.Disable();
         myControls.gameplay.AltFire.Disable();
+        myControls.gameplay.SelectWeaponOne.Disable();
         myControls.gameplay.SelectWeaponTwo.Disable();
-        myControls.gameplay.Sprint.Disable();
+        myControls.gameplay.SelectWeaponThree.Disable();
         myControls.gameplay.SpecialAbility.Disable();
+        myControls.gameplay.Sprint.Disable();
         myControls.gameplay.Jump.Disable();
         myControls.gameplay.MoveRight.Disable();
         myControls.gameplay.MoveUp.Disable();
