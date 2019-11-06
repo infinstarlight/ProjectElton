@@ -11,16 +11,15 @@ public class ID_PlayerUI : MonoBehaviour
         {
             if (instance != null && instance != this)
             {
-                Destroy(gameObject);
+                Destroy(this);
                 return;
             }
             else
             {
                 instance = this;
-                DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(this);
             }
 
         }
-        DontDestroyOnLoad(this);
     }
 }

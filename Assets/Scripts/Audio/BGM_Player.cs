@@ -16,6 +16,7 @@ public class BGM_Player : MonoBehaviour
     public float FadeTime;
     public double startTime;
 
+    public bool bShouldMute = false;
     public bool bShouldFadeOut = false;
     public bool bShouldFadeIn = false;
 
@@ -50,6 +51,11 @@ public class BGM_Player : MonoBehaviour
         // }
 
        // StartCoroutine(TrackChange());
+
+       if(bShouldMute)
+       {
+           source.volume = 0;
+       }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {

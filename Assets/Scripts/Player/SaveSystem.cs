@@ -10,6 +10,7 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/player.sav";
         FileStream stream = new FileStream(path, FileMode.Create);
         PlayerData data = new PlayerData(player);
+        Debug.Log(Application.persistentDataPath);
 
         formatter.Serialize(stream, data);
         stream.Close();

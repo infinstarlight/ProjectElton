@@ -12,9 +12,11 @@ public class PlayerUIController : MonoBehaviour
     private GameObject CharMenu;
     private ID_StyleSlider styleSliderScript;
     private ID_PlayerHealthSlider healthbar;
+    private Player GetPlayer;
 
     private void OnEnable()
     {
+        GetPlayer = FindObjectOfType<Player>();
         pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
@@ -95,10 +97,15 @@ public class PlayerUIController : MonoBehaviour
         }
     }
 
+    public void SaveCurrentProgress()
+    {
+        SaveSystem.SavePlayer(GetPlayer);
+    }
+
     public void RestartFromCheckpoint()
     {
         Debug.LogWarning("We don't have save data so this will restart the scene for now");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SaveSystem.LoadPlayer();
     }
 
     public void ReturnToMainMenu()

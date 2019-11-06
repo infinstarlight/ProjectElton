@@ -7,7 +7,7 @@ public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
     
-    private SaveManager GetSaveManager;
+    
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
@@ -28,7 +28,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
-        GetSaveManager = FindObjectOfType<SaveManager>();
+        
         bShouldDestroyOnDeath = false;
         pCon = GetComponentInChildren<InputSystem_PlayerController>();
         playerState = GetComponentInChildren<PlayerStateScript>();
@@ -53,18 +53,6 @@ public class Player : Character
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            GetSaveManager.SavePlayerData();
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            GetSaveManager.LoadPlayerData();
-        }
-    }
 
     public void PlayerDamageTaken(float damageTaken)
     {

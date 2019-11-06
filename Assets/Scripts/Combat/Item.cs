@@ -18,7 +18,6 @@ public class Item : MonoBehaviour
 
     void Start()
     {
-
         GetPlayer = FindObjectOfType<Player>();
         itemSource = GetComponent<AudioSource>();
     }

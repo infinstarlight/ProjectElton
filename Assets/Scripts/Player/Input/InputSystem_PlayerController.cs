@@ -47,15 +47,15 @@ public class InputSystem_PlayerController : MonoBehaviour
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         }
 
-        if(currentKeyboard.digit9Key.wasPressedThisFrame)
+        if (currentKeyboard.digit9Key.wasPressedThisFrame)
         {
             GetSaveManager.SavePlayerData();
         }
-        if(currentKeyboard.digit0Key.wasPressedThisFrame)
+        if (currentKeyboard.digit0Key.wasPressedThisFrame)
         {
             GetSaveManager.LoadPlayerData();
         }
-      
+
     }
 
 
