@@ -93,7 +93,7 @@ public class Weapon : MonoBehaviour
     public IEnumerator ChargeShot()
     {
         CurrentChargeTime += ChargeModAmount;
-        yield return ChargeModAmount;
+        yield return chargeLength   ;
         
     }
     #endregion

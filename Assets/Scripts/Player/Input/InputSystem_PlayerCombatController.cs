@@ -138,7 +138,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                         {
                             weaponScript.StartCoroutine(weaponScript.ChargeShot());
                         }
-                        else if(weaponScript.bIsAutomatic)
+                        if(weaponScript.bIsAutomatic)
                         {
                             weaponScript.StartCoroutine(weaponScript.AutoFire());
                         }

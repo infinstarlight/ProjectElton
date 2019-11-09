@@ -24,7 +24,7 @@ public class RobotAIController : AIControllerBase
         if(myNavMeshAgent.remainingDistance <= 5.0f)
         {
             myAnimator.SetFloat("MovementSpeed",0.5f);
-            Debug.Log("We're getting close to the target!" + " says: " + gameObject.name);
+           // Debug.Log("We're getting close to the target!" + " says: " + gameObject.name);
             
         }
         else
