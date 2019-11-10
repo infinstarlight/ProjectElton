@@ -10,7 +10,7 @@ public class ResolutionsDropDown : MonoBehaviour
     public List<Resolution> resolutionsList = new List<Resolution>();
     public List<string> resString = new List<string>();
     private int DisplayRefreshRate;
-    private FullScreenMode fullScreen;
+    private FullScreenMode fullScreen = FullScreenMode.FullScreenWindow;
 
     void Awake()
     {

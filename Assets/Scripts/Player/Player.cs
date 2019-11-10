@@ -6,8 +6,8 @@ using UnityEngine;
 public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
-    
-    
+
+
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
@@ -18,22 +18,10 @@ public class Player : Character
     private static Player instance = null;
     public static Player Instance { get { return instance; } }
 
-    void PlayerAwake()
+    void OnEnable()
     {
-        // playerSource = GetComponent<AudioSource>();
-        // PlayerStats = GetComponent<PlayerStatsScript>();
-        
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        bShouldDestroyOnDeath = false;
-        pCon = GetComponentInChildren<InputSystem_PlayerController>();
-        playerState = GetComponentInChildren<PlayerStateScript>();
-        playerSource = GetComponent<AudioSource>();
-        PlayerStats = GetComponent<PlayerStatsScript>();
+
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             if (instance != null && instance != this)
@@ -48,6 +36,35 @@ public class Player : Character
             }
 
         }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnDisable()
+    {
+
+    }
+
+    void PlayerAwake()
+    {
+        // playerSource = GetComponent<AudioSource>();
+        // PlayerStats = GetComponent<PlayerStatsScript>();
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+
+        bShouldDestroyOnDeath = false;
+        pCon = GetComponentInChildren<InputSystem_PlayerController>();
+        playerState = GetComponentInChildren<PlayerStateScript>();
+        playerSource = GetComponent<AudioSource>();
+        PlayerStats = GetComponent<PlayerStatsScript>();
+
         PlayerStats.UpdateHealthText();
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
 

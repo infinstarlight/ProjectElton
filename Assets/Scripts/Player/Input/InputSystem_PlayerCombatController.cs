@@ -13,7 +13,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
     public GameObject[] Weapons;
     private PlayerWeapon weaponScript;
-    private int styleIndex = 1;
+    //private int styleIndex = 1;
 
 
 

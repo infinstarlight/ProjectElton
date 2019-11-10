@@ -17,11 +17,21 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         GameManagerGO = FindObjectOfType<ID_GameManager>().gameObject;
         saveManager = FindObjectOfType<SaveManager>();
         MainMenu = FindObjectOfType<ID_MainMenuCanvas>();
         OptionsMenu = FindObjectOfType<ID_OptionsMenu>();
         OptionsMenu.gameObject.SetActive(false);
+
+        if(System.IO.File.Exists(Application.persistentDataPath + "/player.sav"))
+        {
+            Debug.Log("Save exists!");
+        }
+        else
+        {
+            Debug.Log("No save exists!");
+        }
     }
 
     // Start is called before the first frame update
@@ -31,23 +41,6 @@ public class MainMenuController : MonoBehaviour
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
-        }
-        if (!PlayerGO)
-        {
-            PlayerGO = FindObjectOfType<Player>().gameObject;
-        }
-
-        if (!PlayerUIGO)
-        {
-            PlayerUIGO = FindObjectOfType<ID_PlayerUI>().gameObject;
-        }
-        if (PlayerGO)
-        {
-            Destroy(PlayerGO);
-        }
-        if (PlayerUIGO)
-        {
-            Destroy(PlayerUIGO);
         }
 
     }

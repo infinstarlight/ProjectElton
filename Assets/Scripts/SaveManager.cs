@@ -46,7 +46,7 @@ public class SaveManager : MonoBehaviour
             Instantiate(PlayerUIGO);
             GetPlayer = PlayerGO.GetComponent<Player>();
 
-            GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
+            //GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
             GetPlayer.gameObject.transform.position = savedPosition;
             GetPlayer.PlayerStats.UpdateHealthText();
             
