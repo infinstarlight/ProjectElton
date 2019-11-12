@@ -28,24 +28,34 @@ public class InputSystem_CameraLook : MonoBehaviour
     public float ZoomFOV = 65.0f;
     float newFOV;
     public float lockOnRadius = 24f;
+    private PlayerConfig GetPlayerConfig;
 
 
     void Awake()
     {
+        GetPlayerConfig = FindObjectOfType<PlayerConfig>();
         pCon = GetComponentInParent<InputSystem_PlayerController>();
-        PlayerCamera = Camera.main;
+        PlayerCamera = gameObject.GetComponent<Camera>();
         PlayerCharacter = FindObjectOfType<Player>().gameObject;
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        PlayerCamera.fieldOfView = DefaultFOV;
+        if (LookSensitivity <= 0.0f)
+        {
+            LookSensitivity = 5.0f;
+        }
+        // else
+        // {
+        //     LookSensitivity = GetPlayerConfig.currentMouseSensitivity;
+        // }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!PlayerCamera)
+        {
+            PlayerCamera = Camera.main;
+        }
         // if (pCon.bEnableInput)
         // {
         ///Commenting this line causes right angle turns, almost like Time Crisis
@@ -57,6 +67,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     {
         var lookValue = context.ReadValue<Vector2>();
         lookInput = lookValue;
+
     }
 
     public void OnLockOn(InputAction.CallbackContext context)
@@ -84,11 +95,13 @@ public class InputSystem_CameraLook : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (pCon.bEnableInput)
+        if (pCon.bEnableGameInput)
         {
             //This section of code was originally done by someone(s) else, I cannot find where at this time, will update when found
             LookDirection = new Vector2(lookInput.x, lookInput.y);
             PlayerCamera.transform.localEulerAngles = new Vector3(LookDirection.x, PlayerCamera.transform.localEulerAngles.y, PlayerCamera.transform.localEulerAngles.z);
+
+            //Debug.Log(LookDirection);
 
             LookDirection = Vector2.Scale(LookDirection, new Vector2(LookSensitivity * SmoothingRate, LookSensitivity * SmoothingRate));
             smoothingVector.x = Mathf.Lerp(smoothingVector.x, LookDirection.x, 1f / SmoothingRate);

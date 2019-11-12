@@ -11,12 +11,14 @@ public class InputSystem_PlayerController : MonoBehaviour
     private GameInputControls myControls;
     public PlayerStateScript playerState;
     public bool bIsGamePaused = false;
-    public bool bEnableInput = true;
+    public bool bShowPauseMenu = false;
+    public bool bEnableGameInput = true;
     public GameObject PauseMenuGO;
     public GameObject CharMenuGO;
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private SaveManager GetSaveManager;
+
     void OnEnable()
     {
         EnableGameControls();
@@ -34,6 +36,7 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Start()
     {
+        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         PauseMenuGO.SetActive(false);
         GetSaveManager = FindObjectOfType<SaveManager>();
@@ -114,6 +117,7 @@ public class InputSystem_PlayerController : MonoBehaviour
             myControls = new GameInputControls();
         }
 
+
         myControls.gameplay.Pause.performed += OnGamePause;
         myControls.gameplay.CharacterMenu.performed += OnCharMenu;
         myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
@@ -146,14 +150,24 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.MoveUp.Enable();
         myControls.gameplay.StyleSwitchUp.Enable();
         myControls.gameplay.StyleSwitchDown.Enable();
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        if (Time.timeScale <= 1)
+        {
+            Time.timeScale = 1;
+        }
+        bEnableGameInput = true;
     }
 
     void DisableGameControls()
     {
-        myControls.Disable();
+        bEnableGameInput = false;
+        // myControls.gameplay.Disable();
         myControls.gameplay.Fire.Disable();
         myControls.gameplay.Look.Disable();
-        myControls.gameplay.Pause.Disable();
+        // myControls.gameplay.Pause.Disable();
         myControls.gameplay.CharacterMenu.Disable();
         myControls.gameplay.AltFire.Disable();
         myControls.gameplay.SelectWeaponOne.Disable();
@@ -166,11 +180,23 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.MoveUp.Disable();
         myControls.gameplay.StyleSwitchUp.Disable();
         myControls.gameplay.StyleSwitchDown.Disable();
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        if (Time.timeScale >= 1)
+        {
+            Time.timeScale = 0;
+        }
     }
 
     void EnableUIControls()
     {
-        myControls.gameplay.Disable();
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        DisableGameControls();
 
         myControls.ui.Enable();
     }
@@ -178,11 +204,15 @@ public class InputSystem_PlayerController : MonoBehaviour
     void DisableUIControls()
     {
         myControls.ui.Disable();
-        myControls.gameplay.Enable();
+        EnableGameControls();
     }
 
     public void OnGamePause(InputAction.CallbackContext context)
     {
+        // bShowPauseMenu = !bShowPauseMenu;
+        // bIsGamePaused = !bIsGamePaused;
+        bShowPauseMenu = true;
+        //bIsGamePaused = true;
         PauseGame();
     }
 
@@ -198,28 +228,38 @@ public class InputSystem_PlayerController : MonoBehaviour
         if (bIsGamePaused)
         {
             EnableUIControls();
-            Cursor.lockState = CursorLockMode.None;
+            //Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.0f;
-            bEnableInput = false;
+            //bEnableGameInput = false;
+            ShowPauseMenu();
+
+        }
+        else
+        {
+            DisableUIControls();
+            bShowPauseMenu = false;
+            //bIsGamePaused = false;
+            Time.timeScale = 1.0f;
+            //bEnableGameInput = true;
+
+        }
+
+    }
+
+    public void ShowPauseMenu()
+    {
+        if (bShowPauseMenu)
+        {
             if (PauseMenuGO)
             {
                 if (!PauseMenuGO.activeSelf)
                 {
                     PauseMenuGO.SetActive(true);
                 }
-            }
-        }
-        else
-        {
-            DisableUIControls();
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1.0f;
-            bEnableInput = true;
-            if (PauseMenuGO)
-            {
-                if (PauseMenuGO.activeSelf)
+                else
                 {
                     PauseMenuGO.SetActive(false);
+                    //EnableGameControls();
                 }
             }
         }
@@ -234,7 +274,7 @@ public class InputSystem_PlayerController : MonoBehaviour
             EnableUIControls();
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.0f;
-            bEnableInput = false;
+            bEnableGameInput = false;
             if (CharMenuGO)
             {
                 if (!CharMenuGO.activeSelf)
@@ -248,7 +288,7 @@ public class InputSystem_PlayerController : MonoBehaviour
             DisableUIControls();
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1.0f;
-            bEnableInput = true;
+            bEnableGameInput = true;
             if (CharMenuGO)
             {
                 if (CharMenuGO.activeSelf)

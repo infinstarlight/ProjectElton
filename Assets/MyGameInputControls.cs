@@ -104,7 +104,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""0f6b9c69-6b37-49f3-a1a7-6976b1b91c86"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Character Menu"",

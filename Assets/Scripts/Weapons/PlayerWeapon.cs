@@ -8,14 +8,22 @@ public class PlayerWeapon : Weapon
     //private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
     private Camera PlayerCamera;
+    
    
 
     // Start is called before the first frame update
     void Start()
     {
         PlayerCamera = Camera.main;
-        // var effGO = Resources.Load<GameObject>("Weapons/FireEffect") as GameObject;
-        // FireEffect = effGO;
+     
+    }
+
+    void Update()
+    {
+        if(!PlayerCamera)
+        {
+            PlayerCamera = Camera.main;
+        }
     }
 
     public void Fire()
@@ -32,7 +40,7 @@ public class PlayerWeapon : Weapon
 
 
             // actual Ray
-            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+            Ray ray = PlayerCamera.ViewportPointToRay(rayOrigin);
 
             // debug Ray
             Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.white);
@@ -40,7 +48,7 @@ public class PlayerWeapon : Weapon
 
             if (Physics.Raycast(ray, out hit, weaponRange))
             {
-                // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
+                
                 if (hit.collider != null)
                 {
                      //Debug.Log(hit.collider.gameObject);

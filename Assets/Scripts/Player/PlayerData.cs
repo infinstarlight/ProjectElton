@@ -18,8 +18,6 @@ public class PlayerData
        position[0] = player.transform.position.x;
        position[1] = player.transform.position.y;
        position[2] = player.transform.position.z;
-    //    weaponArray = new GameObject[3];
-    //    weaponArray = player.pCon.combatController.Weapons;
     }
     
 }

@@ -12,6 +12,7 @@ public class SceneFadeTransition : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         DontDestroyOnLoad(this);
         myAnimator.ResetTrigger("ShouldFadeOut");
+        myAnimator.SetTrigger("ShouldFadeIn");
     }
 
     public void StartFade()
@@ -22,14 +23,6 @@ public class SceneFadeTransition : MonoBehaviour
     public void FadeToNextLevel()
     {
         FadeToLevel(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    void Update()
-    {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            FadeToLevel(1);
-        }
     }
 
     public void FadeToLevel(int sceneIndex)

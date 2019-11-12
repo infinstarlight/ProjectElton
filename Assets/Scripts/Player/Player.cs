@@ -21,7 +21,6 @@ public class Player : Character
     void OnEnable()
     {
 
-
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             if (instance != null && instance != this)
@@ -92,7 +91,7 @@ public class Player : Character
     {
         if (characterStats.bIsDead)
         {
-            pCon.bEnableInput = false;
+            pCon.bEnableGameInput = false;
             characterStats.bCanTakeDamage = false;
             playerSource.clip = deathClip;
             playerSource.PlayOneShot(playerSource.clip);

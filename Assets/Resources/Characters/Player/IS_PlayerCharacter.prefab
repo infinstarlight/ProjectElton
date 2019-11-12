@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 4081769438313795362}
   m_Layer: 0
   m_Name: IS_PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -395,6 +395,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: IS_PlayerController
       objectReference: {fileID: 0}
+    - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: LookSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: SmoothingRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6948198054562237528, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -569,16 +579,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
-        type: 3}
-      propertyPath: LookSensitivity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
-        type: 3}
-      propertyPath: SmoothingRate
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abb25c9ac5474cf458e7f8b5930cfa97, type: 3}

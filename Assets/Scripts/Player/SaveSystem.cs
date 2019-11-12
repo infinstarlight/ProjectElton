@@ -10,11 +10,25 @@ public static class SaveSystem
         string path = Application.persistentDataPath + "/player.sav";
         FileStream stream = new FileStream(path, FileMode.Create);
         PlayerData data = new PlayerData(player);
-        Debug.Log(Application.persistentDataPath);
+        //Debug.Log(Application.persistentDataPath);
 
         formatter.Serialize(stream, data);
         stream.Close();
     }
+
+    public static void SaveSettings(PlayerConfig config)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/settings.sav";
+        FileStream stream = new FileStream(path, FileMode.Create);
+        UserSettings userData = new UserSettings(config);
+        //Debug.Log(Application.persistentDataPath);
+
+        formatter.Serialize(stream, userData);
+        stream.Close();   
+    }
+
+    
 
     public static PlayerData LoadPlayer()
     {

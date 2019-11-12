@@ -6,12 +6,15 @@ using UnityEngine;
 public class GameInstance : MonoBehaviour
 {
 
+    private PlayerConfig GetPlayerConfig;
+
     void Awake()
     {
         if (Time.timeScale <= 0)
         {
             Time.timeScale = 1;
         }
+        GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
     }
 
 
@@ -27,12 +30,16 @@ public class GameInstance : MonoBehaviour
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
+        if(scene.name != "MainMenu")
+        {
+            GetPlayerConfig.gameObject.SetActive(false);
+        }
     }
 
     // called third
     void Start()
     {
-        Debug.Log("Start");
+     //   Debug.Log("Start");
     }
 
     // called when the game is terminated

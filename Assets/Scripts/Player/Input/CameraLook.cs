@@ -47,7 +47,7 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pCon.bEnableInput)
+        if (pCon.bEnableGameInput)
         {
             ///Commenting this line causes right angle turns, almost like Time Crisis
             PlayerCharacter.transform.localRotation = Quaternion.AngleAxis(mouseLook.x, PlayerCharacter.transform.up);
@@ -79,7 +79,7 @@ public class CameraLook : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (pCon.bEnableInput)
+        if (pCon.bEnableGameInput)
         {
             //This section of code was originally done by someone(s) else, I cannot find where at this time, will update when found
             LookDirection = new Vector2(Input.GetAxisRaw("LookRight"), Input.GetAxisRaw("LookUp"));

@@ -13,16 +13,19 @@ public class MainMenuController : MonoBehaviour
     private SaveManager saveManager;
 
     private ID_MainMenuCanvas MainMenu;
-    private ID_OptionsMenu OptionsMenu;
+    public ID_OptionsMenu OptionsMenu;
+
+    private SceneFadeTransition GetSceneFade;
 
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
+       // Debug.Log(Application.persistentDataPath);
+        GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         GameManagerGO = FindObjectOfType<ID_GameManager>().gameObject;
         saveManager = FindObjectOfType<SaveManager>();
         MainMenu = FindObjectOfType<ID_MainMenuCanvas>();
         OptionsMenu = FindObjectOfType<ID_OptionsMenu>();
-        OptionsMenu.gameObject.SetActive(false);
+       // OptionsMenu.gameObject.SetActive(false);
 
         if(System.IO.File.Exists(Application.persistentDataPath + "/player.sav"))
         {
@@ -49,7 +52,8 @@ public class MainMenuController : MonoBehaviour
     {
         Destroy(MusicPlayerGO);
         Destroy(GameManagerGO);
-        SceneManager.LoadScene("TestLevel");
+        GetSceneFade.FadeToNextLevel();
+        //SceneManager.LoadScene("TestLevel");
 
     }
 

@@ -11,7 +11,9 @@ public class PlayerUIController : MonoBehaviour
     private GameObject PauseMenu;
     private GameObject CharMenu;
     private ID_StyleSlider styleSliderScript;
+
     private ID_PlayerHealthSlider healthbar;
+    private GameObject optionsMenu;
     private Player GetPlayer;
 
     private void OnEnable()
@@ -19,32 +21,32 @@ public class PlayerUIController : MonoBehaviour
         GetPlayer = FindObjectOfType<Player>();
         pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
-
-        // if (Time.timeScale <= 1)
-        // {
-        //     Time.timeScale = 1;
-        // }
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-       // CharMenu = pCon.CharMenuGO;
+        //CharMenu = pCon.CharMenuGO;
         PauseMenu = pCon.PauseMenuGO;
         if (PauseMenu)
         {
             PauseMenu.SetActive(false);
         }
-        if(CharMenu)
+        if (CharMenu)
         {
             CharMenu.SetActive(false);
         }
+        if (optionsMenu)
+        {
+            optionsMenu.SetActive(false);
+        }
 
-        
+
     }
 
     private void Update()
@@ -66,16 +68,35 @@ public class PlayerUIController : MonoBehaviour
             healthbar.healthSlider.value = pCon.playerStats.pcStats.healthPercentage;
         }
 
+    }
 
-        // if (PauseMenu == null)
-        // {
-        //     PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
-        // }
-        // //  if (!CharMenu)
-        // // {
-        // //     CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
+    public void ShowOptions()
+    {
+        if (Time.timeScale >= 1)
+        {
+            pCon.PauseGame();
 
-        // // }
+        }
+        if (optionsMenu)
+        {
+            if (!optionsMenu.activeSelf)
+            {
+                optionsMenu.SetActive(true);
+            }
+        }
+
+    }
+
+    public void HideOptions()
+    {
+        if (optionsMenu)
+        {
+            if (optionsMenu.activeSelf)
+            {
+                optionsMenu.SetActive(false);
+            }
+        }
+        pCon.ShowPauseMenu();
     }
 
     public void UnpauseGame()
@@ -89,9 +110,8 @@ public class PlayerUIController : MonoBehaviour
             if (PauseMenu.activeSelf)
             {
                 pCon.bIsGamePaused = false;
-                pCon.bEnableInput = true;
-                PauseMenu.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
+                pCon.bEnableGameInput = true;
+                pCon.ShowPauseMenu();
 
             }
         }
