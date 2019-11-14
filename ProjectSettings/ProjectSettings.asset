@@ -8,12 +8,12 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Echo Labs
-  productName: 'Aragon: The Chase'
+  productName: 'Aragon: The Hunt'
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -51,7 +51,7 @@ PlayerSettings:
   m_MTRendering: 1
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: -1
-  androidShowActivityIndicatorOnLoading: -1
+  androidShowActivityIndicatorOnLoading: 2
   displayResolutionDialog: 1
   iosUseCustomAppBackgroundBehavior: 0
   iosAllowHTTPDownload: 1
@@ -65,7 +65,7 @@ PlayerSettings:
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 0
-  androidUseSwappy: 0
+  androidUseSwappy: 1
   androidBlitType: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
@@ -706,7 +706,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: UNITY_POST_PROCESSING_STACK_V2;KRIPTO_FX_LWRP_RENDERING;dUI_MANAGER;AURA_IN_PROJECT;AURA_IN_SCENEVIEW
     4: dUI_MANAGER
-    7: UNITY_POST_PROCESSING_STACK_V2;dUI_MANAGER
+    7: UNITY_POST_PROCESSING_STACK_V2;KRIPTO_FX_LWRP_RENDERING;dUI_MANAGER;AURA_IN_PROJECT;AURA_IN_SCENEVIEW
     13: UNITY_POST_PROCESSING_STACK_V2;dUI_MANAGER
     14: dUI_MANAGER
     19: UNITY_POST_PROCESSING_STACK_V2;dUI_MANAGER

@@ -10,18 +10,6 @@ public class PlayerStartScript : MonoBehaviour
 
     private void OnEnable()
     {
-        //GetPlayer = FindObjectOfType<Player>();
-        // GetSave = FindObjectOfType<SaveManager>();
-
-        // if (GetSave)
-        // {
-        //     if (GetSave.bWasSaveLoaded)
-        //     {
-        //         GetSave.bWasSaveLoaded = false;
-        //         Destroy(this);
-        //     }
-        // }
-
         var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
         Instantiate(PlayerGO, transform.position, transform.rotation);
         var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;

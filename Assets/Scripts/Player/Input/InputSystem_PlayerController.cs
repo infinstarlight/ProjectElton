@@ -15,6 +15,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     public bool bEnableGameInput = true;
     public GameObject PauseMenuGO;
     public GameObject CharMenuGO;
+    public GameObject HUDGO;
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private SaveManager GetSaveManager;
@@ -22,6 +23,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     void OnEnable()
     {
         EnableGameControls();
+        bEnableGameInput = true;
+        bShowPauseMenu = false;
     }
 
     void OnDisable()
@@ -31,13 +34,15 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Awake()
     {
+        HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
+        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
+        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Start()
     {
-        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
-        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+
         PauseMenuGO.SetActive(false);
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
@@ -71,15 +76,18 @@ public class InputSystem_PlayerController : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     // New Device
+                    Debug.Log("New device added: " + device);
                     break;
                 case InputDeviceChange.Disconnected:
                     // Device got unplugged
+                    Debug.LogWarning("Device is disconnected: " + device);
                     break;
                 case InputDeviceChange.Reconnected:
                     // Plugged back in
                     break;
                 case InputDeviceChange.Removed:
                     // Remove from Input System entirely; by default, devices stay in the system once discovered
+                    Debug.LogWarning("Device removed: " + device);
                     break;
                 default:
                     // See InputDeviceChange reference for other event types.
@@ -158,7 +166,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        bEnableGameInput = true;
+
     }
 
     void DisableGameControls()
@@ -209,96 +217,49 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     public void OnGamePause(InputAction.CallbackContext context)
     {
-        // bShowPauseMenu = !bShowPauseMenu;
-        // bIsGamePaused = !bIsGamePaused;
-        bShowPauseMenu = true;
-        //bIsGamePaused = true;
-        PauseGame();
+        ShowMenu(PauseMenuGO);
     }
 
     public void OnCharMenu(InputAction.CallbackContext context)
     {
-        ShowCharMenu();
+        ShowMenu(CharMenuGO);
     }
 
 
     public void PauseGame()
     {
-        bIsGamePaused = !bIsGamePaused;
         if (bIsGamePaused)
         {
             EnableUIControls();
-            //Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0.0f;
-            //bEnableGameInput = false;
-            ShowPauseMenu();
 
         }
         else
         {
             DisableUIControls();
-            bShowPauseMenu = false;
-            //bIsGamePaused = false;
             Time.timeScale = 1.0f;
-            //bEnableGameInput = true;
-
         }
-
     }
 
-    public void ShowPauseMenu()
-    {
-        if (bShowPauseMenu)
-        {
-            if (PauseMenuGO)
-            {
-                if (!PauseMenuGO.activeSelf)
-                {
-                    PauseMenuGO.SetActive(true);
-                }
-                else
-                {
-                    PauseMenuGO.SetActive(false);
-                    //EnableGameControls();
-                }
-            }
-        }
-
-    }
-
-    public void ShowCharMenu()
+    public void ShowMenu(GameObject menuGO)
     {
         bIsGamePaused = !bIsGamePaused;
-        if (bIsGamePaused)
+        PauseGame();
+        if (menuGO)
         {
-            EnableUIControls();
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0.0f;
-            bEnableGameInput = false;
-            if (CharMenuGO)
+            if (!menuGO.activeSelf)
             {
-                if (!CharMenuGO.activeSelf)
-                {
-                    CharMenuGO.SetActive(true);
-                }
+                HUDGO.SetActive(false);
+                menuGO.SetActive(true);
+            }
+            else
+            {
+                HUDGO.SetActive(true);
+                menuGO.SetActive(false);
             }
         }
-        else
-        {
-            DisableUIControls();
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1.0f;
-            bEnableGameInput = true;
-            if (CharMenuGO)
-            {
-                if (CharMenuGO.activeSelf)
-                {
-                    CharMenuGO.SetActive(false);
-                }
-            }
-        }
-
     }
+
 
 
 }

@@ -96,24 +96,14 @@ public class PlayerUIController : MonoBehaviour
                 optionsMenu.SetActive(false);
             }
         }
-        pCon.ShowPauseMenu();
+        pCon.ShowMenu(PauseMenu);
     }
 
     public void UnpauseGame()
     {
         if (PauseMenu)
         {
-            if (Time.timeScale <= 1)
-            {
-                Time.timeScale = 1;
-            }
-            if (PauseMenu.activeSelf)
-            {
-                pCon.bIsGamePaused = false;
-                pCon.bEnableGameInput = true;
-                pCon.ShowPauseMenu();
-
-            }
+           pCon.ShowMenu(PauseMenu);
         }
     }
 

@@ -54,7 +54,7 @@ public class PlayerStateScript : MonoBehaviour
             styleImageScript.gameObject.SetActive(false);
             styleSliderScript.gameObject.SetActive(false);
         }
-        else
+        if(StylePercent > 0)
         {
             styleImageScript.gameObject.SetActive(true);
             styleSliderScript.gameObject.SetActive(true);

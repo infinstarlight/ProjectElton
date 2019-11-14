@@ -29,7 +29,7 @@ public class GameInstance : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("OnSceneLoaded: " + scene.name);
-        Debug.Log(mode);
+        //Debug.Log(mode);
         if(scene.name != "MainMenu")
         {
             GetPlayerConfig.gameObject.SetActive(false);

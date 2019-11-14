@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class DebugController : MonoBehaviour
@@ -45,17 +46,16 @@ public class DebugController : MonoBehaviour
         }
         if (bIsDebug)
         {
-            if (Input.GetKeyDown(KeyCode.End))
+            if(Keyboard.current.endKey.wasPressedThisFrame)
             {
                 var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
                 Instantiate(StatGO);
             }
-            if (Input.GetKeyDown(KeyCode.Home))
+            if (Keyboard.current.homeKey.wasPressedThisFrame)
             {
                 bTestFPSLimit = !bTestFPSLimit;
                 EnableFPSLimit();
             }
-
             if (bShowFPS)
             {
                 debugCanvasGO.SetActive(true);
