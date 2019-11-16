@@ -25,6 +25,7 @@ public class Player : Character
         if(!instance)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {

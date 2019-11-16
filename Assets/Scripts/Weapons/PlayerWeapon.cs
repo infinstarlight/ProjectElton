@@ -38,6 +38,7 @@ public class PlayerWeapon : Weapon
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
 
             GameObject hitObject = null;
+            LoadingDoorScript hitDoor = null;
 
             // actual Ray
             Ray ray = PlayerCamera.ViewportPointToRay(rayOrigin);
@@ -60,8 +61,9 @@ public class PlayerWeapon : Weapon
                     }
                     if(hitObject.GetComponentInChildren<ID_LoadDoor>())
                     {
-                        Debug.Log("Hit loading door");
-                        hitObject.GetComponentInParent<LoadingDoorScript>().StartCoroutine("LoadScene");
+                        hitDoor = hitObject.GetComponentInParent<LoadingDoorScript>();
+                        hitDoor.CheckAmmoType(MyAmmoType);
+                        //TODO: If it's the wrong ammo type, bounce the shot back to player
                     }
                 }
             }

@@ -9,10 +9,14 @@ public class LoadingDoorScript : MonoBehaviour
     public string nextSceneName = "";
     public string lastSceneName = "";
     public AudioClip[] doorSounds;
-    AsyncOperation sceneLoadOpertation;
+    AsyncOperation sceneLoadOperation;
+    AsyncOperation sceneUnloadOperation;
 
     private bool bShouldLoadLastScene = false;
     private bool bIsSceneLoaded = false;
+    [SerializeField]
+    protected EAmmoType desiredAmmoType;
+    protected bool bIsRightAmmoType = false;
 
     void Awake()
     {
@@ -32,41 +36,77 @@ public class LoadingDoorScript : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        yield return null;
+        yield return new WaitForSeconds(5.0f);
 
         if (!bShouldLoadLastScene)
         {
             //Begin to load the Scene you specify
-            sceneLoadOpertation = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
+            sceneLoadOperation = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
+
         }
         else
         {
-            sceneLoadOpertation = SceneManager.LoadSceneAsync(lastSceneName, LoadSceneMode.Additive);
+            sceneLoadOperation = SceneManager.LoadSceneAsync(lastSceneName, LoadSceneMode.Additive);
         }
-
-        //Don't let the Scene activate until you allow it to
-        sceneLoadOpertation.allowSceneActivation = false;
-        Debug.Log("Pro :" + sceneLoadOpertation.progress);
-        //When the load is still in progress, output the Text and progress bar
-        while (!sceneLoadOpertation.isDone)
+        if (!bIsSceneLoaded)
         {
-            //Output the current progress
-            Debug.Log("Loading progress: " + (sceneLoadOpertation.progress * 100) + "%");
-
-            // Check if the load has finished
-            if (sceneLoadOpertation.progress >= 0.9f)
+            //Don't let the Scene activate until you allow it to
+            sceneLoadOperation.allowSceneActivation = false;
+            Debug.Log("Pro :" + sceneLoadOperation.progress);
+            //When the load is still in progress, output the Text and progress bar
+            while (!sceneLoadOperation.isDone)
             {
-                if (!bIsSceneLoaded)
-                {
-                    //Activate the Scene
-                    sceneLoadOpertation.allowSceneActivation = true;
-                    myAnimator.SetBool("bOpenDoor?", true);
+                //Output the current progress
+                Debug.Log("Loading progress: " + (sceneLoadOperation.progress * 100) + "%");
 
+                // Check if the load has finished
+                if (sceneLoadOperation.progress >= 0.9f)
+                {
+
+                    //Activate the Scene
+                    sceneLoadOperation.allowSceneActivation = true;
+                    myAnimator.SetBool("bOpenDoor?", true);
+                    bIsSceneLoaded = true;
 
                 }
 
+                yield return null;
             }
+        }
 
+
+    }
+
+    public void CheckAmmoType(EAmmoType hitAmmoType)
+    {
+        if(hitAmmoType == desiredAmmoType)
+        {
+            bIsRightAmmoType = true;
+        }
+
+        if(bIsRightAmmoType)
+        {
+            StartCoroutine(LoadScene());
+        }
+    }
+
+    IEnumerator UnloadScene()
+    {
+        yield return new WaitForSeconds(10.0f);
+        sceneUnloadOperation = SceneManager.UnloadSceneAsync(lastSceneName, UnloadSceneOptions.None);
+
+        sceneUnloadOperation.allowSceneActivation = false;
+        SceneManager.UnloadSceneAsync(lastSceneName);
+        while (!sceneUnloadOperation.isDone)
+        {
+            Debug.Log("Loading progress: " + (sceneUnloadOperation.progress * 100) + "%");
+            if (sceneUnloadOperation.progress >= 0.9f)
+            {
+                if (bIsSceneLoaded)
+                {
+                    sceneUnloadOperation.allowSceneActivation = true;
+                }
+            }
             yield return null;
         }
     }
@@ -85,6 +125,22 @@ public class LoadingDoorScript : MonoBehaviour
         bIsSceneLoaded = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject)
+        {
+            if (other.gameObject.GetComponent<Player>())
+            {
+                if (SceneManager.GetSceneByName(nextSceneName) != SceneManager.GetActiveScene())
+                {
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName(nextSceneName));
+                }
+                StopCoroutine(LoadScene());
+                StartCoroutine(UnloadScene());
+            }
+        }
+    }
+
 
 
 
@@ -96,8 +152,9 @@ public class LoadingDoorScript : MonoBehaviour
             {
                 bShouldLoadLastScene = true;
                 myAnimator.SetBool("bOpenDoor?", false);
+               StopCoroutine(UnloadScene());
+                //StartCoroutine(UnloadScene());
 
-                //SceneManager.UnloadSceneAsync(lastSceneName);
             }
         }
     }

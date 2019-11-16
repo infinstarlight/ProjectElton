@@ -7,6 +7,8 @@ public class GameInstance : MonoBehaviour
 {
 
     private PlayerConfig GetPlayerConfig;
+    private Player GetPlayer;
+    private ID_PlayerUI playerUI;
 
     void Awake()
     {
@@ -15,6 +17,8 @@ public class GameInstance : MonoBehaviour
             Time.timeScale = 1;
         }
         GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
+        GetPlayer = FindObjectOfType<Player>();
+        playerUI = FindObjectOfType<ID_PlayerUI>();
     }
 
 

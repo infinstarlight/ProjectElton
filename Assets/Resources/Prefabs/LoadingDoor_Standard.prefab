@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 3bffd928adeff4bcdb8b6ab0da267903, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,6 +393,7 @@ MonoBehaviour:
   doorSounds:
   - {fileID: 8300000, guid: b019b06b35fd640a4994b08650d46f10, type: 3}
   - {fileID: 8300000, guid: 5d5d2ccd882594fa980ed69f54e235e7, type: 3}
+  desiredAmmoType: 1
 --- !u!65 &1645073565538815430
 BoxCollider:
   m_ObjectHideFlags: 0

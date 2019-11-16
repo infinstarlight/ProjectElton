@@ -1,27 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+public enum EWeaponType
+{
+    None,
+    Pistol,
+    SMG,
+    Rifle,
+    Shotgun,
+    Launcher,
+    Utility
+}
+public enum EAmmoType
+{
+    None,
+    Standard,
+    Acidic,
+    Ice,
+
+}
 [RequireComponent(typeof(AudioSource))]
 public class Weapon : MonoBehaviour
 {
-    public enum EWeaponType
-    {
-        None,
-        Pistol,
-        SMG,
-        Rifle,
-        Shotgun,
-        Launcher,
-        Utility
-    }
-    public enum EAmmoType
-    {
-        None,
-        Standard,
-        Acidic,
-        Ice,
 
-    }
 
     [Header("Weapon Properties")]
     public EWeaponType MyWeaponType;
@@ -93,8 +96,8 @@ public class Weapon : MonoBehaviour
     public IEnumerator ChargeShot()
     {
         CurrentChargeTime += ChargeModAmount;
-        yield return chargeLength   ;
-        
+        yield return chargeLength;
+
     }
     #endregion
 
