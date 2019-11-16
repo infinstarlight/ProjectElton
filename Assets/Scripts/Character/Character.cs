@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(AudioSource))]
@@ -15,11 +16,15 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
     public bool bShouldDestroyOnDeath;
 
     public float DestroyDelay;
+    public UnityEventWithFloat damageEvent = new UnityEventWithFloat();
+    
 
     public void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
         source = GetComponent<AudioSource>();
+        //damageEvent.AddListener(OnDamageApplied);
+        
     }
 
     // Start is called before the first frame update
@@ -54,7 +59,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
                 source.clip = hurtClips[Random.Range(0, hurtClips.Length)];
                 source.PlayOneShot(source.clip);
             }
-
+        
 
             if (characterStats.CurrentHealth <= 0)
             {

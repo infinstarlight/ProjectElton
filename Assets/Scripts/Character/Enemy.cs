@@ -12,11 +12,13 @@ public class Enemy : Character, ITracker
     private NavPoint playerNavPoint;
     public GameObject AI_Weapon;
     private EnemyWeapon myWeapon;
+    
 
     void EnemyAwake()
     {
         base.Awake();
-
+        
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,8 @@ public class Enemy : Character, ITracker
         playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
         AI_Weapon = GetComponentInChildren<EnemyWeapon>().gameObject;
         myWeapon = AI_Weapon.GetComponent<EnemyWeapon>();
+        damageEvent.AddListener(OnEnemyDamageApplied);
+        
     }
 
     private void Update()
@@ -66,7 +70,8 @@ public class Enemy : Character, ITracker
         {
             OnTrackTarget();
             AIEventManager.TriggerEvent("Damage");
-            playerState.ModStyle(StyleModAmount);
+            
+            playerState.styleModEvent.Invoke(StyleModAmount);
             if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();

@@ -19,12 +19,18 @@ public class InputSystem_PlayerController : MonoBehaviour
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private SaveManager GetSaveManager;
+    [SerializeField]
+    private bool bIsDebug = false;
+    private bool bIsMouseReleased = false;
 
     void OnEnable()
     {
         EnableGameControls();
         bEnableGameInput = true;
         bShowPauseMenu = false;
+        HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
+        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
+        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
     }
 
     void OnDisable()
@@ -34,9 +40,14 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Awake()
     {
-        HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
-        CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
-        PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        if (Application.isEditor || Debug.isDebugBuild)
+        {
+            bIsDebug = true;
+        }
+        else
+        {
+            bIsDebug = false;
+        }
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -63,6 +74,24 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             GetSaveManager.LoadPlayerData();
         }
+        if (bIsDebug)
+        {
+            if (currentKeyboard.f8Key.wasPressedThisFrame)
+            {
+                if(!bIsMouseReleased)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    bIsMouseReleased = true;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                    bIsMouseReleased = false;
+                }
+                
+            }
+        }
+
 
     }
 
@@ -125,7 +154,8 @@ public class InputSystem_PlayerController : MonoBehaviour
             myControls = new GameInputControls();
         }
 
-
+        //if(myControls.gameplay.)
+        bEnableGameInput = true;
         myControls.gameplay.Pause.performed += OnGamePause;
         myControls.gameplay.CharacterMenu.performed += OnCharMenu;
         myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
@@ -212,6 +242,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     void DisableUIControls()
     {
         myControls.ui.Disable();
+        myControls.ui.Pointer.Disable();
+        myControls.gameplay.Look.Enable();
         EnableGameControls();
     }
 

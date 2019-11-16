@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
@@ -20,20 +21,27 @@ public class PlayerStatsScript : MonoBehaviour
 
     private bool bIsDebug = false;
     Keyboard currentKeyboard;
+    private PlayerStateScript GetPlayerState;
+    private PlayerUIController GetPlayerUI;
+    public UnityEvent updateHealthTextEvent = new UnityEvent();
 
     void Awake()
     {
+        GetPlayerUI = FindObjectOfType<PlayerUIController>();
+        GetPlayerState = GetComponentInChildren<PlayerStateScript>();
         pcStats = GetComponent<CharacterStats>();
         styleIndex = 1;
         //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
         player = GetComponent<Player>();
         //healthText = FindObjectOfType<HealthTextScript>();
 
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        updateHealthTextEvent.AddListener(UpdateHealthText);
         healthText = FindObjectOfType<HealthTextScript>();
         UpdateHealthText();
         if (Debug.isDebugBuild || Application.isEditor)
@@ -62,6 +70,7 @@ public class PlayerStatsScript : MonoBehaviour
         {
             healthText.TextMesh.text = pcStats.CurrentHealth.ToString();
         }
+        GetPlayerUI.updateUIEvent.Invoke();
     }
 
     public void ModifyCurrentStyleUp()

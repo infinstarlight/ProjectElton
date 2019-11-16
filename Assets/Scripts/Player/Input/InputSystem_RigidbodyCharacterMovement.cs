@@ -83,10 +83,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
                 {
                     if (context.interaction is HoldInteraction)
                     {
-                        if (bHoldSprint)
-                        {
-                            MovementSpeed = SprintSpeed;
-                        }
+                        MovementSpeed = SprintSpeed;
                     }
                 }
                 break;

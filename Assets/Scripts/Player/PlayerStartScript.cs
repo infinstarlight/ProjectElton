@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStartScript : MonoBehaviour
+public class PlayerStartScript : Singleton<PlayerStartScript>
 {
     private SpriteRenderer mySprite;
-    // private Player GetPlayer;
     private SaveManager GetSave;
+    private GameObject GetPlayerGO;
+    private Player GetPlayer;
 
     private void OnEnable()
     {
-        var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
-        Instantiate(PlayerGO, transform.position, transform.rotation);
-        var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
-        Instantiate(PlayerUIGO);
-    }
+        GetPlayer = FindObjectOfType<Player>();
+        if (!GetPlayer)
+        {
+            var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
+            GetPlayerGO = Instantiate(PlayerGO, transform.position, transform.rotation);
 
-    void Awake()
-    {
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
         mySprite = GetComponent<SpriteRenderer>();
     }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -132,16 +132,18 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
             case InputActionPhase.Started:
                 {
+                    if (weaponScript.bIsAutomatic)
+                    {
+                        weaponScript.StartCoroutine(weaponScript.AutoFire());
+                    }
                     if (context.interaction is HoldInteraction)
                     {
+
                         if (weaponScript.bIsChargeWeapon)
                         {
                             weaponScript.StartCoroutine(weaponScript.ChargeShot());
                         }
-                        if(weaponScript.bIsAutomatic)
-                        {
-                            weaponScript.StartCoroutine(weaponScript.AutoFire());
-                        }
+
 
                     }
                 }

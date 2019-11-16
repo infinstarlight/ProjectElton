@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine;
@@ -15,6 +15,7 @@ public class PlayerUIController : MonoBehaviour
     private ID_PlayerHealthSlider healthbar;
     private GameObject optionsMenu;
     private Player GetPlayer;
+    public UnityEvent updateUIEvent = new UnityEvent();
 
     private void OnEnable()
     {
@@ -31,7 +32,7 @@ public class PlayerUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //CharMenu = pCon.CharMenuGO;
+        updateUIEvent.AddListener(UpdateUIData);
         PauseMenu = pCon.PauseMenuGO;
         if (PauseMenu)
         {
@@ -49,12 +50,8 @@ public class PlayerUIController : MonoBehaviour
 
     }
 
-    private void Update()
+    public void UpdateUIData()
     {
-        if (!styleSliderScript)
-        {
-            styleSliderScript = FindObjectOfType<ID_StyleSlider>();
-        }
         //TODO: Maybe move this to SendMessage on enemy
         if (styleSliderScript != null)
         {
@@ -67,7 +64,6 @@ public class PlayerUIController : MonoBehaviour
         {
             healthbar.healthSlider.value = pCon.playerStats.pcStats.healthPercentage;
         }
-
     }
 
     public void ShowOptions()
@@ -103,7 +99,7 @@ public class PlayerUIController : MonoBehaviour
     {
         if (PauseMenu)
         {
-           pCon.ShowMenu(PauseMenu);
+            pCon.ShowMenu(PauseMenu);
         }
     }
 

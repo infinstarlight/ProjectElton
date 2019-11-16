@@ -9,9 +9,11 @@ public class LoadNextScene : MonoBehaviour
     public string NextSceneName = "";
     public delegate void Change();
     public static event Change TimeChanged;
+    private SceneFadeTransition GetSceneFade;
     public float SceneChangeDelay = 3.0f;
     public void Start()
     {
+        GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         SceneManager.activeSceneChanged += ChangedActiveScene;
     }
 
@@ -23,6 +25,22 @@ public class LoadNextScene : MonoBehaviour
 
         // call the event
         TimeChanged();
+    }
+
+    IEnumerator LoadAsyncSceneByString(string newSceneName)
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
     }
 
     private void ChangedActiveScene(Scene current, Scene next)
@@ -47,10 +65,7 @@ public class LoadNextScene : MonoBehaviour
     void ChangeScene()
     {
         Debug.Log("Changing to the next Scene");
-        SceneManager.LoadScene(NextSceneName);
-
-        Scene scene = SceneManager.GetSceneByName(NextSceneName);
-        SceneManager.SetActiveScene(scene);
+       StartCoroutine(LoadAsyncSceneByString(NextSceneName));
     }
 
     void OnDisable()
@@ -62,9 +77,9 @@ public class LoadNextScene : MonoBehaviour
     {
         if (other.GetComponent<Player>())
         {
-            // wait 1.5 seconds before change to Scene2
+            // wait 3 seconds before change to Scene2
             StartCoroutine(TimeChangedScene());
-            //SceneManager.LoadScene(NextSceneName);
+            //StartCoroutine(LoadAsyncSceneByString(NextSceneName));
         }
 
     }

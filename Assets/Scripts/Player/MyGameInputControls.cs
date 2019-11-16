@@ -24,7 +24,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""5d90ba52-c2ff-4baf-88d4-73c530aac37a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Press,Hold""
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""AltFire"",

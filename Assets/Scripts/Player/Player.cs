@@ -15,30 +15,23 @@ public class Player : Character
 
     public float StyleDamageMod = 2.5f;
 
-    private static Player instance = null;
-    public static Player Instance { get { return instance; } }
+    public static Player instance = null;
+
+
+   
 
     void OnEnable()
     {
-
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        if(!instance)
         {
-            if (instance != null && instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            else
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-
+            instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
+       
+        damageEvent.AddListener(PlayerDamageTaken);
     }
 
     void OnDisable()
@@ -84,7 +77,7 @@ public class Player : Character
             }
         }
         PlayerStats.UpdateHealthText();
-        playerState.PlayerStyleDamageMod(StyleDamageMod);
+        playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }
 
     public void OnPlayerDeath()

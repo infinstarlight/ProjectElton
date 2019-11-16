@@ -37,7 +37,7 @@ public class PlayerWeapon : Weapon
             nextFire = Time.time + fireRate;
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
 
-
+            GameObject hitObject = null;
 
             // actual Ray
             Ray ray = PlayerCamera.ViewportPointToRay(rayOrigin);
@@ -51,10 +51,17 @@ public class PlayerWeapon : Weapon
                 
                 if (hit.collider != null)
                 {
+                    hitObject = hit.collider.gameObject;
                      //Debug.Log(hit.collider.gameObject);
-                    if (hit.collider.gameObject.GetComponent<Enemy>())
+                    if (hitObject.GetComponent<Enemy>())
                     {
-                        hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
+
+                        hitObject.GetComponent<Enemy>().damageEvent.Invoke(DamageAmount);
+                    }
+                    if(hitObject.GetComponentInChildren<ID_LoadDoor>())
+                    {
+                        Debug.Log("Hit loading door");
+                        hitObject.GetComponentInParent<LoadingDoorScript>().StartCoroutine("LoadScene");
                     }
                 }
             }
