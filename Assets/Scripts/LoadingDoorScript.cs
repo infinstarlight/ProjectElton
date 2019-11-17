@@ -33,7 +33,11 @@ public class LoadingDoorScript : MonoBehaviour
     {
 
         myAnimator.SetBool("bOpenDoor?", false);
-        lastSceneName = SceneManager.GetActiveScene().name;
+        if(lastSceneName == "")
+        {
+            lastSceneName = SceneManager.GetActiveScene().name;
+        }
+        
     }
 
     IEnumerator LoadScene()

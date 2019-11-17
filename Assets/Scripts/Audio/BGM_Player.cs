@@ -45,23 +45,25 @@ public class BGM_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if(source.time >= source.clip.length)
-        // {
-        //     TrackChange();
-        // }
-
-       // StartCoroutine(TrackChange());
-
-       if(bShouldMute)
-       {
-           source.volume = 0;
-       }
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (source.time >= source.clip.length)
         {
-            PlayNextTrack();
-            // ResetPlaylist();
+            if (NextTrackNum != 1)
+            {
+                PlayNextTrack();
+            }
+            else
+            {
+                ResetPlaylist();
+            }
+
         }
+
+        if (bShouldMute)
+        {
+            source.volume = 0;
+        }
+
+
     }
 
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
@@ -93,17 +95,9 @@ public class BGM_Player : MonoBehaviour
     }
     void PlayNextTrack()
     {
-        if (NextTrackNum <= PlaylistLength)
-        {
-            NextTrackNum++;
-            source.clip = Playlist[NextTrackNum];
+        NextTrackNum++;
+        source.clip = Playlist[NextTrackNum];
 
-        }
-        else if (NextTrackNum >= PlaylistLength)
-        {
-            ResetPlaylist();
-
-        }
 
 
 
@@ -127,6 +121,7 @@ public class BGM_Player : MonoBehaviour
     void ResetPlaylist()
     {
         NextTrackNum = 0;
+        PlayNextTrack();
     }
     void PlayFirstTrack()
     {
