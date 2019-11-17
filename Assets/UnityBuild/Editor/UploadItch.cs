@@ -13,7 +13,7 @@ public class UploadItch : BuildAction, IPostBuildPerPlatformAction
     private const string OSX = "osx";
     private const string LINUX = "linux";
 
-    [FilePath(false, true, "Path to butler.exe")]
+    [FilePath(false, true, "/usr/local/bin/butler")]
     public string pathToButlerExe = "";
     public string nameOfItchUser = "sleeplessstarlight";
     public string nameOfItchGame = "TheChase"; 
@@ -152,12 +152,12 @@ public class UploadItch : BuildAction, IPostBuildPerPlatformAction
                 return WINDOWS + "-x64";
 
             // Linux
-            case BuildTarget.StandaloneLinux:
-                return LINUX + "-x86";
+            // case BuildTarget.StandaloneLinux:
+            //     return LINUX + "-x86";
             case BuildTarget.StandaloneLinux64:
                 return LINUX + "-x64";
-            case BuildTarget.StandaloneLinuxUniversal:
-                return LINUX + "-universal";
+            // case BuildTarget.StandaloneLinuxUniversal:
+            //     return LINUX + "-universal";
 
             // OSX
 #if UNITY_2017_3_OR_NEWER

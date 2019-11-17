@@ -4,36 +4,43 @@ using UnityEngine;
 
 public class HealthItem : Item
 {
+    //public float ModAmount = 10.0f;
     // Start is called before the first frame update
     void Start()
     {
-        CurrentItemType = ItemType.Health;
-
+        CurrentItemType = ItemType.HealthPickup;
+        //itemSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 
 
-     void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter(Collision collision)
     {
         Debug.Log("This item collided with " + collision.gameObject.name);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("This item collided with " + collision.name);
-        if(collision.gameObject.GetComponentInChildren<Player>() != null)
+        if (collision.gameObject.GetComponent<Player>() != null)
         {
-            if(CurrentItemType == ItemType.Health)
+            if (CurrentItemType == ItemType.HealthPickup)
             {
                 RecoverHealth();
             }
-            
-            Destroy(gameObject);
+
+            Destroy(gameObject, 2f);
         }
+    }
+
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        // Debug.Log("This item collided with " + collision.name);
+        if (collision.gameObject.GetComponent<Player>() != null)
+        {
+            if (CurrentItemType == ItemType.HealthPickup)
+            {
+                RecoverHealth();
+            }
+
+            Destroy(gameObject, 2f);
+        }
+
     }
 }

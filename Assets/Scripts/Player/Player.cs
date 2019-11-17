@@ -5,61 +5,64 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStatsScript))]
 public class Player : Character
 {
-    private PlayerStatsScript PlayerStats;
+    public PlayerStatsScript PlayerStats;
+
+
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
-    private PlayerController pCon;
+    public InputSystem_PlayerController pCon;
 
     public float StyleDamageMod = 2.5f;
 
-    private static Player instance = null;
-    public static Player Instance { get { return instance; } }
+    public static Player instance = null;
 
-    // void Awake()
-    // {
-    //     //source = GetComponent<AudioSource>();
-    //     //PlayerStats = GetComponent<PlayerStatsScript>();
-    // }
+
+   
+
+    void OnEnable()
+    {
+        if(!instance)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+       
+        damageEvent.AddListener(PlayerDamageTaken);
+    }
+
+    void OnDisable()
+    {
+        damageEvent.RemoveAllListeners();
+    }
+
+    void PlayerAwake()
+    {
+        // playerSource = GetComponent<AudioSource>();
+        // PlayerStats = GetComponent<PlayerStatsScript>();
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+
+
         bShouldDestroyOnDeath = false;
-        pCon = GetComponentInChildren<PlayerController>();
+        pCon = GetComponentInChildren<InputSystem_PlayerController>();
         playerState = GetComponentInChildren<PlayerStateScript>();
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
-        if (SceneManager.GetActiveScene().name != "MainMenu")
-        {
-            if (instance != null && instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            else
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
 
-        }
         PlayerStats.UpdateHealthText();
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
-        if (playerUI == null)
-        {
-            var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
-            Instantiate(StatGO);
-            playerUI = StatGO;
-        }
 
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 
     public void PlayerDamageTaken(float damageTaken)
     {
@@ -75,14 +78,14 @@ public class Player : Character
             }
         }
         PlayerStats.UpdateHealthText();
-        playerState.PlayerStyleDamageMod(StyleDamageMod);
+        playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }
 
     public void OnPlayerDeath()
     {
         if (characterStats.bIsDead)
         {
-            pCon.bEnableInput = false;
+            pCon.bEnableGameInput = false;
             characterStats.bCanTakeDamage = false;
             playerSource.clip = deathClip;
             playerSource.PlayOneShot(playerSource.clip);

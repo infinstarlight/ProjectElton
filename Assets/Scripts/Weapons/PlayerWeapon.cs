@@ -5,22 +5,26 @@ using UnityEngine;
 public class PlayerWeapon : Weapon
 {
     //private bool bIsFiring = false;
-    private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
+    //private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);
 
-    public GameObject FireEffect;
+    private Camera PlayerCamera;
+    
+   
 
     // Start is called before the first frame update
     void Start()
     {
-        // var effGO = Resources.Load<GameObject>("Weapons/FireEffect") as GameObject;
-        // FireEffect = effGO;
+        PlayerCamera = Camera.main;
+     
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
+    void Update()
+    {
+        if(!PlayerCamera)
+        {
+            PlayerCamera = Camera.main;
+        }
+    }
 
     public void Fire()
     {
@@ -33,40 +37,53 @@ public class PlayerWeapon : Weapon
             nextFire = Time.time + fireRate;
             Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
 
-
+            GameObject hitObject = null;
+            LoadingDoorScript hitDoor = null;
+            WeaponChargeObject hitChargeObject = null;
 
             // actual Ray
-            Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+            Ray ray = PlayerCamera.ViewportPointToRay(rayOrigin);
 
             // debug Ray
-            Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.red);
-            GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, Camera.main.transform.rotation);
+            Debug.DrawRay(ray.origin, ray.direction * weaponRange, Color.white);
+            GameObject VFXGo = Instantiate(FireEffect, gunEndGO.transform.position, PlayerCamera.transform.rotation);
 
             if (Physics.Raycast(ray, out hit, weaponRange))
             {
-               // GameObject beam = Instantiate(weaponProj, gunEndGO.transform.position, Camera.main.transform.rotation);
+                
                 if (hit.collider != null)
                 {
-                   // Debug.Log(hit.collider.gameObject);
-                    if (hit.collider.gameObject.GetComponent<Enemy>())
+                    hitObject = hit.collider.gameObject;
+                     //Debug.Log(hit.collider.gameObject);
+                    if (hitObject.GetComponent<Enemy>())
                     {
-                        hit.collider.gameObject.GetComponent<Enemy>().OnEnemyDamageApplied(DamageAmount);
+
+                        hitObject.GetComponent<Enemy>().damageEvent.Invoke(DamageAmount);
+                    }
+                    if(hitObject.GetComponentInChildren<ID_LoadDoor>())
+                    {
+                        hitDoor = hitObject.GetComponentInParent<LoadingDoorScript>();
+                        hitDoor.CheckAmmoType(MyAmmoType);
+                        //TODO: If it's the wrong ammo type, bounce the shot back to player
+                    }
+                    if(hitObject.GetComponent<WeaponChargeObject>())
+                    {
+                        float chargeAmount = DamageAmount / 4;
+                        hitChargeObject = hitObject.GetComponent<WeaponChargeObject>();
+                        hitChargeObject.ModCharge(chargeAmount,MyAmmoType);
                     }
                 }
             }
         }
     }
 
-    private IEnumerator ShotEffect()
-    {
-        weaponAudio.clip = WeaponSounds[1];
-        // Play the shooting sound effect
-        weaponAudio.PlayOneShot(weaponAudio.clip);
-
-
-        //Wait for .07 seconds
-        yield return shotDuration;
-    }
+   public void FireChargedShot()
+   {
+       DamageAmount *= CurrentChargeTime;
+       Fire();
+       DamageAmount = oldDamageAmount;
+       CurrentChargeTime = 0;
+   }
 
     public IEnumerator AutoFire()
     {
