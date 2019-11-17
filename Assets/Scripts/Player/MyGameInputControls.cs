@@ -145,6 +145,14 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""edc3be7b-3e76-42f7-9a14-b39466534665"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -541,6 +549,28 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Style Switch Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dd125532-f729-46a3-81c1-f894ca84667c"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0664079f-dac9-4a2e-81ad-413c15c663ee"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -947,6 +977,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_SelectWeaponTwo = m_gameplay.FindAction("Select Weapon Two", throwIfNotFound: true);
         m_gameplay_SelectWeaponThree = m_gameplay.FindAction("Select Weapon Three", throwIfNotFound: true);
         m_gameplay_Zoom = m_gameplay.FindAction("Zoom", throwIfNotFound: true);
+        m_gameplay_Interact = m_gameplay.FindAction("Interact", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Confirm = m_ui.FindAction("Confirm", throwIfNotFound: true);
@@ -1024,6 +1055,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_SelectWeaponTwo;
     private readonly InputAction m_gameplay_SelectWeaponThree;
     private readonly InputAction m_gameplay_Zoom;
+    private readonly InputAction m_gameplay_Interact;
     public struct GameplayActions
     {
         private @GameInputControls m_Wrapper;
@@ -1044,6 +1076,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @SelectWeaponTwo => m_Wrapper.m_gameplay_SelectWeaponTwo;
         public InputAction @SelectWeaponThree => m_Wrapper.m_gameplay_SelectWeaponThree;
         public InputAction @Zoom => m_Wrapper.m_gameplay_Zoom;
+        public InputAction @Interact => m_Wrapper.m_gameplay_Interact;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1101,6 +1134,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Zoom.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                 @Zoom.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
                 @Zoom.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnZoom;
+                @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1153,6 +1189,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -1298,6 +1337,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnSelectWeaponTwo(InputAction.CallbackContext context);
         void OnSelectWeaponThree(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

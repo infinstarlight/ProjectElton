@@ -16,12 +16,16 @@ public class InputSystem_PlayerController : MonoBehaviour
     public GameObject PauseMenuGO;
     public GameObject CharMenuGO;
     public GameObject HUDGO;
+    private Camera playerCamera;
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private SaveManager GetSaveManager;
     [SerializeField]
     private bool bIsDebug = false;
     private bool bIsMouseReleased = false;
+    [SerializeField]
+    private float InteractRange = 200.0f;
+    private RaycastHit hit;
 
     void OnEnable()
     {
@@ -40,6 +44,7 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Awake()
     {
+        playerCamera = Camera.main;
         if (Application.isEditor || Debug.isDebugBuild)
         {
             bIsDebug = true;
@@ -78,7 +83,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             if (currentKeyboard.f8Key.wasPressedThisFrame)
             {
-                if(!bIsMouseReleased)
+                if (!bIsMouseReleased)
                 {
                     Cursor.lockState = CursorLockMode.None;
                     bIsMouseReleased = true;
@@ -88,7 +93,7 @@ public class InputSystem_PlayerController : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     bIsMouseReleased = false;
                 }
-                
+
             }
         }
 
@@ -289,6 +294,28 @@ public class InputSystem_PlayerController : MonoBehaviour
                 HUDGO.SetActive(true);
                 menuGO.SetActive(false);
             }
+        }
+    }
+
+    void Interact()
+    {
+        Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+
+        GameObject hitObject = null;
+        // actual Ray
+        Ray ray = playerCamera.ViewportPointToRay(rayOrigin);
+
+        if (Physics.Raycast(ray, out hit, InteractRange))
+        {
+            if (hit.collider)
+            {
+                hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<IInteractable>() != null)
+                {
+                    hitObject.GetComponent<IInteractable>().OnInteract();
+                }
+            }
+
         }
     }
 
