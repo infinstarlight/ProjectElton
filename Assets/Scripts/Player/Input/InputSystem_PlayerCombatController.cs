@@ -125,84 +125,94 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Performed:
-                {
-                    weaponScript.Fire();
-                }
+                weaponScript.Fire();
                 break;
 
             case InputActionPhase.Started:
                 {
-                    if (weaponScript.bIsAutomatic)
-                    {
-                        weaponScript.StartCoroutine(weaponScript.AutoFire());
-                    }
-                    if (context.interaction is HoldInteraction)
                     {
 
                         if (weaponScript.bIsChargeWeapon)
                         {
                             weaponScript.StartCoroutine(weaponScript.ChargeShot());
                         }
-
-
+                        if (weaponScript.bIsAutomatic)
+                        {
+                            weaponScript.StartCoroutine(weaponScript.AutoFire());
+                        }
                     }
                 }
                 break;
             case InputActionPhase.Canceled:
                 {
-                    if (!weaponScript.bIsChargeWeapon)
+                    if (weaponScript.bIsAutomatic)
                     {
                         weaponScript.StopCoroutine(weaponScript.AutoFire());
                     }
-                    else
+                    if (weaponScript.bIsChargeWeapon)
                     {
                         weaponScript.StopCoroutine(weaponScript.ChargeShot());
                         if (weaponScript.CurrentChargeTime > 0)
                         {
                             weaponScript.FireChargedShot();
                         }
-
                     }
+
 
                 }
                 break;
         }
     }
+
     //These functions are all basically the same, but for the sake of laziness - they are all separate for now
     #region Weapon Selection
-    public void OnPrimaryWeaponSelect(InputAction.CallbackContext context)
+
+    void WeaponSelect(int weaponDesired)
     {
-        if (currentWeapon != Weapons[0])
+        if (currentWeapon != Weapons[weaponDesired])
         {
             currentWeapon.SetActive(false);
         }
-        Weapons[0].SetActive(true);
-        weaponScript = Weapons[0].GetComponent<PlayerWeapon>();
-        currentWeapon = Weapons[0];
+        Weapons[weaponDesired].SetActive(true);
+        weaponScript = Weapons[weaponDesired].GetComponent<PlayerWeapon>();
+        currentWeapon = Weapons[weaponDesired];
+    }
 
+    public void OnPrimaryWeaponSelect(InputAction.CallbackContext context)
+    {
+        // if (currentWeapon != Weapons[0])
+        // {
+        //     currentWeapon.SetActive(false);
+        // }
+        // Weapons[0].SetActive(true);
+        // weaponScript = Weapons[0].GetComponent<PlayerWeapon>();
+        // currentWeapon = Weapons[0];
+        WeaponSelect(0);
     }
 
     public void OnSecondWeaponSelect(InputAction.CallbackContext context)
     {
-        if (currentWeapon != Weapons[1])
-        {
-            currentWeapon.SetActive(false);
-        }
-        Weapons[1].SetActive(true);
-        weaponScript = Weapons[1].GetComponent<PlayerWeapon>();
-        currentWeapon = Weapons[1];
+        // if (currentWeapon != Weapons[1])
+        // {
+        //     currentWeapon.SetActive(false);
+        // }
+        // Weapons[1].SetActive(true);
+        // weaponScript = Weapons[1].GetComponent<PlayerWeapon>();
+        // currentWeapon = Weapons[1];
+        WeaponSelect(1);
 
     }
 
     public void OnThirdWeaponSelect(InputAction.CallbackContext context)
     {
-        if (currentWeapon != Weapons[2])
-        {
-            currentWeapon.SetActive(false);
-        }
-        Weapons[2].SetActive(true);
-        weaponScript = Weapons[2].GetComponent<PlayerWeapon>();
-        currentWeapon = Weapons[2];
+        // if (currentWeapon != Weapons[2])
+        // {
+        //     currentWeapon.SetActive(false);
+        // }
+        // Weapons[2].SetActive(true);
+        // weaponScript = Weapons[2].GetComponent<PlayerWeapon>();
+        // currentWeapon = Weapons[2];
+        WeaponSelect(2);
     }
 
     #endregion

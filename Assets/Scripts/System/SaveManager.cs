@@ -7,10 +7,12 @@ public class SaveManager : MonoBehaviour
 {
     private Player GetPlayer;
     public bool bWasSaveLoaded = false;
+    private AudioSource audioSource;
 
     void OnEnable()
     {
         GetPlayer = FindObjectOfType<Player>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -22,6 +24,7 @@ public class SaveManager : MonoBehaviour
         if (GetPlayer)
         {
             SaveSystem.SavePlayer(GetPlayer);
+            audioSource.PlayOneShot(audioSource.clip);
         }
 
     }
@@ -38,20 +41,20 @@ public class SaveManager : MonoBehaviour
         savedPosition.y = data.position[1];
         savedPosition.z = data.position[2];
         SceneManager.LoadScene(savedSceneName);
-        if (!GetPlayer)
-        {
-            var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
-            Instantiate(PlayerGO, transform.position, transform.rotation);
-            var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
-            Instantiate(PlayerUIGO);
-            GetPlayer = PlayerGO.GetComponent<Player>();
+        // if (!GetPlayer)
+        // {
+        //     var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
+        //     Instantiate(PlayerGO, transform.position, transform.rotation);
+        //     var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
+        //     Instantiate(PlayerUIGO);
+        //     GetPlayer = PlayerGO.GetComponent<Player>();
 
-            //GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
-            GetPlayer.gameObject.transform.position = savedPosition;
-            GetPlayer.PlayerStats.UpdateHealthText();
+        //     //GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
+        //     GetPlayer.gameObject.transform.position = savedPosition;
+        //     GetPlayer.PlayerStats.UpdateHealthText();
             
 
-        }
+        // }
         if (GetPlayer)
         {
             GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;

@@ -26,6 +26,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     [SerializeField]
     private float InteractRange = 200.0f;
     private RaycastHit hit;
+    private PlayerUIController uiController;
 
     void OnEnable()
     {
@@ -35,6 +36,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        uiController = FindObjectOfType<PlayerUIController>();
     }
 
     void OnDisable()
@@ -100,6 +102,28 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+
+        GameObject hitObject = null;
+        // actual Ray
+        Ray ray = playerCamera.ViewportPointToRay(rayOrigin);
+
+        if (Physics.Raycast(ray, out hit, InteractRange))
+        {
+            if (hit.collider)
+            {
+                hitObject = hit.collider.gameObject;
+                if (hitObject.GetComponent<IInteractable>() != null)
+                {
+                    uiController.ToggleInteractText();
+                }
+            }
+
+        }
+    }
+
 
     void CheckForNewDevice()
     {
@@ -162,6 +186,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         //if(myControls.gameplay.)
         bEnableGameInput = true;
         myControls.gameplay.Pause.performed += OnGamePause;
+        myControls.gameplay.Interact.performed += OnInteractEvent;
         myControls.gameplay.CharacterMenu.performed += OnCharMenu;
         myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
         myControls.gameplay.MoveUp.performed += rbMovement.OnMoveUp;
@@ -178,6 +203,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
         myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
         myControls.gameplay.Look.performed += cameraLook.OnLook;
+        myControls.gameplay.Interact.Enable();
         myControls.gameplay.Fire.Enable();
         myControls.gameplay.Look.Enable();
         myControls.gameplay.Pause.Enable();
@@ -207,6 +233,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     void DisableGameControls()
     {
         bEnableGameInput = false;
+        myControls.gameplay.Interact.Disable();
         // myControls.gameplay.Disable();
         myControls.gameplay.Fire.Disable();
         myControls.gameplay.Look.Disable();
@@ -260,6 +287,11 @@ public class InputSystem_PlayerController : MonoBehaviour
     public void OnCharMenu(InputAction.CallbackContext context)
     {
         ShowMenu(CharMenuGO);
+    }
+
+    public void OnInteractEvent(InputAction.CallbackContext context)
+    {
+        Interact();
     }
 
 

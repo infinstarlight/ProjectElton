@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class GameConsole : MonoBehaviour
 {
-    private bool bShouldOpenConsole = false;
+    //private bool bShouldOpenConsole = false;
     private GameObject consoleGO;
     private TMP_InputField consoleInputField;
     private EventSystem myEventSystem;

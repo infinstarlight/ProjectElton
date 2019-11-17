@@ -387,11 +387,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cea1ecf363424c9a8cb49a965b47367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: LoadTestScene_PartOne
+  nextSceneName: 
   lastSceneName: 
   doorSounds:
   - {fileID: 8300000, guid: b019b06b35fd640a4994b08650d46f10, type: 3}
   - {fileID: 8300000, guid: 5d5d2ccd882594fa980ed69f54e235e7, type: 3}
+  - {fileID: 8300000, guid: 66025763806e848d7b15130ec3b504af, type: 3}
+  bIsLocked: 0
+  bShouldLoadScene: 0
   desiredAmmoType: 1
 --- !u!65 &1645073565538815430
 BoxCollider:

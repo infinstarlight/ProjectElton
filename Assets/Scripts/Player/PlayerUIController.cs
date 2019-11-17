@@ -13,6 +13,8 @@ public class PlayerUIController : MonoBehaviour
     private ID_StyleSlider styleSliderScript;
 
     private ID_PlayerHealthSlider healthbar;
+    private GameObject interactText;
+    private bool bShowInteractText;
     private GameObject optionsMenu;
     private Player GetPlayer;
     public UnityEvent updateUIEvent = new UnityEvent();
@@ -26,6 +28,7 @@ public class PlayerUIController : MonoBehaviour
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
+        interactText = FindObjectOfType<ID_InteractText>().gameObject;
 
     }
 
@@ -45,6 +48,10 @@ public class PlayerUIController : MonoBehaviour
         if (optionsMenu)
         {
             optionsMenu.SetActive(false);
+        }
+        if(interactText)
+        {
+            interactText.SetActive(false);
         }
 
 
@@ -117,5 +124,21 @@ public class PlayerUIController : MonoBehaviour
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ToggleInteractText()
+    {
+        bShowInteractText = !bShowInteractText;
+        if(interactText)
+        {
+            if(bShowInteractText)
+            {
+                interactText.SetActive(true);
+            }
+            else
+            {
+                interactText.SetActive(false);
+            }
+        }
     }
 }

@@ -37,7 +37,7 @@ public class Player : Character
 
     void OnDisable()
     {
-
+        damageEvent.RemoveAllListeners();
     }
 
     void PlayerAwake()

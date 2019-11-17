@@ -6,3 +6,8 @@ public interface IInteractable
 {
     void OnInteract();
 }
+
+public interface IChargeable
+{
+    void OnChargeEvent();
+}

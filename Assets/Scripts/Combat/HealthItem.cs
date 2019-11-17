@@ -8,18 +8,10 @@ public class HealthItem : Item
     // Start is called before the first frame update
     void Start()
     {
-        CurrentItemType = ItemType.Health;
-        itemSource = GetComponent<AudioSource>();
+        CurrentItemType = ItemType.HealthPickup;
+        //itemSource = GetComponent<AudioSource>();
     }
 
-    //Update is called once per frame
-    private void Update()
-    {
-        if (!GetPlayer)
-        {
-            GetPlayer = FindObjectOfType<Player>();
-        }
-    }
 
 
     void OnCollisionEnter(Collision collision)
@@ -27,7 +19,7 @@ public class HealthItem : Item
         Debug.Log("This item collided with " + collision.gameObject.name);
         if (collision.gameObject.GetComponent<Player>() != null)
         {
-            if (CurrentItemType == ItemType.Health)
+            if (CurrentItemType == ItemType.HealthPickup)
             {
                 RecoverHealth();
             }
@@ -42,7 +34,7 @@ public class HealthItem : Item
         // Debug.Log("This item collided with " + collision.name);
         if (collision.gameObject.GetComponent<Player>() != null)
         {
-            if (CurrentItemType == ItemType.Health)
+            if (CurrentItemType == ItemType.HealthPickup)
             {
                 RecoverHealth();
             }

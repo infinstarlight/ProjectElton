@@ -11,6 +11,7 @@ public class LoadingDoorScript : MonoBehaviour
     public AudioClip[] doorSounds;
     AsyncOperation sceneLoadOperation;
     AsyncOperation sceneUnloadOperation;
+    public bool bIsLocked = false;
 
     public bool bShouldLoadScene = false;
 
@@ -33,11 +34,11 @@ public class LoadingDoorScript : MonoBehaviour
     {
 
         myAnimator.SetBool("bOpenDoor?", false);
-        if(lastSceneName == "")
+        if (lastSceneName == "")
         {
             lastSceneName = SceneManager.GetActiveScene().name;
         }
-        
+
     }
 
     IEnumerator LoadScene()
@@ -104,6 +105,8 @@ public class LoadingDoorScript : MonoBehaviour
         }
     }
 
+
+
     IEnumerator UnloadScene()
     {
         if (bShouldLoadScene)
@@ -126,17 +129,26 @@ public class LoadingDoorScript : MonoBehaviour
 
     void OpenDoor()
     {
-        myAnimator.SetBool("bOpenDoor?", true);
+        if (!bIsLocked)
+        {
+            myAnimator.SetBool("bOpenDoor?", true);
+        }
+        else
+        {
+            GetAudio.clip = doorSounds[2];
+            GetAudio.PlayOneShot(GetAudio.clip);
+        }
+
     }
 
     void CloseDoor()
     {
         myAnimator.SetBool("bOpenDoor?", false);
-        if(bShouldLoadScene)
+        if (bShouldLoadScene)
         {
             StopCoroutine(UnloadScene());
         }
-        
+
     }
 
     public void OnDoorOpen()
@@ -150,7 +162,11 @@ public class LoadingDoorScript : MonoBehaviour
         GetAudio.clip = doorSounds[1];
         GetAudio.PlayOneShot(GetAudio.clip);
 
-        bIsSceneLoaded = false;
+        if (bIsSceneLoaded)
+        {
+            bIsSceneLoaded = false;
+        }
+
 
     }
 
@@ -173,7 +189,19 @@ public class LoadingDoorScript : MonoBehaviour
         }
     }
 
+    public void UnlockDoor()
+    {
+        if (bIsLocked)
+        {
+            bIsLocked = false;
+            OpenDoor();
+        }
+    }
 
+    public void OnChargerEvent()
+    {
+        UnlockDoor();
+    }
 
 
     private void OnTriggerExit(Collider other)

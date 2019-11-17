@@ -6,33 +6,49 @@ public class Item : MonoBehaviour
 {
     public enum ItemType
     {
-        Health,
-        DKAmmo,
-        PowerUp
+        HealthPickup,
+        SubweaponAmmo,
+        PowerUp,
+        HealthUpgrade,
+        SubweaponAmmoUpgrade
     }
-    public float RecoverAmount = 0;
+    public float ValueMod = 0;
     public Player GetPlayer;
     public AudioSource itemSource;
 
     public ItemType CurrentItemType;
 
-    void Start()
+    public void Awake()
     {
-        GetPlayer = FindObjectOfType<Player>();
+          GetPlayer = FindObjectOfType<Player>();
         itemSource = GetComponent<AudioSource>();
     }
 
    
+   
 
     public void RecoverHealth()
     {
-        GetPlayer.characterStats.ModifyHealth(RecoverAmount);
-        GetPlayer.PlayerStats.UpdateHealthText();
+        if(CurrentItemType == ItemType.HealthPickup)
+        {
+            GetPlayer.SendMessage("HealCharacter",ValueMod);
+        //GetPlayer.characterStats.HealCharacter(RecoverAmount);
+        GetPlayer.SendMessage("UpdateHealthText");
+        //GetPlayer.PlayerStats.UpdateHealthText();
         itemSource.PlayOneShot(itemSource.clip);
+        }
+        
     }
 
-    //Update is called once per frame
-   
+   public void UpgradeHealth()
+   {
+       if(CurrentItemType == ItemType.HealthUpgrade)
+       {
+           GetPlayer.SendMessage("ModifyHealth",ValueMod);
+           GetPlayer.SendMessage("UpdateHealthText");
+           SaveSystem.SavePlayer(GetPlayer);
+       }
+   }
 
 
    

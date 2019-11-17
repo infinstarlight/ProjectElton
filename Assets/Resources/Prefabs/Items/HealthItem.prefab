@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e888051ce1501034ab17d75bbd90a4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RecoverAmount: 10
+  ValueMod: 15
   GetPlayer: {fileID: 0}
   itemSource: {fileID: 0}
   CurrentItemType: 0

@@ -39,6 +39,7 @@ public class PlayerWeapon : Weapon
 
             GameObject hitObject = null;
             LoadingDoorScript hitDoor = null;
+            WeaponChargeObject hitChargeObject = null;
 
             // actual Ray
             Ray ray = PlayerCamera.ViewportPointToRay(rayOrigin);
@@ -64,6 +65,12 @@ public class PlayerWeapon : Weapon
                         hitDoor = hitObject.GetComponentInParent<LoadingDoorScript>();
                         hitDoor.CheckAmmoType(MyAmmoType);
                         //TODO: If it's the wrong ammo type, bounce the shot back to player
+                    }
+                    if(hitObject.GetComponent<WeaponChargeObject>())
+                    {
+                        float chargeAmount = DamageAmount / 4;
+                        hitChargeObject = hitObject.GetComponent<WeaponChargeObject>();
+                        hitChargeObject.ModCharge(chargeAmount,MyAmmoType);
                     }
                 }
             }

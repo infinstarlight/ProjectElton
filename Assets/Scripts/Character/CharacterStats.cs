@@ -31,12 +31,12 @@ public class CharacterStats : MonoBehaviour
     void Awake()
     {
         CurrentHealth = MaxHealth;
-        
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -46,8 +46,23 @@ public class CharacterStats : MonoBehaviour
         //Debug.Log(healthPercentage + "of: " + gameObject.name);
     }
 
-     public void ModifyHealth(float ModAmount)
+    public void HealCharacter(float ModAmount)
     {
-        CurrentHealth += ModAmount;
+        if (CurrentHealth != MaxHealth)
+        {
+            CurrentHealth += ModAmount;
+        }
+        else
+        {
+            CurrentHealth = MaxHealth;
+        }
+
     }
+
+    public void ModifyHealth(float ModAmount)
+    {
+        MaxHealth += ModAmount;
+        CurrentHealth = MaxHealth;
+    }
+    
 }
