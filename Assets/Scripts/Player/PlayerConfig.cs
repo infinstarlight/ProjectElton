@@ -4,35 +4,28 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine;
 
-// [System.Serializable]
-// public class MyFloatEvent : UnityEvent<float>
-// {
-// }
 
 public class PlayerConfig : MonoBehaviour
 {
     public float currentMouseSensitivity;
     public Slider mouseSlider;
-    private MainMenuController menuController;
+//    private MainMenuController menuController;
 
-    //UnityEvent<float> myEvent;
-
-    void Start()
+    private void Awake() 
     {
-        menuController = FindObjectOfType<MainMenuController>();
-       mouseSlider = FindObjectOfType<ID_MouseSlider>().mySlider;
-       menuController.OptionsMenu.gameObject.SetActive(false);
-	}
-
-    void Update()
-    {
-        if(!mouseSlider)
-        {
-            
-        }
-        currentMouseSensitivity = mouseSlider.value;    
+        //menuController = FindObjectOfType<MainMenuController>();
+       // mouseSlider = FindObjectOfType<ID_MouseSlider>().mySlider;
+       // menuController.OptionsMenu.gameObject.SetActive(false);
     }
-    
+    // void Update()
+    // {
+    //     if (!mouseSlider)
+    //     {
+
+    //     }
+    //     currentMouseSensitivity = mouseSlider.value;
+    // }
+
 
     public void MouseSensitivityCheck()
     {

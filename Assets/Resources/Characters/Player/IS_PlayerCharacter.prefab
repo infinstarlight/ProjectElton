@@ -221,6 +221,9 @@ MonoBehaviour:
     type: 3}
   bShouldDestroyOnDeath: 0
   DestroyDelay: 0
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   PlayerStats: {fileID: 0}
   pCon: {fileID: 0}
   StyleDamageMod: 2.5
@@ -238,6 +241,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pcStats: {fileID: 0}
   currentSpecialAbility: 1
+  updateHealthTextEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &7479678706342794102
 AudioSource:
   m_ObjectHideFlags: 0

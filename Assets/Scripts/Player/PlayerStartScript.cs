@@ -9,14 +9,15 @@ public class PlayerStartScript : Singleton<PlayerStartScript>
     private GameObject GetPlayerGO;
     private Player GetPlayer;
 
-    private void OnEnable()
+    private void PlayerStartAwake() 
     {
-        GetPlayer = FindObjectOfType<Player>();
+          GetPlayer = FindObjectOfType<Player>();
         if (!GetPlayer)
         {
             var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
             GetPlayerGO = Instantiate(PlayerGO, transform.position, transform.rotation);
-
+            // var HUDGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
+            // Instantiate(HUDGO);
         }
         else
         {

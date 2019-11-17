@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3848179910434975803}
   - component: {fileID: 3818039994024649929}
   - component: {fileID: 6801236988890336202}
+  - component: {fileID: 4859675274974005831}
   m_Layer: 0
   m_Name: WeaponFireEffect
   m_TagString: Untagged
@@ -72,6 +73,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DestroyDelay: 2
+--- !u!114 &4859675274974005831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3848898404133243097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3287d755d0dd420d8b2da5e29fba2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3849464728823896299
 GameObject:
   m_ObjectHideFlags: 0
@@ -19630,6 +19643,6 @@ MonoBehaviour:
   UseNormalRotation: 1
   IsWorldSpace: 1
   RealTimeUpdateRaycast: 0
-  DestroyAfterDisabling: 0
+  DestroyAfterDisabling: 1
   HUE: -1
   CollidedInstances: []

@@ -19,15 +19,15 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
-       // Debug.Log(Application.persistentDataPath);
+        // Debug.Log(Application.persistentDataPath);
         GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         GameManagerGO = FindObjectOfType<ID_GameManager>().gameObject;
         saveManager = FindObjectOfType<SaveManager>();
         MainMenu = FindObjectOfType<ID_MainMenuCanvas>();
         OptionsMenu = FindObjectOfType<ID_OptionsMenu>();
-       // OptionsMenu.gameObject.SetActive(false);
+        OptionsMenu.gameObject.SetActive(false);
 
-        if(System.IO.File.Exists(Application.persistentDataPath + "/player.sav"))
+        if (System.IO.File.Exists(Application.persistentDataPath + "/player.sav"))
         {
             Debug.Log("Save exists!");
         }
@@ -70,17 +70,17 @@ public class MainMenuController : MonoBehaviour
     }
     public void LeaveGame()
     {
-        #if UNITY_STANDALONE
+#if UNITY_STANDALONE
         Application.Quit();
-        #endif
+#endif
 
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         if (Application.isEditor)
         {
             EditorApplication.isPlaying = false;
         }
-        #endif
+#endif
     }
 
     public void ContinueGame()

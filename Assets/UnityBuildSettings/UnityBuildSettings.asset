@@ -49,9 +49,9 @@ MonoBehaviour:
   _releaseTypeList:
     releaseTypes:
     - typeName: DevBuild
-      bundleIndentifier: com.EchoLabs.TheChase
-      companyName: Echo Labs
-      productName: 'Aragon: The Chase'
+      bundleIndentifier: com.EchoLabs.TheHunt
+      companyName: Eternal Starlight Studios
+      productName: 'Aragon: The Hunt'
       developmentBuild: 0
       allowDebugging: 0
       enableHeadlessMode: 0
@@ -59,9 +59,12 @@ MonoBehaviour:
       sceneList:
         enabledScenes:
         - fileGUID: bd033ea47334145bb9514de14882db40
-        - fileGUID: 42559232b27bd4dc8a8016477b23b18f
         - fileGUID: 5fd80a9172cbc7145a53a2b5171ec893
         - fileGUID: 9a78fd9253e3ddd479f1f74219d823e1
+        - fileGUID: 87b8447fba0f8ec43abb6107af60e6c3
+        - fileGUID: d994a86c675c04a77a6eb293aa6ba315
+        - fileGUID: a497b960abd16493ba7ffe7007dfb6b9
+        - fileGUID: c9f920b8d2c624584974a3673c467a78
   _platformList:
     platforms:
     - enabled: 1
@@ -241,7 +244,7 @@ MonoBehaviour:
     showBuildInfo: 0
     hideDisabled: 0
     treeView: 0
-    selectedKeyChain: 
+    selectedKeyChain: DevBuild/Linux/Linux x64
   _preBuildActions:
     buildActions: []
   _postBuildActions:

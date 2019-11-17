@@ -192,6 +192,33 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10a92ff12f2f9074c960f9ac05f34c8e, type: 3}
   m_IsPrefabParent: 0
+--- !u!84 &208460332
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 'Directional Light : Shadow Map Render Texture'
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_Width: 512
+  m_Height: 512
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 11
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &351640050
 Prefab:
   m_ObjectHideFlags: 0
@@ -644,6 +671,7 @@ MonoBehaviour:
       outputLowValue: 0.25
       outputHiValue: 1
       contrast: 5
+      saturateOutputValues: 0
     useTexture2DMask: 0
     useTexture2DMaskLevels: 0
     texture2DMaskLevelParameters:
@@ -652,6 +680,7 @@ MonoBehaviour:
       outputLowValue: 0
       outputHiValue: 1
       contrast: 1
+      saturateOutputValues: 0
     useTexture3DMask: 0
     useTexture3DMaskLevels: 0
     texture3DMaskLevelParameters:
@@ -660,6 +689,7 @@ MonoBehaviour:
       outputLowValue: 0
       outputHiValue: 1
       contrast: 1
+      saturateOutputValues: 0
   scatteringInjection:
     enable: 0
     strength: 0.5
@@ -671,6 +701,7 @@ MonoBehaviour:
       outputLowValue: -1
       outputHiValue: 1
       contrast: 3
+      saturateOutputValues: 0
     useTexture2DMask: 0
     useTexture2DMaskLevels: 0
     texture2DMaskLevelParameters:
@@ -679,6 +710,7 @@ MonoBehaviour:
       outputLowValue: -1
       outputHiValue: 1
       contrast: 1
+      saturateOutputValues: 0
     useTexture3DMask: 0
     useTexture3DMaskLevels: 0
     texture3DMaskLevelParameters:
@@ -687,6 +719,7 @@ MonoBehaviour:
       outputLowValue: -1
       outputHiValue: 1
       contrast: 1
+      saturateOutputValues: 0
   lightInjection:
     injectionParameters:
       enable: 0
@@ -699,6 +732,7 @@ MonoBehaviour:
         outputLowValue: 0
         outputHiValue: 1
         contrast: 1
+        saturateOutputValues: 0
       useTexture2DMask: 0
       useTexture2DMaskLevels: 0
       texture2DMaskLevelParameters:
@@ -707,6 +741,7 @@ MonoBehaviour:
         outputLowValue: 0
         outputHiValue: 1
         contrast: 1
+        saturateOutputValues: 0
       useTexture3DMask: 0
       useTexture3DMaskLevels: 0
       texture3DMaskLevelParameters:
@@ -715,7 +750,100 @@ MonoBehaviour:
         outputLowValue: 0
         outputHiValue: 1
         contrast: 1
+        saturateOutputValues: 0
     color: {r: 0.0000010132779, g: 0.38785672, b: 0.999999, a: 1}
+  tintInjection:
+    injectionParameters:
+      enable: 0
+      strength: 1
+      useNoiseMask: 0
+      useNoiseMaskLevels: 0
+      noiseMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 0
+        outputLowValue: 0
+        outputHiValue: 0
+        contrast: 0
+        saturateOutputValues: 0
+      useTexture2DMask: 0
+      useTexture2DMaskLevels: 0
+      texture2DMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 0
+        outputLowValue: 0
+        outputHiValue: 0
+        contrast: 0
+        saturateOutputValues: 0
+      useTexture3DMask: 0
+      useTexture3DMaskLevels: 0
+      texture3DMaskLevelParameters:
+        levelLowThreshold: 0
+        levelHiThreshold: 0
+        outputLowValue: 0
+        outputHiValue: 0
+        contrast: 0
+        saturateOutputValues: 0
+    color: {r: 0.94938314, g: 0.9983695, b: 0.999999, a: 1}
+  ambientInjection:
+    enable: 0
+    strength: 0
+    useNoiseMask: 0
+    useNoiseMaskLevels: 0
+    noiseMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
+    useTexture2DMask: 0
+    useTexture2DMaskLevels: 0
+    texture2DMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
+    useTexture3DMask: 0
+    useTexture3DMaskLevels: 0
+    texture3DMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
+  boostInjection:
+    enable: 0
+    strength: 1
+    useNoiseMask: 0
+    useNoiseMaskLevels: 0
+    noiseMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
+    useTexture2DMask: 0
+    useTexture2DMaskLevels: 0
+    texture2DMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
+    useTexture3DMask: 0
+    useTexture3DMaskLevels: 0
+    texture3DMaskLevelParameters:
+      levelLowThreshold: 0
+      levelHiThreshold: 0
+      outputLowValue: 0
+      outputHiValue: 0
+      contrast: 0
+      saturateOutputValues: 0
 --- !u!4 &518545842
 Transform:
   m_ObjectHideFlags: 0
@@ -898,12 +1026,17 @@ MonoBehaviour:
   enableLightsCookies: 1
   enableDithering: 1
   texture3DFiltering: 1
-  enableDenoisingFilter: 0
-  denoisingFilterRange: 0
+  EXPERIMENTAL_enableDenoisingFilter: 0
+  EXPERIMENTAL_denoisingFilterRange: 0
+  EXPERIMENTAL_enableBlurFilter: 0
+  EXPERIMENTAL_blurFilterRange: 0
+  EXPERIMENTAL_blurFilterType: 0
+  EXPERIMENTAL_blurFilterGaussianDeviation: 0.0025
   enableTemporalReprojection: 1
-  temporalReprojectionFactor: 0.9
+  temporalReprojectionFactor: 0.95
   enableOcclusionCulling: 1
-  occlusionCullingAccuracy: 4
+  debugOcclusionCulling: 0
+  occlusionCullingAccuracy: 0
   enableLightProbes: 0
 --- !u!1 &788944286
 GameObject:
@@ -1407,6 +1540,8 @@ MonoBehaviour:
   useColor: 0
   color: {r: 0.0000005066395, g: 0.5, b: 0.5, a: 1}
   colorStrength: 1
+  useTint: 0
+  tint: {r: 0.999999, g: 0.9215677, b: 0.015686257, a: 1}
   useExtinction: 0
   extinction: 0.75
 --- !u!4 &1859949839 stripped
@@ -1443,11 +1578,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strength: 1
+  useScattering: 0
+  overrideScattering: 0
+  overridingScattering: 0.5
   scatteringBias: 0
+  useColorTemperatureTint: 0
   overrideColor: 0
   overridingColor: {r: 0.88640314, g: 0.999999, b: 0.9875376, a: 1}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 2050580048}
+  shadowMapRenderTexture: {fileID: 208460332}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -1606,33 +1745,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 10a92ff12f2f9074c960f9ac05f34c8e, type: 3}
   m_IsPrefabParent: 0
---- !u!84 &2050580048
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 'Directional Light : Shadow Map Render Texture'
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 11
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &2106248104
 Prefab:
   m_ObjectHideFlags: 0
