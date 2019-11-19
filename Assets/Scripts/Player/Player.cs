@@ -18,20 +18,23 @@ public class Player : Character
     public static Player instance = null;
 
 
-   
+
 
     void OnEnable()
     {
-        if(!instance)
+
+
+        if (instance == null)
         {
-            instance = this;
+            instance = this; // In first scene, make us the singleton.
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (instance != this)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // On reload, singleton already set, so destroy duplicate.
         }
-       
+
+
         damageEvent.AddListener(PlayerDamageTaken);
     }
 
@@ -40,27 +43,18 @@ public class Player : Character
         damageEvent.RemoveAllListeners();
     }
 
-    void PlayerAwake()
-    {
-        // playerSource = GetComponent<AudioSource>();
-        // PlayerStats = GetComponent<PlayerStatsScript>();
-
-    }
 
     // Start is called before the first frame update
     void Start()
     {
-
 
         bShouldDestroyOnDeath = false;
         pCon = GetComponentInChildren<InputSystem_PlayerController>();
         playerState = GetComponentInChildren<PlayerStateScript>();
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
-
-        PlayerStats.UpdateHealthText();
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
-
+        characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
     }
 
 
@@ -68,6 +62,7 @@ public class Player : Character
     {
         if (characterStats.bCanTakeDamage)
         {
+            characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
             characterStats.CurrentHealth -= damageTaken;
             playerSource.clip = hurtClips[Random.Range(0, hurtClips.Length)];
             playerSource.PlayOneShot(playerSource.clip);

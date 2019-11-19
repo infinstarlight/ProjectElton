@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1257,7 +1257,7 @@ PrefabInstance:
     - target: {fileID: 6192252222207571431, guid: b8036a81e97ae474faa0d232fc52546d,
         type: 3}
       propertyPath: bShouldFadeIn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6192252222207571430, guid: b8036a81e97ae474faa0d232fc52546d,
         type: 3}
@@ -2243,6 +2243,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 1292383914308925222, guid: c96449206b9db4fc4a5d76a7bf1910dc,
+        type: 3}
+      propertyPath: m_Name
+      value: SensitivitySlider
+      objectReference: {fileID: 0}
     - target: {fileID: 1292383915228173032, guid: c96449206b9db4fc4a5d76a7bf1910dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2303,11 +2308,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1292383914308925222, guid: c96449206b9db4fc4a5d76a7bf1910dc,
-        type: 3}
-      propertyPath: m_Name
-      value: SensitivitySlider
-      objectReference: {fileID: 0}
     - target: {fileID: 1292383915918298148, guid: c96449206b9db4fc4a5d76a7bf1910dc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2358,5 +2358,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1785316741}
+    - target: {fileID: 1292383914116392643, guid: c96449206b9db4fc4a5d76a7bf1910dc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30.259766
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c96449206b9db4fc4a5d76a7bf1910dc, type: 3}

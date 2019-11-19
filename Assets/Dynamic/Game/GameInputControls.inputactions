@@ -11,7 +11,7 @@
                     "id": "5d90ba52-c2ff-4baf-88d4-73c530aac37a",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "Hold"
+                    "interactions": ""
                 },
                 {
                     "name": "AltFire",

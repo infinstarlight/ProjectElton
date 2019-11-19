@@ -8,15 +8,17 @@ public class SaveManager : MonoBehaviour
     private Player GetPlayer;
     public bool bWasSaveLoaded = false;
     private AudioSource audioSource;
+    private SceneFadeTransition GetFadeTransition;
 
     void OnEnable()
     {
-        GetPlayer = FindObjectOfType<Player>();
+     //   GetPlayer = FindObjectOfType<Player>();
         audioSource = GetComponent<AudioSource>();
     }
 
     void Start()
     {
+        GetFadeTransition = FindObjectOfType<SceneFadeTransition>();
         GetPlayer = FindObjectOfType<Player>();
     }
     public void SavePlayerData()
@@ -40,27 +42,15 @@ public class SaveManager : MonoBehaviour
         savedPosition.x = data.position[0];
         savedPosition.y = data.position[1];
         savedPosition.z = data.position[2];
-        SceneManager.LoadScene(savedSceneName);
-        // if (!GetPlayer)
-        // {
-        //     var PlayerGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
-        //     Instantiate(PlayerGO, transform.position, transform.rotation);
-        //     var PlayerUIGO = Resources.Load<GameObject>("Characters/Player/PlayerUI") as GameObject;
-        //     Instantiate(PlayerUIGO);
-        //     GetPlayer = PlayerGO.GetComponent<Player>();
-
-        //     //GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
-        //     GetPlayer.gameObject.transform.position = savedPosition;
-        //     GetPlayer.PlayerStats.UpdateHealthText();
-            
-
-        // }
+        GetFadeTransition.bIsAlternateLoad = true;
+        GetFadeTransition.FadeToLevelByString(savedSceneName);
+       
         if (GetPlayer)
         {
             GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
             GetPlayer.gameObject.transform.position = savedPosition;
             GetPlayer.PlayerStats.UpdateHealthText();
-            //SceneManager.LoadScene(savedSceneName);
+            
         }
 
         bWasSaveLoaded = true;

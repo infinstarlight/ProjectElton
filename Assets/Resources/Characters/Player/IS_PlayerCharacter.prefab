@@ -426,6 +426,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 610680752551973497}
     m_Modifications:
+    - target: {fileID: 6948198054562237531, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: m_Name
+      value: IS_PlayerController
+      objectReference: {fileID: 0}
     - target: {fileID: 6948198054562237528, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -480,16 +485,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4890651747302751514, guid: abb25c9ac5474cf458e7f8b5930cfa97,
-        type: 3}
-      propertyPath: field of view
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6948198054562237531, guid: abb25c9ac5474cf458e7f8b5930cfa97,
-        type: 3}
-      propertyPath: m_Name
-      value: IS_PlayerController
       objectReference: {fileID: 0}
     - target: {fileID: 5814213176318508452, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
@@ -581,6 +576,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.32
       objectReference: {fileID: 0}
+    - target: {fileID: 4890651747302751514, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 4989322703412061481, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_LocalRotation.y
@@ -629,7 +629,7 @@ PrefabInstance:
     - target: {fileID: 346688260199785036, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.32
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}

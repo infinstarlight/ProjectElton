@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4729747429194237285}
   - component: {fileID: 4729747429194237311}
   m_Layer: 0
-  m_Name: HealthItem
+  m_Name: SmallHealthPickup 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d346ba81cb7d0694dbd73b1c7dbd7dc9, type: 2}
+  - {fileID: 2100000, guid: 0045b54ad9b19a340bc5c970c88f41ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e888051ce1501034ab17d75bbd90a4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ValueMod: 15
+  ValueMod: 30
   GetPlayer: {fileID: 0}
   itemSource: {fileID: 0}
   CurrentItemType: 0

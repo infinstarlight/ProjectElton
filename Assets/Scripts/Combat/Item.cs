@@ -40,6 +40,14 @@ public class Item : MonoBehaviour
         
     }
 
+    public void RecoverAmmo()
+    {
+        if(CurrentItemType == ItemType.SubweaponAmmo)
+        {
+            GetPlayer.SendMessage("ModifyAmmo",ValueMod);
+        }
+    }
+
    public void UpgradeHealth()
    {
        if(CurrentItemType == ItemType.HealthUpgrade)

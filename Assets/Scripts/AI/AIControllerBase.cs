@@ -16,14 +16,17 @@ public class AIControllerBase : MonoBehaviour
     private RaycastHit visionHit;
     public bool bIsPlayerVisible = false;
     private Player GetPlayer;
+    public bool bIsHumanoid = false;
 
     public float DistanceRemaining;
-    void Awake()
+    public void Awake()
     {
         myEnemy = GetComponentInParent<Enemy>();
-        myNavAgent = GetComponentInParent<NavAgent>();
-        myNavMeshAgent = GetComponentInParent<NavMeshAgent>();
-        //AIEyes = GetComponentInChildren<ID_AI_Eyes>().gameObject;
+        if (bIsHumanoid)
+        {
+            myNavAgent = GetComponentInParent<NavAgent>();
+            myNavMeshAgent = GetComponentInParent<NavMeshAgent>();
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -64,17 +67,21 @@ public class AIControllerBase : MonoBehaviour
                 else
                 {
                     bIsPlayerVisible = false;
-                    if(GetPlayer)
+                    if (GetPlayer)
                     {
                         GetPlayer = null;
                     }
-                    if (myNavAgent.bIsTrackingPlayer)
+                    if (bIsHumanoid)
                     {
-                        myNavAgent.bIsTrackingPlayer = false;
+                        if (myNavAgent.bIsTrackingPlayer)
+                        {
+                            myNavAgent.bIsTrackingPlayer = false;
 
+                        }
                     }
-                    
-                    //myNavAgent.FindDestination();
+
+
+
 
                 }
             }

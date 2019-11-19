@@ -19,7 +19,7 @@ MonoBehaviour:
   filter:
     condition: 0
     clauses: []
-  pathToButlerExe: G:\Games Library\itch\Butler\butler.exe
+  pathToButlerExe: /usr/local/bin/user
   nameOfItchUser: sleeplessstarlight
   nameOfItchGame: TheHunt
   useGeneratedBuildVersion: 1

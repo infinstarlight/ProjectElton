@@ -19,6 +19,21 @@ public class PlayerUIController : MonoBehaviour
     private Player GetPlayer;
     public UnityEvent updateUIEvent = new UnityEvent();
 
+    public bool bIsMobile = false;
+
+    private void Awake()
+    {
+#if UNITY_STANDALONE
+        bIsMobile = false;
+#endif
+#if  UNITY_XBOXONE
+           bIsMobile = false;
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+bIsMobile = true;
+#endif
+    }
+
     private void OnEnable()
     {
         GetPlayer = FindObjectOfType<Player>();
@@ -49,11 +64,11 @@ public class PlayerUIController : MonoBehaviour
         {
             optionsMenu.SetActive(false);
         }
-        if(interactText)
+        if (interactText)
         {
             interactText.SetActive(false);
         }
-
+        UpdateUIData();
 
     }
 
@@ -129,9 +144,9 @@ public class PlayerUIController : MonoBehaviour
     public void ToggleInteractText()
     {
         bShowInteractText = !bShowInteractText;
-        if(interactText)
+        if (interactText)
         {
-            if(bShowInteractText)
+            if (bShowInteractText)
             {
                 interactText.SetActive(true);
             }

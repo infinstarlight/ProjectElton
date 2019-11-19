@@ -148,11 +148,12 @@ MonoBehaviour:
   bIsChargeWeapon: 0
   bIsAutomatic: 0
   MaxChargeLimit: 0
-  CurrentChargeTime: 0
+  CurrentChargeAmount: 0
   ChargeModAmount: 0
+  ChargeModRate: 1
   weaponRange: 50
   nextFire: 0
-  fireRate: 0
+  fireRate: 0.8
   DamageAmount: 6
   oldDamageAmount: 0
   weaponAudio: {fileID: 0}
@@ -162,6 +163,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c85a9f531dd83b418b5e7c67489ebad, type: 3}
   FireEffect: {fileID: 3848898404133243097, guid: 3c1912ef84c486b439c1e5287a25a48d,
     type: 3}
+  rayOrigin: {x: 0.5, y: 0.5, z: 0}
+  bIsPlayerWeapon: 0
+  aimGO: {fileID: 0}
   GetAICon: {fileID: 0}
   ShotWaitPeriod: 3
   AIEyes: {fileID: 0}

@@ -13,6 +13,8 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
     public GameObject[] Weapons;
     private PlayerWeapon weaponScript;
+    private bool bIsAutoFiring = false;
+    private bool bIsCharging = false;
     //private int styleIndex = 1;
 
 
@@ -38,6 +40,14 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
             if (weaponScript == null)
             {
                 weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+            }
+            if(weaponScript.bIsAutomatic && bIsAutoFiring)
+            {
+                weaponScript.StartCoroutine(weaponScript.AutoFire());
+            }
+            if(weaponScript.bIsChargeWeapon && bIsCharging)
+            {
+                weaponScript.StartCoroutine(weaponScript.ChargeShot());
             }
         }
     }
@@ -134,11 +144,13 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
                         if (weaponScript.bIsChargeWeapon)
                         {
-                            weaponScript.StartCoroutine(weaponScript.ChargeShot());
+                            bIsCharging = true;
+                            //weaponScript.StartCoroutine(weaponScript.ChargeShot());
                         }
                         if (weaponScript.bIsAutomatic)
                         {
-                            weaponScript.StartCoroutine(weaponScript.AutoFire());
+                            bIsAutoFiring = true;
+                            //weaponScript.StartCoroutine(weaponScript.AutoFire());
                         }
                     }
                 }
@@ -147,12 +159,14 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 {
                     if (weaponScript.bIsAutomatic)
                     {
+                        bIsAutoFiring = false;
                         weaponScript.StopCoroutine(weaponScript.AutoFire());
                     }
                     if (weaponScript.bIsChargeWeapon)
                     {
+                        bIsCharging = false;
                         weaponScript.StopCoroutine(weaponScript.ChargeShot());
-                        if (weaponScript.CurrentChargeTime > 0)
+                        if (weaponScript.CurrentChargeAmount > 0)
                         {
                             weaponScript.FireChargedShot();
                         }

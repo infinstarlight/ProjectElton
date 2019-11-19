@@ -30,22 +30,33 @@ public class NavAgent : MonoBehaviour
         //TODO: May need to implement state machine code to better handle runtime navigation
         if (!bIsTrackingPlayer)
         {
-            newTravelPosition = myNavPoints[NavIndex].transform.position;
-            myNavAgent.SetDestination(newTravelPosition);
+            if (myNavPoints != null)
+            {
+                {
+                    newTravelPosition = myNavPoints[NavIndex].transform.position;
+                    myNavAgent.SetDestination(newTravelPosition);
+                }
+            }
         }
+
+
         //newTravelPosition = navPoints[NavIndex].transform.position;
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        ++NavIndex;
-
-        if (NavIndex >= myNavPoints.Capacity)
+        if (myNavPoints != null)
         {
-            NavIndex = 0;
+            ++NavIndex;
+
+            if (NavIndex >= myNavPoints.Capacity)
+            {
+                NavIndex = 0;
+            }
+            FindDestination();
         }
-        FindDestination();
+
+
     }
 }

@@ -9,6 +9,8 @@ public class SceneFadeTransition : MonoBehaviour
     public Animator myAnimator;
     private int nextLevelIndexToLoad;
     public string nextLevelName = "";
+
+    public bool bIsAlternateLoad = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class SceneFadeTransition : MonoBehaviour
 
     public void FadeToLevelByString(string newScene)
     {
+        bIsAlternateLoad = true;
         StartCoroutine(LoadAsyncSceneByString(newScene));
         myAnimator.SetTrigger("ShouldFadeOut");
     }
@@ -48,7 +51,11 @@ public class SceneFadeTransition : MonoBehaviour
     public void OnFadeComplete()
     {
            // Use a coroutine to load the Scene in the background
-        StartCoroutine(LoadAsyncSceneByIndex());
+           if(!bIsAlternateLoad)
+           {
+               StartCoroutine(LoadAsyncSceneByIndex());
+           }
+        
         //SceneManager.LoadScene(nextLevelIndexToLoad);
     }
 

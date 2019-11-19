@@ -1540,7 +1540,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1646,6 +1646,9 @@ MonoBehaviour:
     type: 3}
   bShouldDestroyOnDeath: 1
   DestroyDelay: 3
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   StyleModAmount: 1
   enemyUIController: {fileID: 0}
   AI_Weapon: {fileID: 4026539492530608962}
@@ -3652,16 +3655,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShotgun
       objectReference: {fileID: 0}
-    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-        type: 3}
-      propertyPath: AIEyes
-      value: 
-      objectReference: {fileID: 2032805966976793705}
-    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-        type: 3}
-      propertyPath: ShotWaitPeriod
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4026539492209056180, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3716,6 +3709,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
+        type: 3}
+      propertyPath: AIEyes
+      value: 
+      objectReference: {fileID: 2032805966976793705}
+    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
+        type: 3}
+      propertyPath: ShotWaitPeriod
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7879ef6d65dd31143a5e2cd434b1b4d5, type: 3}

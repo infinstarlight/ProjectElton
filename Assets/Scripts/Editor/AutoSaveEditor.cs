@@ -26,7 +26,7 @@ public class AutoSaveEditor : MonoBehaviour
         // Also, every five minutes.
         nextSaveTime = DateTime.Now.AddMinutes(5);
         EditorApplication.update += Update;
-        Debug.Log("Added callback.");
+        //Debug.Log("Added callback.");
     }
 
     private static void Update()

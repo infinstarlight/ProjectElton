@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
 
     public bool bShouldDestroyOnDeath;
 
-    public float DestroyDelay;
+    public float DestroyDelay = 0.0f;
     public UnityEventWithFloat damageEvent = new UnityEventWithFloat();
     
 
@@ -25,12 +25,6 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
         source = GetComponent<AudioSource>();
         //damageEvent.AddListener(OnDamageApplied);
         
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
 
@@ -64,7 +58,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
             if (characterStats.CurrentHealth <= 0)
             {
                 characterStats.bIsDead = true;
-                OnDeath();
+                //OnDeath();
             }
         }
     }

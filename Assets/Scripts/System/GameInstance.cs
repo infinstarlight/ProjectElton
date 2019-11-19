@@ -76,7 +76,7 @@ public class GameInstance : MonoBehaviour
             {
                 Destroy(GetPlayer.gameObject);
                 Destroy(playerUI.gameObject);
-                Debug.Log("Player and HUD removed!");
+                //Debug.Log("Player and HUD removed!");
             }
         }
     }
@@ -90,7 +90,7 @@ public class GameInstance : MonoBehaviour
     // called when the game is terminated
     void OnDisable()
     {
-        Debug.Log("OnDisable");
+       // Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
         Parser.Unregister(this);
     }

@@ -34,11 +34,11 @@ public static class BuildConstants
         Development,
     }
 
-    public static readonly System.DateTime buildDate = new System.DateTime(637094810414099590);
-    public const string version = "1.0.60.1456";
+    public static readonly System.DateTime buildDate = new System.DateTime(637096274912659940);
+    public const string version = "1.0.61.5459";
     public const ReleaseType releaseType = ReleaseType.DevBuild;
-    public const Platform platform = Platform.PC;
-    public const Architecture architecture = Architecture.Windows_x64;
-    public const Distribution distribution = Distribution.None;
+    public const Platform platform = Platform.Android;
+    public const Architecture architecture = Architecture.Android;
+    public const Distribution distribution = Distribution.Development;
 }
 

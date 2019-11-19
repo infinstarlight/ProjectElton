@@ -397,9 +397,15 @@ MonoBehaviour:
     type: 3}
   bShouldDestroyOnDeath: 1
   DestroyDelay: 3
+  damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
   StyleModAmount: 1
   enemyUIController: {fileID: 0}
   AI_Weapon: {fileID: 7837896779041405099}
+  itemsGO:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &2578673211751269752
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -451,7 +457,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myNavPoints:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   bIsTrackingPlayer: 0
@@ -645,6 +650,7 @@ MonoBehaviour:
   visionPollRate: 1
   visionRange: 100
   bIsPlayerVisible: 0
+  bIsHumanoid: 1
   DistanceRemaining: 0
 --- !u!1 &2578673212778556440
 GameObject:

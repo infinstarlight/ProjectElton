@@ -12,17 +12,21 @@ public class Enemy : Character, ITracker
     private NavPoint playerNavPoint;
     public GameObject AI_Weapon;
     private EnemyWeapon myWeapon;
-    
+
+    public GameObject[] itemsGO = new GameObject[2];
+
 
     void EnemyAwake()
     {
         base.Awake();
-        
-        
+
+
+
     }
     // Start is called before the first frame update
     void Start()
     {
+
         playerState = FindObjectOfType<PlayerStateScript>();
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
@@ -30,7 +34,11 @@ public class Enemy : Character, ITracker
         AI_Weapon = GetComponentInChildren<EnemyWeapon>().gameObject;
         myWeapon = AI_Weapon.GetComponent<EnemyWeapon>();
         damageEvent.AddListener(OnEnemyDamageApplied);
-        
+        var smallhealthGO = Resources.Load<GameObject>("Prefabs/Items/SmallHealthPickup") as GameObject;
+        var smallammoGO = Resources.Load<GameObject>("Prefabs/Items/SmallAmmoPickup") as GameObject;
+        itemsGO[0] = smallhealthGO;
+        itemsGO[1] = smallammoGO;
+
     }
 
     private void Update()
@@ -39,20 +47,24 @@ public class Enemy : Character, ITracker
         {
             playerState = FindObjectOfType<PlayerStateScript>();
         }
-        if(AIController.bIsPlayerVisible)
+        if (AIController.bIsPlayerVisible)
         {
             //Attempt to attack
-            if(AI_Weapon)
+            if (AI_Weapon)
             {
-                AI_Weapon.GetComponent<EnemyWeapon>().AIFire();
+                AI_Weapon.GetComponent<EnemyWeapon>().StartCoroutine(AI_Weapon.GetComponent<EnemyWeapon>().AIFire());
             }
         }
         else
         {
-            if(AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
+            if (AIController.bIsHumanoid)
             {
-                AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
+                if (AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
+                {
+                    AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
+                }
             }
+
         }
     }
     public void OnTrackTarget()
@@ -70,7 +82,7 @@ public class Enemy : Character, ITracker
         {
             OnTrackTarget();
             AIEventManager.TriggerEvent("Damage");
-            
+
             playerState.styleModEvent.Invoke(StyleModAmount);
             if (characterStats.CurrentHealth <= 0)
             {
@@ -83,9 +95,16 @@ public class Enemy : Character, ITracker
     public void OnEnemyDeath()
     {
         base.OnDeath();
+        SpawnRandomPickup();
+        Destroy(gameObject, DestroyDelay);
         if (bShouldDestroyOnDeath)
         {
-            Destroy(gameObject, DestroyDelay);
+
         }
+    }
+
+    public void SpawnRandomPickup()
+    {
+        Instantiate(itemsGO[Random.Range(0, itemsGO.Length)], transform.position, transform.rotation);
     }
 }

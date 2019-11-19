@@ -34,9 +34,10 @@ public class Weapon : MonoBehaviour
     public static float s_MaxChargeTime = 0.0f;
     public float MaxChargeLimit = 0.0f;
     //How much has this weapon charged
-    public float CurrentChargeTime;
+    public float CurrentChargeAmount;
     //How fast can this weapon charge
-    public float ChargeModAmount;
+    public float ChargeModAmount = 0.01f;
+    public float ChargeModRate = 1;
 
     public WaitForSeconds chargeLength = new WaitForSeconds(s_MaxChargeTime);
 
@@ -55,7 +56,12 @@ public class Weapon : MonoBehaviour
     public RaycastHit hit;
     public AudioClip[] WeaponSounds;
     public GameObject FireEffect;
-    //How high can this weapon charge
+    public Ray weaponRay;
+    public Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0.0f);
+    public bool bIsPlayerWeapon = false;
+    //What object does the owner use to aim
+    public GameObject aimGO;
+
 
 
     void Awake()
@@ -66,19 +72,92 @@ public class Weapon : MonoBehaviour
         s_MaxChargeTime = MaxChargeLimit;
 
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    public void Fire()
+    {
+        if (Time.time > nextFire)
+        {
+            // Start our ShotEffect coroutine to turn our laser line on and off
+            StartCoroutine(ShotEffect());
+
+            // Update the time when our player can fire next
+            nextFire = Time.time + fireRate;
+
+
+            GameObject hitObject = null;
+            LoadingDoorScript hitDoor = null;
+            WeaponChargeObject hitChargeObject = null;
+
+            // actual Ray
+            if (bIsPlayerWeapon)
+            {
+                if (aimGO.GetComponent<Camera>())
+                {
+                    weaponRay = aimGO.GetComponent<Camera>().ViewportPointToRay(rayOrigin);
+                }
+            }
+            else
+            {
+                weaponRay = new Ray(aimGO.transform.position, aimGO.transform.forward);
+            }
+
+            // debug Ray
+            Debug.DrawRay(weaponRay.origin, weaponRay.direction * weaponRange, Color.white);
+            Instantiate(FireEffect, gunEndGO.transform.position, aimGO.transform.rotation);
+
+            if (Physics.Raycast(weaponRay, out hit, weaponRange))
+            {
+
+                if (hit.collider != null)
+                {
+                    hitObject = hit.collider.gameObject;
+                    if (bIsPlayerWeapon)
+                    {
+                        if (hitObject.GetComponent<Enemy>())
+                        {
+                            hitObject.GetComponent<Enemy>().damageEvent.Invoke(DamageAmount);
+                        }
+                        if (hitObject.GetComponentInChildren<ID_LoadDoor>())
+                        {
+                            hitDoor = hitObject.GetComponentInParent<LoadingDoorScript>();
+                            hitDoor.CheckAmmoType(MyAmmoType);
+                            //TODO: If it's the wrong ammo type, bounce the shot back to player
+                        }
+                        if (hitObject.GetComponent<WeaponChargeObject>())
+                        {
+                            float chargeAmount = DamageAmount / 4;
+                            hitChargeObject = hitObject.GetComponent<WeaponChargeObject>();
+                            hitChargeObject.ModCharge(chargeAmount, MyAmmoType);
+                        }
+                    }
+                    if (!bIsPlayerWeapon)
+                    {
+                        if (hit.collider.gameObject.GetComponent<Player>())
+                        {
+                            hit.collider.gameObject.GetComponent<Player>().PlayerDamageTaken(DamageAmount);
+                        }
+                    }
+
+
+                }
+            }
+        }
     }
 
-    // // Update is called once per frame
-    // void Update()
-    // {
+    public void FireChargedShot()
+    {
+        DamageAmount *= CurrentChargeAmount;
+        Fire();
+        DamageAmount = oldDamageAmount;
+        CurrentChargeAmount = 0;
+    }
 
-    // }
-
-
+    public IEnumerator AutoFire()
+    {
+        //Debug.Log("Fire!");
+        Fire();
+        yield return fireRate;
+    }
 
 
     public IEnumerator ShotEffect()
@@ -95,8 +174,12 @@ public class Weapon : MonoBehaviour
     #region Charge Type Weapon
     public IEnumerator ChargeShot()
     {
-        CurrentChargeTime += ChargeModAmount;
-        yield return chargeLength;
+        if (CurrentChargeAmount <= MaxChargeLimit)
+        {
+            CurrentChargeAmount += ChargeModAmount;
+        }
+
+        yield return ChargeModRate;
 
     }
     #endregion

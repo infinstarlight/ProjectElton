@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -23,9 +24,26 @@ public class BGM_Player : MonoBehaviour
     void Awake()
     {
         source = GetComponent<AudioSource>();
+    }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (source)
+        {
+            if (!source.isPlaying)
+            {
+                PlayFirstTrack();
+            }
+        }
 
     }
+
+
 
     // Start is called before the first frame update
     void Start()
