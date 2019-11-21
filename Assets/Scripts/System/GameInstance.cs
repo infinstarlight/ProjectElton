@@ -49,7 +49,7 @@ public class GameInstance : MonoBehaviour
     // called first
     void OnEnable()
     {
-        Debug.Log("OnEnable called");
+//        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
         Parser.Register(this,"instance");
         Console.Open = false;

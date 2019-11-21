@@ -67,6 +67,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     {
         var lookValue = context.ReadValue<Vector2>();
         lookInput = lookValue;
+        
 
     }
 

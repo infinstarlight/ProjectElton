@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
+using System;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour
 
     void OnEnable()
     {
-     //   GetPlayer = FindObjectOfType<Player>();
+        //   GetPlayer = FindObjectOfType<Player>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -38,19 +38,20 @@ public class SaveManager : MonoBehaviour
 
         Vector3 savedPosition;
         string savedSceneName = data.lastSceneName;
+        DateTime savedDT = data.GetDateTime;
 
         savedPosition.x = data.position[0];
         savedPosition.y = data.position[1];
         savedPosition.z = data.position[2];
         GetFadeTransition.bIsAlternateLoad = true;
         GetFadeTransition.FadeToLevelByString(savedSceneName);
-       
+        Debug.Log(savedDT);
         if (GetPlayer)
         {
             GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
             GetPlayer.gameObject.transform.position = savedPosition;
             GetPlayer.PlayerStats.UpdateHealthText();
-            
+
         }
 
         bWasSaveLoaded = true;

@@ -1,8 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.InputSystem.Interactions;
+using Popcron.Console;
 using UnityEngine.InputSystem;
 using UnityEngine;
+
+
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
@@ -26,20 +28,30 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     private int CurrentJumpCount = 0;
     [SerializeField]
     private int MaxJumpCount = 2;
-    public Transform groundChecker;
-    float translation;
-    private Vector2 moveVector;
-    float strafe;
-    public bool bHoldSprint = false;
 
-    Vector3 dashVelocity;
-    private float oldMovementSpeed;
-    
+    [SerializeField]
+    private int CurrentDashCount = 0;
+    [SerializeField]
+    private int MaxDashCount = 2;
+    public Transform groundChecker;
+    float translation = 0.0f;
+    private Vector2 moveVector = new Vector2(0.0f, 0.0f);
+    float strafe = 0.0f;
+    public bool bHoldSprint = false;
+    [SerializeField]
+    private float DashWaitPeriod = 3.0f;
+
+    Vector3 dashVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+    private float oldMovementSpeed = 0.0f;
+    private bool bIsDashCooldownRunning = false;
+    public static CapsuleCollider myCollider;
+
 
     void Awake()
     {
         //pCon = GetComponentInChildren<InputSystem_PlayerController>();
         rb = GetComponent<Rigidbody>();
+        myCollider = GetComponent<CapsuleCollider>();
         groundChecker = transform.GetChild(0);
         playerStats = GetComponent<PlayerStatsScript>();
 
@@ -62,6 +74,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         {
             CurrentJumpCount = 0;
         }
+
     }
 
     void FixedUpdate()
@@ -81,10 +94,10 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
             case InputActionPhase.Started:
                 {
-                    if (context.interaction is HoldInteraction)
-                    {
-                        MovementSpeed = SprintSpeed;
-                    }
+                    // if (context.interaction is HoldInteraction)
+                    // {
+                    //     MovementSpeed = SprintSpeed;
+                    // }
                 }
                 break;
             case InputActionPhase.Canceled:
@@ -97,11 +110,38 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     public void OnSpecialAbility(InputAction.CallbackContext context)
     {
+        ActivateSpecialAbility();
         if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+        {
+            CurrentDashCount += 1;
+        }
+        
+        
+    }
+
+    void ActivateSpecialAbility()
+    {
+        if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+        {
+            
+            if (CurrentDashCount <= MaxDashCount)
+            {
+                bIsDashCooldownRunning = false;
+                dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
+                rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+                if (bIsDashCooldownRunning)
                 {
-                    dashVelocity = Vector3.Scale(transform.forward, DashDistance * new Vector3((Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime), 0, (Mathf.Log(1f / (Time.deltaTime * rb.drag + 1)) / -Time.deltaTime)));
-                    rb.AddForce(dashVelocity, ForceMode.VelocityChange);
+                    StopCoroutine(StartDashCooldown());
                 }
+
+            }
+            else
+            {
+                bIsDashCooldownRunning = false;
+                StartCoroutine(StartDashCooldown());
+            }
+
+        }
     }
 
 
@@ -127,6 +167,21 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     }
 
+    IEnumerator StartDashCooldown()
+    {
+        if (!bIsDashCooldownRunning)
+        {
+            bIsDashCooldownRunning = true;
+            yield return new WaitForSeconds(DashWaitPeriod);
+            if (CurrentDashCount >= MaxDashCount)
+            {
+                CurrentDashCount = 0;
+                bIsDashCooldownRunning = false;
+            }
+        }
+
+    }
+
 
     void OnDrawGizmosSelected()
     {
@@ -137,4 +192,25 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         }
 
     }
+    public static void ToggleCollider(bool bEnable)
+    {
+        bEnable = !bEnable;
+        if (!bEnable)
+        {
+            myCollider.enabled = false;
+        }
+        else
+        {
+            myCollider.enabled = true;
+        }
+    }
+    [Command("noclip")]
+    public static void ToggleNoClip()
+    {
+        bool bEnable = false;
+        bEnable = !bEnable;
+        ToggleCollider(bEnable);
+    }
+
+
 }

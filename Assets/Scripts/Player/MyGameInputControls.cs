@@ -80,7 +80,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""cbc696ba-0136-4afb-b1f6-a977f822c8a7"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(pressPoint=0.1)""
                 },
                 {
                     ""name"": ""Style Switch Up"",
@@ -150,6 +150,22 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""edc3be7b-3e76-42f7-9a14-b39466534665"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select Previous Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0b7565a-a6d8-4d06-8ef2-94ee41c4964c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Select Next Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""870eed36-5663-45cb-9b8a-e9ee37bf9546"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -569,8 +585,30 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""29f7f62b-c41e-4ff5-8496-82841b052b23"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select Previous Weapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8906f580-3a05-496d-9fd7-d6bb7bdbc188"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Select Next Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -978,6 +1016,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_SelectWeaponThree = m_gameplay.FindAction("Select Weapon Three", throwIfNotFound: true);
         m_gameplay_Zoom = m_gameplay.FindAction("Zoom", throwIfNotFound: true);
         m_gameplay_Interact = m_gameplay.FindAction("Interact", throwIfNotFound: true);
+        m_gameplay_SelectPreviousWeapon = m_gameplay.FindAction("Select Previous Weapon", throwIfNotFound: true);
+        m_gameplay_SelectNextWeapon = m_gameplay.FindAction("Select Next Weapon", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Confirm = m_ui.FindAction("Confirm", throwIfNotFound: true);
@@ -1056,6 +1096,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_SelectWeaponThree;
     private readonly InputAction m_gameplay_Zoom;
     private readonly InputAction m_gameplay_Interact;
+    private readonly InputAction m_gameplay_SelectPreviousWeapon;
+    private readonly InputAction m_gameplay_SelectNextWeapon;
     public struct GameplayActions
     {
         private @GameInputControls m_Wrapper;
@@ -1077,6 +1119,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @SelectWeaponThree => m_Wrapper.m_gameplay_SelectWeaponThree;
         public InputAction @Zoom => m_Wrapper.m_gameplay_Zoom;
         public InputAction @Interact => m_Wrapper.m_gameplay_Interact;
+        public InputAction @SelectPreviousWeapon => m_Wrapper.m_gameplay_SelectPreviousWeapon;
+        public InputAction @SelectNextWeapon => m_Wrapper.m_gameplay_SelectNextWeapon;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1137,6 +1181,12 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Interact.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnInteract;
+                @SelectPreviousWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectPreviousWeapon;
+                @SelectPreviousWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectPreviousWeapon;
+                @SelectPreviousWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectPreviousWeapon;
+                @SelectNextWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
+                @SelectNextWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
+                @SelectNextWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1192,6 +1242,12 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @SelectPreviousWeapon.started += instance.OnSelectPreviousWeapon;
+                @SelectPreviousWeapon.performed += instance.OnSelectPreviousWeapon;
+                @SelectPreviousWeapon.canceled += instance.OnSelectPreviousWeapon;
+                @SelectNextWeapon.started += instance.OnSelectNextWeapon;
+                @SelectNextWeapon.performed += instance.OnSelectNextWeapon;
+                @SelectNextWeapon.canceled += instance.OnSelectNextWeapon;
             }
         }
     }
@@ -1338,6 +1394,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnSelectWeaponThree(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnSelectPreviousWeapon(InputAction.CallbackContext context);
+        void OnSelectNextWeapon(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

@@ -15,13 +15,13 @@ MonoBehaviour:
   actionType: 1
   actionName: UploadItch
   note: 
-  actionEnabled: 1
+  actionEnabled: 0
   filter:
     condition: 0
     clauses: []
   pathToButlerExe: /usr/local/bin/user
   nameOfItchUser: sleeplessstarlight
-  nameOfItchGame: TheHunt
+  nameOfItchGame: thehunt
   useGeneratedBuildVersion: 1
   showUploadProgress: 0
   itchChannelOverride: 
@@ -42,8 +42,8 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 0
-    lastGeneratedVersion: 1.0.1738.3874
+    buildCounter: 3
+    lastGeneratedVersion: 1.0.64.5427
     version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
@@ -62,9 +62,11 @@ MonoBehaviour:
         - fileGUID: 5fd80a9172cbc7145a53a2b5171ec893
         - fileGUID: 9a78fd9253e3ddd479f1f74219d823e1
         - fileGUID: 87b8447fba0f8ec43abb6107af60e6c3
-        - fileGUID: d994a86c675c04a77a6eb293aa6ba315
-        - fileGUID: a497b960abd16493ba7ffe7007dfb6b9
         - fileGUID: c9f920b8d2c624584974a3673c467a78
+        - fileGUID: 8500221f4c1bb41d7bf7ff851a9147e8
+        - fileGUID: 9a0376a31e6f24711a03f53f2317d172
+        - fileGUID: 6bea854a4184249ec8f7edf2b0f3006e
+        - fileGUID: f0eeaa6099eda42728aae324d4f691da
   _platformList:
     platforms:
     - enabled: 1

@@ -51,6 +51,7 @@ MonoBehaviour:
   visionPollRate: 0.25
   visionRange: 200
   bIsPlayerVisible: 0
+  bIsHumanoid: 1
   DistanceRemaining: 0
 --- !u!1 &3537588186565128717
 GameObject:
@@ -1652,6 +1653,9 @@ MonoBehaviour:
   StyleModAmount: 1
   enemyUIController: {fileID: 0}
   AI_Weapon: {fileID: 4026539492530608962}
+  itemsGO:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1459138880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3655,6 +3659,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
+        type: 3}
+      propertyPath: AIEyes
+      value: 
+      objectReference: {fileID: 2032805966976793705}
     - target: {fileID: 4026539492209056180, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3709,16 +3718,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-        type: 3}
-      propertyPath: AIEyes
-      value: 
-      objectReference: {fileID: 2032805966976793705}
-    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-        type: 3}
-      propertyPath: ShotWaitPeriod
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7879ef6d65dd31143a5e2cd434b1b4d5, type: 3}
@@ -3901,12 +3900,12 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 5679567390986584160, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+    - target: {fileID: 5679567390911291225, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 5679567390911291225, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+    - target: {fileID: 5679567390986584160, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
       value: 11

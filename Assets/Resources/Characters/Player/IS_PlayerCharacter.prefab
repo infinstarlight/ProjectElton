@@ -364,19 +364,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e5e6af6d3c64430b0db354c701046b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
-  SprintSpeed: 20
-  JumpHeight: 2
+  MovementSpeed: 15
+  SprintSpeed: 35
+  JumpHeight: 3
   GroundDistance: 0.2
-  DashDistance: 5
+  DashDistance: 10
   GroundLayer:
     serializedVersion: 2
     m_Bits: 512
   bIsGounded: 1
   CurrentJumpCount: 0
-  MaxJumpCount: 2
+  MaxJumpCount: 3
+  CurrentDashCount: 0
+  MaxDashCount: 3
   groundChecker: {fileID: 0}
   bHoldSprint: 0
+  DashWaitPeriod: 0.5
 --- !u!114 &2058045124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +489,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5814213176318508454, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: interactSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5814213176318508454, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: interactSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 50ebe1a1defb44fe78362029b52db1ca, type: 3}
+    - target: {fileID: 5814213176318508454, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: interactSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: b4c86c8299966401b971296d9f1ee1a9, type: 3}
     - target: {fileID: 5814213176318508452, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
@@ -561,6 +579,12 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 3155460262004793428}
+    - target: {fileID: 5814213176419481192, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3654710418395894724, guid: c6f6dd90ecbd3584083830c3e2caf10d,
+        type: 2}
     - target: {fileID: 6944143825630834048, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -634,12 +658,22 @@ PrefabInstance:
     - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: LookSensitivity
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1314375072018103498, guid: abb25c9ac5474cf458e7f8b5930cfa97,
         type: 3}
       propertyPath: SmoothingRate
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944143825630834051, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: MaxChargeLimit
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989322703412061487, guid: abb25c9ac5474cf458e7f8b5930cfa97,
+        type: 3}
+      propertyPath: MyAmmoType
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: abb25c9ac5474cf458e7f8b5930cfa97, type: 3}

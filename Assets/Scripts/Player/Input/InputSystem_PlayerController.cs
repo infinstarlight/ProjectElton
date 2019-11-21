@@ -19,7 +19,10 @@ public class InputSystem_PlayerController : MonoBehaviour
     private Camera playerCamera;
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
+    private Gamepad currentGamepad;
     private SaveManager GetSaveManager;
+    public AudioClip[] interactSounds;
+    private AudioSource source;
     [SerializeField]
     private bool bIsDebug = false;
     private bool bIsMouseReleased = false;
@@ -28,7 +31,12 @@ public class InputSystem_PlayerController : MonoBehaviour
     private RaycastHit hit;
     private PlayerUIController uiController;
 
-    void OnEnable()
+    void OnDisable()
+    {
+        DisableGameControls();
+    }
+
+    void Awake()
     {
         EnableGameControls();
         bEnableGameInput = true;
@@ -37,15 +45,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         uiController = FindObjectOfType<PlayerUIController>();
-    }
-
-    void OnDisable()
-    {
-        DisableGameControls();
-    }
-
-    void Awake()
-    {
+        source = GetComponent<AudioSource>();
         playerCamera = Camera.main;
         if (Application.isEditor || Debug.isDebugBuild)
         {
@@ -64,6 +64,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         PauseMenuGO.SetActive(false);
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
+        currentGamepad = Gamepad.current;
     }
     // Update is called once per frame
     void Update()
@@ -71,15 +72,6 @@ public class InputSystem_PlayerController : MonoBehaviour
         if (!PauseMenuGO)
         {
             PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
-        }
-
-        if (currentKeyboard.digit9Key.wasPressedThisFrame)
-        {
-            GetSaveManager.SavePlayerData();
-        }
-        if (currentKeyboard.digit0Key.wasPressedThisFrame)
-        {
-            GetSaveManager.LoadPlayerData();
         }
         if (bIsDebug)
         {
@@ -95,10 +87,18 @@ public class InputSystem_PlayerController : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     bIsMouseReleased = false;
                 }
+                if (currentKeyboard.digit9Key.wasPressedThisFrame)
+                {
+                    GetSaveManager.SavePlayerData();
+                }
+                if (currentKeyboard.digit0Key.wasPressedThisFrame)
+                {
+                    GetSaveManager.LoadPlayerData();
+                }
 
             }
         }
-
+        // CheckForNewDevice();
 
     }
 
@@ -134,18 +134,22 @@ public class InputSystem_PlayerController : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     // New Device
-                    Debug.Log("New device added: " + device);
+                    //Debug.LogWarning("New device added: " + device);
+                    InputSystem.AddDevice(device);
                     break;
                 case InputDeviceChange.Disconnected:
                     // Device got unplugged
-                    Debug.LogWarning("Device is disconnected: " + device);
+                    //Debug.LogWarning("Device is disconnected: " + device);
+                    //InputSystem.Dis
                     break;
                 case InputDeviceChange.Reconnected:
                     // Plugged back in
+                    //Debug.LogWarning("Device reconnected: " + device);
                     break;
                 case InputDeviceChange.Removed:
                     // Remove from Input System entirely; by default, devices stay in the system once discovered
-                    Debug.LogWarning("Device removed: " + device);
+                    //Debug.LogWarning("Device removed: " + device);
+                    InputSystem.RemoveDevice(device);
                     break;
                 default:
                     // See InputDeviceChange reference for other event types.
@@ -203,6 +207,10 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
         myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
         myControls.gameplay.Look.performed += cameraLook.OnLook;
+        myControls.gameplay.SelectPreviousWeapon.performed += combatController.OnWeaponCycleDown;
+        myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
+        myControls.gameplay.SelectNextWeapon.Enable();
+        myControls.gameplay.SelectPreviousWeapon.Enable();
         myControls.gameplay.Interact.Enable();
         myControls.gameplay.Fire.Enable();
         myControls.gameplay.Look.Enable();
@@ -250,6 +258,8 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.MoveUp.Disable();
         myControls.gameplay.StyleSwitchUp.Disable();
         myControls.gameplay.StyleSwitchDown.Disable();
+        myControls.gameplay.SelectNextWeapon.Disable();
+        myControls.gameplay.SelectPreviousWeapon.Disable();
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -336,6 +346,8 @@ public class InputSystem_PlayerController : MonoBehaviour
         GameObject hitObject = null;
         // actual Ray
         Ray ray = playerCamera.ViewportPointToRay(rayOrigin);
+        // debug Ray
+        Debug.DrawRay(ray.origin, ray.direction * InteractRange, Color.red);
 
         if (Physics.Raycast(ray, out hit, InteractRange))
         {
@@ -345,6 +357,11 @@ public class InputSystem_PlayerController : MonoBehaviour
                 if (hitObject.GetComponent<IInteractable>() != null)
                 {
                     hitObject.GetComponent<IInteractable>().OnInteract();
+                    source.PlayOneShot(interactSounds[1]);
+                }
+                else
+                {
+                    source.PlayOneShot(interactSounds[0]);
                 }
             }
 

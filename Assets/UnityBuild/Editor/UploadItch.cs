@@ -15,8 +15,8 @@ public class UploadItch : BuildAction, IPostBuildPerPlatformAction
 
     [FilePath(false, true, "/usr/local/bin/butler")]
     public string pathToButlerExe = "";
-    public string nameOfItchUser = "sleeplessstarlight";
-    public string nameOfItchGame = "TheChase"; 
+    public string nameOfItchUser = "";
+    public string nameOfItchGame = ""; 
     public bool useGeneratedBuildVersion = false;
 
     [Header("Disable to capture error output for debugging.")]

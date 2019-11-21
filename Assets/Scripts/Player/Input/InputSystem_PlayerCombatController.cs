@@ -15,7 +15,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     private PlayerWeapon weaponScript;
     private bool bIsAutoFiring = false;
     private bool bIsCharging = false;
-    //private int styleIndex = 1;
+    private int weaponCount = 0;
 
 
 
@@ -41,11 +41,11 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
             {
                 weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
             }
-            if(weaponScript.bIsAutomatic && bIsAutoFiring)
+            if (weaponScript.bIsAutomatic && bIsAutoFiring)
             {
                 weaponScript.StartCoroutine(weaponScript.AutoFire());
             }
-            if(weaponScript.bIsChargeWeapon && bIsCharging)
+            if (weaponScript.bIsChargeWeapon && bIsCharging)
             {
                 weaponScript.StartCoroutine(weaponScript.ChargeShot());
             }
@@ -192,42 +192,57 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         currentWeapon = Weapons[weaponDesired];
     }
 
+    void CycleWeapon(bool bShouldCycleUp)
+    {
+        if (weaponCount <= Weapons.Length)
+        {
+            if (bShouldCycleUp)
+            {
+                WeaponSelect(++weaponCount);
+            }
+            else
+            {
+                WeaponSelect(weaponCount--);
+            }
+        }
+        if(weaponCount >= Weapons.Length)
+        {
+            weaponCount = 0;
+        }
+
+
+    }
+
+    public void OnWeaponCycleUp(InputAction.CallbackContext context)
+    {
+        CycleWeapon(true);
+    }
+
+    public void OnWeaponCycleDown(InputAction.CallbackContext context)
+    {
+        CycleWeapon(false);
+    }
+
     public void OnPrimaryWeaponSelect(InputAction.CallbackContext context)
     {
-        // if (currentWeapon != Weapons[0])
-        // {
-        //     currentWeapon.SetActive(false);
-        // }
-        // Weapons[0].SetActive(true);
-        // weaponScript = Weapons[0].GetComponent<PlayerWeapon>();
-        // currentWeapon = Weapons[0];
+
         WeaponSelect(0);
     }
 
     public void OnSecondWeaponSelect(InputAction.CallbackContext context)
     {
-        // if (currentWeapon != Weapons[1])
-        // {
-        //     currentWeapon.SetActive(false);
-        // }
-        // Weapons[1].SetActive(true);
-        // weaponScript = Weapons[1].GetComponent<PlayerWeapon>();
-        // currentWeapon = Weapons[1];
+
         WeaponSelect(1);
 
     }
 
     public void OnThirdWeaponSelect(InputAction.CallbackContext context)
     {
-        // if (currentWeapon != Weapons[2])
-        // {
-        //     currentWeapon.SetActive(false);
-        // }
-        // Weapons[2].SetActive(true);
-        // weaponScript = Weapons[2].GetComponent<PlayerWeapon>();
-        // currentWeapon = Weapons[2];
+
         WeaponSelect(2);
     }
+
+
 
     #endregion
 }

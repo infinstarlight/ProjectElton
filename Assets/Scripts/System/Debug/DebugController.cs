@@ -20,7 +20,20 @@ public class DebugController : MonoBehaviour
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
-            Application.targetFrameRate = testFrameRate;
+            if(bTestFPSLimit)
+            {
+                Application.targetFrameRate = testFrameRate;
+            }
+            else
+            {
+                #if UNITY_STANDALONE
+                Application.targetFrameRate = 120;
+                #endif
+                #if UNITY_IOS || UNITY_ANDROID
+                Application.targetFrameRate = 30;
+                #endif
+            }
+            
             if (bShowFPS)
             {
                 debugCanvasGO.SetActive(true);
@@ -46,7 +59,7 @@ public class DebugController : MonoBehaviour
         }
         if (bIsDebug)
         {
-            if(Keyboard.current.endKey.wasPressedThisFrame)
+            if(Keyboard.current.downArrowKey.wasPressedThisFrame)
             {
                 var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
                 Instantiate(StatGO);
