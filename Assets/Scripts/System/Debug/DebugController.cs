@@ -12,6 +12,7 @@ public class DebugController : MonoBehaviour
     public int testFrameRate = 30;
     private ID_DebugCanvas debugCanvas;
     private GameObject debugCanvasGO;
+    private GameObject graphyGO;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,20 +21,20 @@ public class DebugController : MonoBehaviour
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
-            if(bTestFPSLimit)
+            if (bTestFPSLimit)
             {
                 Application.targetFrameRate = testFrameRate;
             }
             else
             {
-                #if UNITY_STANDALONE
+#if UNITY_STANDALONE
                 Application.targetFrameRate = 120;
-                #endif
-                #if UNITY_IOS || UNITY_ANDROID
+#endif
+#if UNITY_IOS || UNITY_ANDROID
                 Application.targetFrameRate = 30;
-                #endif
+#endif
             }
-            
+
             if (bShowFPS)
             {
                 debugCanvasGO.SetActive(true);
@@ -52,17 +53,24 @@ public class DebugController : MonoBehaviour
         if (!debugCanvas)
         {
             debugCanvas = FindObjectOfType<ID_DebugCanvas>();
-            // if (!debugCanvasGO)
-            // {
-            //     debugCanvasGO = debugCanvas.gameObject;
-            // }
+
+        }
+        if (Keyboard.current.f3Key.wasPressedThisFrame)
+        {
+            bIsDebug = !bIsDebug;
+        }
+        if (Keyboard.current.f2Key.wasPressedThisFrame)
+        {
+            bShowFPS = !bShowFPS;
         }
         if (bIsDebug)
         {
-            if(Keyboard.current.downArrowKey.wasPressedThisFrame)
+            if (Keyboard.current.downArrowKey.wasPressedThisFrame)
             {
                 var StatGO = Resources.Load<GameObject>("Prefabs/Debug/StatsMonitor") as GameObject;
+
                 Instantiate(StatGO);
+                graphyGO = StatGO;
             }
             if (Keyboard.current.homeKey.wasPressedThisFrame)
             {
@@ -71,11 +79,21 @@ public class DebugController : MonoBehaviour
             }
             if (bShowFPS)
             {
+                if (graphyGO)
+                {
+                    graphyGO.SetActive(true);
+                }
                 debugCanvasGO.SetActive(true);
+
             }
             else
             {
                 debugCanvasGO.SetActive(false);
+                if (graphyGO)
+                {
+                    graphyGO.SetActive(false);
+                }
+
             }
         }
     }
