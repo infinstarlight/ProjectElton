@@ -8,11 +8,13 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 {
     public PlayerStatsScript playerStats;
     public GameObject currentWeapon;
+    public GameObject currentSubWeapon;
     private AudioSource styleAudioSource;
     public AudioClip[] styleClips;
 
     public GameObject[] Weapons;
-    private PlayerWeapon weaponScript;
+    private PlayerWeapon currentWeaponScript;
+    private Subweapon currentSubweaponScript;
     private bool bIsAutoFiring = false;
     private bool bIsCharging = false;
     private int weaponCount = 0;
@@ -27,7 +29,9 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         currentWeapon = Weapons[0];
         Weapons[1].gameObject.SetActive(false);
         Weapons[2].gameObject.SetActive(false);
-        weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+        currentWeaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+        currentSubWeapon = GetComponentInChildren<Subweapon>().gameObject;
+        currentSubweaponScript = currentSubWeapon.GetComponent<Subweapon>();
 
     }
 
@@ -37,17 +41,24 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         //If we can get the right GameObject, but not the right PlayerScript reference
         if (currentWeapon.GetComponent<PlayerWeapon>())
         {
-            if (weaponScript == null)
+            if (currentWeaponScript == null)
             {
-                weaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+                currentWeaponScript = currentWeapon.GetComponent<PlayerWeapon>();
             }
-            if (weaponScript.bIsAutomatic && bIsAutoFiring)
+            if (currentWeaponScript.bIsAutomatic && bIsAutoFiring)
             {
-                weaponScript.StartCoroutine(weaponScript.AutoFire());
+                currentWeaponScript.StartCoroutine(currentWeaponScript.AutoFire());
             }
-            if (weaponScript.bIsChargeWeapon && bIsCharging)
+            if (currentWeaponScript.bIsChargeWeapon && bIsCharging)
             {
-                weaponScript.StartCoroutine(weaponScript.ChargeShot());
+                currentWeaponScript.StartCoroutine(currentWeaponScript.ChargeShot());
+            }
+        }
+        if(currentSubWeapon.GetComponent<Subweapon>())
+        {
+            if(!currentSubweaponScript)
+            {
+                currentSubweaponScript = currentSubWeapon.GetComponent<Subweapon>();
             }
         }
     }
@@ -135,19 +146,19 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Performed:
-                weaponScript.Fire();
+                currentWeaponScript.Fire();
                 break;
 
             case InputActionPhase.Started:
                 {
                     {
 
-                        if (weaponScript.bIsChargeWeapon)
+                        if (currentWeaponScript.bIsChargeWeapon)
                         {
                             bIsCharging = true;
                             //weaponScript.StartCoroutine(weaponScript.ChargeShot());
                         }
-                        if (weaponScript.bIsAutomatic)
+                        if (currentWeaponScript.bIsAutomatic)
                         {
                             bIsAutoFiring = true;
                             //weaponScript.StartCoroutine(weaponScript.AutoFire());
@@ -157,24 +168,42 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 break;
             case InputActionPhase.Canceled:
                 {
-                    if (weaponScript.bIsAutomatic)
+                    if (currentWeaponScript.bIsAutomatic)
                     {
                         bIsAutoFiring = false;
-                        weaponScript.StopCoroutine(weaponScript.AutoFire());
+                        currentWeaponScript.StopCoroutine(currentWeaponScript.AutoFire());
                     }
-                    if (weaponScript.bIsChargeWeapon)
+                    if (currentWeaponScript.bIsChargeWeapon)
                     {
                         bIsCharging = false;
-                        weaponScript.StopCoroutine(weaponScript.ChargeShot());
-                        if (weaponScript.CurrentChargeAmount > 0)
+                        currentWeaponScript.StopCoroutine(currentWeaponScript.ChargeShot());
+                        if (currentWeaponScript.CurrentChargeAmount > 0)
                         {
-                            weaponScript.FireChargedShot();
+                            currentWeaponScript.FireChargedShot();
                         }
                     }
 
 
                 }
                 break;
+        }
+    }
+
+    public void OnSubFire(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+            {
+                currentSubweaponScript.activateEvent.Invoke();
+            }
+            break;
+            case InputActionPhase.Canceled:
+            {
+                currentSubweaponScript.deactivateEvent.Invoke();
+            }
+            break;
+                
         }
     }
 
@@ -188,7 +217,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
             currentWeapon.SetActive(false);
         }
         Weapons[weaponDesired].SetActive(true);
-        weaponScript = Weapons[weaponDesired].GetComponent<PlayerWeapon>();
+        currentWeaponScript = Weapons[weaponDesired].GetComponent<PlayerWeapon>();
         currentWeapon = Weapons[weaponDesired];
     }
 

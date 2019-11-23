@@ -53,9 +53,10 @@ public class Weapon : MonoBehaviour
     [Header("VFX & SFX")]
     public AudioSource weaponAudio;
     public GameObject gunEndGO;
-    public RaycastHit hit;
+    
     public AudioClip[] WeaponSounds;
     public GameObject FireEffect;
+    public RaycastHit hit;
     public Ray weaponRay;
     public Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0.0f);
     public bool bIsPlayerWeapon = false;

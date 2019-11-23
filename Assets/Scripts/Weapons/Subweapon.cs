@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public enum ESubWeaponType
 {
@@ -16,6 +17,8 @@ public class Subweapon : Weapon
 
     public float CurrentAmmo = 0;
     public float MaxAmmo = 0;
+    public UnityEvent activateEvent = new UnityEvent();
+    public UnityEvent deactivateEvent = new UnityEvent();
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +27,7 @@ public class Subweapon : Weapon
 
     public void ModifyAmmo(float ModAmount)
     {
-        if(CurrentAmmo != MaxAmmo)
+        if (CurrentAmmo != MaxAmmo)
         {
             CurrentAmmo += ModAmount;
         }
@@ -33,5 +36,6 @@ public class Subweapon : Weapon
             CurrentAmmo = MaxAmmo;
         }
     }
-  
+
+
 }

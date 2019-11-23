@@ -156,6 +156,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Activate Subweapon",
+                    "type": "Button",
+                    "id": "0ffa29de-4740-49a3-8fbe-da12efb8f7b3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -596,6 +604,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Select Next Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0bef9cf2-c063-4bdb-b7fe-b6d8b8ba0910",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Activate Subweapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c6c28442-4a1e-4530-b768-519bdcdae2a1",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Activate Subweapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

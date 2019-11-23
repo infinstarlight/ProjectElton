@@ -169,6 +169,14 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Activate Subweapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ffa29de-4740-49a3-8fbe-da12efb8f7b3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -611,6 +619,28 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Select Next Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0bef9cf2-c063-4bdb-b7fe-b6d8b8ba0910"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Activate Subweapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6c28442-4a1e-4530-b768-519bdcdae2a1"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Activate Subweapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1018,6 +1048,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_Interact = m_gameplay.FindAction("Interact", throwIfNotFound: true);
         m_gameplay_SelectPreviousWeapon = m_gameplay.FindAction("Select Previous Weapon", throwIfNotFound: true);
         m_gameplay_SelectNextWeapon = m_gameplay.FindAction("Select Next Weapon", throwIfNotFound: true);
+        m_gameplay_ActivateSubweapon = m_gameplay.FindAction("Activate Subweapon", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Confirm = m_ui.FindAction("Confirm", throwIfNotFound: true);
@@ -1098,6 +1129,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_Interact;
     private readonly InputAction m_gameplay_SelectPreviousWeapon;
     private readonly InputAction m_gameplay_SelectNextWeapon;
+    private readonly InputAction m_gameplay_ActivateSubweapon;
     public struct GameplayActions
     {
         private @GameInputControls m_Wrapper;
@@ -1121,6 +1153,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Interact => m_Wrapper.m_gameplay_Interact;
         public InputAction @SelectPreviousWeapon => m_Wrapper.m_gameplay_SelectPreviousWeapon;
         public InputAction @SelectNextWeapon => m_Wrapper.m_gameplay_SelectNextWeapon;
+        public InputAction @ActivateSubweapon => m_Wrapper.m_gameplay_ActivateSubweapon;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1187,6 +1220,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @SelectNextWeapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
                 @SelectNextWeapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
                 @SelectNextWeapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelectNextWeapon;
+                @ActivateSubweapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
+                @ActivateSubweapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
+                @ActivateSubweapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1248,6 +1284,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @SelectNextWeapon.started += instance.OnSelectNextWeapon;
                 @SelectNextWeapon.performed += instance.OnSelectNextWeapon;
                 @SelectNextWeapon.canceled += instance.OnSelectNextWeapon;
+                @ActivateSubweapon.started += instance.OnActivateSubweapon;
+                @ActivateSubweapon.performed += instance.OnActivateSubweapon;
+                @ActivateSubweapon.canceled += instance.OnActivateSubweapon;
             }
         }
     }
@@ -1396,6 +1435,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnSelectPreviousWeapon(InputAction.CallbackContext context);
         void OnSelectNextWeapon(InputAction.CallbackContext context);
+        void OnActivateSubweapon(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

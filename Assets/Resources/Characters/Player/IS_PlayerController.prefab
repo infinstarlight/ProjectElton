@@ -149,10 +149,15 @@ MonoBehaviour:
   combatController: {fileID: 0}
   playerState: {fileID: 0}
   bIsGamePaused: 0
-  bEnableInput: 1
+  bShowPauseMenu: 0
+  bEnableGameInput: 1
   PauseMenuGO: {fileID: 0}
   CharMenuGO: {fileID: 0}
+  HUDGO: {fileID: 0}
   playerStats: {fileID: 0}
+  interactSounds: []
+  bIsDebug: 0
+  InteractRange: 200
 --- !u!114 &5814213176318508455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +591,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6948198054562237528}
     m_Modifications:
+    - target: {fileID: 4983820783249345337, guid: fd76c62fac4d38a40aeeb3611defd12f,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerState
+      objectReference: {fileID: 0}
     - target: {fileID: 4983820783249345339, guid: fd76c62fac4d38a40aeeb3611defd12f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -640,11 +650,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4983820783249345337, guid: fd76c62fac4d38a40aeeb3611defd12f,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerState
       objectReference: {fileID: 0}
     - target: {fileID: 4983820783249345338, guid: fd76c62fac4d38a40aeeb3611defd12f,
         type: 3}

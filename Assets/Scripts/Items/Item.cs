@@ -44,7 +44,7 @@ public class Item : MonoBehaviour
     {
         if(CurrentItemType == ItemType.SubweaponAmmo)
         {
-            GetPlayer.SendMessage("ModifyAmmo",ValueMod);
+            GetPlayer.pCon.combatController.currentSubWeapon.SendMessage("ModifyAmmo",ValueMod);
         }
     }
 

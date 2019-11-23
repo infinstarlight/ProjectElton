@@ -207,7 +207,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DevBuild/PC/Windows x64
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -223,7 +223,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DevBuild/OSX/OSX
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -246,7 +246,7 @@ MonoBehaviour:
     showBuildInfo: 0
     hideDisabled: 0
     treeView: 0
-    selectedKeyChain: DevBuild/Linux/Linux x64
+    selectedKeyChain: DevBuild/Android/Android (ARMv7,ETC,Internal)/Development
   _preBuildActions:
     buildActions: []
   _postBuildActions:

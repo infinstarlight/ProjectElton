@@ -2243,11 +2243,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: OptionsMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 1292383914308925222, guid: c96449206b9db4fc4a5d76a7bf1910dc,
-        type: 3}
-      propertyPath: m_Name
-      value: SensitivitySlider
-      objectReference: {fileID: 0}
     - target: {fileID: 1292383915228173032, guid: c96449206b9db4fc4a5d76a7bf1910dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2308,6 +2303,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1292383914116392643, guid: c96449206b9db4fc4a5d76a7bf1910dc,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30.259766
+      objectReference: {fileID: 0}
+    - target: {fileID: 1292383914308925222, guid: c96449206b9db4fc4a5d76a7bf1910dc,
+        type: 3}
+      propertyPath: m_Name
+      value: SensitivitySlider
+      objectReference: {fileID: 0}
     - target: {fileID: 1292383915918298148, guid: c96449206b9db4fc4a5d76a7bf1910dc,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2358,10 +2363,5 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1785316741}
-    - target: {fileID: 1292383914116392643, guid: c96449206b9db4fc4a5d76a7bf1910dc,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 30.259766
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c96449206b9db4fc4a5d76a7bf1910dc, type: 3}

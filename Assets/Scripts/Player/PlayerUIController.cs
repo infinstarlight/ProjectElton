@@ -23,6 +23,19 @@ public class PlayerUIController : MonoBehaviour
 
     private void Awake()
     {
+        GetPlayer = FindObjectOfType<Player>();
+        pCon = FindObjectOfType<InputSystem_PlayerController>();
+        styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
+        CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
+        healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
+        statsScript = FindObjectOfType<PlayerStatsScript>();
+        interactText = FindObjectOfType<ID_InteractText>().gameObject;
+
+    }
+
+    private void OnEnable()
+    {
 #if UNITY_STANDALONE
         bIsMobile = false;
 #endif
@@ -32,18 +45,6 @@ public class PlayerUIController : MonoBehaviour
 #if UNITY_IOS || UNITY_ANDROID
 bIsMobile = true;
 #endif
-    }
-
-    private void OnEnable()
-    {
-        GetPlayer = FindObjectOfType<Player>();
-        pCon = FindObjectOfType<InputSystem_PlayerController>();
-        styleSliderScript = FindObjectOfType<ID_StyleSlider>();
-        optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
-        CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
-        healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
-        statsScript = FindObjectOfType<PlayerStatsScript>();
-        interactText = FindObjectOfType<ID_InteractText>().gameObject;
 
     }
 
@@ -68,8 +69,10 @@ bIsMobile = true;
         {
             interactText.SetActive(false);
         }
-        UpdateUIData();
-
+        if (healthbar)
+        {
+            UpdateUIData();
+        }
     }
 
     public void UpdateUIData()

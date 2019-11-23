@@ -232,17 +232,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.789
       objectReference: {fileID: 0}
-    - target: {fileID: 9193150938083973852, guid: 241361bb752ef6c4a8f01e89d27b4032,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
-        type: 0}
-    - target: {fileID: 9193150938525460862, guid: 241361bb752ef6c4a8f01e89d27b4032,
-        type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9193150938525460863, guid: 241361bb752ef6c4a8f01e89d27b4032,
         type: 3}
       propertyPath: WeaponSounds.Array.size
@@ -280,6 +269,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3848898404133243097, guid: ee64d15664a03954caaf64d4e6516919,
         type: 3}
+    - target: {fileID: 9193150938525460862, guid: 241361bb752ef6c4a8f01e89d27b4032,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9193150938083973852, guid: 241361bb752ef6c4a8f01e89d27b4032,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000,
+        type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 241361bb752ef6c4a8f01e89d27b4032, type: 3}
 --- !u!4 &7921298768798303116 stripped

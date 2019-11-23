@@ -47,31 +47,39 @@ public class Enemy : Character, ITracker
         {
             playerState = FindObjectOfType<PlayerStateScript>();
         }
-        if (AIController.bIsPlayerVisible)
+        if (AIController)
         {
-            //Attempt to attack
-            if (AI_Weapon)
+            if (AIController.bIsPlayerVisible)
             {
-                AI_Weapon.GetComponent<EnemyWeapon>().StartCoroutine(AI_Weapon.GetComponent<EnemyWeapon>().AIFire());
-            }
-        }
-        else
-        {
-            if (AIController.bIsHumanoid)
-            {
-                if (AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
+                //Attempt to attack
+                if (AI_Weapon)
                 {
-                    AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
+                    AI_Weapon.GetComponent<EnemyWeapon>().StartCoroutine(AI_Weapon.GetComponent<EnemyWeapon>().AIFire());
                 }
             }
+            else
+            {
+                if (AIController.bIsHumanoid)
+                {
+                    if (AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
+                    {
+                        AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
+                    }
+                }
 
+            }
         }
+
     }
     public void OnTrackTarget()
     {
-        AIController.myNavAgent.bIsTrackingPlayer = true;
-        AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
-        AIController.myNavMeshAgent.SetDestination(playerNavPoint.transform.position);
+        if (AIController)
+        {
+            AIController.myNavAgent.bIsTrackingPlayer = true;
+            AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
+            AIController.myNavMeshAgent.SetDestination(playerNavPoint.transform.position);
+        }
+
 
     }
 

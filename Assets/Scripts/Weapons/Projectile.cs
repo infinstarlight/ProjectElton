@@ -7,12 +7,15 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
 
-    public float hitForce;
+    public float hitForce = 0.0f;
+    public float PushbackForce = 50.0f; 
     public Vector3 oldVelocity;
 
     public float DamageAmount = 0.0f;
     public GameObject explosionGO;
     private AudioSource source;
+    private GameObject hitObject;
+    public Vector3 PushbackVector = new Vector3(0,1,0);
 
     private void Awake()
     {
@@ -28,11 +31,12 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject, 5f);
+        //Destroy(gameObject, 5f);
     }
 
     void FixedUpdate()
     {
+        rb.AddForce(transform.forward * hitForce);
         oldVelocity = rb.velocity;
     }
 
@@ -40,10 +44,14 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject)
         {
-            Explode();
-            if (other.gameObject.GetComponent<Enemy>())
+            hitObject = other.gameObject;
+            // rb.isKinematic = true;
+            // rb.Sleep();
+            if (hitObject.GetComponent<Enemy>())
             {
-                other.gameObject.SendMessage("OnEnemyDamageApplied", DamageAmount);
+                Explode();
+                hitObject.SendMessage("OnEnemyDamageApplied", DamageAmount);
+                hitObject.GetComponent<Rigidbody>().AddForce(PushbackVector * PushbackForce,ForceMode.Acceleration);
             }
 
         }
@@ -53,7 +61,7 @@ public class Projectile : MonoBehaviour
     {
         Instantiate(explosionGO, transform.position, transform.rotation);
         source.PlayOneShot(source.clip);
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject, 1f);
     }
 
 
