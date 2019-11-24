@@ -8,7 +8,7 @@ public class DebugController : MonoBehaviour
     public bool bShowFPS = false;
     float deltaTime = 0.0f;
     public bool bIsDebug = false;
-    public bool bTestFPSLimit = false;
+    public bool bEnableFPSLimit = false;
     public int testFrameRate = 30;
     private ID_DebugCanvas debugCanvas;
     private GameObject debugCanvasGO;
@@ -21,7 +21,7 @@ public class DebugController : MonoBehaviour
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
-            if (bTestFPSLimit)
+            if (bEnableFPSLimit)
             {
                 Application.targetFrameRate = testFrameRate;
             }
@@ -63,6 +63,7 @@ public class DebugController : MonoBehaviour
         {
             bShowFPS = !bShowFPS;
         }
+        ToggleFPSLimit();
         if (bIsDebug)
         {
             if (Keyboard.current.downArrowKey.wasPressedThisFrame)
@@ -74,8 +75,8 @@ public class DebugController : MonoBehaviour
             }
             if (Keyboard.current.homeKey.wasPressedThisFrame)
             {
-                bTestFPSLimit = !bTestFPSLimit;
-                EnableFPSLimit();
+                bEnableFPSLimit = !bEnableFPSLimit;
+                
             }
             if (bShowFPS)
             {
@@ -98,10 +99,10 @@ public class DebugController : MonoBehaviour
         }
     }
 
-    void EnableFPSLimit()
+    void ToggleFPSLimit()
     {
         //bTestFPSLimit = !bTestFPSLimit;
-        if (bTestFPSLimit)
+        if (bEnableFPSLimit)
         {
             Application.targetFrameRate = testFrameRate;
         }

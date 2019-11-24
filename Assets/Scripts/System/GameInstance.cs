@@ -22,7 +22,7 @@ public class MyConsoleCommands
     [Command("LoadLevel")]
     public static void LoadThisLevel(string newScene)
     {
-        SceneManager.LoadScene(newScene);
+        SceneManager.LoadScene(newScene,LoadSceneMode.Single);
     }
 }
 
@@ -32,6 +32,7 @@ public class GameInstance : MonoBehaviour
     private PlayerConfig GetPlayerConfig;
     private Player GetPlayer;
     private ID_PlayerUI playerUI;
+    public bool bIsReturningToMainMenu = false;
     
 
     void Awake()
@@ -67,6 +68,10 @@ public class GameInstance : MonoBehaviour
             if(GetPlayer && playerUI)
             {
                 Debug.Log("Player and HUD found!");
+            }
+            if(bIsReturningToMainMenu)
+            {
+                bIsReturningToMainMenu = false;
             }
            // GetPlayerConfig.gameObject.SetActive(false);
         }

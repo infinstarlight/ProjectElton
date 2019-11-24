@@ -27,15 +27,21 @@ public class SceneFadeTransition : MonoBehaviour
     //     {
     //     Debug.LogWarning("Testing fade to next level!");
     //      FadeToNextLevel();
-            
+
     //     }
     // }
 
     public void FadeToLevelByString(string newScene)
     {
-        bIsAlternateLoad = true;
+        if (!bIsAlternateLoad)
+        {
+            bIsAlternateLoad = true;
+        }
+        myAnimator.ResetTrigger("ShouldFadeIn");
+
         StartCoroutine(LoadAsyncSceneByString(newScene));
         myAnimator.SetTrigger("ShouldFadeOut");
+
     }
     public void FadeToNextLevel()
     {
@@ -50,13 +56,14 @@ public class SceneFadeTransition : MonoBehaviour
 
     public void OnFadeComplete()
     {
-           // Use a coroutine to load the Scene in the background
-           if(!bIsAlternateLoad)
-           {
-               StartCoroutine(LoadAsyncSceneByIndex());
-           }
-        
-        //SceneManager.LoadScene(nextLevelIndexToLoad);
+        // Use a coroutine to load the Scene in the background
+        if (!bIsAlternateLoad)
+        {
+            StartCoroutine(LoadAsyncSceneByIndex());
+        }
+
+        myAnimator.ResetTrigger("ShouldFadeOut");
+        myAnimator.SetTrigger("ShouldFadeIn");
     }
 
     IEnumerator LoadAsyncSceneByString(string newSceneName)
@@ -72,7 +79,7 @@ public class SceneFadeTransition : MonoBehaviour
         while (!asyncLoad.isDone)
         {
             yield return null;
-        } 
+        }
     }
 
     IEnumerator LoadAsyncSceneByIndex()

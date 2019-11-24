@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class CheckpointTriggerScript : MonoBehaviour
 {
-    private SaveManager GetSaveManager;
+   // private SaveManager GetSaveManager;
     // Start is called before the first frame update
     void Start()
     {
-        GetSaveManager = FindObjectOfType<SaveManager>();
+        //GetSaveManager = FindObjectOfType<SaveManager>();
     }
 
    private void OnTriggerEnter(Collider other) 
@@ -17,7 +17,7 @@ public class CheckpointTriggerScript : MonoBehaviour
         {
             if(other.gameObject.GetComponent<Player>())
             {
-                GetSaveManager.SavePlayerData();
+                SaveManager.SavePlayerData();
             }
         }    
    }

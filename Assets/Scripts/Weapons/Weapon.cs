@@ -133,9 +133,10 @@ public class Weapon : MonoBehaviour
                     }
                     if (!bIsPlayerWeapon)
                     {
-                        if (hit.collider.gameObject.GetComponent<Player>())
+                        if (hitObject.GetComponent<Player>())
                         {
-                            hit.collider.gameObject.GetComponent<Player>().PlayerDamageTaken(DamageAmount);
+                            
+                            hitObject.SendMessage("PlayerDamageTaken",DamageAmount);
                         }
                     }
 

@@ -27,7 +27,7 @@ public class Subweapon : Weapon
 
     public void ModifyAmmo(float ModAmount)
     {
-        if (CurrentAmmo != MaxAmmo)
+        if (CurrentAmmo < MaxAmmo)
         {
             CurrentAmmo += ModAmount;
         }

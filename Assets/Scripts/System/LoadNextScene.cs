@@ -10,11 +10,17 @@ public class LoadNextScene : MonoBehaviour
     public delegate void Change();
     public static event Change TimeChanged;
     private SceneFadeTransition GetSceneFade;
+    private GameInstance GetGameInstance;
     public float SceneChangeDelay = 3.0f;
     public void Start()
     {
         GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         SceneManager.activeSceneChanged += ChangedActiveScene;
+        GetGameInstance = FindObjectOfType<GameInstance>();
+        if (NextSceneName == "MainMenu")
+        {
+            GetGameInstance.bIsReturningToMainMenu = true;
+        }
     }
 
     IEnumerator TimeChangedScene()
@@ -27,21 +33,14 @@ public class LoadNextScene : MonoBehaviour
         TimeChanged();
     }
 
-    IEnumerator LoadAsyncSceneByString(string newSceneName)
+    private void Update()
     {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName);
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
+        if (!GetSceneFade)
         {
-            yield return null;
+            GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         }
     }
+
 
     private void ChangedActiveScene(Scene current, Scene next)
     {
@@ -52,7 +51,10 @@ public class LoadNextScene : MonoBehaviour
             // Scene1 has been removed
             currentName = "Replaced";
         }
-
+        if (NextSceneName == "MainMenu")
+        {
+            GetGameInstance.bIsReturningToMainMenu = true;
+        }
         Debug.Log("Scenes: " + currentName + ", " + next.name);
     }
 
@@ -65,7 +67,9 @@ public class LoadNextScene : MonoBehaviour
     void ChangeScene()
     {
         Debug.Log("Changing to the next Scene");
-       StartCoroutine(LoadAsyncSceneByString(NextSceneName));
+
+        GetSceneFade.FadeToLevelByString(NextSceneName);
+        //StartCoroutine(LoadAsyncSceneByString(NextSceneName));
     }
 
     void OnDisable()
@@ -79,6 +83,7 @@ public class LoadNextScene : MonoBehaviour
         {
             // wait 3 seconds before change to Scene2
             StartCoroutine(TimeChangedScene());
+            GetSceneFade.myAnimator.SetTrigger("ShouldFadeOut");
             //StartCoroutine(LoadAsyncSceneByString(NextSceneName));
         }
 

@@ -23,7 +23,7 @@ public class PlayerStatsScript : MonoBehaviour
     Keyboard currentKeyboard;
     private PlayerStateScript GetPlayerState;
     private PlayerUIController GetPlayerUI;
-    public UnityEvent updateHealthTextEvent = new UnityEvent();
+    public UnityEvent updateHealthUIEvent = new UnityEvent();
 
     void Awake()
     {
@@ -41,7 +41,7 @@ public class PlayerStatsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        updateHealthTextEvent.AddListener(UpdateHealthText);
+        updateHealthUIEvent.AddListener(UpdateHealthText);
         healthText = FindObjectOfType<HealthTextScript>();
         UpdateHealthText();
         if (Debug.isDebugBuild || Application.isEditor)

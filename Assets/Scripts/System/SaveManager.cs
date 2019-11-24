@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    private Player GetPlayer;
+    private static Player GetPlayer;
     public bool bWasSaveLoaded = false;
-    private AudioSource audioSource;
+    private static AudioSource audioSource;
     private SceneFadeTransition GetFadeTransition;
 
     void OnEnable()
@@ -21,7 +21,7 @@ public class SaveManager : MonoBehaviour
         GetFadeTransition = FindObjectOfType<SceneFadeTransition>();
         GetPlayer = FindObjectOfType<Player>();
     }
-    public void SavePlayerData()
+    public static void SavePlayerData()
     {
         if (GetPlayer)
         {

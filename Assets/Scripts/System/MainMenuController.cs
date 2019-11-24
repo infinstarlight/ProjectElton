@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
     private GameObject PlayerUIGO;
     private GameObject MusicPlayerGO;
     private GameObject GameManagerGO;
+    private GameInstance GetGameInstance;
     private SaveManager saveManager;
 
     private ID_MainMenuCanvas MainMenu;
@@ -21,7 +22,8 @@ public class MainMenuController : MonoBehaviour
     {
         // Debug.Log(Application.persistentDataPath);
         GetSceneFade = FindObjectOfType<SceneFadeTransition>();
-        GameManagerGO = FindObjectOfType<ID_GameManager>().gameObject;
+        GameManagerGO = FindObjectOfType<GameInstance>().gameObject;
+        GetGameInstance = GameManagerGO.GetComponent<GameInstance>();
         saveManager = FindObjectOfType<SaveManager>();
         MainMenu = FindObjectOfType<ID_MainMenuCanvas>();
         OptionsMenu = FindObjectOfType<ID_OptionsMenu>();
@@ -45,6 +47,27 @@ public class MainMenuController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
+
+    }
+
+    private void Update()
+    {
+        if (GetGameInstance.bIsReturningToMainMenu)
+        {
+            if (!PlayerGO)
+            {
+                PlayerGO = FindObjectOfType<Player>().gameObject;
+                Destroy(PlayerGO);
+                PlayerGO = null;
+            }
+            if (!PlayerUIGO)
+            {
+                PlayerGO = FindObjectOfType<ID_PlayerUI>().gameObject;
+                Destroy(PlayerUIGO);
+                PlayerUIGO = null;
+            }
+        }
+
 
     }
 

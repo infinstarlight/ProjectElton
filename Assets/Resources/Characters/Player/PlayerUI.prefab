@@ -2423,9 +2423,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2136bd3ffe030584d8c21443ef7f9a91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bShowFPS: 1
+  bShowFPS: 0
   bIsDebug: 0
-  bTestFPSLimit: 0
+  bEnableFPSLimit: 1
   testFrameRate: 60
 --- !u!1 &1436510839
 GameObject:

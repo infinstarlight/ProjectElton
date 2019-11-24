@@ -89,7 +89,7 @@ public class InputSystem_PlayerController : MonoBehaviour
                 }
                 if (currentKeyboard.digit9Key.wasPressedThisFrame)
                 {
-                    GetSaveManager.SavePlayerData();
+                    SaveManager.SavePlayerData();
                 }
                 if (currentKeyboard.digit0Key.wasPressedThisFrame)
                 {

@@ -21,7 +21,7 @@ public class HealthUpgrade : Item
                 UpgradeHealth();
             }
 
-            Destroy(gameObject, 2f);
+            Destroy(gameObject);
         }
 
     }

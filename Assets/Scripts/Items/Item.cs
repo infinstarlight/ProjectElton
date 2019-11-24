@@ -45,6 +45,7 @@ public class Item : MonoBehaviour
         if(CurrentItemType == ItemType.SubweaponAmmo)
         {
             GetPlayer.pCon.combatController.currentSubWeapon.SendMessage("ModifyAmmo",ValueMod);
+            itemSource.PlayOneShot(itemSource.clip);
         }
     }
 
@@ -54,7 +55,8 @@ public class Item : MonoBehaviour
        {
            GetPlayer.SendMessage("ModifyHealth",ValueMod);
            GetPlayer.SendMessage("UpdateHealthText");
-           SaveSystem.SavePlayer(GetPlayer);
+           //SaveSystem.SavePlayer(GetPlayer);
+           SaveManager.SavePlayerData();
        }
    }
 

@@ -55,6 +55,7 @@ public class Player : Character
         PlayerStats = GetComponent<PlayerStatsScript>();
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
         characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
+        PlayerStats.updateHealthUIEvent.Invoke();
     }
 
 
@@ -72,7 +73,8 @@ public class Player : Character
                 OnPlayerDeath();
             }
         }
-        PlayerStats.UpdateHealthText();
+        //PlayerStats.UpdateHealthText();
+        PlayerStats.updateHealthUIEvent.Invoke();
         playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }
 

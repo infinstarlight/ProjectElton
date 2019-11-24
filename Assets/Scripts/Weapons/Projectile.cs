@@ -16,16 +16,19 @@ public class Projectile : MonoBehaviour
     private AudioSource source;
     private GameObject hitObject;
     public Vector3 PushbackVector = new Vector3(0,1,0);
+    private ParticleSystem explosionPS;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         source = GetComponent<AudioSource>();
+        explosionPS = explosionGO.GetComponent<ParticleSystem>();
     }
     // Start is called before the first frame update
     void Start()
     {
         rb.velocity = transform.forward * hitForce;
+        //explosionPS.loop = false;
     }
 
     // Update is called once per frame
@@ -45,8 +48,7 @@ public class Projectile : MonoBehaviour
         if (other.gameObject)
         {
             hitObject = other.gameObject;
-            // rb.isKinematic = true;
-            // rb.Sleep();
+           Explode();
             if (hitObject.GetComponent<Enemy>())
             {
                 Explode();
@@ -61,6 +63,7 @@ public class Projectile : MonoBehaviour
     {
         Instantiate(explosionGO, transform.position, transform.rotation);
         source.PlayOneShot(source.clip);
+        explosionPS.Play();
         Destroy(gameObject, 1f);
     }
 
