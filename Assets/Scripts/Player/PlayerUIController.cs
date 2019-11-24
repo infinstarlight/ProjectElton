@@ -10,7 +10,9 @@ public class PlayerUIController : MonoBehaviour
     private PlayerStatsScript statsScript;
     private GameObject PauseMenu;
     private GameObject CharMenu;
+    private GameObject TouchControlGO;
     private ID_StyleSlider styleSliderScript;
+    private ID_TouchUI GetTouchUI;
 
     private ID_PlayerHealthSlider healthbar;
     private GameObject interactText;
@@ -18,8 +20,8 @@ public class PlayerUIController : MonoBehaviour
     private GameObject optionsMenu;
     private Player GetPlayer;
     public UnityEvent updateUIEvent = new UnityEvent();
+    private GameInstance GetGameInstance;
 
-    public bool bIsMobile = false;
 
     private void Awake()
     {
@@ -31,26 +33,22 @@ public class PlayerUIController : MonoBehaviour
         healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
         interactText = FindObjectOfType<ID_InteractText>().gameObject;
-
-    }
-
-    private void OnEnable()
-    {
-#if UNITY_STANDALONE
-        bIsMobile = false;
-#endif
-#if  UNITY_XBOXONE
-           bIsMobile = false;
-#endif
-#if UNITY_IOS || UNITY_ANDROID
-bIsMobile = true;
-#endif
-
+        GetTouchUI = FindObjectOfType<ID_TouchUI>();
+        TouchControlGO = GetTouchUI.gameObject;
+        GetGameInstance = FindObjectOfType<GameInstance>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (GetGameInstance.bIsRunningOnMobile)
+        {
+            TouchControlGO.SetActive(true);
+        }
+        else
+        {
+            TouchControlGO.SetActive(false);
+        }
         updateUIEvent.AddListener(UpdateUIData);
         PauseMenu = pCon.PauseMenuGO;
         if (PauseMenu)

@@ -177,6 +177,14 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""2cc50c3c-ac3d-45dd-bcb2-09c29960ec23"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -637,8 +645,19 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Gamepad>/rightStickPress"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Activate Subweapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d301f5ce-e5c8-4573-9775-4b0d475054f4"",
+                    ""path"": ""<Touchscreen>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Touchscreen"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1024,6 +1043,17 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""isOR"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Touchscreen"",
+            ""bindingGroup"": ""Touchscreen"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Touchscreen>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
         }
     ]
 }");
@@ -1049,6 +1079,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_SelectPreviousWeapon = m_gameplay.FindAction("Select Previous Weapon", throwIfNotFound: true);
         m_gameplay_SelectNextWeapon = m_gameplay.FindAction("Select Next Weapon", throwIfNotFound: true);
         m_gameplay_ActivateSubweapon = m_gameplay.FindAction("Activate Subweapon", throwIfNotFound: true);
+        m_gameplay_Move = m_gameplay.FindAction("Move", throwIfNotFound: true);
         // ui
         m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
         m_ui_Confirm = m_ui.FindAction("Confirm", throwIfNotFound: true);
@@ -1130,6 +1161,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_SelectPreviousWeapon;
     private readonly InputAction m_gameplay_SelectNextWeapon;
     private readonly InputAction m_gameplay_ActivateSubweapon;
+    private readonly InputAction m_gameplay_Move;
     public struct GameplayActions
     {
         private @GameInputControls m_Wrapper;
@@ -1154,6 +1186,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @SelectPreviousWeapon => m_Wrapper.m_gameplay_SelectPreviousWeapon;
         public InputAction @SelectNextWeapon => m_Wrapper.m_gameplay_SelectNextWeapon;
         public InputAction @ActivateSubweapon => m_Wrapper.m_gameplay_ActivateSubweapon;
+        public InputAction @Move => m_Wrapper.m_gameplay_Move;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1223,6 +1256,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @ActivateSubweapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
                 @ActivateSubweapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
                 @ActivateSubweapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
+                @Move.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnMove;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1287,6 +1323,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @ActivateSubweapon.started += instance.OnActivateSubweapon;
                 @ActivateSubweapon.performed += instance.OnActivateSubweapon;
                 @ActivateSubweapon.canceled += instance.OnActivateSubweapon;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
         }
     }
@@ -1414,6 +1453,15 @@ public class @GameInputControls : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
+    private int m_TouchscreenSchemeIndex = -1;
+    public InputControlScheme TouchscreenScheme
+    {
+        get
+        {
+            if (m_TouchscreenSchemeIndex == -1) m_TouchscreenSchemeIndex = asset.FindControlSchemeIndex("Touchscreen");
+            return asset.controlSchemes[m_TouchscreenSchemeIndex];
+        }
+    }
     public interface IGameplayActions
     {
         void OnFire(InputAction.CallbackContext context);
@@ -1436,6 +1484,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnSelectPreviousWeapon(InputAction.CallbackContext context);
         void OnSelectNextWeapon(InputAction.CallbackContext context);
         void OnActivateSubweapon(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

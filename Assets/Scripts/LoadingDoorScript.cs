@@ -20,12 +20,21 @@ public class LoadingDoorScript : MonoBehaviour
     [SerializeField]
     public EAmmoType desiredAmmoType;
     protected bool bIsRightAmmoType = false;
+    private string colorName = "Color_ED482798";
+    private MeshRenderer GetRenderer;
+    public Color openDoorColor;
+    private Color startColor;
+    private float colorChangeValue = 0.0f;
+    private bool bIsOpening = false;
+    private ID_LoadDoor GetDoor;
 
     void Awake()
     {
         myAnimator = GetComponent<Animator>();
         GetAudio = GetComponent<AudioSource>();
-
+        GetDoor = GetComponentInChildren<ID_LoadDoor>();
+        GetRenderer = GetDoor.gameObject.GetComponent<MeshRenderer>();
+        startColor = GetRenderer.material.GetColor(colorName);
         //DontDestroyOnLoad(gameObject);
     }
 
@@ -39,6 +48,18 @@ public class LoadingDoorScript : MonoBehaviour
             lastSceneName = SceneManager.GetActiveScene().name;
         }
 
+    }
+
+    private void Update() 
+    {
+        if(bIsOpening)
+        {
+            StartCoroutine(raiseValue());
+        }    
+        else
+        {
+            StopCoroutine(raiseValue());
+        }
     }
 
     IEnumerator LoadScene()
@@ -69,7 +90,7 @@ public class LoadingDoorScript : MonoBehaviour
                 // Check if the load has finished
                 if (sceneLoadOperation.progress >= 0.9f)
                 {
-
+                    
                     //Activate the Scene
                     sceneLoadOperation.allowSceneActivation = true;
                     OpenDoor();
@@ -99,6 +120,8 @@ public class LoadingDoorScript : MonoBehaviour
             }
             else
             {
+                StartCoroutine(raiseValue());
+                GetRenderer.material.SetColor(colorName,openDoorColor);
                 OpenDoor();
             }
 
@@ -129,6 +152,7 @@ public class LoadingDoorScript : MonoBehaviour
 
     void OpenDoor()
     {
+        bIsOpening = true;
         if (!bIsLocked)
         {
             myAnimator.SetBool("bOpenDoor?", true);
@@ -144,6 +168,7 @@ public class LoadingDoorScript : MonoBehaviour
     void CloseDoor()
     {
         myAnimator.SetBool("bOpenDoor?", false);
+        bIsOpening = false;
         if (bShouldLoadScene)
         {
             StopCoroutine(UnloadScene());
@@ -155,13 +180,14 @@ public class LoadingDoorScript : MonoBehaviour
     {
         GetAudio.clip = doorSounds[0];
         GetAudio.PlayOneShot(GetAudio.clip);
+        StopCoroutine(raiseValue());
     }
 
     public void OnDoorClose()
     {
         GetAudio.clip = doorSounds[1];
         GetAudio.PlayOneShot(GetAudio.clip);
-
+        GetRenderer.material.SetColor(colorName,startColor);
         if (bIsSceneLoaded)
         {
             bIsSceneLoaded = false;
@@ -204,6 +230,8 @@ public class LoadingDoorScript : MonoBehaviour
     }
 
 
+
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject)
@@ -216,5 +244,15 @@ public class LoadingDoorScript : MonoBehaviour
 
             }
         }
+    }
+
+    IEnumerator raiseValue()
+    {
+        if(colorChangeValue < 1)
+        {
+            colorChangeValue += 0.01f;
+            GetRenderer.material.SetColor(colorName,Color.Lerp(startColor,openDoorColor,colorChangeValue));
+        }
+        yield return null;
     }
 }

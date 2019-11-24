@@ -22,7 +22,7 @@ public class MyConsoleCommands
     [Command("LoadLevel")]
     public static void LoadThisLevel(string newScene)
     {
-        SceneManager.LoadScene(newScene,LoadSceneMode.Single);
+        SceneManager.LoadScene(newScene, LoadSceneMode.Single);
     }
 }
 
@@ -33,10 +33,22 @@ public class GameInstance : MonoBehaviour
     private Player GetPlayer;
     private ID_PlayerUI playerUI;
     public bool bIsReturningToMainMenu = false;
-    
+    public bool bIsRunningOnMobile = false;
+
 
     void Awake()
     {
+#if UNITY_STANDALONE
+        bIsRunningOnMobile = false;
+        
+#endif
+#if UNITY_XBOXONE
+          bIsRunningOnMobile = false;
+#endif
+#if UNITY_IOS || UNITY_ANDROID
+        bIsRunningOnMobile = true;
+
+#endif
         if (Time.timeScale <= 0)
         {
             Time.timeScale = 1;
@@ -50,9 +62,9 @@ public class GameInstance : MonoBehaviour
     // called first
     void OnEnable()
     {
-//        Debug.Log("OnEnable called");
+        //        Debug.Log("OnEnable called");
         SceneManager.sceneLoaded += OnSceneLoaded;
-        Parser.Register(this,"instance");
+        Parser.Register(this, "instance");
         Console.Open = false;
     }
 
@@ -65,15 +77,15 @@ public class GameInstance : MonoBehaviour
         {
             GetPlayer = FindObjectOfType<Player>();
             playerUI = FindObjectOfType<ID_PlayerUI>();
-            if(GetPlayer && playerUI)
+            if (GetPlayer && playerUI)
             {
                 Debug.Log("Player and HUD found!");
             }
-            if(bIsReturningToMainMenu)
+            if (bIsReturningToMainMenu)
             {
                 bIsReturningToMainMenu = false;
             }
-           // GetPlayerConfig.gameObject.SetActive(false);
+            // GetPlayerConfig.gameObject.SetActive(false);
         }
         else
         {
@@ -95,12 +107,12 @@ public class GameInstance : MonoBehaviour
     // called when the game is terminated
     void OnDisable()
     {
-       // Debug.Log("OnDisable");
+        // Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
         Parser.Unregister(this);
     }
 
-    
+
 
 
 }

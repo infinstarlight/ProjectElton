@@ -115,15 +115,15 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         {
             CurrentDashCount += 1;
         }
-        
-        
+
+
     }
 
     void ActivateSpecialAbility()
     {
         if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
         {
-            
+
             if (CurrentDashCount <= MaxDashCount)
             {
                 bIsDashCooldownRunning = false;
@@ -144,26 +144,29 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         }
     }
 
+    public void OnMoveUpdate(InputAction.CallbackContext context)
+    {
+        var moveValue = context.ReadValue<Vector2>();
+        MoveRight(moveValue.x);
+        MoveUp(moveValue.y);
+    }
+
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        CurrentJumpCount++;
-        if (CurrentJumpCount <= MaxJumpCount)
-        {
-            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
-        }
+        Jump();
     }
     public void OnMoveUp(InputAction.CallbackContext context)
     {
         var yValue = context.ReadValue<float>();
-        translation = yValue * MovementSpeed * Time.deltaTime;
+        MoveUp(yValue);
 
     }
 
     public void OnMoveRight(InputAction.CallbackContext context)
     {
         var xValue = context.ReadValue<float>();
-        strafe = xValue * MovementSpeed * Time.deltaTime;
+        MoveRight(xValue);
 
     }
 
@@ -180,6 +183,25 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
             }
         }
 
+    }
+
+    public void Jump()
+    {
+        CurrentJumpCount++;
+        if (CurrentJumpCount <= MaxJumpCount)
+        {
+            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+        }
+    }
+
+    public void MoveRight(float inputValue)
+    {
+        strafe = inputValue * MovementSpeed * Time.deltaTime;
+    }
+
+    public void MoveUp(float inputValue)
+    {
+        translation = inputValue * MovementSpeed * Time.deltaTime;
     }
 
 

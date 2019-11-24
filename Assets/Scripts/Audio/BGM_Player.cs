@@ -15,7 +15,6 @@ public class BGM_Player : MonoBehaviour
     private int PlaylistLength;
 
     public float FadeTime;
-    public double startTime;
 
     public bool bShouldMute = false;
     public bool bShouldFadeOut = false;
@@ -48,7 +47,7 @@ public class BGM_Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startTime = AudioSettings.dspTime + 2;
+
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -65,7 +64,7 @@ public class BGM_Player : MonoBehaviour
     {
         if (source.time >= source.clip.length)
         {
-            if (NextTrackNum != 1)
+            if (NextTrackNum < PlaylistLength)
             {
                 PlayNextTrack();
             }

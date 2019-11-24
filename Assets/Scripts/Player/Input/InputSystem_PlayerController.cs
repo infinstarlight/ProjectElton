@@ -21,6 +21,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     private Keyboard currentKeyboard;
     private Gamepad currentGamepad;
     private SaveManager GetSaveManager;
+    private GameInstance GetGameInstance;
     public AudioClip[] interactSounds;
     private AudioSource source;
     [SerializeField]
@@ -30,6 +31,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     private float InteractRange = 200.0f;
     private RaycastHit hit;
     private PlayerUIController uiController;
+    
 
     void OnDisable()
     {
@@ -45,6 +47,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         uiController = FindObjectOfType<PlayerUIController>();
+        GetGameInstance = FindObjectOfType<GameInstance>();
         source = GetComponent<AudioSource>();
         playerCamera = Camera.main;
         if (Application.isEditor || Debug.isDebugBuild)
@@ -187,7 +190,8 @@ public class InputSystem_PlayerController : MonoBehaviour
             myControls = new GameInputControls();
         }
 
-        //if(myControls.gameplay.)
+
+        myControls.gameplay.Move.performed += rbMovement.OnMoveUpdate;
         bEnableGameInput = true;
         myControls.gameplay.Pause.performed += OnGamePause;
         myControls.gameplay.Interact.performed += OnInteractEvent;
@@ -227,6 +231,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.MoveUp.Enable();
         myControls.gameplay.StyleSwitchUp.Enable();
         myControls.gameplay.StyleSwitchDown.Enable();
+        myControls.gameplay.Move.Enable();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -260,6 +265,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.StyleSwitchDown.Disable();
         myControls.gameplay.SelectNextWeapon.Disable();
         myControls.gameplay.SelectPreviousWeapon.Disable();
+        myControls.gameplay.Move.Disable();
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
