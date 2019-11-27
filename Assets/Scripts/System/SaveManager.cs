@@ -10,9 +10,8 @@ public class SaveManager : MonoBehaviour
     private static AudioSource audioSource;
     private SceneFadeTransition GetFadeTransition;
 
-    void OnEnable()
+    private void Awake()
     {
-        //   GetPlayer = FindObjectOfType<Player>();
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -26,7 +25,11 @@ public class SaveManager : MonoBehaviour
         if (GetPlayer)
         {
             SaveSystem.SavePlayer(GetPlayer);
-            audioSource.PlayOneShot(audioSource.clip);
+            if (audioSource)
+            {
+                audioSource.PlayOneShot(audioSource.clip);
+            }
+
         }
 
     }

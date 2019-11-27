@@ -75,7 +75,7 @@ public class MainMenuController : MonoBehaviour
     {
         Destroy(MusicPlayerGO);
         //Destroy(GameManagerGO);
-        GetSceneFade.FadeToNextLevel();
+        GetSceneFade.FadeToLevelByString("TestLevel");
         //SceneManager.LoadScene("TestLevel");
 
     }

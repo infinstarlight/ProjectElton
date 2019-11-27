@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1645073565538815290, guid: 431513058ef284ae38dadbaf50b0d7f4,
         type: 3}
       propertyPath: m_Name
-      value: LoadingDoor_Locked
+      value: LoadingDoor_Locked Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1645073565538815291, guid: 431513058ef284ae38dadbaf50b0d7f4,
         type: 3}

@@ -19,6 +19,7 @@ public class BGM_Player : MonoBehaviour
     public bool bShouldMute = false;
     public bool bShouldFadeOut = false;
     public bool bShouldFadeIn = false;
+    public MusicPlaylist GetMusicPlaylist;
 
     void Awake()
     {
@@ -34,10 +35,9 @@ public class BGM_Player : MonoBehaviour
     {
         if (source)
         {
-            if (!source.isPlaying)
-            {
-                PlayFirstTrack();
-            }
+            GetMusicPlaylist = FindObjectOfType<MusicPlaylist>();
+            Playlist = GetMusicPlaylist.Tracks;
+            PlayFirstTrack();
         }
 
     }

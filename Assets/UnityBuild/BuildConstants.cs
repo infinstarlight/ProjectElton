@@ -5,7 +5,7 @@ public static class BuildConstants
     public enum ReleaseType
     {
         None,
-        DevBuild,
+        DemoBuild,
     }
 
     public enum Platform
@@ -34,11 +34,11 @@ public static class BuildConstants
         Development,
     }
 
-    public static readonly System.DateTime buildDate = new System.DateTime(637098827412630940);
-    public const string version = "1.0.64.5196";
-    public const ReleaseType releaseType = ReleaseType.DevBuild;
-    public const Platform platform = Platform.OSX;
-    public const Architecture architecture = Architecture.OSX;
-    public const Distribution distribution = Distribution.Development;
+    public static readonly System.DateTime buildDate = new System.DateTime(637104073254770630);
+    public const string version = "1.0.70.5608";
+    public const ReleaseType releaseType = ReleaseType.DemoBuild;
+    public const Platform platform = Platform.PC;
+    public const Architecture architecture = Architecture.Windows_x64;
+    public const Distribution distribution = Distribution.None;
 }
 

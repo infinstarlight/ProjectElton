@@ -388,14 +388,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cea1ecf363424c9a8cb49a965b47367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newSceneName: Level 0-1_HealthPuzzle
-  lastSceneName: Level 0-1
+  newSceneName: 
+  lastSceneName: 
   doorSounds:
   - {fileID: 8300000, guid: b019b06b35fd640a4994b08650d46f10, type: 3}
   - {fileID: 8300000, guid: 5d5d2ccd882594fa980ed69f54e235e7, type: 3}
   - {fileID: 8300000, guid: 66025763806e848d7b15130ec3b504af, type: 3}
   bIsLocked: 0
-  bShouldLoadNewScene: 1
+  bShouldLoadNewScene: 0
   desiredAmmoType: 1
   openDoorColor: {r: 0, g: 0, b: 0, a: 0}
   doorOpenEvent:

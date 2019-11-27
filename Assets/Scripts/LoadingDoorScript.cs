@@ -66,7 +66,7 @@ public class LoadingDoorScript : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        yield return new WaitForSeconds(5.0f);
+        // yield return new WaitForSeconds(5.0f);
 
         if (!bShouldLoadLastScene)
         {
@@ -223,8 +223,12 @@ public class LoadingDoorScript : MonoBehaviour
                         SceneManager.SetActiveScene(SceneManager.GetSceneByName(lastSceneName));
                     }
                 }
-                StopCoroutine(LoadScene());
-                StartCoroutine(UnloadScene());
+                if (bShouldLoadLastScene || bShouldLoadNewScene)
+                {
+                    StopCoroutine(LoadScene());
+                    StartCoroutine(UnloadScene());
+                }
+
             }
         }
     }
