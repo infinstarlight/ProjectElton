@@ -122,7 +122,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.0.70.5608
+  bundleVersion: 1.0.71.832
   preloadedAssets:
   - {fileID: 11400000, guid: fd33dcafd943f4ecb978a7861318232d, type: 2}
   metroInputSource: 0
@@ -167,9 +167,10 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.ESS.TheHunt
+    Android: 
     Standalone: 
     Tizen: com.Company.ProductName
+    WebGL: 
     iPhone: com.Company.ProductName
     tvOS: com.Company.ProductName
   buildNumber:
@@ -695,7 +696,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLWasmStreaming: 0
   scriptingDefineSymbols:
-    1: BUILD_TYPE_DEMOBUILD;BUILD_PLATFORM_PC;BUILD_ARCH_WINDOWSX64
+    1: BUILD_TYPE_DEMOBUILD;BUILD_PLATFORM_PC;BUILD_ARCH_WINDOWSX64;UNITY_POST_PROCESSING_STACK_V2;KRIPTO_FX_LWRP_RENDERING;CROSS_PLATFORM_INPUT;AURA_IN_PROJECT;AURA_IN_SCENEVIEW;dUI_MANAGER
     2: CROSS_PLATFORM_INPUT
     4: CROSS_PLATFORM_INPUT;UNITY_POST_PROCESSING_STACK_V2;dUI_MANAGER;MOBILE_INPUT
     7: CROSS_PLATFORM_INPUT;UNITY_POST_PROCESSING_STACK_V2;dUI_MANAGER;AURA_IN_PROJECT;KRIPTO_FX_LWRP_RENDERING;AURA_IN_SCENEVIEW;MOBILE_INPUT
