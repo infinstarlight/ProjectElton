@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class LoadingDoorScript : MonoBehaviour
 {
     private Animator myAnimator;
     private AudioSource GetAudio;
-    public string nextSceneName = "";
+    public string newSceneName = "";
     public string lastSceneName = "";
     public AudioClip[] doorSounds;
     AsyncOperation sceneLoadOperation;
     AsyncOperation sceneUnloadOperation;
     public bool bIsLocked = false;
 
-    public bool bShouldLoadScene = false;
+    public bool bShouldLoadNewScene = false;
 
     private bool bShouldLoadLastScene = false;
     private bool bIsSceneLoaded = false;
@@ -27,6 +28,9 @@ public class LoadingDoorScript : MonoBehaviour
     private float colorChangeValue = 0.0f;
     private bool bIsOpening = false;
     private ID_LoadDoor GetDoor;
+    public UnityEvent doorOpenEvent = new UnityEvent();
+    public UnityEvent doorCloseEvent = new UnityEvent();
+    public UnityEvent doorUnlockEvent = new UnityEvent();
 
     void Awake()
     {
@@ -41,7 +45,9 @@ public class LoadingDoorScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        doorOpenEvent.AddListener(OpenDoor);
+        doorCloseEvent.AddListener(CloseDoor);
+        doorUnlockEvent.AddListener(UnlockDoor);
         myAnimator.SetBool("bOpenDoor?", false);
         if (lastSceneName == "")
         {
@@ -50,17 +56,13 @@ public class LoadingDoorScript : MonoBehaviour
 
     }
 
-    private void Update() 
+    private void OnDisable()
     {
-        if(bIsOpening)
-        {
-            StartCoroutine(raiseValue());
-        }    
-        else
-        {
-            StopCoroutine(raiseValue());
-        }
+        doorOpenEvent.RemoveAllListeners();
+        doorCloseEvent.RemoveAllListeners();
+        doorUnlockEvent.RemoveAllListeners();
     }
+
 
     IEnumerator LoadScene()
     {
@@ -69,7 +71,7 @@ public class LoadingDoorScript : MonoBehaviour
         if (!bShouldLoadLastScene)
         {
             //Begin to load the Scene you specify
-            sceneLoadOperation = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
+            sceneLoadOperation = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
 
         }
         else
@@ -90,7 +92,7 @@ public class LoadingDoorScript : MonoBehaviour
                 // Check if the load has finished
                 if (sceneLoadOperation.progress >= 0.9f)
                 {
-                    
+
                     //Activate the Scene
                     sceneLoadOperation.allowSceneActivation = true;
                     OpenDoor();
@@ -114,14 +116,14 @@ public class LoadingDoorScript : MonoBehaviour
 
         if (bIsRightAmmoType)
         {
-            if (bShouldLoadScene)
+            if (bShouldLoadNewScene || bShouldLoadLastScene)
             {
                 StartCoroutine(LoadScene());
             }
             else
             {
-                StartCoroutine(raiseValue());
-                GetRenderer.material.SetColor(colorName,openDoorColor);
+
+                GetRenderer.material.SetColor(colorName, openDoorColor);
                 OpenDoor();
             }
 
@@ -132,23 +134,28 @@ public class LoadingDoorScript : MonoBehaviour
 
     IEnumerator UnloadScene()
     {
-        if (bShouldLoadScene)
+        yield return new WaitForSeconds(5.0f);
+        if (!bShouldLoadLastScene)
         {
-            yield return new WaitForSeconds(10.0f);
+            sceneUnloadOperation = SceneManager.UnloadSceneAsync(newSceneName, UnloadSceneOptions.None);
+        }
+        else
+        {
             sceneUnloadOperation = SceneManager.UnloadSceneAsync(lastSceneName, UnloadSceneOptions.None);
 
-            while (!sceneUnloadOperation.isDone)
-            {
-                Debug.Log("Unloading progress: " + (sceneUnloadOperation.progress * 100) + "%");
-                if (sceneUnloadOperation.progress >= 0.9f)
-                {
-                    CloseDoor();
-                }
-                yield return null;
-            }
         }
-
+        while (!sceneUnloadOperation.isDone)
+        {
+            Debug.Log("Unloading progress: " + (sceneUnloadOperation.progress * 100) + "%");
+            if (sceneUnloadOperation.progress >= 0.9f)
+            {
+                CloseDoor();
+            }
+            yield return null;
+        }
     }
+
+
 
     void OpenDoor()
     {
@@ -169,7 +176,7 @@ public class LoadingDoorScript : MonoBehaviour
     {
         myAnimator.SetBool("bOpenDoor?", false);
         bIsOpening = false;
-        if (bShouldLoadScene)
+        if (bShouldLoadNewScene)
         {
             StopCoroutine(UnloadScene());
         }
@@ -180,14 +187,14 @@ public class LoadingDoorScript : MonoBehaviour
     {
         GetAudio.clip = doorSounds[0];
         GetAudio.PlayOneShot(GetAudio.clip);
-        StopCoroutine(raiseValue());
+
     }
 
     public void OnDoorClose()
     {
         GetAudio.clip = doorSounds[1];
         GetAudio.PlayOneShot(GetAudio.clip);
-        GetRenderer.material.SetColor(colorName,startColor);
+        GetRenderer.material.SetColor(colorName, startColor);
         if (bIsSceneLoaded)
         {
             bIsSceneLoaded = false;
@@ -202,11 +209,18 @@ public class LoadingDoorScript : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Player>())
             {
-                if (bShouldLoadScene)
+                if (bShouldLoadNewScene)
                 {
-                    if (SceneManager.GetSceneByName(nextSceneName) != SceneManager.GetActiveScene())
+                    if (SceneManager.GetSceneByName(newSceneName) != SceneManager.GetActiveScene())
                     {
-                        SceneManager.SetActiveScene(SceneManager.GetSceneByName(nextSceneName));
+                        SceneManager.SetActiveScene(SceneManager.GetSceneByName(newSceneName));
+                    }
+                }
+                else
+                {
+                    if (SceneManager.GetSceneByName(lastSceneName) != SceneManager.GetActiveScene())
+                    {
+                        SceneManager.SetActiveScene(SceneManager.GetSceneByName(lastSceneName));
                     }
                 }
                 StopCoroutine(LoadScene());
@@ -238,21 +252,15 @@ public class LoadingDoorScript : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Player>())
             {
-                bShouldLoadLastScene = true;
+                if (newSceneName != "")
+                {
+                    bShouldLoadNewScene = !bShouldLoadNewScene;
+                    bShouldLoadLastScene = !bShouldLoadLastScene;
+                }
                 CloseDoor();
-
-
             }
         }
     }
 
-    IEnumerator raiseValue()
-    {
-        if(colorChangeValue < 1)
-        {
-            colorChangeValue += 0.01f;
-            GetRenderer.material.SetColor(colorName,Color.Lerp(startColor,openDoorColor,colorChangeValue));
-        }
-        yield return null;
-    }
+
 }

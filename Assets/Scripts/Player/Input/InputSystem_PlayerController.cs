@@ -20,6 +20,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private Gamepad currentGamepad;
+    private Touchscreen currentTouchscreen;
     private SaveManager GetSaveManager;
     private GameInstance GetGameInstance;
     public AudioClip[] interactSounds;
@@ -59,6 +60,10 @@ public class InputSystem_PlayerController : MonoBehaviour
             bIsDebug = false;
         }
         Cursor.lockState = CursorLockMode.Locked;
+        if(GetGameInstance.bIsRunningOnMobile)
+        {
+            currentTouchscreen = Touchscreen.current;
+        }
     }
 
     void Start()

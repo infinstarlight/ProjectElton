@@ -73,7 +73,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 2
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f4d77176f004e0da675d3377bbaae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myRenderer: {fileID: 0}
 --- !u!65 &2542469063439587165
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -387,15 +388,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cea1ecf363424c9a8cb49a965b47367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: 
-  lastSceneName: 
+  newSceneName: Level 0-1_HealthPuzzle
+  lastSceneName: Level 0-1
   doorSounds:
   - {fileID: 8300000, guid: b019b06b35fd640a4994b08650d46f10, type: 3}
   - {fileID: 8300000, guid: 5d5d2ccd882594fa980ed69f54e235e7, type: 3}
   - {fileID: 8300000, guid: 66025763806e848d7b15130ec3b504af, type: 3}
   bIsLocked: 0
-  bShouldLoadScene: 0
+  bShouldLoadNewScene: 1
   desiredAmmoType: 1
+  openDoorColor: {r: 0, g: 0, b: 0, a: 0}
+  doorOpenEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  doorCloseEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  doorUnlockEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1645073565538815430
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -408,7 +419,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.9, y: 4, z: 1}
-  m_Center: {x: 2.5, y: 2, z: 0}
+  m_Center: {x: 2.5, y: 2, z: -0.25}
 --- !u!82 &275176319
 AudioSource:
   m_ObjectHideFlags: 0

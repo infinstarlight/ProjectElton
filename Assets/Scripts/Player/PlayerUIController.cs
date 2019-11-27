@@ -21,6 +21,7 @@ public class PlayerUIController : MonoBehaviour
     private Player GetPlayer;
     public UnityEvent updateUIEvent = new UnityEvent();
     private GameInstance GetGameInstance;
+    private SaveManager GetSaveManager;
 
 
     private void Awake()
@@ -36,6 +37,7 @@ public class PlayerUIController : MonoBehaviour
         GetTouchUI = FindObjectOfType<ID_TouchUI>();
         TouchControlGO = GetTouchUI.gameObject;
         GetGameInstance = FindObjectOfType<GameInstance>();
+        GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
     }
 
     // Start is called before the first frame update
@@ -134,7 +136,7 @@ public class PlayerUIController : MonoBehaviour
     public void RestartFromCheckpoint()
     {
         Debug.LogWarning("We don't have save data so this will restart the scene for now");
-        SaveSystem.LoadPlayer();
+        GetSaveManager.LoadPlayerData();
     }
 
     public void ReturnToMainMenu()

@@ -20,46 +20,46 @@ public class Item : MonoBehaviour
 
     public void Awake()
     {
-          GetPlayer = FindObjectOfType<Player>();
+        GetPlayer = FindObjectOfType<Player>();
         itemSource = GetComponent<AudioSource>();
     }
 
-   
-   
+
+
 
     public void RecoverHealth()
     {
-        if(CurrentItemType == ItemType.HealthPickup)
+        if (CurrentItemType == ItemType.HealthPickup)
         {
-        GetPlayer.SendMessage("HealCharacter",ValueMod);
-        //GetPlayer.characterStats.HealCharacter(RecoverAmount);
-        GetPlayer.SendMessage("UpdateHealthText");
-        //GetPlayer.PlayerStats.UpdateHealthText();
-        itemSource.PlayOneShot(itemSource.clip);
+            GetPlayer.SendMessage("HealCharacter", ValueMod);
+            //GetPlayer.characterStats.HealCharacter(RecoverAmount);
+            GetPlayer.SendMessage("UpdateHealthText");
+            //GetPlayer.PlayerStats.UpdateHealthText();
+            itemSource.PlayOneShot(itemSource.clip);
         }
-        
+
     }
 
     public void RecoverAmmo()
     {
-        if(CurrentItemType == ItemType.SubweaponAmmo)
+        if (CurrentItemType == ItemType.SubweaponAmmo)
         {
-            GetPlayer.pCon.combatController.currentSubWeapon.SendMessage("ModifyAmmo",ValueMod);
+            GetPlayer.pCon.combatController.currentSubWeapon.SendMessage("ModifyAmmo", ValueMod);
             itemSource.PlayOneShot(itemSource.clip);
         }
     }
 
-   public void UpgradeHealth()
-   {
-       if(CurrentItemType == ItemType.HealthUpgrade)
-       {
-           GetPlayer.SendMessage("ModifyHealth",ValueMod);
-           GetPlayer.SendMessage("UpdateHealthText");
-           //SaveSystem.SavePlayer(GetPlayer);
-           SaveManager.SavePlayerData();
-       }
-   }
+    public void UpgradeHealth()
+    {
+        if (CurrentItemType == ItemType.HealthUpgrade)
+        {
+            GetPlayer.SendMessage("ModifyHealth", ValueMod);
+            GetPlayer.SendMessage("UpdateHealthText");
+            //SaveSystem.SavePlayer(GetPlayer);
+            SaveManager.SavePlayerData();
+        }
+    }
 
 
-   
+
 }

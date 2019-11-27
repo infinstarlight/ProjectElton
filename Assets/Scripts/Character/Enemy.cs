@@ -19,6 +19,8 @@ public class Enemy : Character, ITracker
     void EnemyAwake()
     {
         base.Awake();
+        itemsGO[0] = null;
+        itemsGO[1] = null;
 
 
 
@@ -36,6 +38,7 @@ public class Enemy : Character, ITracker
         damageEvent.AddListener(OnEnemyDamageApplied);
         var smallhealthGO = Resources.Load<GameObject>("Prefabs/Items/SmallHealthPickup") as GameObject;
         var smallammoGO = Resources.Load<GameObject>("Prefabs/Items/SmallAmmoPickup") as GameObject;
+        
         itemsGO[0] = smallhealthGO;
         itemsGO[1] = smallammoGO;
 
@@ -104,10 +107,10 @@ public class Enemy : Character, ITracker
     {
         base.OnDeath();
         SpawnRandomPickup();
-        Destroy(gameObject, DestroyDelay);
+
         if (bShouldDestroyOnDeath)
         {
-
+            Destroy(gameObject, DestroyDelay);
         }
     }
 

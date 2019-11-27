@@ -18,11 +18,12 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     public LayerMask GroundLayer;
 
 
-    private Rigidbody rb;
+    public static Rigidbody rb;
     private PlayerStatsScript playerStats;
 
     [SerializeField]
     private bool bIsGounded = true;
+    private bool bIsInAir = false;
 
     [SerializeField]
     private int CurrentJumpCount = 0;
@@ -69,7 +70,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     void Update()
     {
         bIsGounded = Physics.CheckSphere(groundChecker.position, GroundDistance, GroundLayer, QueryTriggerInteraction.Ignore);
-
+        bIsInAir = !bIsGounded;
         if (bIsGounded && CurrentJumpCount >= 1)
         {
             CurrentJumpCount = 0;
@@ -80,6 +81,10 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
+        if(bIsInAir)
+        {
+            rb.AddForce(Vector3.down * 50.0f,ForceMode.Acceleration);
+        }
     }
 
     public void OnSprint(InputAction.CallbackContext context)
@@ -214,16 +219,18 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         }
 
     }
-    public static void ToggleCollider(bool bEnable)
+    public static void ToggleCollider(bool bEnableFunc)
     {
-        bEnable = !bEnable;
-        if (!bEnable)
+        bEnableFunc = !bEnableFunc;
+        if (!bEnableFunc)
         {
             myCollider.enabled = false;
+            rb.isKinematic = true;
         }
         else
         {
             myCollider.enabled = true;
+            rb.isKinematic = false;
         }
     }
     [Command("noclip")]
@@ -231,7 +238,15 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     {
         bool bEnable = false;
         bEnable = !bEnable;
-        ToggleCollider(bEnable);
+        if(bEnable)
+        {
+            ToggleCollider(true);
+        }
+        else
+        {
+            ToggleCollider(false);
+        }
+        
     }
 
 

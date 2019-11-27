@@ -73,7 +73,6 @@ public class Player : Character
                 OnPlayerDeath();
             }
         }
-        //PlayerStats.UpdateHealthText();
         PlayerStats.updateHealthUIEvent.Invoke();
         playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }

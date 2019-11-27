@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
 
     public bool bShouldDestroyOnDeath;
 
-    public float DestroyDelay = 0.0f;
+    public float DestroyDelay = 2.0f;
     public UnityEventWithFloat damageEvent = new UnityEventWithFloat();
     
 
@@ -23,8 +23,6 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
     {
         characterStats = GetComponent<CharacterStats>();
         source = GetComponent<AudioSource>();
-        //damageEvent.AddListener(OnDamageApplied);
-        
     }
 
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2578673211354513567}
   - component: {fileID: 2578673211354513566}
   - component: {fileID: 2578673211354513565}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: EnemyLockOnImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 2578673211487101114}
   - component: {fileID: 2578673211487101108}
   - component: {fileID: 2578673211487101115}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 2578673211751269752}
   - component: {fileID: 2578673211751269759}
   - component: {fileID: 2578673211751269754}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: NavAgentTestEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -470,7 +470,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2578673212319184186}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -508,7 +508,7 @@ GameObject:
   - component: {fileID: 2578673212519692571}
   - component: {fileID: 2578673212519692565}
   - component: {fileID: 2578673212519692564}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: EnemyHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 0, b: 0, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.7735849, g: 0.04743683, b: 0.04743683, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -575,7 +575,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 2578673211487101115}
   m_FillRect: {fileID: 2578673212778556441}
   m_HandleRect: {fileID: 2578673211487101114}
@@ -609,7 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2578673212654152511}
   - component: {fileID: 2578673212654152504}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: AIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - component: {fileID: 2578673212778556441}
   - component: {fileID: 2578673212778556443}
   - component: {fileID: 2578673212778556442}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 2578673212813627430}
   - component: {fileID: 2578673212813627424}
   - component: {fileID: 2578673212813627431}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 2578673213045506707}
   - component: {fileID: 2578673213045506706}
   - component: {fileID: 2578673213045506705}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: EnemyInfoCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +923,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2578673213174077215}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

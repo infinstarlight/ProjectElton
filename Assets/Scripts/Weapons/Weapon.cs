@@ -156,7 +156,6 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator AutoFire()
     {
-        //Debug.Log("Fire!");
         Fire();
         yield return fireRate;
     }
