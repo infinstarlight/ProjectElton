@@ -14,20 +14,21 @@ public class Enemy : Character, ITracker
     private EnemyWeapon myWeapon;
 
     public GameObject[] itemsGO = new GameObject[2];
+    private ID_EnemyHealthBar enemyHealthBar;
 
 
     void EnemyAwake()
     {
         base.Awake();
-        itemsGO[0] = null;
-        itemsGO[1] = null;
-
 
 
     }
     // Start is called before the first frame update
     void Start()
     {
+        itemsGO[0] = null;
+        itemsGO[1] = null;
+        enemyHealthBar = GetComponentInChildren<ID_EnemyHealthBar>();
 
         playerState = FindObjectOfType<PlayerStateScript>();
         AIController = GetComponentInChildren<AIControllerBase>();
@@ -38,7 +39,7 @@ public class Enemy : Character, ITracker
         damageEvent.AddListener(OnEnemyDamageApplied);
         var smallhealthGO = Resources.Load<GameObject>("Prefabs/Items/SmallHealthPickup") as GameObject;
         var smallammoGO = Resources.Load<GameObject>("Prefabs/Items/SmallAmmoPickup") as GameObject;
-        
+
         itemsGO[0] = smallhealthGO;
         itemsGO[1] = smallammoGO;
 
@@ -46,10 +47,10 @@ public class Enemy : Character, ITracker
 
     private void Update()
     {
-        if (!playerState)
-        {
-            playerState = FindObjectOfType<PlayerStateScript>();
-        }
+        // if (!playerState)
+        // {
+        //     playerState = FindObjectOfType<PlayerStateScript>();
+        // }
         if (AIController)
         {
             if (AIController.bIsPlayerVisible)
@@ -93,7 +94,7 @@ public class Enemy : Character, ITracker
         {
             OnTrackTarget();
             AIEventManager.TriggerEvent("Damage");
-
+            enemyHealthBar.healthBar.value = characterStats.healthPercentage;
             playerState.styleModEvent.Invoke(StyleModAmount);
             if (characterStats.CurrentHealth <= 0)
             {

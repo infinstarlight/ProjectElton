@@ -1,4 +1,5 @@
-﻿using UnityEngine.InputSystem.Interactions;
+﻿using UnityEngine.Events;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem;
 using UnityEngine;
 
@@ -32,11 +33,15 @@ public class InputSystem_PlayerController : MonoBehaviour
     private float InteractRange = 200.0f;
     private RaycastHit hit;
     private PlayerUIController uiController;
-    
+    public UnityEvent EnableInputEvent = new UnityEvent();
+    public UnityEvent DisableInputEvent = new UnityEvent();
+
 
     void OnDisable()
     {
         DisableGameControls();
+        EnableInputEvent.RemoveAllListeners();
+        DisableInputEvent.RemoveAllListeners();
     }
 
     void Awake()
@@ -60,15 +65,17 @@ public class InputSystem_PlayerController : MonoBehaviour
             bIsDebug = false;
         }
         Cursor.lockState = CursorLockMode.Locked;
-        if(GetGameInstance.bIsRunningOnMobile)
+        if (GetGameInstance.bIsRunningOnMobile)
         {
             currentTouchscreen = Touchscreen.current;
+            EnhancedTouchSupport.Enable();
         }
     }
 
     void Start()
     {
-
+        EnableInputEvent.AddListener(EnableGameControls);
+        DisableInputEvent.AddListener(DisableGameControls);
         PauseMenuGO.SetActive(false);
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
@@ -77,10 +84,10 @@ public class InputSystem_PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PauseMenuGO)
-        {
-            PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
-        }
+        // if (!PauseMenuGO)
+        // {
+        //     PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        // }
         if (bIsDebug)
         {
             if (currentKeyboard.f8Key.wasPressedThisFrame)
@@ -218,6 +225,8 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.Look.performed += cameraLook.OnLook;
         myControls.gameplay.SelectPreviousWeapon.performed += combatController.OnWeaponCycleDown;
         myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
+        myControls.gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
+        myControls.gameplay.ActivateSubweapon.Enable();
         myControls.gameplay.SelectNextWeapon.Enable();
         myControls.gameplay.SelectPreviousWeapon.Enable();
         myControls.gameplay.Interact.Enable();
@@ -252,6 +261,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     {
         bEnableGameInput = false;
         myControls.gameplay.Interact.Disable();
+        myControls.gameplay.ActivateSubweapon.Disable();
         // myControls.gameplay.Disable();
         myControls.gameplay.Fire.Disable();
         myControls.gameplay.Look.Disable();
@@ -271,14 +281,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectNextWeapon.Disable();
         myControls.gameplay.SelectPreviousWeapon.Disable();
         myControls.gameplay.Move.Disable();
-        if (Cursor.lockState != CursorLockMode.None)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        if (Time.timeScale >= 1)
-        {
-            Time.timeScale = 0;
-        }
+
     }
 
     void EnableUIControls()
@@ -286,6 +289,11 @@ public class InputSystem_PlayerController : MonoBehaviour
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Time.timeScale >= 1)
+        {
+            Time.timeScale = 0;
         }
         DisableGameControls();
 

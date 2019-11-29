@@ -39,10 +39,7 @@ public class EnemyUIController : MonoBehaviour
                 transform.LookAt(PlayerCamera.transform);
             }
 
-            // if (Bar.value <= 0)
-            // {
-            //     // Destroy(this, 1f);
-            // }
+      
         }
         if (lockOnImage)
         {
@@ -60,12 +57,5 @@ public class EnemyUIController : MonoBehaviour
 
     }
 
-    // void LateUpdate()
-    // {
-    //     if (healthBar != null)
-    //     {
-
-    //     }
-
-    // }
+  
 }

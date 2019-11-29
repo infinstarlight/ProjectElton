@@ -62,6 +62,17 @@ public class SaveManager : MonoBehaviour
 
     }
 
+    public static void LoadPlayerPosition()
+    {
+        PlayerData locData = SaveSystem.LoadPlayer();
+        Vector3 savedLoc = new Vector3();
+        savedLoc.x = locData.position[0];
+        savedLoc.y = locData.position[1];
+        savedLoc.z = locData.position[2];
+        GetPlayer.gameObject.transform.position = savedLoc;
+
+    }
+
     //TODO: Function for finding most recent save
     //TODO: Create UI that lists 
 }

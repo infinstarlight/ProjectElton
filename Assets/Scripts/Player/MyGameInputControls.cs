@@ -64,7 +64,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""0f1f7568-2bcb-43d5-9e6c-b5a8b142d45c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(pressPoint=0.2)""
                 },
                 {
                     ""name"": ""Sprint"",
@@ -664,7 +664,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c6c28442-4a1e-4530-b768-519bdcdae2a1"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",

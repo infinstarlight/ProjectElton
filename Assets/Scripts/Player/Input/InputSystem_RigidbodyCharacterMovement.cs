@@ -24,6 +24,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     [SerializeField]
     private bool bIsGounded = true;
     private bool bIsInAir = false;
+    private bool bCanJump = false;
 
     [SerializeField]
     private int CurrentJumpCount = 0;
@@ -55,8 +56,6 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider>();
         groundChecker = transform.GetChild(0);
         playerStats = GetComponent<PlayerStatsScript>();
-
-
     }
 
     // Start is called before the first frame update
@@ -75,15 +74,23 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         {
             CurrentJumpCount = 0;
         }
+         if (CurrentJumpCount <= MaxJumpCount)
+         {
+             bCanJump = true;
+         }
+         else
+         {
+             bCanJump = false;
+         }
 
     }
 
     void FixedUpdate()
     {
         transform.Translate(strafe, 0, translation);
-        if(bIsInAir)
+        if (bIsInAir)
         {
-            rb.AddForce(Vector3.down * 50.0f,ForceMode.Acceleration);
+            rb.AddForce(Vector3.down * 25.0f, ForceMode.Acceleration);
         }
     }
 
@@ -192,11 +199,18 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     public void Jump()
     {
-        CurrentJumpCount++;
-        if (CurrentJumpCount <= MaxJumpCount)
+        float nextJump = 0.0f;
+        float jumpRate = 0.25f;
+        if (Time.time > nextJump)
         {
-            rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+            nextJump = Time.time + jumpRate;
+            ++CurrentJumpCount;
+            if (bCanJump)
+            {
+                rb.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2 * Physics.gravity.y), ForceMode.VelocityChange);
+            }
         }
+
     }
 
     public void MoveRight(float inputValue)
@@ -238,7 +252,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     {
         bool bEnable = false;
         bEnable = !bEnable;
-        if(bEnable)
+        if (bEnable)
         {
             ToggleCollider(true);
         }
@@ -246,7 +260,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         {
             ToggleCollider(false);
         }
-        
+
     }
 
 

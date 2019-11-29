@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
         {
             GetPlayer.SendMessage("HealCharacter", ValueMod);
             //GetPlayer.characterStats.HealCharacter(RecoverAmount);
-            GetPlayer.SendMessage("UpdateHealthText");
+            GetPlayer.PlayerStats.SendMessage("UpdateHealthText");
             //GetPlayer.PlayerStats.UpdateHealthText();
             itemSource.PlayOneShot(itemSource.clip);
         }
@@ -54,7 +54,7 @@ public class Item : MonoBehaviour
         if (CurrentItemType == ItemType.HealthUpgrade)
         {
             GetPlayer.SendMessage("ModifyHealth", ValueMod);
-            GetPlayer.SendMessage("UpdateHealthText");
+            GetPlayer.PlayerStats.SendMessage("UpdateHealthText");
             //SaveSystem.SavePlayer(GetPlayer);
             SaveManager.SavePlayerData();
         }

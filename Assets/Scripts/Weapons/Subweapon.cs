@@ -19,6 +19,7 @@ public class Subweapon : Weapon
     public float MaxAmmo = 0;
     public UnityEvent activateEvent = new UnityEvent();
     public UnityEvent deactivateEvent = new UnityEvent();
+    public bool bCanConsumeAmmo = false;
     // Start is called before the first frame update
     void Start()
     {

@@ -18,6 +18,7 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     private bool bIsAutoFiring = false;
     private bool bIsCharging = false;
     private int weaponCount = 0;
+    private bool bEnableGodMode = false;
 
 
 
@@ -61,6 +62,26 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 currentSubweaponScript = currentSubWeapon.GetComponent<Subweapon>();
             }
         }
+
+         if (Application.isEditor || Debug.isDebugBuild)
+         {
+             if(Keyboard.current.gKey.wasPressedThisFrame)
+             {
+                 bEnableGodMode = !bEnableGodMode;
+                 if(bEnableGodMode)
+                 {
+                     currentWeaponScript.DamageAmount = 9999;
+                     currentSubweaponScript.DamageAmount = 9999;
+                     currentSubweaponScript.bCanConsumeAmmo = false;
+                 }
+                 else
+                 {
+                     currentWeaponScript.DamageAmount = currentWeaponScript.oldDamageAmount;
+                     currentSubweaponScript.DamageAmount = currentSubweaponScript.oldDamageAmount;
+                     currentSubweaponScript.bCanConsumeAmmo = true;
+                 }
+             }
+         }
     }
 
     public void OnStyleSwitchDown(InputAction.CallbackContext context)

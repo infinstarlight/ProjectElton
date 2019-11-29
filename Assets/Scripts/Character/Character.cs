@@ -51,7 +51,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
                 source.clip = hurtClips[Random.Range(0, hurtClips.Length)];
                 source.PlayOneShot(source.clip);
             }
-        
+            characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
 
             if (characterStats.CurrentHealth <= 0)
             {

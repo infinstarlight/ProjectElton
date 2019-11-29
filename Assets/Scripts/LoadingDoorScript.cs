@@ -25,8 +25,7 @@ public class LoadingDoorScript : MonoBehaviour
     private MeshRenderer GetRenderer;
     public Color openDoorColor;
     private Color startColor;
-    private float colorChangeValue = 0.0f;
-    private bool bIsOpening = false;
+
     private ID_LoadDoor GetDoor;
     public UnityEvent doorOpenEvent = new UnityEvent();
     public UnityEvent doorCloseEvent = new UnityEvent();
@@ -66,7 +65,7 @@ public class LoadingDoorScript : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        // yield return new WaitForSeconds(5.0f);
+         yield return new WaitForSeconds(2.0f);
 
         if (!bShouldLoadLastScene)
         {
@@ -159,7 +158,7 @@ public class LoadingDoorScript : MonoBehaviour
 
     void OpenDoor()
     {
-        bIsOpening = true;
+
         if (!bIsLocked)
         {
             myAnimator.SetBool("bOpenDoor?", true);
@@ -175,7 +174,7 @@ public class LoadingDoorScript : MonoBehaviour
     void CloseDoor()
     {
         myAnimator.SetBool("bOpenDoor?", false);
-        bIsOpening = false;
+
         if (bShouldLoadNewScene)
         {
             StopCoroutine(UnloadScene());
@@ -211,17 +210,25 @@ public class LoadingDoorScript : MonoBehaviour
             {
                 if (bShouldLoadNewScene)
                 {
-                    if (SceneManager.GetSceneByName(newSceneName) != SceneManager.GetActiveScene())
+                    if (SceneManager.GetSceneByName(newSceneName).isLoaded)
                     {
-                        SceneManager.SetActiveScene(SceneManager.GetSceneByName(newSceneName));
+                        if (SceneManager.GetSceneByName(newSceneName) != SceneManager.GetActiveScene())
+                        {
+                            SceneManager.SetActiveScene(SceneManager.GetSceneByName(newSceneName));
+                        }
                     }
+
                 }
                 else
                 {
-                    if (SceneManager.GetSceneByName(lastSceneName) != SceneManager.GetActiveScene())
+                    if (SceneManager.GetSceneByName(lastSceneName).isLoaded)
                     {
-                        SceneManager.SetActiveScene(SceneManager.GetSceneByName(lastSceneName));
+                        if (SceneManager.GetSceneByName(lastSceneName) != SceneManager.GetActiveScene())
+                        {
+                            SceneManager.SetActiveScene(SceneManager.GetSceneByName(lastSceneName));
+                        }
                     }
+
                 }
                 if (bShouldLoadLastScene || bShouldLoadNewScene)
                 {

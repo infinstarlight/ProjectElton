@@ -88,19 +88,6 @@ public class AIEventManager : MonoBehaviour
         }
     }
 
-    // public static void StopListeningFloat(string eventName, MyFloatEvent floatListener)
-    // {
-    //     if(AIManager == null) return;
-    //     MyFloatEvent thisFloatEvent = null;
-    //      if(instance.floateventDictionary.TryGetValue(eventName,out thisFloatEvent))
-    //     {
-    //         thisFloatEvent.AddListener(floatListener);
-    //     }
-    //     if (instance.floateventDictionary.TryGetValue(eventName, out thisFloatEvent))
-    //     {
-    //         thisFloatEvent.RemoveListener(floatListener);
-    //     }
-    // }
     public static void TriggerEvent (string eventName)
     {
         UnityEvent thisEvent = null;
@@ -109,13 +96,4 @@ public class AIEventManager : MonoBehaviour
             thisEvent.Invoke ();
         }
     }
-
-    // public static void TriggerFloatModEvent(string eventName,float ModAmount)
-    // {
-    //     MyFloatEvent thisFloatEvent = null;
-    //     if(instance.floateventDictionary.TryGetValue(eventName,out thisFloatEvent))
-    //     {
-    //         thisFloatEvent.Invoke();
-    //     }
-    // }
 }

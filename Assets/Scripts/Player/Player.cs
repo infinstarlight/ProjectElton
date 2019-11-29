@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using UnityEngine.Events;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -17,7 +17,8 @@ public class Player : Character
 
     public static Player instance = null;
 
-
+    public List<InventoryItem> ItemInventory = new List<InventoryItem>();
+    public UnityEvent AddItemEvent = new UnityEvent();
 
 
     void OnEnable()
@@ -56,6 +57,7 @@ public class Player : Character
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
         characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
         PlayerStats.updateHealthUIEvent.Invoke();
+     
     }
 
 
@@ -90,5 +92,10 @@ public class Player : Character
         }
 
 
+    }
+
+    public void AddItem(InventoryItem newItem)
+    {
+        ItemInventory.Add(newItem);
     }
 }

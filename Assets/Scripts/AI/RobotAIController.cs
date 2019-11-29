@@ -8,7 +8,7 @@ public class RobotAIController : AIControllerBase
 
     private Animator myAnimator;
 
-    private void Awake() 
+    private void RobotAwake() 
     {
         base.Awake(); 
         bIsHumanoid = true;   

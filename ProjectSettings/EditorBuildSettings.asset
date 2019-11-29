@@ -26,6 +26,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dynamic/_Scenes/Chapter0/Level 0-1/Level 0-1_HealthPuzzle.unity
     guid: 9c9fe2f3b738542f58554a7e2f39c168
+  - enabled: 1
+    path: Assets/Dynamic/_Scenes/Chapter0/Level 0-1/Level 0-1_Fork.unity
+    guid: 894d8fbb8fee444d8af212eebb78b1f1
+  - enabled: 1
+    path: Assets/Dynamic/_Scenes/Chapter0/Level 0-1/Level 0-1_ForkA.unity
+    guid: 4f48b21e7808aea4fba574ad1d3b9acd
+  - enabled: 1
+    path: Assets/Dynamic/_Scenes/Chapter0/Level 0-1/Level 0-1_ForkB.unity
+    guid: afab274f11ee8d5478efee73b442fc05
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fd33dcafd943f4ecb978a7861318232d,
       type: 2}

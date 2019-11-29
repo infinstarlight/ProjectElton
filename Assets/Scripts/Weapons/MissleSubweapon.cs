@@ -34,14 +34,18 @@ public class MissleSubweapon : Subweapon, ISubWeapon
         if (CurrentAmmo > 0)
         {
             weaponRay = playerCamera.ViewportPointToRay(rayOrigin);
-            Instantiate(FireEffect,gunEndGO.transform.position,aimGO.transform.rotation);
+            Instantiate(FireEffect, gunEndGO.transform.position, aimGO.transform.rotation);
             if (Time.time > nextFire)
             {
                 // Update the time when our player can fire next
                 nextFire = Time.time + fireRate;
-                
+
                 Instantiate(missileGO, gunEndGO.transform.position, aimGO.transform.rotation);
-                CurrentAmmo--;
+                if (bCanConsumeAmmo)
+                {
+                    --CurrentAmmo;
+                }
+
                 if (weaponAudio.clip != WeaponSounds[2])
                 {
                     weaponAudio.clip = WeaponSounds[2];

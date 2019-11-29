@@ -56,6 +56,7 @@ public class GameInstance : MonoBehaviour
         //GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
         GetPlayer = FindObjectOfType<Player>();
         playerUI = FindObjectOfType<ID_PlayerUI>();
+        Console.Initialize();
     }
 
 
@@ -96,12 +97,6 @@ public class GameInstance : MonoBehaviour
                 //Debug.Log("Player and HUD removed!");
             }
         }
-    }
-
-    // called third
-    void Start()
-    {
-        //   Debug.Log("Start");
     }
 
     // called when the game is terminated

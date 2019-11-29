@@ -73,7 +73,7 @@ public class SceneFadeTransition : MonoBehaviour
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName,LoadSceneMode.Single);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
