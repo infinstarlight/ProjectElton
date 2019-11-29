@@ -42,7 +42,7 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 5
+    buildCounter: 0
     lastGeneratedVersion: 1.0.72.917
     version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
@@ -64,8 +64,10 @@ MonoBehaviour:
         - fileGUID: c9f920b8d2c624584974a3673c467a78
         - fileGUID: 98992d4c416a741beb31629ef8625509
         - fileGUID: 998f5da11d91d4046aecca60196cb1fd
-        - fileGUID: 894d8fbb8fee444d8af212eebb78b1f1
         - fileGUID: 9c9fe2f3b738542f58554a7e2f39c168
+        - fileGUID: 894d8fbb8fee444d8af212eebb78b1f1
+        - fileGUID: 4f48b21e7808aea4fba574ad1d3b9acd
+        - fileGUID: afab274f11ee8d5478efee73b442fc05
   _platformList:
     platforms:
     - enabled: 1
@@ -206,7 +208,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DemoBuild/PC/Windows x64
-      - enabled: 0
+      - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
