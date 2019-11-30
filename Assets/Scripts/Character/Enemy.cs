@@ -30,10 +30,10 @@ public class Enemy : Character, ITracker
         itemsGO[1] = null;
         enemyHealthBar = GetComponentInChildren<ID_EnemyHealthBar>();
 
-        playerState = FindObjectOfType<PlayerStateScript>();
+       
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
-        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
+//        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
         AI_Weapon = GetComponentInChildren<EnemyWeapon>().gameObject;
         myWeapon = AI_Weapon.GetComponent<EnemyWeapon>();
         damageEvent.AddListener(OnEnemyDamageApplied);
@@ -42,15 +42,20 @@ public class Enemy : Character, ITracker
 
         itemsGO[0] = smallhealthGO;
         itemsGO[1] = smallammoGO;
+        //damageEvent.AddListener(OnEnemyDamageApplied);
 
     }
 
     private void Update()
     {
-        // if (!playerState)
-        // {
-        //     playerState = FindObjectOfType<PlayerStateScript>();
-        // }
+        if (!playerNavPoint)
+        {
+            playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
+        }
+        if(!playerState)
+        {
+             playerState = FindObjectOfType<PlayerStateScript>();
+        }
         if (AIController)
         {
             if (AIController.bIsPlayerVisible)

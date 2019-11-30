@@ -13,6 +13,7 @@ public class InventoryItem : MonoBehaviour
 {
     public EInvItemType myItemType;
     private Player myPlayer;
+    public string itemName = "";
     // Start is called before the first frame update
     private void Start() 
     {
@@ -25,7 +26,9 @@ public class InventoryItem : MonoBehaviour
         {
             if(myPlayer.gameObject)
             {
-                myPlayer.SendMessage("AddItem",this);
+                GameObject itemGO = Instantiate(gameObject,transform);
+                myPlayer.SendMessage("AddItem",itemGO);
+                Destroy(gameObject,1f);
             }
         }    
     }

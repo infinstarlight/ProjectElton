@@ -14,7 +14,8 @@ public class PlayerUIController : MonoBehaviour
     private ID_StyleSlider styleSliderScript;
     private ID_TouchUI GetTouchUI;
 
-    private ID_PlayerHealthSlider healthbar;
+    private ID_PlayerHealthSlider healthBar;
+    private ID_PlayerAragonSlider aragonBar;
     private GameObject interactText;
     private bool bShowInteractText;
     private GameObject optionsMenu;
@@ -22,27 +23,30 @@ public class PlayerUIController : MonoBehaviour
     public UnityEvent updateUIEvent = new UnityEvent();
     private GameInstance GetGameInstance;
     private SaveManager GetSaveManager;
+   // private HealthTextScript healthText;
 
 
     private void Awake()
+    {
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
     {
         GetPlayer = FindObjectOfType<Player>();
         pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
-        healthbar = FindObjectOfType<ID_PlayerHealthSlider>();
+        healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
+        aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
         interactText = FindObjectOfType<ID_InteractText>().gameObject;
         GetTouchUI = FindObjectOfType<ID_TouchUI>();
         TouchControlGO = GetTouchUI.gameObject;
         GetGameInstance = FindObjectOfType<GameInstance>();
         GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
         if (GetGameInstance.bIsRunningOnMobile)
         {
             TouchControlGO.SetActive(true);
@@ -69,7 +73,7 @@ public class PlayerUIController : MonoBehaviour
         {
             interactText.SetActive(false);
         }
-        if (healthbar)
+        if (healthBar)
         {
             UpdateUIData();
         }
@@ -85,9 +89,17 @@ public class PlayerUIController : MonoBehaviour
 
         //TODO: Move this to UpdateHealthText function
 
-        if (healthbar)
+        if (healthBar)
         {
-            healthbar.healthSlider.value = pCon.playerStats.pcStats.healthPercentage;
+            healthBar.healthSlider.value = pCon.playerStats.playerHealthPercentage;
+        }
+        // if (healthText)
+        // {
+        //     healthText.TextMesh.text = pCon.playerStats.pcStats.CurrentHealth.ToString();
+        // }
+        if(aragonBar)
+        {
+            aragonBar.aragonSlider.value = pCon.playerStats.PowerGaugePercentage;
         }
     }
 
@@ -151,11 +163,11 @@ public class PlayerUIController : MonoBehaviour
         {
             if (bShowInteractText)
             {
-                interactText.SetActive(true);
+                interactText.GetComponent<Animator>().SetBool("bShowText",bShowInteractText);
             }
             else
             {
-                interactText.SetActive(false);
+                interactText.GetComponent<Animator>().SetBool("bShowText",bShowInteractText);
             }
         }
     }

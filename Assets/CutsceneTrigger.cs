@@ -10,8 +10,6 @@ public class CutsceneTrigger : MonoBehaviour
 
     private void Awake()
     {
-        playerCamera = Camera.main;
-        GetPlayerController = FindObjectOfType<InputSystem_PlayerController>();
         if (myDirector)
         {
             myDirector.gameObject.SetActive(false);
@@ -21,7 +19,8 @@ public class CutsceneTrigger : MonoBehaviour
 
     private void Start()
     {
-
+        GetPlayerController = FindObjectOfType<InputSystem_PlayerController>();
+         playerCamera = Camera.main;
     }
 
     void OnCutSceneEnd(PlayableDirector currentDirector)
@@ -30,7 +29,7 @@ public class CutsceneTrigger : MonoBehaviour
         {
             //myDirector.enabled = false;
             playerCamera.enabled = true;
-            GetPlayerController.EnableInputEvent.Invoke();
+            GetPlayerController.EnableGameInputEvent.Invoke();
         }
     }
 
@@ -45,7 +44,7 @@ public class CutsceneTrigger : MonoBehaviour
                     myDirector.gameObject.SetActive(true);
                     //myDirector.enabled = true;
                     myDirector.Play();
-                    GetPlayerController.DisableInputEvent.Invoke();
+                    GetPlayerController.DisableGameInputEvent.Invoke();
                     playerCamera.enabled = false;
                     bHasPlayed = true;
                 }

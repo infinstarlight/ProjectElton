@@ -39,7 +39,7 @@ public class DoorUnlockScript : MonoBehaviour
         {
             if(bToggleLockStatus)
             {
-                GetDoorScript.bIsLocked = bToggleLockStatus;
+                GetDoorScript.doorLockEvent.Invoke();
                 GetDoorScript.doorCloseEvent.Invoke();
             }
             else

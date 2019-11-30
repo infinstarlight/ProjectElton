@@ -34,10 +34,10 @@ public class PlayerStateScript : MonoBehaviour
     void Update()
     {
         StylePercent = CurrentStyleAmount / MaxStyleAmount;
-        StartCoroutine(DecreaseStyleOverTime());
+        //StartCoroutine(DecreaseStyleOverTime());
         if (CurrentStyleAmount > 0)
         {
-            //StartCoroutine(DecreaseStyleOverTime());
+            StartCoroutine(DecreaseStyleOverTime());
             if (StylePercent > 0.80)
             {
                 styleImageScript.styleImage.color = Color.magenta;

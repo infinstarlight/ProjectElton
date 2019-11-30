@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
     [Header("VFX & SFX")]
     public AudioSource weaponAudio;
     public GameObject gunEndGO;
-    
+
     public AudioClip[] WeaponSounds;
     public GameObject FireEffect;
     public RaycastHit hit;
@@ -62,6 +62,10 @@ public class Weapon : MonoBehaviour
     public bool bIsPlayerWeapon = false;
     //What object does the owner use to aim
     public GameObject aimGO;
+    private GameObject hitObject = null;
+    private LoadingDoorScript hitDoor = null;
+    private WeaponChargeObject hitChargeObject = null;
+
 
 
 
@@ -85,9 +89,6 @@ public class Weapon : MonoBehaviour
             nextFire = Time.time + fireRate;
 
 
-            GameObject hitObject = null;
-            LoadingDoorScript hitDoor = null;
-            WeaponChargeObject hitChargeObject = null;
 
             // actual Ray
             if (bIsPlayerWeapon)
@@ -121,7 +122,12 @@ public class Weapon : MonoBehaviour
                         if (hitObject.GetComponentInChildren<ID_LoadDoor>())
                         {
                             hitDoor = hitObject.GetComponentInParent<LoadingDoorScript>();
-                            hitDoor.CheckAmmoType(MyAmmoType);
+                            // if(hitDoor.bIsLocked && hitDoor.doorKey)
+                            // {
+
+                            // }
+                            hitDoor.SendMessage("CheckAmmoType",MyAmmoType);
+
                             //TODO: If it's the wrong ammo type, bounce the shot back to player
                         }
                         if (hitObject.GetComponent<WeaponChargeObject>())
@@ -130,13 +136,17 @@ public class Weapon : MonoBehaviour
                             hitChargeObject = hitObject.GetComponent<WeaponChargeObject>();
                             hitChargeObject.ModCharge(chargeAmount, MyAmmoType);
                         }
+                        if(hitObject.GetComponent<TurretController>())
+                        {
+                           hitObject.GetComponent<TurretController>().OnDamageApplied(DamageAmount);
+                        }
                     }
                     if (!bIsPlayerWeapon)
                     {
                         if (hitObject.GetComponent<Player>())
                         {
-                            
-                            hitObject.SendMessage("PlayerDamageTaken",DamageAmount);
+
+                            hitObject.SendMessage("PlayerDamageTaken", DamageAmount);
                         }
                     }
 

@@ -15,7 +15,7 @@ public class PlayerWeapon : Weapon
     {
         PlayerCamera = Camera.main;
         cameraGO = PlayerCamera.gameObject;
-        //weaponRay = PlayerCamera.ViewportPointToRay(rayOrigin);
+        
         aimGO = cameraGO;
         aimGO = cameraGO;
         bIsPlayerWeapon = true;

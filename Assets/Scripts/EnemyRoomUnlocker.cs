@@ -8,7 +8,17 @@ public class EnemyRoomUnlocker : MonoBehaviour
     public List<Enemy> Enemies = new List<Enemy>();
     public LoadingDoorScript[] GetLoadingDoors;
     private bool bCanRoomUnlock = false;
-  
+
+    private void Start()
+    {
+
+        for (int i = 0; i < GetLoadingDoors.Length; ++i)
+        {
+            GetLoadingDoors[i].doorLockEvent.Invoke();
+
+        }
+    }
+
 
     private void Update()
     {
@@ -26,7 +36,8 @@ public class EnemyRoomUnlocker : MonoBehaviour
     IEnumerator CheckRoomState()
     {
         yield return new WaitForSeconds(2.0f);
-    
+
+
         for (int e = 0; e < Enemies.Count; ++e)
         {
             if (Enemies[e].GetComponent<CharacterStats>().bIsDead)
@@ -41,7 +52,7 @@ public class EnemyRoomUnlocker : MonoBehaviour
             bCanRoomUnlock = true;
             for (int i = 0; i < GetLoadingDoors.Length; ++i)
             {
-                GetLoadingDoors[i].UnlockDoor();
+                GetLoadingDoors[i].doorUnlockEvent.Invoke();
 
             }
         }

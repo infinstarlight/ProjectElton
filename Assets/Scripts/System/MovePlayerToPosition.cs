@@ -19,10 +19,10 @@ public class MovePlayerToPosition : MonoBehaviour
         }
         if (!PlayerGO)
         {
-            // var cloneGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
-            // Instantiate(cloneGO,transform.position,transform.rotation);
+            var cloneGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
+            Instantiate(cloneGO,transform.position,transform.rotation);
             PlayerGO = FindObjectOfType<Player>().gameObject;
-            PlayerGO.transform.position = transform.position;
+           // PlayerGO.transform.position = transform.position;
 
 
         }

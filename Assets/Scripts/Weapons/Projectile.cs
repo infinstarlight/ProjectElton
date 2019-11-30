@@ -8,16 +8,16 @@ public class Projectile : MonoBehaviour
     private Rigidbody rb;
 
     public float hitForce = 0.0f;
-    public float PushbackForce = 50.0f; 
+    public float PushbackForce = 50.0f;
     public Vector3 oldVelocity;
 
     public float DamageAmount = 0.0f;
     public GameObject explosionGO;
     private AudioSource source;
     private GameObject hitObject;
-    public Vector3 PushbackVector = new Vector3(0,1,0);
+    public Vector3 PushbackVector = new Vector3(0, 1, 0);
     private ParticleSystem explosionPS;
-
+    public bool bIsPlayerProjectile = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -48,13 +48,29 @@ public class Projectile : MonoBehaviour
         if (other.gameObject)
         {
             hitObject = other.gameObject;
-           Explode();
-            if (hitObject.GetComponent<Enemy>())
+            Explode();
+            if (bIsPlayerProjectile)
             {
-                Explode();
-                hitObject.SendMessage("OnEnemyDamageApplied", DamageAmount);
-                hitObject.GetComponent<Rigidbody>().AddForce(PushbackVector * PushbackForce,ForceMode.Acceleration);
+                if (hitObject.GetComponent<Enemy>())
+                {
+
+                    hitObject.SendMessage("OnEnemyDamageApplied", DamageAmount);
+                    hitObject.GetComponent<Rigidbody>().AddForce(PushbackVector * PushbackForce, ForceMode.Acceleration);
+                }
             }
+            else
+            {
+                if (hitObject.GetComponent<Player>())
+                {
+                    hitObject.SendMessage("PlayerDamageTaken", DamageAmount);
+                }
+                if (hitObject.GetComponent<TurretShield>())
+                {
+                    hitObject.SendMessage("OnDamageApplied", DamageAmount);
+
+                }
+            }
+
 
         }
     }

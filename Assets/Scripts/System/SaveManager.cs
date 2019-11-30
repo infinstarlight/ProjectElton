@@ -12,13 +12,14 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        
     }
 
     void Start()
     {
         GetFadeTransition = FindObjectOfType<SceneFadeTransition>();
         GetPlayer = FindObjectOfType<Player>();
+        audioSource = GetComponent<AudioSource>();
     }
     public static void SavePlayerData()
     {

@@ -258,6 +258,7 @@ MonoBehaviour:
   explosionGO: {fileID: 7332580293262548717, guid: 3b2d436ebe97c4b44a21dc87cfbe53a6,
     type: 3}
   PushbackVector: {x: 0, y: 1, z: -1}
+  bIsPlayerProjectile: 1
   rayOrigin: {x: 0.5, y: 0.5, z: 0}
   weaponRange: 150
   castRadius: 200

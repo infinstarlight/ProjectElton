@@ -21,15 +21,18 @@ public class LoadingDoorScript : MonoBehaviour
     [SerializeField]
     public EAmmoType desiredAmmoType;
     protected bool bIsRightAmmoType = false;
-    private string colorName = "Color_ED482798";
     private MeshRenderer GetRenderer;
-    public Color openDoorColor;
-    private Color startColor;
+    public Material lockedMaterial;
+    public Material startMaterial;
 
     private ID_LoadDoor GetDoor;
     public UnityEvent doorOpenEvent = new UnityEvent();
     public UnityEvent doorCloseEvent = new UnityEvent();
     public UnityEvent doorUnlockEvent = new UnityEvent();
+    public UnityEvent doorLockEvent = new UnityEvent();
+    public InventoryItem doorKey;
+    private Player GetPlayer;
+
 
     void Awake()
     {
@@ -37,8 +40,8 @@ public class LoadingDoorScript : MonoBehaviour
         GetAudio = GetComponent<AudioSource>();
         GetDoor = GetComponentInChildren<ID_LoadDoor>();
         GetRenderer = GetDoor.gameObject.GetComponent<MeshRenderer>();
-        startColor = GetRenderer.material.GetColor(colorName);
-        //DontDestroyOnLoad(gameObject);
+        startMaterial = GetRenderer.material;
+        
     }
 
     // Start is called before the first frame update
@@ -47,10 +50,16 @@ public class LoadingDoorScript : MonoBehaviour
         doorOpenEvent.AddListener(OpenDoor);
         doorCloseEvent.AddListener(CloseDoor);
         doorUnlockEvent.AddListener(UnlockDoor);
+        doorLockEvent.AddListener(LockDoor);
         myAnimator.SetBool("bOpenDoor?", false);
+        GetPlayer = FindObjectOfType<Player>();
         if (lastSceneName == "")
         {
             lastSceneName = SceneManager.GetActiveScene().name;
+        }
+        if (bIsLocked)
+        {
+            GetRenderer.material = lockedMaterial;
         }
 
     }
@@ -60,48 +69,52 @@ public class LoadingDoorScript : MonoBehaviour
         doorOpenEvent.RemoveAllListeners();
         doorCloseEvent.RemoveAllListeners();
         doorUnlockEvent.RemoveAllListeners();
+        doorLockEvent.RemoveAllListeners();
     }
 
 
     IEnumerator LoadScene()
     {
-         yield return new WaitForSeconds(2.0f);
-
-        if (!bShouldLoadLastScene)
+        yield return new WaitForSeconds(2.0f);
+        if (!bIsLocked)
         {
-            //Begin to load the Scene you specify
-            sceneLoadOperation = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
-
-        }
-        else
-        {
-            sceneLoadOperation = SceneManager.LoadSceneAsync(lastSceneName, LoadSceneMode.Additive);
-        }
-        if (!bIsSceneLoaded)
-        {
-            //Don't let the Scene activate until you allow it to
-            sceneLoadOperation.allowSceneActivation = false;
-            Debug.Log("Pro :" + sceneLoadOperation.progress);
-            //When the load is still in progress, output the Text and progress bar
-            while (!sceneLoadOperation.isDone)
+            if (!bShouldLoadLastScene)
             {
-                //Output the current progress
-                Debug.Log("Loading progress: " + (sceneLoadOperation.progress * 100) + "%");
+                //Begin to load the Scene you specify
+                sceneLoadOperation = SceneManager.LoadSceneAsync(newSceneName, LoadSceneMode.Additive);
 
-                // Check if the load has finished
-                if (sceneLoadOperation.progress >= 0.9f)
+            }
+            else
+            {
+                sceneLoadOperation = SceneManager.LoadSceneAsync(lastSceneName, LoadSceneMode.Additive);
+            }
+            if (!bIsSceneLoaded)
+            {
+                //Don't let the Scene activate until you allow it to
+                sceneLoadOperation.allowSceneActivation = false;
+                Debug.Log("Pro :" + sceneLoadOperation.progress);
+                //When the load is still in progress, output the Text and progress bar
+                while (!sceneLoadOperation.isDone)
                 {
+                    //Output the current progress
+                    Debug.Log("Loading progress: " + (sceneLoadOperation.progress * 100) + "%");
 
-                    //Activate the Scene
-                    sceneLoadOperation.allowSceneActivation = true;
-                    OpenDoor();
-                    bIsSceneLoaded = true;
+                    // Check if the load has finished
+                    if (sceneLoadOperation.progress >= 0.9f)
+                    {
 
+                        //Activate the Scene
+                        sceneLoadOperation.allowSceneActivation = true;
+                        OpenDoor();
+                        bIsSceneLoaded = true;
+
+                    }
+
+                    yield return null;
                 }
-
-                yield return null;
             }
         }
+
 
 
     }
@@ -115,14 +128,20 @@ public class LoadingDoorScript : MonoBehaviour
 
         if (bIsRightAmmoType)
         {
+            if(bIsLocked)
+            {
+                if(doorKey)
+                {
+                    CheckItem();    
+                }
+                
+            }
             if (bShouldLoadNewScene || bShouldLoadLastScene)
             {
                 StartCoroutine(LoadScene());
             }
             else
             {
-
-                GetRenderer.material.SetColor(colorName, openDoorColor);
                 OpenDoor();
             }
 
@@ -193,7 +212,7 @@ public class LoadingDoorScript : MonoBehaviour
     {
         GetAudio.clip = doorSounds[1];
         GetAudio.PlayOneShot(GetAudio.clip);
-        GetRenderer.material.SetColor(colorName, startColor);
+
         if (bIsSceneLoaded)
         {
             bIsSceneLoaded = false;
@@ -245,7 +264,20 @@ public class LoadingDoorScript : MonoBehaviour
         if (bIsLocked)
         {
             bIsLocked = false;
+            if (GetRenderer.material != startMaterial)
+            {
+                GetRenderer.material = startMaterial;
+            }
             OpenDoor();
+        }
+    }
+
+    public void LockDoor()
+    {
+        if (!bIsLocked)
+        {
+            bIsLocked = true;
+            GetRenderer.material = lockedMaterial;
         }
     }
 
@@ -254,7 +286,23 @@ public class LoadingDoorScript : MonoBehaviour
         UnlockDoor();
     }
 
-
+    void CheckItem()
+    {
+        InventoryItem[] playerItems = GetPlayer.ItemInventory.ToArray();
+        for(int i = 0; i < GetPlayer.ItemInventory.Count; ++i)
+        {
+            if(playerItems[i] == doorKey)
+            {
+                bIsLocked = false;
+                GetPlayer.ItemInventory.RemoveAt(i);
+            }
+        }
+        if(!bIsLocked)
+        {
+            UnlockDoor();
+        }
+      
+    }
 
 
     private void OnTriggerExit(Collider other)

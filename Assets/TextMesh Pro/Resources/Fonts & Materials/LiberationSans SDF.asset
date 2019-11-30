@@ -58,9 +58,9 @@ Material:
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.05
+    - _GlowInner: 0
     - _GlowOffset: 0
-    - _GlowOuter: 0.05
+    - _GlowOuter: 0.645
     - _GlowPower: 0.75
     - _GradientScale: 10
     - _LightAngle: 3.1416
@@ -8542,6 +8542,7 @@ MonoBehaviour:
           m_XAdvance: 0
           m_YAdvance: 0
       m_FeatureLookupFlags: 0
+  fallbackFontAssets: []
   m_FallbackFontAssetTable: []
   m_CreationSettings:
     sourceFontFileName: 

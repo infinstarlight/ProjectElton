@@ -24,6 +24,11 @@ public class PlayerStatsScript : MonoBehaviour
     private PlayerStateScript GetPlayerState;
     private PlayerUIController GetPlayerUI;
     public UnityEvent updateHealthUIEvent = new UnityEvent();
+    protected float CurrentPowerGauge = 0.0f;
+    protected float MaxPowerGauge = 0.0f;
+    public float PowerGaugePercentage = 0.0f;
+    public bool bIsPowerGaugeEnabled = false;
+    public float playerHealthPercentage = 0.0f;
 
     void Awake()
     {
@@ -34,7 +39,8 @@ public class PlayerStatsScript : MonoBehaviour
         //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
         player = GetComponent<Player>();
         //healthText = FindObjectOfType<HealthTextScript>();
-
+        PowerGaugePercentage = CurrentPowerGauge / MaxPowerGauge;
+        playerHealthPercentage = pcStats.CurrentHealth / pcStats.MaxHealth;
 
     }
 

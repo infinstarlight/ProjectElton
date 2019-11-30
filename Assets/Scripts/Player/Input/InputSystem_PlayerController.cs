@@ -33,15 +33,19 @@ public class InputSystem_PlayerController : MonoBehaviour
     private float InteractRange = 200.0f;
     private RaycastHit hit;
     private PlayerUIController uiController;
-    public UnityEvent EnableInputEvent = new UnityEvent();
-    public UnityEvent DisableInputEvent = new UnityEvent();
+    public UnityEvent EnableGameInputEvent = new UnityEvent();
+    public UnityEvent DisableGameInputEvent = new UnityEvent();
+    public UnityEvent EnableUIInputEvent = new UnityEvent();
+    public UnityEvent DisableUIInputEvent = new UnityEvent();
 
 
     void OnDisable()
     {
         DisableGameControls();
-        EnableInputEvent.RemoveAllListeners();
-        DisableInputEvent.RemoveAllListeners();
+        EnableGameInputEvent.RemoveAllListeners();
+        DisableGameInputEvent.RemoveAllListeners();
+        EnableUIInputEvent.RemoveAllListeners();
+        DisableUIInputEvent.RemoveAllListeners();
     }
 
     void Awake()
@@ -74,8 +78,10 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void Start()
     {
-        EnableInputEvent.AddListener(EnableGameControls);
-        DisableInputEvent.AddListener(DisableGameControls);
+        EnableGameInputEvent.AddListener(EnableGameControls);
+        DisableGameInputEvent.AddListener(DisableGameControls);
+        EnableUIInputEvent.AddListener(EnableUIControls);
+        DisableUIInputEvent.AddListener(DisableUIControls);
         PauseMenuGO.SetActive(false);
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;

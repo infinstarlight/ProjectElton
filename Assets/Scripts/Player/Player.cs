@@ -7,7 +7,6 @@ public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
 
-
     private GameObject playerUI;
     private AudioSource playerSource;
     private PlayerStateScript playerState;
@@ -23,8 +22,6 @@ public class Player : Character
 
     void OnEnable()
     {
-
-
         if (instance == null)
         {
             instance = this; // In first scene, make us the singleton.
@@ -65,7 +62,7 @@ public class Player : Character
     {
         if (characterStats.bCanTakeDamage)
         {
-            characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
+            //characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
             characterStats.CurrentHealth -= damageTaken;
             playerSource.clip = hurtClips[Random.Range(0, hurtClips.Length)];
             playerSource.PlayOneShot(playerSource.clip);

@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
-using UnityEngine;
+﻿using UnityEngine;
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(AudioSource))]
 public class Character : MonoBehaviour, IKillable, IDamageable<float>
@@ -24,6 +21,8 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
         characterStats = GetComponent<CharacterStats>();
         source = GetComponent<AudioSource>();
     }
+
+   
 
 
     public void OnDeath()
