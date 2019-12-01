@@ -10,4 +10,8 @@ public class HealthTextScript : MonoBehaviour
     {
         TextMesh = GetComponent<TextMeshProUGUI>();
     }
+
+    private void Start() {
+        
+    }
 }

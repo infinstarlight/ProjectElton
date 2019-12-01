@@ -31,11 +31,7 @@ public class Projectile : MonoBehaviour
         //explosionPS.loop = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //Destroy(gameObject, 5f);
-    }
+ 
 
     void FixedUpdate()
     {
@@ -79,7 +75,7 @@ public class Projectile : MonoBehaviour
     {
         Instantiate(explosionGO, transform.position, transform.rotation);
         source.PlayOneShot(source.clip);
-        explosionPS.Play();
+       
         Destroy(gameObject, 1f);
     }
 

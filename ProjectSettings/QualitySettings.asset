@@ -257,7 +257,4 @@ QualitySettings:
     excludedTargetPlatforms:
     - WebGL
     - Android
-  m_PerPlatformDefaultQuality:
-    Android: 0
-    Standalone: 0
-    WebGL: 0
+  m_PerPlatformDefaultQuality: {}

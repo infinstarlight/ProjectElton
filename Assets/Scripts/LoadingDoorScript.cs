@@ -41,7 +41,7 @@ public class LoadingDoorScript : MonoBehaviour
         GetDoor = GetComponentInChildren<ID_LoadDoor>();
         GetRenderer = GetDoor.gameObject.GetComponent<MeshRenderer>();
         startMaterial = GetRenderer.material;
-        
+
     }
 
     // Start is called before the first frame update
@@ -128,13 +128,13 @@ public class LoadingDoorScript : MonoBehaviour
 
         if (bIsRightAmmoType)
         {
-            if(bIsLocked)
+            if (bIsLocked)
             {
-                if(doorKey)
+                if (doorKey)
                 {
-                    CheckItem();    
+                    CheckItem();
                 }
-                
+
             }
             if (bShouldLoadNewScene || bShouldLoadLastScene)
             {
@@ -153,24 +153,28 @@ public class LoadingDoorScript : MonoBehaviour
     IEnumerator UnloadScene()
     {
         yield return new WaitForSeconds(5.0f);
-        if (!bShouldLoadLastScene)
+        if (!bIsLocked)
         {
-            sceneUnloadOperation = SceneManager.UnloadSceneAsync(newSceneName, UnloadSceneOptions.None);
-        }
-        else
-        {
-            sceneUnloadOperation = SceneManager.UnloadSceneAsync(lastSceneName, UnloadSceneOptions.None);
-
-        }
-        while (!sceneUnloadOperation.isDone)
-        {
-            Debug.Log("Unloading progress: " + (sceneUnloadOperation.progress * 100) + "%");
-            if (sceneUnloadOperation.progress >= 0.9f)
+            if (!bShouldLoadLastScene)
             {
-                CloseDoor();
+                sceneUnloadOperation = SceneManager.UnloadSceneAsync(newSceneName, UnloadSceneOptions.None);
             }
-            yield return null;
+            else
+            {
+                sceneUnloadOperation = SceneManager.UnloadSceneAsync(lastSceneName, UnloadSceneOptions.None);
+
+            }
+            while (!sceneUnloadOperation.isDone)
+            {
+                Debug.Log("Unloading progress: " + (sceneUnloadOperation.progress * 100) + "%");
+                if (sceneUnloadOperation.progress >= 0.9f)
+                {
+                    CloseDoor();
+                }
+                yield return null;
+            }
         }
+
     }
 
 
@@ -289,19 +293,15 @@ public class LoadingDoorScript : MonoBehaviour
     void CheckItem()
     {
         InventoryItem[] playerItems = GetPlayer.ItemInventory.ToArray();
-        for(int i = 0; i < GetPlayer.ItemInventory.Count; ++i)
+        for (int i = 0; i < GetPlayer.ItemInventory.Count; ++i)
         {
-            if(playerItems[i] == doorKey)
+            if (playerItems[i] == doorKey)
             {
-                bIsLocked = false;
                 GetPlayer.ItemInventory.RemoveAt(i);
+                UnlockDoor();
             }
         }
-        if(!bIsLocked)
-        {
-            UnlockDoor();
-        }
-      
+
     }
 
 

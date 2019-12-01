@@ -96,7 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
-  m_LightingDataAsset: {fileID: 112000004, guid: 11a24d4b63ca1264faf9f24f4ece7136,
+  m_LightingDataAsset: {fileID: 112000004, guid: bf88a879d8d2fb6458198b39c1861a39,
     type: 2}
   m_UseShadowmask: 0
 --- !u!196 &4
@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 448ad0ca71fba6e488461e510a6b59df, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 471ff573f06c74af8904318e534dd94e, type: 2}
 --- !u!1001 &6365769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1208,7 +1208,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 9.04e-43, y: 0.0000015820842, z: 9.04e-43, w: 0.0000015820856}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1789,7 +1789,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 9.18356e-40, z: -1.14e-43, w: -1.49e-43}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -3357,7 +3357,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: NaN, z: 7.8e-44, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

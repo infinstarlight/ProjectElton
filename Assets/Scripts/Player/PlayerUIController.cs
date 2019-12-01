@@ -73,16 +73,24 @@ public class PlayerUIController : MonoBehaviour
         {
             interactText.SetActive(false);
         }
-        if (healthBar)
+        // if (healthBar && styleSliderScript)
+        // {
+        //     UpdateUIData();
+        // }
+    }
+
+    private void Update() 
+    {
+        if(!styleSliderScript)
         {
-            UpdateUIData();
+             styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         }
     }
 
     public void UpdateUIData()
     {
         //TODO: Maybe move this to SendMessage on enemy
-        if (styleSliderScript != null)
+        if (styleSliderScript)
         {
             styleSliderScript.styleSlider.value = pCon.playerState.StylePercent;
         }
@@ -163,11 +171,11 @@ public class PlayerUIController : MonoBehaviour
         {
             if (bShowInteractText)
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText",bShowInteractText);
+                interactText.GetComponent<Animator>().SetBool("bShowText",true);
             }
             else
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText",bShowInteractText);
+                interactText.GetComponent<Animator>().SetBool("bShowText",false);
             }
         }
     }

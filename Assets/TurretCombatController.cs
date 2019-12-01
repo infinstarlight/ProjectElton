@@ -15,62 +15,57 @@ public class TurretCombatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetLine = GetComponent<LineRenderer>();
-        GetLine.enabled = false;
+        // GetLine = GetComponent<LineRenderer>();
+        // GetLine.enabled = false;
     }
 
 
     private void FixedUpdate()
     {
-        GameObject hitObject = null;
+
+
         if (Time.time > visionNextFire)
         {
             visionNextFire = Time.time + visionPollRate;
-            weaponRay = new Ray(transform.position, transform.forward);
-            Debug.DrawRay(weaponRay.origin, weaponRay.direction * visionRange, Color.red);
+            Fire();
 
-            // if (Physics.SphereCast(weaponRay.origin, 50.0f, weaponRay.direction, out hit, visionRange, 11, QueryTriggerInteraction.UseGlobal))
-            // {
-            //     if (hit.collider)
-            //     {
-            //         GetLine.enabled = true;
-            //         hitObject = hit.collider.gameObject;
-            //         GetLine.SetPosition(0, weaponRay.origin);
-            //         GetLine.SetPosition(1, hitObject.transform.position);
-            //         {
-            //             if (hitObject.GetComponent<Player>())
-            //             {
-            //                 if (projGO)
-            //                 {
-            //                     Instantiate(projGO, transform.position, transform.rotation);
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-            if (Physics.Raycast(weaponRay, out hit, visionRange))
+
+        }
+    }
+
+
+
+
+
+    void Fire()
+    {
+        GameObject hitObject = null;
+        weaponRay = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(weaponRay.origin, weaponRay.direction * visionRange, Color.red);
+
+
+        if (Physics.Raycast(weaponRay, out hit, visionRange))
+        {
+            if (hit.collider)
             {
-                if (hit.collider)
+                // GetLine.enabled = true;
+                // GetLine.SetPosition(0, weaponRay.origin);
+                // GetLine.SetPosition(1, hitObject.transform.position);
+                hitObject = hit.collider.gameObject;
+
                 {
-                    GetLine.enabled = true;
-                    hitObject = hit.collider.gameObject;
-                      GetLine.SetPosition(0,weaponRay.origin);
-                    GetLine.SetPosition(1,hitObject.transform.position);
+                    if (hitObject.GetComponent<Player>())
                     {
-                        if (hitObject.GetComponent<Player>())
+                        if (projGO)
                         {
-                            if (projGO)
-                            {
-                                Instantiate(projGO, transform.position, transform.rotation);
-                            }
+                            Instantiate(projGO, transform.position, transform.rotation);
                         }
                     }
                 }
             }
         }
-
-
     }
+
     void OnDrawGizmos()
     {
 
@@ -90,6 +85,7 @@ public class TurretCombatController : MonoBehaviour
             Gizmos.DrawWireSphere(transform.position + transform.forward * visionRange, 50.0f);
         }
     }
+
 
 }
 

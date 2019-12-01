@@ -27,7 +27,7 @@ public class PlayerStateScript : MonoBehaviour
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         styleModEvent.AddListener(ModStyle);
         playerDamageStyleEvent.AddListener(PlayerStyleDamageMod);
-        
+
     }
 
     // Update is called once per frame
@@ -56,6 +56,7 @@ public class PlayerStateScript : MonoBehaviour
             }
 
         }
+
         if (StylePercent <= 0)
         {
             styleImageScript.gameObject.SetActive(false);
@@ -67,13 +68,14 @@ public class PlayerStateScript : MonoBehaviour
             styleSliderScript.gameObject.SetActive(true);
         }
 
+
     }
 
     public void ModStyle(float ModAmount)
     {
         StyleModAmount = ModAmount * DifficultyMod;
         CurrentStyleAmount += StyleModAmount;
-        
+
         if (CurrentStyleAmount <= 0)
         {
             CurrentStyleAmount = 0;
@@ -96,7 +98,9 @@ public class PlayerStateScript : MonoBehaviour
     public IEnumerator DecreaseStyleOverTime()
     {
         CurrentStyleAmount -= StyleDecAmount;
+
         yield return StyleDecRate;
+
     }
 
 

@@ -4,38 +4,39 @@ using UnityEngine;
 public class EnemyShield : MonoBehaviour
 {
     private Sequence disableSequence;
-    public bool bEnableShield = false;
+    public bool bDisableShield = false;
     // public Vector3 disableScaleVector;
     public float disableScaleFloat = 0.0f;
+    private TurretController GetController;
     // Start is called before the first frame update
     void Start()
     {
-
-
+        disableSequence = DOTween.Sequence();
+        InitSequence();
+        disableSequence.Pause();
+        GetController = GetComponentInParent<TurretController>();
     }
 
 
-    public void ToggleShieldStatus()
+    public void ToggleShieldStatus(bool bEnable)
     {
-     
-
-        if (!bEnableShield)
+        bDisableShield = bEnable;
+        if (bDisableShield)
         {
-            InitSequence();
+            disableScaleFloat = 0.0f;
             disableSequence.Play();
+
         }
-        if (bEnableShield)
+        if (!bDisableShield)
         {
-            disableSequence.Rewind(false);
+            disableScaleFloat = 1.0f;
+            disableSequence.Play();
+
         }
     }
 
     void InitSequence()
     {
-        disableSequence = DOTween.Sequence();
-
         disableSequence.Append(transform.DOScale(disableScaleFloat, 1));
-
-
     }
 }

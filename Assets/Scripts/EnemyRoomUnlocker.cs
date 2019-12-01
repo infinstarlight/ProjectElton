@@ -6,6 +6,7 @@ public class EnemyRoomUnlocker : MonoBehaviour
 {
 
     public List<Enemy> Enemies = new List<Enemy>();
+    public List<GameObject> otherEnemies = new List<GameObject>();
     public LoadingDoorScript[] GetLoadingDoors;
     private bool bCanRoomUnlock = false;
 
@@ -37,13 +38,32 @@ public class EnemyRoomUnlocker : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
 
-
-        for (int e = 0; e < Enemies.Count; ++e)
+        if (Enemies.Count > 0)
         {
-            if (Enemies[e].GetComponent<CharacterStats>().bIsDead)
+            for (int e = 0; e < Enemies.Count; ++e)
             {
-                Enemies.Remove(Enemies[e]);
+                if (Enemies[e].GetComponent<CharacterStats>().bIsDead)
+                {
+                    Enemies.Remove(Enemies[e]);
 
+                }
+            }
+
+        }
+
+        if (otherEnemies.Count > 0)
+        {
+            for (int o = 0; o < otherEnemies.Count; ++o)
+            {
+                if (otherEnemies[o].GetComponent<TurretController>().bIsDead)
+                {
+                    bCanRoomUnlock = true;
+                    for (int i = 0; i < GetLoadingDoors.Length; ++i)
+                    {
+                        GetLoadingDoors[i].doorUnlockEvent.Invoke();
+
+                    }
+                }
             }
         }
 

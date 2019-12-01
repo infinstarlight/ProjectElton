@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using Popcron.Console;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -40,7 +39,7 @@ public class GameInstance : MonoBehaviour
     {
 #if UNITY_STANDALONE
         bIsRunningOnMobile = false;
-        
+
 #endif
 #if UNITY_XBOXONE
           bIsRunningOnMobile = false;
@@ -57,6 +56,7 @@ public class GameInstance : MonoBehaviour
         GetPlayer = FindObjectOfType<Player>();
         playerUI = FindObjectOfType<ID_PlayerUI>();
         Console.Initialize();
+        DOTween.Init();
     }
 
 

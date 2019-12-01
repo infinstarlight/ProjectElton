@@ -86,6 +86,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
         currentGamepad = Gamepad.current;
+        uiController.updateUIEvent.Invoke();
     }
     // Update is called once per frame
     void Update()
