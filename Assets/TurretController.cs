@@ -9,13 +9,19 @@ public class TurretController : MonoBehaviour, IDamageable<float>
     public List<TurretShield> GetActiveTurretShields = new List<TurretShield>();
     public List<TurretShield> GetDisabledTurretShields = new List<TurretShield>();
     private ID_BossHealthBar GetBossHealthBar;
+    private ID_BossNameText GetBossNameText;
     private Sequence bossHealthEnableSequence;
+
     private int MaxShieldCount = 0;
 
     public float CurrentHealth = 0.0f;
     public float MaxHealth = 400.0f;
     public bool bIsDead = false;
     private bool bIsShieldDisabled = false;
+    private TurretRotator GetRotator;
+    TurretShield[] ActiveShieldArray;
+    TurretShield[] DisabledShieldArray;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,18 +30,27 @@ public class TurretController : MonoBehaviour, IDamageable<float>
         myShield = GetComponentInChildren<EnemyShield>();
         MaxShieldCount = GetActiveTurretShields.Count;
         GetBossHealthBar = GetComponentInChildren<ID_BossHealthBar>();
+        GetBossNameText = GetComponentInChildren<ID_BossNameText>();
+        bossHealthEnableSequence = DOTween.Sequence();
+        GetRotator = GetComponentInChildren<TurretRotator>();
         InitEnableSequence();
+
+
     }
 
     void InitEnableSequence()
     {
-        bossHealthEnableSequence = DOTween.Sequence();
+
         //bossHealthEnableSequence.PrependInterval(1);
         bossHealthEnableSequence.Append(GetBossHealthBar.transform.DOScaleX(0, 1));
+        bossHealthEnableSequence.Append(GetBossNameText.textMaterial.DOFade(0, 1));
         bossHealthEnableSequence.PrependInterval(1);
         bossHealthEnableSequence.Append(GetBossHealthBar.transform.DOScaleX(1, 1));
+        bossHealthEnableSequence.Append(GetBossNameText.textMaterial.DOFade(1, 1));
         bossHealthEnableSequence.Play();
     }
+
+
 
 
     public void CheckShield(TurretShield hitShield)
@@ -48,24 +63,25 @@ public class TurretController : MonoBehaviour, IDamageable<float>
                 if (hitShield.bIsDisabled)
                 {
                     GetActiveTurretShields.Remove(hitShield);
-                    GetDisabledTurretShields.Add(hitShield);
+                    if (!GetDisabledTurretShields.Contains(hitShield))
+                    {
+                        GetDisabledTurretShields.Add(hitShield);
+                    }
 
                 }
-
-
+            }
+            else
+            {
+                if (!hitShield.bIsDisabled)
+                {
+                    if (GetDisabledTurretShields.Contains(hitShield))
+                    {
+                        GetDisabledTurretShields.Remove(hitShield);
+                    }
+                    GetActiveTurretShields.Add(hitShield);
+                }
             }
         }
-        if (GetActiveTurretShields.Count <= 0)
-        {
-            bIsShieldDisabled = false;
-            myShield.SendMessage("ToggleShieldStatus", false);
-        }
-        if (GetDisabledTurretShields.Count <= 0)
-        {
-            bIsShieldDisabled = true;
-            myShield.SendMessage("ToggleShieldStatus", true);
-        }
-
         if (bIsShieldDisabled)
         {
             if (GetDisabledTurretShields.Contains(hitShield))
@@ -73,26 +89,42 @@ public class TurretController : MonoBehaviour, IDamageable<float>
                 if (!hitShield.bIsDisabled)
                 {
                     GetDisabledTurretShields.Remove(hitShield);
-                    GetActiveTurretShields.Add(hitShield);
-
+                    if (!GetActiveTurretShields.Contains(hitShield))
+                    {
+                        GetActiveTurretShields.Add(hitShield);
+                    }
                 }
 
             }
+            else
+            {
+                if (hitShield.bIsDisabled)
+                {
+                    if (GetActiveTurretShields.Contains(hitShield))
+                    {
+                        GetActiveTurretShields.Remove(hitShield);
+                    }
+                    GetDisabledTurretShields.Add(hitShield);
+                }
+            }
         }
-
-
-
-        // if (bIsShieldDisabled)
-        // {
-        //     myShield.bEnableShield = false;
-        //     myShield.SendMessage("ToggleShieldStatus");
-        // }
-        // else
-        // {
-        //     myShield.bEnableShield = true;
-        //     myShield.SendMessage("ToggleShieldStatus");
-        // }
+        ToggleShield();
     }
+
+    void ToggleShield()
+    {
+        if (GetDisabledTurretShields.Count >= MaxShieldCount)
+        {
+            bIsShieldDisabled = true;
+            myShield.SendMessage("ToggleShieldStatus", bIsShieldDisabled);
+        }
+        if (GetActiveTurretShields.Count >= MaxShieldCount)
+        {
+            bIsShieldDisabled = false;
+            myShield.SendMessage("ToggleShieldStatus", bIsShieldDisabled);
+        }
+    }
+
 
     public void OnDamageApplied(float damageTaken)
     {

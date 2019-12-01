@@ -37,6 +37,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     public UnityEvent DisableGameInputEvent = new UnityEvent();
     public UnityEvent EnableUIInputEvent = new UnityEvent();
     public UnityEvent DisableUIInputEvent = new UnityEvent();
+    private bool bActivateSpecial = false;
 
 
     void OnDisable()
@@ -86,15 +87,12 @@ public class InputSystem_PlayerController : MonoBehaviour
         GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
         currentGamepad = Gamepad.current;
-        uiController.updateUIEvent.Invoke();
+
     }
     // Update is called once per frame
     void Update()
     {
-        // if (!PauseMenuGO)
-        // {
-        //     PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
-        // }
+
         if (bIsDebug)
         {
             if (currentKeyboard.f8Key.wasPressedThisFrame)
@@ -222,9 +220,7 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.Fire.performed += combatController.OnFire;
         myControls.gameplay.AltFire.performed += cameraLook.OnLockOn;
         myControls.gameplay.AltFire.canceled += cameraLook.OnLockOnStop;
-        myControls.gameplay.SpecialAbility.performed += rbMovement.OnSpecialAbility;
-        myControls.gameplay.StyleSwitchUp.performed += combatController.OnStyleSwitchUp;
-        myControls.gameplay.StyleSwitchDown.performed += combatController.OnStyleSwitchDown;
+        myControls.gameplay.Dash.performed += rbMovement.OnSpecialAbility;
         myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
         myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
         myControls.gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
@@ -233,6 +229,8 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectPreviousWeapon.performed += combatController.OnWeaponCycleDown;
         myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
         myControls.gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
+        myControls.gameplay.SpecialAbility.performed += OnActivateSP;
+        myControls.gameplay.SpecialAbility.Enable();
         myControls.gameplay.ActivateSubweapon.Enable();
         myControls.gameplay.SelectNextWeapon.Enable();
         myControls.gameplay.SelectPreviousWeapon.Enable();
@@ -245,13 +243,12 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectWeaponOne.Enable();
         myControls.gameplay.SelectWeaponTwo.Enable();
         myControls.gameplay.SelectWeaponThree.Enable();
-        myControls.gameplay.SpecialAbility.Enable();
+        myControls.gameplay.Dash.Enable();
         myControls.gameplay.Sprint.Enable();
         myControls.gameplay.Jump.Enable();
         myControls.gameplay.MoveRight.Enable();
         myControls.gameplay.MoveUp.Enable();
-        myControls.gameplay.StyleSwitchUp.Enable();
-        myControls.gameplay.StyleSwitchDown.Enable();
+
         myControls.gameplay.Move.Enable();
         if (Cursor.lockState != CursorLockMode.Locked)
         {
@@ -273,18 +270,17 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.Fire.Disable();
         myControls.gameplay.Look.Disable();
         // myControls.gameplay.Pause.Disable();
+        myControls.gameplay.SpecialAbility.Disable();
         myControls.gameplay.CharacterMenu.Disable();
         myControls.gameplay.AltFire.Disable();
         myControls.gameplay.SelectWeaponOne.Disable();
         myControls.gameplay.SelectWeaponTwo.Disable();
         myControls.gameplay.SelectWeaponThree.Disable();
-        myControls.gameplay.SpecialAbility.Disable();
+        myControls.gameplay.Dash.Disable();
         myControls.gameplay.Sprint.Disable();
         myControls.gameplay.Jump.Disable();
         myControls.gameplay.MoveRight.Disable();
         myControls.gameplay.MoveUp.Disable();
-        myControls.gameplay.StyleSwitchUp.Disable();
-        myControls.gameplay.StyleSwitchDown.Disable();
         myControls.gameplay.SelectNextWeapon.Disable();
         myControls.gameplay.SelectPreviousWeapon.Disable();
         myControls.gameplay.Move.Disable();
@@ -328,6 +324,32 @@ public class InputSystem_PlayerController : MonoBehaviour
     public void OnInteractEvent(InputAction.CallbackContext context)
     {
         Interact();
+    }
+
+    public void OnActivateSP(InputAction.CallbackContext context)
+    {
+
+        ActivateSpecial();
+    }
+
+    void ToggleSpecial()
+    {
+        bActivateSpecial = !bActivateSpecial;
+    }
+
+    void ActivateSpecial()
+    {
+        ToggleSpecial();
+        if (!bActivateSpecial)
+        {
+            playerStats.deactivateSpecialEvent.Invoke();
+
+        }
+        if (bActivateSpecial)
+        {
+            playerStats.activateSpecialEvent.Invoke();
+
+        }
     }
 
 

@@ -34,7 +34,20 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         itemsGO[2] = medHealthGo;
     }
 
-   
+    private void Update()
+    {
+        if (bIsDisabled)
+        {
+            StartCoroutine(RegenEnergy());
+        }
+        else
+        {
+            StopCoroutine(RegenEnergy());
+        }
+
+    }
+
+
 
     public void OnDamageApplied(float damageTaken)
     {
@@ -43,7 +56,7 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         {
 
             bIsDisabled = true;
-            StartCoroutine(RegenHealth());
+
             myRenderer.material = hitMaterial;
             SpawnRandomPickup();
             GetTurret.CheckShield(this);
@@ -55,20 +68,20 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         Instantiate(itemsGO[Random.Range(0, itemsGO.Length)], transform.position, transform.rotation);
     }
 
-    IEnumerator RegenHealth()
+    IEnumerator RegenEnergy()
     {
         yield return new WaitForSeconds(ShieldRenableDelay);
         if (bIsDisabled)
         {
             ++CurrentHealth;
-            if (CurrentHealth >= MaxHealth)
-            {
-                bIsDisabled = false;
-                GetTurret.CheckShield(this);
-                myRenderer.material = startMaterial;
-                StopCoroutine(RegenHealth());
 
-            }
+        }
+        if (CurrentHealth >= MaxHealth)
+        {
+            GetTurret.CheckShield(this);
+            myRenderer.material = startMaterial;
+            bIsDisabled = false;
+
         }
 
     }

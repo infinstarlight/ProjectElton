@@ -75,7 +75,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Special Ability"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""cbc696ba-0136-4afb-b1f6-a977f822c8a7"",
                     ""expectedControlType"": """",
@@ -83,18 +83,10 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Press(pressPoint=0.1)""
                 },
                 {
-                    ""name"": ""Style Switch Up"",
+                    ""name"": ""Special Ability"",
                     ""type"": ""Button"",
-                    ""id"": ""d4091cdc-89be-4e58-8878-5d668b5962e9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                },
-                {
-                    ""name"": ""Style Switch Down"",
-                    ""type"": ""Button"",
-                    ""id"": ""32a0a6e6-4f45-4249-89a0-3053f9bcec39"",
-                    ""expectedControlType"": ""Button"",
+                    ""id"": ""d428be45-dda6-46de-916c-653e0ec79173"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": ""Press""
                 },
@@ -437,18 +429,18 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Special Ability"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""d6473262-a3fa-4de5-87ea-4ea40fdd5f8d"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Special Ability"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -493,28 +485,6 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Character Menu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3c31db32-4b87-4fb3-972c-043fbaeae45a"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Style Switch Up"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""624e3c21-4a0f-4896-8454-3a53d916cd4c"",
-                    ""path"": ""<Gamepad>/dpad/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Style Switch Up"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -581,28 +551,6 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Select Weapon Three"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2fc91609-0274-44d1-ba1c-5440fab36811"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Style Switch Down"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c777fc48-ddb1-4759-b92c-0876a1198833"",
-                    ""path"": ""<Gamepad>/dpad/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Style Switch Down"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -680,6 +628,28 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Touchscreen"",
                     ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5607a696-a39d-48c8-b24a-637dac827911"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Special Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a5fd6ed-ec90-41f0-b0d9-9cd03325ce6f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Special Ability"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1099,9 +1069,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_Look = m_gameplay.FindAction("Look", throwIfNotFound: true);
         m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
         m_gameplay_Sprint = m_gameplay.FindAction("Sprint", throwIfNotFound: true);
+        m_gameplay_Dash = m_gameplay.FindAction("Dash", throwIfNotFound: true);
         m_gameplay_SpecialAbility = m_gameplay.FindAction("Special Ability", throwIfNotFound: true);
-        m_gameplay_StyleSwitchUp = m_gameplay.FindAction("Style Switch Up", throwIfNotFound: true);
-        m_gameplay_StyleSwitchDown = m_gameplay.FindAction("Style Switch Down", throwIfNotFound: true);
         m_gameplay_Pause = m_gameplay.FindAction("Pause", throwIfNotFound: true);
         m_gameplay_CharacterMenu = m_gameplay.FindAction("Character Menu", throwIfNotFound: true);
         m_gameplay_SelectWeaponOne = m_gameplay.FindAction("Select Weapon One", throwIfNotFound: true);
@@ -1181,9 +1150,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_Look;
     private readonly InputAction m_gameplay_Jump;
     private readonly InputAction m_gameplay_Sprint;
+    private readonly InputAction m_gameplay_Dash;
     private readonly InputAction m_gameplay_SpecialAbility;
-    private readonly InputAction m_gameplay_StyleSwitchUp;
-    private readonly InputAction m_gameplay_StyleSwitchDown;
     private readonly InputAction m_gameplay_Pause;
     private readonly InputAction m_gameplay_CharacterMenu;
     private readonly InputAction m_gameplay_SelectWeaponOne;
@@ -1206,9 +1174,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Look => m_Wrapper.m_gameplay_Look;
         public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
         public InputAction @Sprint => m_Wrapper.m_gameplay_Sprint;
+        public InputAction @Dash => m_Wrapper.m_gameplay_Dash;
         public InputAction @SpecialAbility => m_Wrapper.m_gameplay_SpecialAbility;
-        public InputAction @StyleSwitchUp => m_Wrapper.m_gameplay_StyleSwitchUp;
-        public InputAction @StyleSwitchDown => m_Wrapper.m_gameplay_StyleSwitchDown;
         public InputAction @Pause => m_Wrapper.m_gameplay_Pause;
         public InputAction @CharacterMenu => m_Wrapper.m_gameplay_CharacterMenu;
         public InputAction @SelectWeaponOne => m_Wrapper.m_gameplay_SelectWeaponOne;
@@ -1250,15 +1217,12 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Sprint.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSprint;
+                @Dash.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnDash;
                 @SpecialAbility.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
                 @SpecialAbility.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
                 @SpecialAbility.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
-                @StyleSwitchUp.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
-                @StyleSwitchUp.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
-                @StyleSwitchUp.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchUp;
-                @StyleSwitchDown.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
-                @StyleSwitchDown.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
-                @StyleSwitchDown.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnStyleSwitchDown;
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -1317,15 +1281,12 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
                 @SpecialAbility.started += instance.OnSpecialAbility;
                 @SpecialAbility.performed += instance.OnSpecialAbility;
                 @SpecialAbility.canceled += instance.OnSpecialAbility;
-                @StyleSwitchUp.started += instance.OnStyleSwitchUp;
-                @StyleSwitchUp.performed += instance.OnStyleSwitchUp;
-                @StyleSwitchUp.canceled += instance.OnStyleSwitchUp;
-                @StyleSwitchDown.started += instance.OnStyleSwitchDown;
-                @StyleSwitchDown.performed += instance.OnStyleSwitchDown;
-                @StyleSwitchDown.canceled += instance.OnStyleSwitchDown;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -1504,9 +1465,8 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnSpecialAbility(InputAction.CallbackContext context);
-        void OnStyleSwitchUp(InputAction.CallbackContext context);
-        void OnStyleSwitchDown(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCharacterMenu(InputAction.CallbackContext context);
         void OnSelectWeaponOne(InputAction.CallbackContext context);

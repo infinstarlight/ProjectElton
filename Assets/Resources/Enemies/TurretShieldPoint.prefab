@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentHealth: 0
   MaxHealth: 5
-  ShieldRenableDelay: 2
+  ShieldRenableDelay: 25
   bIsDisabled: 0
   hitMaterial: {fileID: 2100000, guid: c8a766a5f39792b45bc519c5d0f3e641, type: 2}
   itemsGO:

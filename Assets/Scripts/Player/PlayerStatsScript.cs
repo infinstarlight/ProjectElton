@@ -1,60 +1,90 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class PlayerStatsScript : MonoBehaviour
 {
-    public enum ESpecialAbility
+    public enum ECharacterActions
     {
         None,
         Dash,
         Regen,
         Booster,
     }
-    private HealthTextScript healthText;
+    public enum ESpecialAbility
+    {
+        None,
+        SlowTime,
+        Aragon,
+        Berserk
+    }
     public CharacterStats pcStats;
     private Player player;
+    public ECharacterActions currentCharacterAction;
     public ESpecialAbility currentSpecialAbility;
-    private int styleIndex = 0;
+
 
     private bool bIsDebug = false;
     Keyboard currentKeyboard;
     private PlayerStateScript GetPlayerState;
     private PlayerUIController GetPlayerUI;
-    public UnityEvent updateHealthUIEvent = new UnityEvent();
-    protected float CurrentPowerGauge = 0.0f;
-    protected float MaxPowerGauge = 0.0f;
+    private InputSystem_PlayerController GetPlayerController;
+    public UnityEvent updateDataEvent = new UnityEvent();
+    public float CurrentPower = 0.0f;
+    public float MaxPower = 0.0f;
     public float PowerGaugePercentage = 0.0f;
     public bool bIsPowerGaugeEnabled = false;
     public float playerHealthPercentage = 0.0f;
+    public float PowerConsumeAmount = 0.0f;
+    public float PowerConsumeRate = 0.0f;
+    public float DamageMultiplierAmount = 0.0f;
+    public float SlowTimeAmount = 0.0f;
+    public float HealthRegenAmount = 0.0f;
+    public float HealthRegenRate = 0.0f;
+    private bool bStartPower = false;
+    private bool bStartHealthRegen = false;
+    public UnityEvent activateSpecialEvent = new UnityEvent();
+    public UnityEvent deactivateSpecialEvent = new UnityEvent();
+      public UnityEventWithFloat modPowerEvent = new UnityEventWithFloat();
+
 
     void Awake()
     {
         GetPlayerUI = FindObjectOfType<PlayerUIController>();
+        GetPlayerController = GetComponentInChildren<InputSystem_PlayerController>();
         GetPlayerState = GetComponentInChildren<PlayerStateScript>();
         pcStats = GetComponent<CharacterStats>();
-        styleIndex = 1;
-        //pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-        player = GetComponent<Player>();
-        //healthText = FindObjectOfType<HealthTextScript>();
-        PowerGaugePercentage = CurrentPowerGauge / MaxPowerGauge;
-        playerHealthPercentage = pcStats.CurrentHealth / pcStats.MaxHealth;
 
+        player = GetComponent<Player>();
+
+
+    }
+
+    private void OnDisable()
+    {
+        activateSpecialEvent.RemoveAllListeners();
+        deactivateSpecialEvent.RemoveAllListeners();
+        updateDataEvent.RemoveAllListeners();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        updateHealthUIEvent.AddListener(UpdateHealthText);
-        healthText = FindObjectOfType<HealthTextScript>();
-        UpdateHealthText();
+        activateSpecialEvent.AddListener(ActivateSpecialAbility);
+        deactivateSpecialEvent.AddListener(DeactivateSpecialAbilty);
+        updateDataEvent.AddListener(GetPlayerUI.UpdateUIData);
+        modPowerEvent.AddListener(RecoverPower);
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
         }
         currentKeyboard = Keyboard.current;
+        CurrentPower = MaxPower;
+
+        PowerGaugePercentage = CurrentPower / MaxPower;
+        playerHealthPercentage = pcStats.CurrentHealth / pcStats.MaxHealth;
     }
 
     // Update is called once per frame
@@ -67,99 +97,106 @@ public class PlayerStatsScript : MonoBehaviour
                 player.PlayerDamageTaken(10.0f);
             }
         }
+        if (bStartPower)
+        {
+            StartCoroutine(ConsumePower());
+        }
+        else
+        {
+            StopCoroutine(ConsumePower());
+        }
+        if (bStartHealthRegen)
+        {
+            StartCoroutine(RegenHealth());
+        }
+        else
+        {
+            StopCoroutine(RegenHealth());
+        }
 
     }
 
-    public void UpdateHealthText()
-    {
-        if (healthText)
-        {
-            healthText.TextMesh.text = pcStats.CurrentHealth.ToString();
-        }
-        GetPlayerUI.updateUIEvent.Invoke();
-    }
 
-    public void ModifyCurrentStyleUp()
+
+
+    public void ActivateSpecialAbility()
     {
-        if (styleIndex <= 0)
+        bStartPower = true;
+        if (currentSpecialAbility == ESpecialAbility.SlowTime)
         {
-            styleIndex = 1;
+            ActivateSlowTime();
         }
-        if (styleIndex > 4)
+        if (currentSpecialAbility == ESpecialAbility.Aragon)
         {
-            styleIndex = 1;
-        }
-        Debug.Log(pcStats.currentCharacterStyle);
-        // switch (pcStats.currentCharacterStyle)
-        // {
-        //     case CharacterStats.ECharacterStyle.Offense:
-        //         {
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-        //             break;
-        //         }
-        //     case CharacterStats.ECharacterStyle.Defense:
-        //         {
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-        //             break;
-        //         }
-        //     case CharacterStats.ECharacterStyle.Speed:
-        //         {
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-        //             break;
-        //         }
-        //     case CharacterStats.ECharacterStyle.Regen:
-        //         {
-        //             pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-        //             break;
-        //         }
-        // }
-        styleIndex++;
-        switch (styleIndex)
-        {
-            case 1:
-                // styleIndex = 1;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                break;
-            case 2:
-                // styleIndex = 2;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-                break;
-            case 3:
-                //styleIndex = 3;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-                break;
-            case 4:
-                //styleIndex = 4;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-                break;
+            ActivateAragon();
         }
     }
 
-    public void ModifyCurrentStyleDown()
+    void ActivateSlowTime()
     {
-        if (styleIndex <= 0)
+        Time.timeScale = SlowTimeAmount;
+    }
+    void DeactivateSlowTime()
+    {
+        Time.timeScale = 1;
+    }
+
+
+    void ActivateAragon()
+    {
+        GetPlayerController.combatController.currentWeapon.SendMessage("ModifyDamage", DamageMultiplierAmount);
+        //StartCoroutine(RegenHealth());
+        bStartHealthRegen = true;
+    }
+    void DeactivateAragon()
+    {
+        GetPlayerController.combatController.currentWeapon.SendMessage("RevertDamage");
+        //StartCoroutine(RegenHealth());
+        bStartHealthRegen = false;
+    }
+
+    public IEnumerator RegenHealth()
+    {
+        pcStats.CurrentHealth += HealthRegenAmount;
+        if (pcStats.CurrentHealth >= pcStats.MaxHealth)
         {
-            styleIndex = 1;
+            pcStats.CurrentHealth = pcStats.MaxHealth;
         }
-        styleIndex--;
-        switch (styleIndex)
+        yield return HealthRegenRate;
+    }
+
+    public void RecoverPower(float modAmount)
+    {
+        CurrentPower += modAmount;
+        if(CurrentPower >= MaxPower)
         {
-            case 1:
-                //styleIndex = 1;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Offense;
-                break;
-            case 2:
-                //styleIndex = 2;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Defense;
-                break;
-            case 3:
-                //styleIndex = 3;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Speed;
-                break;
-            case 4:
-                // styleIndex = 4;
-                pcStats.currentCharacterStyle = CharacterStats.ECharacterStyle.Regen;
-                break;
+            CurrentPower = MaxPower;
+        }
+    }
+
+
+    public IEnumerator ConsumePower()
+    {
+        CurrentPower -= PowerConsumeAmount;
+        PowerGaugePercentage = CurrentPower / MaxPower;
+        updateDataEvent.Invoke();
+        yield return PowerConsumeRate;
+        if (CurrentPower <= 0)
+        {
+            DeactivateSpecialAbilty();
+        }
+    }
+
+    void DeactivateSpecialAbilty()
+    {
+        bStartPower = false;
+          if (currentSpecialAbility == ESpecialAbility.SlowTime)
+        {
+            DeactivateSlowTime();
+        }
+        if (currentSpecialAbility == ESpecialAbility.Aragon)
+        {
+            DeactivateAragon();
         }
     }
 

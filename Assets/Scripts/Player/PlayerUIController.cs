@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerUIController : MonoBehaviour
@@ -20,16 +20,13 @@ public class PlayerUIController : MonoBehaviour
     private bool bShowInteractText;
     private GameObject optionsMenu;
     private Player GetPlayer;
-    public UnityEvent updateUIEvent = new UnityEvent();
+  
     private GameInstance GetGameInstance;
     private SaveManager GetSaveManager;
-   // private HealthTextScript healthText;
+    private HealthTextScript healthText;
 
 
-    private void Awake()
-    {
-
-    }
+  
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +38,7 @@ public class PlayerUIController : MonoBehaviour
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
         aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
+        healthText = FindObjectOfType<HealthTextScript>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
         interactText = FindObjectOfType<ID_InteractText>().gameObject;
         GetTouchUI = FindObjectOfType<ID_TouchUI>();
@@ -55,7 +53,7 @@ public class PlayerUIController : MonoBehaviour
         {
             TouchControlGO.SetActive(false);
         }
-        updateUIEvent.AddListener(UpdateUIData);
+     
         PauseMenu = pCon.PauseMenuGO;
         if (PauseMenu)
         {
@@ -79,11 +77,11 @@ public class PlayerUIController : MonoBehaviour
         // }
     }
 
-    private void Update() 
+    private void Update()
     {
-        if(!styleSliderScript)
+        if (!styleSliderScript)
         {
-             styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+            styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         }
     }
 
@@ -101,11 +99,11 @@ public class PlayerUIController : MonoBehaviour
         {
             healthBar.healthSlider.value = pCon.playerStats.playerHealthPercentage;
         }
-        // if (healthText)
-        // {
-        //     healthText.TextMesh.text = pCon.playerStats.pcStats.CurrentHealth.ToString();
-        // }
-        if(aragonBar)
+        if (healthText)
+        {
+            healthText.TextMesh.text = pCon.playerStats.pcStats.CurrentHealth.ToString();
+        }
+        if (aragonBar)
         {
             aragonBar.aragonSlider.value = pCon.playerStats.PowerGaugePercentage;
         }
@@ -171,11 +169,11 @@ public class PlayerUIController : MonoBehaviour
         {
             if (bShowInteractText)
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText",true);
+                interactText.GetComponent<Animator>().SetBool("bShowText", true);
             }
             else
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText",false);
+                interactText.GetComponent<Animator>().SetBool("bShowText", false);
             }
         }
     }

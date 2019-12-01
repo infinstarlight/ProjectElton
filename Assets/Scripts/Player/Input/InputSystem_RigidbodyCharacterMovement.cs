@@ -62,7 +62,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     void Start()
     {
         oldMovementSpeed = MovementSpeed;
-        playerStats.currentSpecialAbility = PlayerStatsScript.ESpecialAbility.Dash;
+        playerStats.currentCharacterAction = PlayerStatsScript.ECharacterActions.Dash;
     }
 
     // Update is called once per frame
@@ -123,7 +123,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     public void OnSpecialAbility(InputAction.CallbackContext context)
     {
         ActivateSpecialAbility();
-        if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+        if (playerStats.currentCharacterAction == PlayerStatsScript.ECharacterActions.Dash)
         {
             CurrentDashCount += 1;
         }
@@ -133,7 +133,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     void ActivateSpecialAbility()
     {
-        if (playerStats.currentSpecialAbility == PlayerStatsScript.ESpecialAbility.Dash)
+        if (playerStats.currentCharacterAction == PlayerStatsScript.ECharacterActions.Dash)
         {
 
             if (CurrentDashCount <= MaxDashCount)

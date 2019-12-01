@@ -76,90 +76,15 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                  }
                  else
                  {
-                     currentWeaponScript.DamageAmount = currentWeaponScript.oldDamageAmount;
-                     currentSubweaponScript.DamageAmount = currentSubweaponScript.oldDamageAmount;
+                     currentWeaponScript.RevertDamage();
+                     currentSubweaponScript.RevertDamage();
                      currentSubweaponScript.bCanConsumeAmmo = true;
                  }
              }
          }
     }
 
-    public void OnStyleSwitchDown(InputAction.CallbackContext context)
-    {
-        playerStats.ModifyCurrentStyleDown();
-        switch (playerStats.pcStats.currentCharacterStyle)
-        {
-            case CharacterStats.ECharacterStyle.Offense:
-                {
-                    styleAudioSource.clip = styleClips[0];
-                    styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                }
-                break;
-            case CharacterStats.ECharacterStyle.Defense:
-                {
-                    styleAudioSource.clip = styleClips[1];
-                    styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                }
-                break;
-            case CharacterStats.ECharacterStyle.Speed:
-                {
-                    styleAudioSource.clip = styleClips[2];
-                    styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                }
-                break;
-            case CharacterStats.ECharacterStyle.Regen:
-                {
-                    styleAudioSource.clip = styleClips[3];
-                    styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                }
-                break;
-        }
-    }
-
-    public void OnStyleSwitchUp(InputAction.CallbackContext context)
-    {
-        switch (context.phase)
-        {
-            case InputActionPhase.Performed:
-                {
-                    playerStats.ModifyCurrentStyleUp();
-                    switch (playerStats.pcStats.currentCharacterStyle)
-                    {
-                        case CharacterStats.ECharacterStyle.Offense:
-                            {
-                                styleAudioSource.clip = styleClips[0];
-                                styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                            }
-                            break;
-                        case CharacterStats.ECharacterStyle.Defense:
-                            {
-                                styleAudioSource.clip = styleClips[1];
-                                styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                            }
-                            break;
-                        case CharacterStats.ECharacterStyle.Speed:
-                            {
-                                styleAudioSource.clip = styleClips[2];
-                                styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                            }
-                            break;
-                        case CharacterStats.ECharacterStyle.Regen:
-                            {
-                                styleAudioSource.clip = styleClips[3];
-                                styleAudioSource.PlayOneShot(styleAudioSource.clip);
-                            }
-                            break;
-                    }
-                }
-                break;
-            case InputActionPhase.Canceled:
-                {
-
-                }
-                break;
-        }
-
-    }
+   
 
     //Thanks to the new Input System
     public void OnFire(InputAction.CallbackContext context)

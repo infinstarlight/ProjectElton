@@ -54,7 +54,7 @@ public class SaveManager : MonoBehaviour
         {
             GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
             GetPlayer.gameObject.transform.position = savedPosition;
-            GetPlayer.PlayerStats.UpdateHealthText();
+            GetPlayer.PlayerStats.updateDataEvent.Invoke();
 
         }
 

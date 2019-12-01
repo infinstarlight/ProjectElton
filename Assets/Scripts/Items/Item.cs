@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
     public enum ItemType
     {
         HealthPickup,
+        AragonPickup,
         SubweaponAmmo,
         PowerUp,
         HealthUpgrade,
@@ -38,6 +39,16 @@ public class Item : MonoBehaviour
             itemSource.PlayOneShot(itemSource.clip);
         }
 
+    }
+
+    public void RecoverAragon()
+    {
+        if (CurrentItemType == ItemType.AragonPickup)
+        {
+            GetPlayer.PlayerStats.SendMessage("RecoverPower", ValueMod);
+            GetPlayer.PlayerStats.updateDataEvent.Invoke();
+            itemSource.PlayOneShot(itemSource.clip);
+        }
     }
 
     public void RecoverAmmo()

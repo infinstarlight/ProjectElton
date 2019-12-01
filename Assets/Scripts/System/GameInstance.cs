@@ -80,7 +80,7 @@ public class GameInstance : MonoBehaviour
             playerUI = FindObjectOfType<ID_PlayerUI>();
             if (GetPlayer && playerUI)
             {
-                Debug.Log("Player and HUD found!");
+//                Debug.Log("Player and HUD found!");
             }
             if (bIsReturningToMainMenu)
             {

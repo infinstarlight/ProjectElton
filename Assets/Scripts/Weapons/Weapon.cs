@@ -47,8 +47,11 @@ public class Weapon : MonoBehaviour
     public float nextFire;
     [Header("Damage Stats")]
     public float fireRate = 0.25f;       // Number in seconds which controls how often the player can fire
-    public float DamageAmount = 5.0f;
-    public float oldDamageAmount = 0.0f;
+    public float DamageAmount = 0.0f;
+    public float baseDamage = 5.0f;
+    public float damageModifer = 0.0f;
+    public float oldDamageModifer = 0.0f;
+    public float oldbaseDamage = 0.0f;
 
     [Header("VFX & SFX")]
     public AudioSource weaponAudio;
@@ -65,6 +68,7 @@ public class Weapon : MonoBehaviour
     private GameObject hitObject = null;
     private LoadingDoorScript hitDoor = null;
     private WeaponChargeObject hitChargeObject = null;
+    private Character weaponOwner;
 
 
 
@@ -73,8 +77,12 @@ public class Weapon : MonoBehaviour
     {
         weaponAudio = GetComponent<AudioSource>();
         gunEndGO = GetComponentInChildren<ID_gunEnd>().gameObject;
-        oldDamageAmount = DamageAmount;
+        oldbaseDamage = baseDamage;
+        oldDamageModifer = damageModifer;
+        DamageAmount = baseDamage + damageModifer;
+
         s_MaxChargeTime = MaxChargeLimit;
+        weaponOwner = GetComponentInParent<Character>();
 
     }
 
@@ -126,7 +134,7 @@ public class Weapon : MonoBehaviour
                             // {
 
                             // }
-                            hitDoor.SendMessage("CheckAmmoType",MyAmmoType);
+                            hitDoor.SendMessage("CheckAmmoType", MyAmmoType);
 
                             //TODO: If it's the wrong ammo type, bounce the shot back to player
                         }
@@ -136,9 +144,10 @@ public class Weapon : MonoBehaviour
                             hitChargeObject = hitObject.GetComponent<WeaponChargeObject>();
                             hitChargeObject.ModCharge(chargeAmount, MyAmmoType);
                         }
-                        if(hitObject.GetComponent<TurretController>())
+                        if (hitObject.GetComponent<TurretController>())
                         {
-                           hitObject.GetComponent<TurretController>().OnDamageApplied(DamageAmount);
+                            hitObject.GetComponent<TurretController>().OnDamageApplied(DamageAmount);
+                            //hitObject.GetComponent<TurretController>().SendMessage("RotateToTarget",weaponOwner.gameObject);
                         }
                     }
                     if (!bIsPlayerWeapon)
@@ -156,11 +165,22 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void ModifyDamage(float damageMod)
+    {
+        damageModifer = damageMod;
+        DamageAmount = baseDamage + damageModifer;
+    }
+
+    public void RevertDamage()
+    {
+        DamageAmount = oldbaseDamage + oldDamageModifer;
+    }
+
     public void FireChargedShot()
     {
         DamageAmount *= CurrentChargeAmount;
         Fire();
-        DamageAmount = oldDamageAmount;
+        RevertDamage();
         CurrentChargeAmount = 0;
     }
 

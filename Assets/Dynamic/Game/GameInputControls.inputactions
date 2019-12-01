@@ -62,7 +62,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Special Ability",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "cbc696ba-0136-4afb-b1f6-a977f822c8a7",
                     "expectedControlType": "",
@@ -70,18 +70,10 @@
                     "interactions": "Press(pressPoint=0.1)"
                 },
                 {
-                    "name": "Style Switch Up",
+                    "name": "Special Ability",
                     "type": "Button",
-                    "id": "d4091cdc-89be-4e58-8878-5d668b5962e9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Style Switch Down",
-                    "type": "Button",
-                    "id": "32a0a6e6-4f45-4249-89a0-3053f9bcec39",
-                    "expectedControlType": "Button",
+                    "id": "d428be45-dda6-46de-916c-653e0ec79173",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press"
                 },
@@ -424,18 +416,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Special Ability",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "d6473262-a3fa-4de5-87ea-4ea40fdd5f8d",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Special Ability",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -480,28 +472,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Character Menu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3c31db32-4b87-4fb3-972c-043fbaeae45a",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Style Switch Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "624e3c21-4a0f-4896-8454-3a53d916cd4c",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Style Switch Up",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -568,28 +538,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Select Weapon Three",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2fc91609-0274-44d1-ba1c-5440fab36811",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Style Switch Down",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c777fc48-ddb1-4759-b92c-0876a1198833",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Style Switch Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -667,6 +615,28 @@
                     "processors": "",
                     "groups": "Touchscreen",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5607a696-a39d-48c8-b24a-637dac827911",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Special Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a5fd6ed-ec90-41f0-b0d9-9cd03325ce6f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Special Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

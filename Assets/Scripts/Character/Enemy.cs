@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : Character, ITracker
 {
     public float StyleModAmount = 1.0f;
+    public float PowerModAmount = 0.1f;
     private PlayerStateScript playerState;
 
     private AIControllerBase AIController;
@@ -30,10 +31,10 @@ public class Enemy : Character, ITracker
         itemsGO[1] = null;
         enemyHealthBar = GetComponentInChildren<ID_EnemyHealthBar>();
 
-       
+
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
-//        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
+        //        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
         AI_Weapon = GetComponentInChildren<EnemyWeapon>().gameObject;
         myWeapon = AI_Weapon.GetComponent<EnemyWeapon>();
         damageEvent.AddListener(OnEnemyDamageApplied);
@@ -52,9 +53,9 @@ public class Enemy : Character, ITracker
         {
             playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
         }
-        if(!playerState)
+        if (!playerState)
         {
-             playerState = FindObjectOfType<PlayerStateScript>();
+            playerState = FindObjectOfType<PlayerStateScript>();
         }
         if (AIController)
         {
@@ -101,6 +102,8 @@ public class Enemy : Character, ITracker
             AIEventManager.TriggerEvent("Damage");
             enemyHealthBar.healthBar.value = characterStats.healthPercentage;
             playerState.styleModEvent.Invoke(StyleModAmount);
+            playerState.SendMessageUpwards("RecoverPower",PowerModAmount);
+            
             if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();

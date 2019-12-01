@@ -5,15 +5,6 @@ using UnityEngine;
 public class CharacterStats : MonoBehaviour
 {
 
-    public enum ECharacterStyle
-    {
-        Standard = 0,
-        Offense = 1,
-        Defense = 2,
-        Speed = 3,
-        Regen = 4,
-        Special = 5
-    }
     [Header("Character Health")]
     public float CurrentHealth;
     public float MaxHealth = 100;
@@ -24,7 +15,6 @@ public class CharacterStats : MonoBehaviour
     public bool bCanTakeDamage = true;
 
     [Header("Special Info")]
-    public ECharacterStyle currentCharacterStyle;
 
     public string CharacterName;
 

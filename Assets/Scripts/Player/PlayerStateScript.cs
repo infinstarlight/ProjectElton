@@ -14,6 +14,7 @@ public class PlayerStateScript : MonoBehaviour
 
     public float DifficultyMod = 1.0f;
 
+
     public float StylePercent;
     public float StyleModAmount;
     private ID_StyleImage styleImageScript;
@@ -33,7 +34,7 @@ public class PlayerStateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StylePercent = CurrentStyleAmount / MaxStyleAmount;
+
         //StartCoroutine(DecreaseStyleOverTime());
         if (CurrentStyleAmount > 0)
         {
@@ -75,7 +76,7 @@ public class PlayerStateScript : MonoBehaviour
     {
         StyleModAmount = ModAmount * DifficultyMod;
         CurrentStyleAmount += StyleModAmount;
-
+        StylePercent = CurrentStyleAmount / MaxStyleAmount;
         if (CurrentStyleAmount <= 0)
         {
             CurrentStyleAmount = 0;
@@ -88,11 +89,8 @@ public class PlayerStateScript : MonoBehaviour
     {
         StyleModAmount = ModAmount;
         CurrentStyleAmount -= StyleModAmount;
-        // StartCoroutine(DecreaseStyleOverTime());
-        // if (CurrentStyleAmount <= 0)
-        // {
-        //     StopCoroutine(DecreaseStyleOverTime());
-        // }
+        StylePercent = CurrentStyleAmount / MaxStyleAmount;
+       
     }
 
     public IEnumerator DecreaseStyleOverTime()

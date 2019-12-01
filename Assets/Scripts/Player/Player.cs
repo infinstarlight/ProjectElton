@@ -52,9 +52,9 @@ public class Player : Character
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
         playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
-        characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
-        PlayerStats.updateHealthUIEvent.Invoke();
-     
+        PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
+        PlayerStats.updateDataEvent.Invoke();
+
     }
 
 
@@ -62,8 +62,8 @@ public class Player : Character
     {
         if (characterStats.bCanTakeDamage)
         {
-            //characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
             characterStats.CurrentHealth -= damageTaken;
+            PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
             playerSource.clip = hurtClips[Random.Range(0, hurtClips.Length)];
             playerSource.PlayOneShot(playerSource.clip);
             if (characterStats.CurrentHealth <= 0)
@@ -72,7 +72,7 @@ public class Player : Character
                 OnPlayerDeath();
             }
         }
-        PlayerStats.updateHealthUIEvent.Invoke();
+        PlayerStats.updateDataEvent.Invoke();
         playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }
 
