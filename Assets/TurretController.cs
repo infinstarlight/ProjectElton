@@ -21,6 +21,9 @@ public class TurretController : MonoBehaviour, IDamageable<float>
     private TurretRotator GetRotator;
     TurretShield[] ActiveShieldArray;
     TurretShield[] DisabledShieldArray;
+    [SerializeField]
+    private bool bIsRoomUnlocker = false;
+    private EnemyRoomUnlocker GetRoomUnlocker;
 
 
     // Start is called before the first frame update
@@ -34,7 +37,10 @@ public class TurretController : MonoBehaviour, IDamageable<float>
         bossHealthEnableSequence = DOTween.Sequence();
         GetRotator = GetComponentInChildren<TurretRotator>();
         InitEnableSequence();
-
+        if (bIsRoomUnlocker)
+        {
+            GetRoomUnlocker = FindObjectOfType<EnemyRoomUnlocker>();
+        }
 
     }
 
@@ -47,6 +53,11 @@ public class TurretController : MonoBehaviour, IDamageable<float>
         bossHealthEnableSequence.PrependInterval(1);
         bossHealthEnableSequence.Append(GetBossHealthBar.transform.DOScaleX(1, 1));
         bossHealthEnableSequence.Append(GetBossNameText.textMaterial.DOFade(1, 1));
+
+    }
+
+    void PlayUISequence()
+    {
         bossHealthEnableSequence.Play();
     }
 
@@ -55,6 +66,7 @@ public class TurretController : MonoBehaviour, IDamageable<float>
 
     public void CheckShield(TurretShield hitShield)
     {
+        ToggleShield();
 
         if (!bIsShieldDisabled)
         {
@@ -108,7 +120,7 @@ public class TurretController : MonoBehaviour, IDamageable<float>
                 }
             }
         }
-        ToggleShield();
+
     }
 
     void ToggleShield()
@@ -134,6 +146,10 @@ public class TurretController : MonoBehaviour, IDamageable<float>
         {
             Debug.Log("I have been DEFEATED!");
             bIsDead = true;
+            if (GetRoomUnlocker)
+            {
+                GetRoomUnlocker.SendMessage("UnlockRoom", bIsDead);
+            }
         }
 
         //TODO: When attacked, rotate to face target

@@ -14,6 +14,9 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
     public Material hitMaterial;
     private MeshRenderer myRenderer;
     public GameObject[] itemsGO = new GameObject[3];
+    private float nextFire = 0.0f;
+    [SerializeField]
+    private float energyRegenRate = 0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,13 +41,8 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
     {
         if (bIsDisabled)
         {
-            StartCoroutine(RegenEnergy());
+            RechargeEnergy();
         }
-        else
-        {
-            StopCoroutine(RegenEnergy());
-        }
-
     }
 
 
@@ -54,9 +52,7 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         CurrentHealth -= damageTaken;
         if (CurrentHealth <= 0)
         {
-
             bIsDisabled = true;
-
             myRenderer.material = hitMaterial;
             SpawnRandomPickup();
             GetTurret.CheckShield(this);
@@ -66,6 +62,21 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
     public void SpawnRandomPickup()
     {
         Instantiate(itemsGO[Random.Range(0, itemsGO.Length)], transform.position, transform.rotation);
+    }
+
+    void RechargeEnergy()
+    {
+        if (Time.unscaledTime > nextFire)
+        {
+            nextFire = Time.unscaledTime + energyRegenRate;
+            ++CurrentHealth;
+            if (CurrentHealth >= MaxHealth)
+            {
+                GetTurret.CheckShield(this);
+                myRenderer.material = startMaterial;
+                bIsDisabled = false;
+            }
+        }
     }
 
     IEnumerator RegenEnergy()
@@ -78,10 +89,10 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         }
         if (CurrentHealth >= MaxHealth)
         {
-            GetTurret.CheckShield(this);
+            GetTurret.SendMessage("CheckShield", this);
             myRenderer.material = startMaterial;
             bIsDisabled = false;
-
+            StopCoroutine(RegenEnergy());
         }
 
     }

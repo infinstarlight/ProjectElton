@@ -32,6 +32,19 @@ public class EnemyRoomUnlocker : MonoBehaviour
         }
     }
 
+    void UnlockRoom(bool bCanUnlock)
+    {
+        if (bCanUnlock)
+        {
+            bCanRoomUnlock = true;
+            for (int i = 0; i < GetLoadingDoors.Length; ++i)
+            {
+                GetLoadingDoors[i].doorUnlockEvent.Invoke();
+
+            }
+        }
+    }
+
 
 
     IEnumerator CheckRoomState()

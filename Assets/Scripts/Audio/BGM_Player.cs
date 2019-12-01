@@ -112,8 +112,18 @@ public class BGM_Player : MonoBehaviour
     }
     void PlayNextTrack()
     {
-        NextTrackNum++;
-        source.clip = Playlist[NextTrackNum];
+        
+        if (!source.loop)
+        {
+            NextTrackNum++;
+            if (NextTrackNum >= PlaylistLength)
+            {
+                ResetPlaylist();
+            }
+
+            source.clip = Playlist[NextTrackNum];
+        }
+
 
 
 
@@ -128,10 +138,7 @@ public class BGM_Player : MonoBehaviour
         }
         source.Play();
 
-        if (NextTrackNum >= PlaylistLength)
-        {
-            ResetPlaylist();
-        }
+
 
     }
 
@@ -139,6 +146,18 @@ public class BGM_Player : MonoBehaviour
     {
         NextTrackNum = 0;
         PlayNextTrack();
+    }
+
+    void ToggleLoop(bool bShouldLoop)
+    {
+        if(bShouldLoop)
+        {
+            source.loop = bShouldLoop;
+        }
+        else
+        {
+            source.loop = false;
+        }
     }
     void PlayFirstTrack()
     {

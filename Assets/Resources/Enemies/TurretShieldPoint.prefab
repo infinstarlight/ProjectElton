@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  energyRegenRate: 10
 --- !u!65 &1102401538
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,8 +173,6 @@ GameObject:
   - component: {fileID: 2797275348317903546}
   - component: {fileID: 2797275348317903547}
   - component: {fileID: 2797275348317903544}
-  - component: {fileID: 2797275348317903545}
-  - component: {fileID: 7908391971201741580}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -941,37 +940,3 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!65 &2797275348317903545
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2797275348317903542}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: -2, y: 0.5, z: 0}
---- !u!114 &7908391971201741580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2797275348317903542}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6749e13685da85449ea36b3ceced2e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentHealth: 0
-  MaxHealth: 5
-  ShieldRenableDelay: 30
-  bIsDisabled: 0
-  hitMaterial: {fileID: 2100000, guid: c8a766a5f39792b45bc519c5d0f3e641, type: 2}
-  itemsGO:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
