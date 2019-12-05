@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MyConsoleCommands
 {
+
     [Alias("rl")]
     [Command("RestartLevel")]
     public static void RestartLevel()
@@ -23,20 +24,55 @@ public class MyConsoleCommands
     {
         SceneManager.LoadScene(newScene, LoadSceneMode.Single);
     }
+
+
+
 }
 
 public class GameInstance : MonoBehaviour
 {
 
+    private static GameInstance instance = null;
+    public static GameInstance Instance { get { return instance; } }
     private PlayerConfig GetPlayerConfig;
     private Player GetPlayer;
     private ID_PlayerUI playerUI;
     public bool bIsReturningToMainMenu = false;
     public bool bIsRunningOnMobile = false;
+    private static BGM_Player GetBGMPlayer;
 
 
     void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this);
+
+        if (Time.timeScale <= 0)
+        {
+            Time.timeScale = 1;
+        }
+        //GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
+        GetPlayer = FindObjectOfType<Player>();
+        playerUI = FindObjectOfType<ID_PlayerUI>();
+        GetBGMPlayer = FindObjectOfType<BGM_Player>();
+        Console.Initialize();
+        DOTween.Init();
+    }
+
+
+    // called first
+    void OnEnable()
+    {
+        //        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        GetBGMPlayer = FindObjectOfType<BGM_Player>();
+        Parser.Register(this, "instance");
+        Console.Open = false;
 #if UNITY_STANDALONE
         bIsRunningOnMobile = false;
 
@@ -48,25 +84,6 @@ public class GameInstance : MonoBehaviour
         bIsRunningOnMobile = true;
 
 #endif
-        if (Time.timeScale <= 0)
-        {
-            Time.timeScale = 1;
-        }
-        //GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
-        GetPlayer = FindObjectOfType<Player>();
-        playerUI = FindObjectOfType<ID_PlayerUI>();
-        Console.Initialize();
-        DOTween.Init();
-    }
-
-
-    // called first
-    void OnEnable()
-    {
-        //        Debug.Log("OnEnable called");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        Parser.Register(this, "instance");
-        Console.Open = false;
     }
 
     // called second
@@ -80,7 +97,7 @@ public class GameInstance : MonoBehaviour
             playerUI = FindObjectOfType<ID_PlayerUI>();
             if (GetPlayer && playerUI)
             {
-//                Debug.Log("Player and HUD found!");
+                //                Debug.Log("Player and HUD found!");
             }
             if (bIsReturningToMainMenu)
             {
@@ -108,8 +125,22 @@ public class GameInstance : MonoBehaviour
     }
 
 
+    [Alias("mm")]
+    [Command("MuteMusic")]
+    public void ToggleMusicMuteStatus()
+    {
+        if (!GetBGMPlayer.bShouldMute)
+        {
+            GetBGMPlayer.StartCoroutine(BGM_Player.FadeOut(GetBGMPlayer.source, 1.0f));
+            GetBGMPlayer.bShouldMute = true;
+        }
+        else
+        {
+            GetBGMPlayer.StartCoroutine(BGM_Player.FadeIn(GetBGMPlayer.source, 1.0f));
+            GetBGMPlayer.bShouldMute = false;
+        }
 
-
+    }
 }
 
 

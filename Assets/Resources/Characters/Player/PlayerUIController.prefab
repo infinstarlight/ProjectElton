@@ -43,3 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f1cc43f296bbb47ae34bad407e072c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bShowInteractText: 0
+  showInteractEvent:
+    m_PersistentCalls:
+      m_Calls: []

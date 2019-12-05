@@ -6,10 +6,7 @@ using UnityEngine;
 public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
-
-    private GameObject playerUI;
     private AudioSource playerSource;
-    private PlayerStateScript playerState;
     public InputSystem_PlayerController pCon;
 
     public float StyleDamageMod = 2.5f;
@@ -48,10 +45,9 @@ public class Player : Character
 
         bShouldDestroyOnDeath = false;
         pCon = GetComponentInChildren<InputSystem_PlayerController>();
-        playerState = GetComponentInChildren<PlayerStateScript>();
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
-        playerUI = FindObjectOfType<ID_PlayerUI>().gameObject;
+
         PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
         PlayerStats.updateDataEvent.Invoke();
 
@@ -73,7 +69,7 @@ public class Player : Character
             }
         }
         PlayerStats.updateDataEvent.Invoke();
-        playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
+        pCon.playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }
 
     public void OnPlayerDeath()

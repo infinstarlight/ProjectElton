@@ -1,6 +1,4 @@
-﻿using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using System.Collections;
 using UnityEngine;
 
@@ -11,25 +9,16 @@ public class SceneFadeTransition : MonoBehaviour
     public string nextLevelName = "";
 
     public bool bIsAlternateLoad = false;
+    private AsyncOperation asyncLoad;
+    
     // Start is called before the first frame update
     void Start()
     {
         myAnimator = GetComponent<Animator>();
-        //DontDestroyOnLoad(this);
         myAnimator.ResetTrigger("ShouldFadeOut");
         myAnimator.SetTrigger("ShouldFadeIn");
         StopCoroutine(LoadAsyncSceneByString(nextLevelName));
     }
-
-    // void Update()
-    // {
-    //     if (Keyboard.current.spaceKey.wasPressedThisFrame)
-    //     {
-    //     Debug.LogWarning("Testing fade to next level!");
-    //      FadeToNextLevel();
-
-    //     }
-    // }
 
     public void FadeToLevelByString(string newScene)
     {
@@ -56,12 +45,6 @@ public class SceneFadeTransition : MonoBehaviour
 
     public void OnFadeComplete()
     {
-        // Use a coroutine to load the Scene in the background
-        if (!bIsAlternateLoad)
-        {
-            StartCoroutine(LoadAsyncSceneByIndex());
-        }
-
         myAnimator.ResetTrigger("ShouldFadeOut");
         myAnimator.SetTrigger("ShouldFadeIn");
     }
@@ -73,7 +56,7 @@ public class SceneFadeTransition : MonoBehaviour
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSceneName,LoadSceneMode.Single);
+        asyncLoad = SceneManager.LoadSceneAsync(newSceneName,LoadSceneMode.Single);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
@@ -89,7 +72,7 @@ public class SceneFadeTransition : MonoBehaviour
         // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
         // a sceneBuildIndex of 1 as shown in Build Settings.
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        asyncLoad = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)

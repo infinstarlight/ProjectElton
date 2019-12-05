@@ -277,8 +277,7 @@ MonoBehaviour:
   healthPercentage: 0
   bIsDead: 0
   bCanTakeDamage: 1
-  currentCharacterStyle: 0
-  CharacterName: 
+  CharacterName: Soldier
 --- !u!82 &2578673211751269755
 AudioSource:
   m_ObjectHideFlags: 0
@@ -401,6 +400,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   StyleModAmount: 1
+  PowerModAmount: 0.1
   enemyUIController: {fileID: 0}
   AI_Weapon: {fileID: 7837896779041405099}
   itemsGO:
@@ -599,6 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e8efeb745ed9646b70d90d22335c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 0}
 --- !u!1 &2578673212654152510
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,11 +958,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2578673212654152511}
     m_Modifications:
-    - target: {fileID: 7350270549714412313, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
-        type: 3}
-      propertyPath: m_Name
-      value: AIEyes
-      objectReference: {fileID: 0}
     - target: {fileID: 1636391212923211885, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1026,6 +1022,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7350270549714412313, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
+        type: 3}
+      propertyPath: m_Name
+      value: AIEyes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94c852c3232e8cc4d9c1e97b9a9e7495, type: 3}

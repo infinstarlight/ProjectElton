@@ -102,8 +102,8 @@ public class Enemy : Character, ITracker
             AIEventManager.TriggerEvent("Damage");
             enemyHealthBar.healthBar.value = characterStats.healthPercentage;
             playerState.styleModEvent.Invoke(StyleModAmount);
-            playerState.SendMessageUpwards("RecoverPower",PowerModAmount);
-            
+            playerState.SendMessageUpwards("RecoverPower", PowerModAmount);
+
             if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();
@@ -116,10 +116,11 @@ public class Enemy : Character, ITracker
     {
         base.OnDeath();
         SpawnRandomPickup();
+        Destroy(gameObject, DestroyDelay);
 
         if (bShouldDestroyOnDeath)
         {
-            Destroy(gameObject, DestroyDelay);
+
         }
     }
 

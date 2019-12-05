@@ -21,6 +21,10 @@ public class MissleSubweapon : Subweapon, ISubWeapon
     {
         activateEvent.AddListener(OnSubweaponActivate);
         deactivateEvent.AddListener(OnSubweaponDeactivate);
+        if(!bCanConsumeAmmo)
+        {
+            bCanConsumeAmmo = true;
+        }
     }
 
     private void OnDisable()

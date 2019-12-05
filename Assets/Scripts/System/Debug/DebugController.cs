@@ -17,7 +17,7 @@ public class DebugController : MonoBehaviour
     void Start()
     {
         debugCanvas = FindObjectOfType<ID_DebugCanvas>();
-        debugCanvasGO = debugCanvas.gameObject;
+//        debugCanvasGO = debugCanvas.gameObject;
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
@@ -50,11 +50,11 @@ public class DebugController : MonoBehaviour
     void Update()
     {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-        if (!debugCanvas)
-        {
-            debugCanvas = FindObjectOfType<ID_DebugCanvas>();
+        // if (!debugCanvas)
+        // {
+        //     debugCanvas = FindObjectOfType<ID_DebugCanvas>();
 
-        }
+        // }
         if (Keyboard.current.f3Key.wasPressedThisFrame)
         {
             bIsDebug = !bIsDebug;
@@ -84,12 +84,12 @@ public class DebugController : MonoBehaviour
                 {
                     graphyGO.SetActive(true);
                 }
-                debugCanvasGO.SetActive(true);
+               // debugCanvasGO.SetActive(true);
 
             }
             else
             {
-                debugCanvasGO.SetActive(false);
+//                debugCanvasGO.SetActive(false);
                 if (graphyGO)
                 {
                     graphyGO.SetActive(false);

@@ -13,6 +13,7 @@ public class MovePlayerToPosition : MonoBehaviour
     void Start()
     {
 
+        PlayerGO = FindObjectOfType<Player>().gameObject;
         if (PlayerGO)
         {
             PlayerGO.transform.position = transform.position;
@@ -20,22 +21,22 @@ public class MovePlayerToPosition : MonoBehaviour
         if (!PlayerGO)
         {
             var cloneGO = Resources.Load<GameObject>("Characters/Player/IS_PlayerCharacter") as GameObject;
-            Instantiate(cloneGO,transform.position,transform.rotation);
-            PlayerGO = FindObjectOfType<Player>().gameObject;
-           // PlayerGO.transform.position = transform.position;
+            Instantiate(cloneGO, transform.position, transform.rotation);
+            PlayerGO = cloneGO.gameObject;
+            // PlayerGO.transform.position = transform.position;
 
 
         }
 
     }
 
-    void Update()
-    {
-        if (!PlayerGO)
-        {
-            PlayerGO = FindObjectOfType<Player>().gameObject;
-        }
-    }
+    // void Update()
+    // {
+    //     if (!PlayerGO)
+    //     {
+    //         PlayerGO = FindObjectOfType<Player>().gameObject;
+    //     }
+    // }
 
 
 }

@@ -28,7 +28,7 @@ public class EnemyRoomUnlocker : MonoBehaviour
         {
             StopCoroutine(CheckRoomState());
 
-            Destroy(gameObject, 2.0f);
+            Destroy(gameObject, 4.0f);
         }
     }
 
@@ -36,7 +36,6 @@ public class EnemyRoomUnlocker : MonoBehaviour
     {
         if (bCanUnlock)
         {
-            bCanRoomUnlock = true;
             for (int i = 0; i < GetLoadingDoors.Length; ++i)
             {
                 GetLoadingDoors[i].doorUnlockEvent.Invoke();
@@ -49,7 +48,7 @@ public class EnemyRoomUnlocker : MonoBehaviour
 
     IEnumerator CheckRoomState()
     {
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(0.75f);
 
         if (Enemies.Count > 0)
         {
@@ -85,7 +84,7 @@ public class EnemyRoomUnlocker : MonoBehaviour
             bCanRoomUnlock = true;
             for (int i = 0; i < GetLoadingDoors.Length; ++i)
             {
-                GetLoadingDoors[i].doorUnlockEvent.Invoke();
+                UnlockRoom(bCanRoomUnlock);
 
             }
         }

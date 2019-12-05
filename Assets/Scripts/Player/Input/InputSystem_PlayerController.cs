@@ -1,10 +1,32 @@
 ﻿using UnityEngine.Events;
 using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine;
+
 
 public class InputSystem_PlayerController : MonoBehaviour
 {
+
+    /// <summary>
+    /// Retrieve current state of left stick.
+    /// </summary>
+    public Vector2 LeftStickValue { get; private set; }
+
+    /// <summary>
+    /// Retrieve current state of right stick.
+    /// </summary>
+    public Vector2 RightStickValue { get; private set; }
+
+    /// <summary>
+    /// Retrieve state of fire button.
+    /// </summary>
+    public bool FireButtonValue { get; private set; }
+
+    /// <summary>
+    /// Retrieve state of Jump button.
+    /// </summary>
+    public bool JumpButtonValue { get; private set; }
 
     public InputSystem_RigidbodyCharacterMovement rbMovement;
     public InputSystem_CameraLook cameraLook;
@@ -21,14 +43,13 @@ public class InputSystem_PlayerController : MonoBehaviour
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private Gamepad currentGamepad;
-    private Touchscreen currentTouchscreen;
+    //private Touchscreen currentTouchscreen;
     private SaveManager GetSaveManager;
     private GameInstance GetGameInstance;
     public AudioClip[] interactSounds;
     private AudioSource source;
     [SerializeField]
     private bool bIsDebug = false;
-    private bool bIsMouseReleased = false;
     [SerializeField]
     private float InteractRange = 200.0f;
     private RaycastHit hit;
@@ -38,7 +59,9 @@ public class InputSystem_PlayerController : MonoBehaviour
     public UnityEvent EnableUIInputEvent = new UnityEvent();
     public UnityEvent DisableUIInputEvent = new UnityEvent();
     private bool bActivateSpecial = false;
-
+    public InputAction ToggleMouseStateAction;
+    private bool bEnable;
+    private PlayerInput GetPlayerInput;
 
     void OnDisable()
     {
@@ -47,6 +70,24 @@ public class InputSystem_PlayerController : MonoBehaviour
         DisableGameInputEvent.RemoveAllListeners();
         EnableUIInputEvent.RemoveAllListeners();
         DisableUIInputEvent.RemoveAllListeners();
+        ToggleMouseStateAction.Disable();
+    }
+
+    void ToggleMouseState(InputAction.CallbackContext context)
+    {
+        if (bIsDebug)
+        {
+            bEnable = !bEnable;
+            if (bEnable)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
+
     }
 
     void Awake()
@@ -54,11 +95,12 @@ public class InputSystem_PlayerController : MonoBehaviour
         EnableGameControls();
         bEnableGameInput = true;
         bShowPauseMenu = false;
-        HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
+        HUDGO = FindObjectOfType<ID_PlayerUI>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         uiController = FindObjectOfType<PlayerUIController>();
-        GetGameInstance = FindObjectOfType<GameInstance>();
+        
+        GetSaveManager = FindObjectOfType<SaveManager>();
         source = GetComponent<AudioSource>();
         playerCamera = Camera.main;
         if (Application.isEditor || Debug.isDebugBuild)
@@ -69,13 +111,19 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             bIsDebug = false;
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        if (GetGameInstance.bIsRunningOnMobile)
-        {
-            currentTouchscreen = Touchscreen.current;
-            EnhancedTouchSupport.Enable();
-        }
+        ToggleMouseStateAction.performed += ToggleMouseState;
+        EnhancedTouchSupport.Enable();
+
     }
+
+
+    private void OnEnable()
+    {
+
+        EnableUIControls();
+        ToggleMouseStateAction.Enable();
+    }
+
 
     void Start()
     {
@@ -84,48 +132,21 @@ public class InputSystem_PlayerController : MonoBehaviour
         EnableUIInputEvent.AddListener(EnableUIControls);
         DisableUIInputEvent.AddListener(DisableUIControls);
         PauseMenuGO.SetActive(false);
-        GetSaveManager = FindObjectOfType<SaveManager>();
         currentKeyboard = Keyboard.current;
-        currentGamepad = Gamepad.current;
-
     }
-    // Update is called once per frame
+
     void Update()
     {
-
-        if (bIsDebug)
+        var activeTouches = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches;
+        for (var i = 0; i < activeTouches.Count; ++i)
         {
-            if (currentKeyboard.f8Key.wasPressedThisFrame)
-            {
-                if (!bIsMouseReleased)
-                {
-                    Cursor.lockState = CursorLockMode.None;
-                    bIsMouseReleased = true;
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    bIsMouseReleased = false;
-                }
-                if (currentKeyboard.digit9Key.wasPressedThisFrame)
-                {
-                    SaveManager.SavePlayerData();
-                }
-                if (currentKeyboard.digit0Key.wasPressedThisFrame)
-                {
-                    GetSaveManager.LoadPlayerData();
-                }
-
-            }
+            Debug.Log("Active touch: " + activeTouches[i]);
         }
-        // CheckForNewDevice();
 
     }
-
     private void FixedUpdate()
     {
         Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
-
         GameObject hitObject = null;
         // actual Ray
         Ray ray = playerCamera.ViewportPointToRay(rayOrigin);
@@ -137,7 +158,13 @@ public class InputSystem_PlayerController : MonoBehaviour
                 hitObject = hit.collider.gameObject;
                 if (hitObject.GetComponent<IInteractable>() != null)
                 {
-                    uiController.ToggleInteractText();
+                    uiController.bShowInteractText = true;
+                    uiController.showInteractEvent.Invoke();
+                }
+                else
+                {
+                    uiController.bShowInteractText = false;
+                    uiController.showInteractEvent.Invoke();
                 }
             }
 
@@ -180,6 +207,7 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void EnableGameControls()
     {
+        GetGameInstance = FindObjectOfType<GameInstance>();
         if (!playerStats)
         {
             playerStats = GetComponentInParent<PlayerStatsScript>();
@@ -206,20 +234,17 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             myControls = new GameInputControls();
         }
-
-
-        myControls.gameplay.Move.performed += rbMovement.OnMoveUpdate;
+        Time.timeScale = 1;
         bEnableGameInput = true;
+        myControls.gameplay.Move.performed += rbMovement.OnMoveUpdate;
         myControls.gameplay.Pause.performed += OnGamePause;
         myControls.gameplay.Interact.performed += OnInteractEvent;
         myControls.gameplay.CharacterMenu.performed += OnCharMenu;
-        myControls.gameplay.MoveRight.performed += rbMovement.OnMoveRight;
-        myControls.gameplay.MoveUp.performed += rbMovement.OnMoveUp;
         myControls.gameplay.Sprint.performed += rbMovement.OnSprint;
         myControls.gameplay.Jump.performed += rbMovement.OnJump;
         myControls.gameplay.Fire.performed += combatController.OnFire;
-        myControls.gameplay.AltFire.performed += cameraLook.OnLockOn;
-        myControls.gameplay.AltFire.canceled += cameraLook.OnLockOnStop;
+        myControls.gameplay.Aim.performed += cameraLook.OnLockOn;
+        myControls.gameplay.Aim.canceled += cameraLook.OnLockOnStop;
         myControls.gameplay.Dash.performed += rbMovement.OnSpecialAbility;
         myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
         myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
@@ -230,84 +255,47 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
         myControls.gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
         myControls.gameplay.SpecialAbility.performed += OnActivateSP;
-        myControls.gameplay.SpecialAbility.Enable();
-        myControls.gameplay.ActivateSubweapon.Enable();
-        myControls.gameplay.SelectNextWeapon.Enable();
-        myControls.gameplay.SelectPreviousWeapon.Enable();
-        myControls.gameplay.Interact.Enable();
-        myControls.gameplay.Fire.Enable();
-        myControls.gameplay.Look.Enable();
-        myControls.gameplay.Pause.Enable();
-        myControls.gameplay.CharacterMenu.Enable();
-        myControls.gameplay.AltFire.Enable();
-        myControls.gameplay.SelectWeaponOne.Enable();
-        myControls.gameplay.SelectWeaponTwo.Enable();
-        myControls.gameplay.SelectWeaponThree.Enable();
-        myControls.gameplay.Dash.Enable();
-        myControls.gameplay.Sprint.Enable();
-        myControls.gameplay.Jump.Enable();
-        myControls.gameplay.MoveRight.Enable();
-        myControls.gameplay.MoveUp.Enable();
+        myControls.gameplay.Enable();
+         Cursor.lockState = CursorLockMode.Locked;
+       
+        InputSystem.pollingFrequency = 120;
 
-        myControls.gameplay.Move.Enable();
-        if (Cursor.lockState != CursorLockMode.Locked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        if (Time.timeScale <= 1)
-        {
-            Time.timeScale = 1;
-        }
+        myControls.gameplay.Move.performed += context => LeftStickValue = context.ReadValue<Vector2>();
+        myControls.gameplay.Move.canceled += context => LeftStickValue = Vector2.zero;
+        myControls.gameplay.Look.performed += context => RightStickValue = context.ReadValue<Vector2>();
+        myControls.gameplay.Look.canceled += context => RightStickValue = Vector2.zero;
+        myControls.gameplay.Fire.performed += context => FireButtonValue = context.ReadValue<float>() > 0.5f;
+        myControls.gameplay.Fire.canceled += context => FireButtonValue = false;
+        myControls.gameplay.Jump.performed += context => JumpButtonValue = context.ReadValue<float>() > 0.1f;
+        myControls.gameplay.Jump.canceled += context => JumpButtonValue = false;
+
 
     }
 
     void DisableGameControls()
     {
         bEnableGameInput = false;
-        myControls.gameplay.Interact.Disable();
-        myControls.gameplay.ActivateSubweapon.Disable();
-        // myControls.gameplay.Disable();
-        myControls.gameplay.Fire.Disable();
-        myControls.gameplay.Look.Disable();
-        // myControls.gameplay.Pause.Disable();
-        myControls.gameplay.SpecialAbility.Disable();
-        myControls.gameplay.CharacterMenu.Disable();
-        myControls.gameplay.AltFire.Disable();
-        myControls.gameplay.SelectWeaponOne.Disable();
-        myControls.gameplay.SelectWeaponTwo.Disable();
-        myControls.gameplay.SelectWeaponThree.Disable();
-        myControls.gameplay.Dash.Disable();
-        myControls.gameplay.Sprint.Disable();
-        myControls.gameplay.Jump.Disable();
-        myControls.gameplay.MoveRight.Disable();
-        myControls.gameplay.MoveUp.Disable();
-        myControls.gameplay.SelectNextWeapon.Disable();
-        myControls.gameplay.SelectPreviousWeapon.Disable();
-        myControls.gameplay.Move.Disable();
+        myControls.gameplay.Disable();
 
     }
 
     void EnableUIControls()
     {
-        if (Cursor.lockState != CursorLockMode.None)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-
-        if (Time.timeScale >= 1)
-        {
-            Time.timeScale = 0;
-        }
-        DisableGameControls();
-
         myControls.ui.Enable();
+        myControls.ui.Point.Enable();
+        myControls.ui.Navigate.Enable();
+        myControls.ui.Submit.Enable();
+        myControls.ui.Cancel.Enable();
+        myControls.ui.Click.Enable();
+        myControls.ui.RightClick.Enable();
+        myControls.ui.MiddleClick.Enable();
+        myControls.ui.ScrollWheel.Enable();
     }
 
     void DisableUIControls()
     {
         myControls.ui.Disable();
-        myControls.ui.Pointer.Disable();
-        myControls.gameplay.Look.Enable();
+        myControls.ui.Point.Disable();
         EnableGameControls();
     }
 
@@ -355,6 +343,11 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     public void PauseGame()
     {
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        bIsGamePaused = !bIsGamePaused;
         if (bIsGamePaused)
         {
             EnableUIControls();
@@ -363,14 +356,18 @@ public class InputSystem_PlayerController : MonoBehaviour
         }
         else
         {
-            DisableUIControls();
+            if (!GetGameInstance.bIsRunningOnMobile)
+            {
+                DisableUIControls();
+            }
+
             Time.timeScale = 1.0f;
         }
     }
 
     public void ShowMenu(GameObject menuGO)
     {
-        bIsGamePaused = !bIsGamePaused;
+        Cursor.lockState = CursorLockMode.None;
         PauseGame();
         if (menuGO)
         {

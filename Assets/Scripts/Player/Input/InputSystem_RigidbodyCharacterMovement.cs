@@ -36,9 +36,11 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     [SerializeField]
     private int MaxDashCount = 2;
     public Transform groundChecker;
-    float translation = 0.0f;
+    private float translation = 0.0f;
     private Vector2 moveVector = new Vector2(0.0f, 0.0f);
-    float strafe = 0.0f;
+    private float strafe = 0.0f;
+    private float xValue = 0.0f;
+    private float yValue = 0.0f;
     public bool bHoldSprint = false;
     [SerializeField]
     private float DashWaitPeriod = 3.0f;
@@ -74,14 +76,14 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         {
             CurrentJumpCount = 0;
         }
-         if (CurrentJumpCount <= MaxJumpCount)
-         {
-             bCanJump = true;
-         }
-         else
-         {
-             bCanJump = false;
-         }
+        if (CurrentJumpCount <= MaxJumpCount)
+        {
+            bCanJump = true;
+        }
+        else
+        {
+            bCanJump = false;
+        }
 
     }
 
@@ -158,9 +160,9 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     public void OnMoveUpdate(InputAction.CallbackContext context)
     {
-        var moveValue = context.ReadValue<Vector2>();
-        MoveRight(moveValue.x);
-        MoveUp(moveValue.y);
+        moveVector = context.ReadValue<Vector2>();
+        MoveRight(moveVector.x);
+        MoveUp(moveVector.y);
     }
 
 
@@ -170,14 +172,14 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     }
     public void OnMoveUp(InputAction.CallbackContext context)
     {
-        var yValue = context.ReadValue<float>();
+        yValue = context.ReadValue<float>();
         MoveUp(yValue);
 
     }
 
     public void OnMoveRight(InputAction.CallbackContext context)
     {
-        var xValue = context.ReadValue<float>();
+        xValue = context.ReadValue<float>();
         MoveRight(xValue);
 
     }

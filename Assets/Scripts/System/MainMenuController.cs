@@ -17,6 +17,7 @@ public class MainMenuController : MonoBehaviour
     public ID_OptionsMenu OptionsMenu;
 
     private SceneFadeTransition GetSceneFade;
+    public string LevelNameToLoad = "";
 
     void Awake()
     {
@@ -75,7 +76,7 @@ public class MainMenuController : MonoBehaviour
     {
         Destroy(MusicPlayerGO);
         //Destroy(GameManagerGO);
-        GetSceneFade.FadeToLevelByString("TestLevel");
+        GetSceneFade.FadeToLevelByString(LevelNameToLoad);
         //SceneManager.LoadScene("TestLevel");
 
     }

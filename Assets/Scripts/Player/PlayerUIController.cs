@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -16,44 +16,41 @@ public class PlayerUIController : MonoBehaviour
 
     private ID_PlayerHealthSlider healthBar;
     private ID_PlayerAragonSlider aragonBar;
-    private GameObject interactText;
-    private bool bShowInteractText;
+    private ID_InteractText interactText;
+    public bool bShowInteractText;
     private GameObject optionsMenu;
     private Player GetPlayer;
-  
+
     private GameInstance GetGameInstance;
     private SaveManager GetSaveManager;
     private HealthTextScript healthText;
-
-
-  
+    public UnityEvent showInteractEvent = new UnityEvent();
 
     // Start is called before the first frame update
     void Start()
     {
+        GetGameInstance = FindObjectOfType<GameInstance>();
+        GetTouchUI = FindObjectOfType<ID_TouchUI>();
         GetPlayer = FindObjectOfType<Player>();
         pCon = FindObjectOfType<InputSystem_PlayerController>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
+        showInteractEvent.AddListener(ToggleInteractText);
         CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
         aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
         healthText = FindObjectOfType<HealthTextScript>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
-        interactText = FindObjectOfType<ID_InteractText>().gameObject;
-        GetTouchUI = FindObjectOfType<ID_TouchUI>();
+        interactText = FindObjectOfType<ID_InteractText>();
         TouchControlGO = GetTouchUI.gameObject;
-        GetGameInstance = FindObjectOfType<GameInstance>();
-        GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
-        if (GetGameInstance.bIsRunningOnMobile)
+
+        if (GetGameInstance)
         {
-            TouchControlGO.SetActive(true);
+            GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
         }
-        else
-        {
-            TouchControlGO.SetActive(false);
-        }
-     
+
+
+
         PauseMenu = pCon.PauseMenuGO;
         if (PauseMenu)
         {
@@ -63,25 +60,38 @@ public class PlayerUIController : MonoBehaviour
         {
             CharMenu.SetActive(false);
         }
-        if (optionsMenu)
+        if(optionsMenu)
         {
             optionsMenu.SetActive(false);
         }
-        if (interactText)
+
+
+
+        if (GetGameInstance.bIsRunningOnMobile)
         {
-            interactText.SetActive(false);
+            if (TouchControlGO)
+            {
+                TouchControlGO.SetActive(true);
+            }
+            else
+            {
+                TouchControlGO.SetActive(false);
+            }
         }
-        // if (healthBar && styleSliderScript)
-        // {
-        //     UpdateUIData();
-        // }
+
     }
+
 
     private void Update()
     {
         if (!styleSliderScript)
         {
             styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        }
+        if (!GetGameInstance)
+        {
+            GetGameInstance = FindObjectOfType<GameInstance>();
+            GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
         }
     }
 
@@ -116,25 +126,25 @@ public class PlayerUIController : MonoBehaviour
             pCon.PauseGame();
 
         }
-        if (optionsMenu)
-        {
-            if (!optionsMenu.activeSelf)
-            {
-                optionsMenu.SetActive(true);
-            }
-        }
+        // if (optionsMenu)
+        // {
+        //     if (!optionsMenu.activeSelf)
+        //     {
+        //         optionsMenu.SetActive(true);
+        //     }
+        // }
 
     }
 
     public void HideOptions()
     {
-        if (optionsMenu)
-        {
-            if (optionsMenu.activeSelf)
-            {
-                optionsMenu.SetActive(false);
-            }
-        }
+        // if (optionsMenu)
+        // {
+        //     if (optionsMenu.activeSelf)
+        //     {
+        //         optionsMenu.SetActive(false);
+        //     }
+        // }
         pCon.ShowMenu(PauseMenu);
     }
 
@@ -164,17 +174,22 @@ public class PlayerUIController : MonoBehaviour
 
     public void ToggleInteractText()
     {
-        bShowInteractText = !bShowInteractText;
         if (interactText)
         {
             if (bShowInteractText)
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText", true);
+                interactText.myAnimator.SetBool("bShowText", true);
             }
             else
             {
-                interactText.GetComponent<Animator>().SetBool("bShowText", false);
+                interactText.myAnimator.SetBool("bShowText", false);
             }
         }
+    }
+
+    public void OnPointerUpdate(InputAction.CallbackContext context)
+    {
+        var moveValue = context.ReadValue<Vector2>();
+        // Debug.Log(moveValue);
     }
 }

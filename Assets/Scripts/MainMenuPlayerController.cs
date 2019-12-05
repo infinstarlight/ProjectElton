@@ -20,6 +20,16 @@ public class MainMenuPlayerController : MonoBehaviour
         currentTouchscreen = Touchscreen.current;
     }
 
+    private void OnEnable()
+    {
+
+    }
+
+    private void OnDisable()
+    {
+        DisableControls();
+    }
+
 
     void EnableControls()
     {
@@ -32,9 +42,28 @@ public class MainMenuPlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
         myControls.ui.Enable();
-        myControls.ui.Pointer.Enable();
+        myControls.ui.Point.Enable();
+        myControls.ui.Navigate.Enable();
         myControls.ui.Submit.Enable();
         myControls.ui.Cancel.Enable();
         myControls.ui.Click.Enable();
+        myControls.ui.RightClick.Enable();
+        myControls.ui.MiddleClick.Enable();
+        myControls.ui.ScrollWheel.Enable();
+    }
+
+    void DisableControls()
+    {
+
+        Cursor.lockState = CursorLockMode.Locked;
+        myControls.ui.Disable();
+        myControls.ui.Point.Disable();
+        myControls.ui.Navigate.Disable();
+        myControls.ui.Submit.Disable();
+        myControls.ui.Cancel.Disable();
+        myControls.ui.Click.Disable();
+        myControls.ui.RightClick.Disable();
+        myControls.ui.MiddleClick.Disable();
+        myControls.ui.ScrollWheel.Disable();
     }
 }

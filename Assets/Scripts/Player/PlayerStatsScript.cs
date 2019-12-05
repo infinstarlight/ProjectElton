@@ -47,7 +47,7 @@ public class PlayerStatsScript : MonoBehaviour
     private bool bStartHealthRegen = false;
     public UnityEvent activateSpecialEvent = new UnityEvent();
     public UnityEvent deactivateSpecialEvent = new UnityEvent();
-      public UnityEventWithFloat modPowerEvent = new UnityEventWithFloat();
+    public UnityEventWithFloat modPowerEvent = new UnityEventWithFloat();
 
 
     void Awake()
@@ -72,9 +72,10 @@ public class PlayerStatsScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        updateDataEvent.AddListener(GetPlayerUI.UpdateUIData);
         activateSpecialEvent.AddListener(ActivateSpecialAbility);
         deactivateSpecialEvent.AddListener(DeactivateSpecialAbilty);
-        updateDataEvent.AddListener(GetPlayerUI.UpdateUIData);
+
         modPowerEvent.AddListener(RecoverPower);
         if (Debug.isDebugBuild || Application.isEditor)
         {
@@ -168,7 +169,7 @@ public class PlayerStatsScript : MonoBehaviour
     public void RecoverPower(float modAmount)
     {
         CurrentPower += modAmount;
-        if(CurrentPower >= MaxPower)
+        if (CurrentPower >= MaxPower)
         {
             CurrentPower = MaxPower;
         }
@@ -190,7 +191,7 @@ public class PlayerStatsScript : MonoBehaviour
     void DeactivateSpecialAbilty()
     {
         bStartPower = false;
-          if (currentSpecialAbility == ESpecialAbility.SlowTime)
+        if (currentSpecialAbility == ESpecialAbility.SlowTime)
         {
             DeactivateSlowTime();
         }

@@ -39,14 +39,15 @@ public class LoadingDoorScript : MonoBehaviour
         myAnimator = GetComponent<Animator>();
         GetAudio = GetComponent<AudioSource>();
         GetDoor = GetComponentInChildren<ID_LoadDoor>();
-        GetRenderer = GetDoor.gameObject.GetComponent<MeshRenderer>();
-        startMaterial = GetRenderer.material;
+
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        GetRenderer = GetDoor.gameObject.GetComponent<MeshRenderer>();
+        startMaterial = GetRenderer.material;
         doorOpenEvent.AddListener(OpenDoor);
         doorCloseEvent.AddListener(CloseDoor);
         doorUnlockEvent.AddListener(UnlockDoor);
@@ -268,10 +269,7 @@ public class LoadingDoorScript : MonoBehaviour
         if (bIsLocked)
         {
             bIsLocked = false;
-            if (GetRenderer.material != startMaterial)
-            {
-                GetRenderer.material = startMaterial;
-            }
+            GetRenderer.material = startMaterial;
             OpenDoor();
         }
     }
