@@ -49,6 +49,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     private float oldMovementSpeed = 0.0f;
     private bool bIsDashCooldownRunning = false;
     public static CapsuleCollider myCollider;
+    private float playerMovementSpeedMod = 0.0f;
 
 
     void Awake()
@@ -65,6 +66,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
     {
         oldMovementSpeed = MovementSpeed;
         playerStats.currentCharacterAction = PlayerStatsScript.ECharacterActions.Dash;
+        playerMovementSpeedMod = playerStats.player.MovementMultiplier;
     }
 
     // Update is called once per frame
@@ -217,12 +219,12 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
 
     public void MoveRight(float inputValue)
     {
-        strafe = inputValue * MovementSpeed * Time.deltaTime;
+        strafe = inputValue * MovementSpeed * playerMovementSpeedMod * Time.deltaTime;
     }
 
     public void MoveUp(float inputValue)
     {
-        translation = inputValue * MovementSpeed * Time.deltaTime;
+        translation = inputValue * MovementSpeed * playerMovementSpeedMod * Time.deltaTime;
     }
 
 

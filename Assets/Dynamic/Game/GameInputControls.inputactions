@@ -70,6 +70,14 @@
                     "interactions": "Press"
                 },
                 {
+                    "name": "Support Ability",
+                    "type": "Button",
+                    "id": "0dc3e491-2c4b-4384-9d86-00b6c6d6a902",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "0f6b9c69-6b37-49f3-a1a7-6976b1b91c86",
@@ -533,6 +541,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71a2e37a-5d8c-4e1f-a1d0-5ef8b7223d02",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Support Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bfb6653d-b7ea-4494-88ee-cdbe2dd5af73",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Support Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 [RequireComponent(typeof(CharacterStats))]
 [RequireComponent(typeof(AudioSource))]
 public class Character : MonoBehaviour, IKillable, IDamageable<float>
@@ -13,7 +14,10 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
     public bool bShouldDestroyOnDeath;
 
     public float DestroyDelay = 2.0f;
-    public UnityEventWithFloat damageEvent = new UnityEventWithFloat();
+    public float MovementMultiplier = 1.0f;
+    public float MovementMultiplierMod = 0.0f;
+    public UnityFloatEvent damageEvent = new UnityFloatEvent();
+    public UnityEAmmoEvent damageProcessEvent = new UnityEAmmoEvent();
     
 
     public void Awake()
@@ -22,7 +26,10 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
         source = GetComponent<AudioSource>();
     }
 
-   
+    private void Start() 
+    {
+        damageProcessEvent.AddListener(DamageProcessor);
+    }
 
 
     public void OnDeath()
@@ -51,13 +58,58 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
                 source.PlayOneShot(source.clip);
             }
             characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
-
+            
             if (characterStats.CurrentHealth <= 0)
             {
                 characterStats.bIsDead = true;
                 //OnDeath();
             }
         }
+    }
+
+    public virtual void OnFreezeEvent()
+    {
+        StartCoroutine(FreezeTimer());
+    }
+
+    public void DamageProcessor(EAmmoType damageType)
+    {
+        switch(damageType)
+        {
+            case EAmmoType.Standard:
+            {
+
+            }
+            break;
+            case EAmmoType.Ice:
+            {
+                if(MovementMultiplier >= 0)
+                {
+                    MovementMultiplier -= MovementMultiplierMod;
+                }
+                if(MovementMultiplier <= 0)
+                {
+                    OnFreezeEvent();
+                }
+            }
+            break;
+        }
+    }
+
+    IEnumerator FreezeTimer()
+    {
+        while(MovementMultiplier < 1.0f)
+        {
+            MovementMultiplier += 0.01f;
+             yield return new WaitForSeconds(0.50f);
+        }
+        if(MovementMultiplier >= 1.0f)
+        {
+            MovementMultiplier = 1.0f;
+            StopCoroutine(FreezeTimer());
+        }
+
+        yield return null;
     }
 
 }

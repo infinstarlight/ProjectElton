@@ -613,7 +613,7 @@ LineRenderer:
     textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!1 &254495691306527415
 GameObject:
@@ -661,6 +661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myVector: {x: 0, y: 15, z: 0}
+  RotateSpeed: 1
 --- !u!1 &3165489380812610362
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,7 +813,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0045b54ad9b19a340bc5c970c88f41ee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -894,15 +895,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366ae40019a195e4e8502fd01047f52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentHealth: 0
+  MaxHealth: 800
   myShield: {fileID: 0}
   GetActiveTurretShields:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   GetDisabledTurretShields: []
-  CurrentHealth: 0
-  MaxHealth: 800
   bIsDead: 0
+  bHasShield: 1
+  bIsMajorEnemy: 1
 --- !u!82 &645040194403862286
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1070,7 +1073,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 6dd36a66af0374e45a632119a41abbcb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

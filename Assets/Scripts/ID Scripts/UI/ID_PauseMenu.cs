@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class ID_PauseMenu : MonoBehaviour
 {
-    
+    private void Start()
+    {
+
+    }
 }

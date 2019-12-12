@@ -21,7 +21,7 @@ public class PlayerStatsScript : MonoBehaviour
         Berserk
     }
     public CharacterStats pcStats;
-    private Player player;
+    public Player player;
     public ECharacterActions currentCharacterAction;
     public ESpecialAbility currentSpecialAbility;
 
@@ -47,7 +47,9 @@ public class PlayerStatsScript : MonoBehaviour
     private bool bStartHealthRegen = false;
     public UnityEvent activateSpecialEvent = new UnityEvent();
     public UnityEvent deactivateSpecialEvent = new UnityEvent();
-    public UnityEventWithFloat modPowerEvent = new UnityEventWithFloat();
+    public static UnityEvent toggleGodModeEvent = new UnityEvent();
+    public UnityFloatEvent modPowerEvent = new UnityFloatEvent();
+    private bool bEnableGodMode = false;
 
 
     void Awake()
@@ -62,11 +64,14 @@ public class PlayerStatsScript : MonoBehaviour
 
     }
 
+
+
     private void OnDisable()
     {
         activateSpecialEvent.RemoveAllListeners();
         deactivateSpecialEvent.RemoveAllListeners();
         updateDataEvent.RemoveAllListeners();
+        toggleGodModeEvent.RemoveAllListeners();
     }
 
     // Start is called before the first frame update
@@ -75,6 +80,7 @@ public class PlayerStatsScript : MonoBehaviour
         updateDataEvent.AddListener(GetPlayerUI.UpdateUIData);
         activateSpecialEvent.AddListener(ActivateSpecialAbility);
         deactivateSpecialEvent.AddListener(DeactivateSpecialAbilty);
+        toggleGodModeEvent.AddListener(ToggleGodMode);
 
         modPowerEvent.AddListener(RecoverPower);
         if (Debug.isDebugBuild || Application.isEditor)
@@ -135,11 +141,11 @@ public class PlayerStatsScript : MonoBehaviour
 
     void ActivateSlowTime()
     {
-        Time.timeScale = SlowTimeAmount;
+        GetPlayerController.GetGameInstance.adjustTimeEvent.Invoke(SlowTimeAmount);
     }
     void DeactivateSlowTime()
     {
-        Time.timeScale = 1;
+        GetPlayerController.GetGameInstance.adjustTimeEvent.Invoke(1.0f);
     }
 
 
@@ -199,6 +205,22 @@ public class PlayerStatsScript : MonoBehaviour
         {
             DeactivateAragon();
         }
+    }
+
+    void ToggleGodMode()
+    {
+        bEnableGodMode = !bEnableGodMode;
+        if (bEnableGodMode)
+        {
+            Debug.Log("God mode enabled");
+            pcStats.bCanTakeDamage = false;
+        }
+        else
+        {
+            Debug.Log("God mode disabled");
+            pcStats.bCanTakeDamage = false;
+        }
+
     }
 
 }

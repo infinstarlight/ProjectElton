@@ -16,8 +16,11 @@ public enum EAmmoType
 {
     None,
     Standard,
-    Acidic,
+    Fire,
+    Acid,
     Ice,
+    Explosive,
+
 
 }
 [RequireComponent(typeof(AudioSource))]
@@ -122,9 +125,11 @@ public class Weapon : MonoBehaviour
                     hitObject = hit.collider.gameObject;
                     if (bIsPlayerWeapon)
                     {
+
                         if (hitObject.GetComponent<Enemy>())
                         {
                             hitObject.GetComponent<Enemy>().damageEvent.Invoke(DamageAmount);
+                            hitObject.GetComponent<Character>().damageProcessEvent.Invoke(MyAmmoType);
                         }
                         if (hitObject.GetComponentInChildren<ID_LoadDoor>())
                         {
@@ -154,7 +159,8 @@ public class Weapon : MonoBehaviour
                         if (hitObject.GetComponent<Player>())
                         {
 
-                            hitObject.SendMessage("PlayerDamageTaken", DamageAmount);
+                            hitObject.GetComponent<Player>().damageEvent.Invoke(DamageAmount);
+                            hitObject.GetComponent<Character>().damageProcessEvent.Invoke(MyAmmoType);
                         }
                     }
 

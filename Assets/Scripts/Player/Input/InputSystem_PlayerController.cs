@@ -1,7 +1,9 @@
 ﻿using UnityEngine.Events;
 using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem.Interactions;
+using Popcron.Console;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -43,9 +45,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
     private Gamepad currentGamepad;
-    //private Touchscreen currentTouchscreen;
     private SaveManager GetSaveManager;
-    private GameInstance GetGameInstance;
+    public GameInstance GetGameInstance;
     public AudioClip[] interactSounds;
     private AudioSource source;
     [SerializeField]
@@ -58,19 +59,18 @@ public class InputSystem_PlayerController : MonoBehaviour
     public UnityEvent DisableGameInputEvent = new UnityEvent();
     public UnityEvent EnableUIInputEvent = new UnityEvent();
     public UnityEvent DisableUIInputEvent = new UnityEvent();
+    public UnityEvent PauseGameEvent = new UnityEvent();
     private bool bActivateSpecial = false;
     public InputAction ToggleMouseStateAction;
     private bool bEnable;
     private PlayerInput GetPlayerInput;
+    private Sequence satSequence;
 
-    void OnDisable()
+    [Alias("gm")]
+    [Command("GodMode")]
+    public static void GodMode()
     {
-        DisableGameControls();
-        EnableGameInputEvent.RemoveAllListeners();
-        DisableGameInputEvent.RemoveAllListeners();
-        EnableUIInputEvent.RemoveAllListeners();
-        DisableUIInputEvent.RemoveAllListeners();
-        ToggleMouseStateAction.Disable();
+        PlayerStatsScript.toggleGodModeEvent.Invoke();
     }
 
     void ToggleMouseState(InputAction.CallbackContext context)
@@ -99,7 +99,6 @@ public class InputSystem_PlayerController : MonoBehaviour
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         uiController = FindObjectOfType<PlayerUIController>();
-        
         GetSaveManager = FindObjectOfType<SaveManager>();
         source = GetComponent<AudioSource>();
         playerCamera = Camera.main;
@@ -119,10 +118,23 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-
+        Parser.Register(this, "player");
         EnableUIControls();
         ToggleMouseStateAction.Enable();
     }
+
+    void OnDisable()
+    {
+        DisableGameControls();
+        EnableGameInputEvent.RemoveAllListeners();
+        DisableGameInputEvent.RemoveAllListeners();
+        EnableUIInputEvent.RemoveAllListeners();
+        DisableUIInputEvent.RemoveAllListeners();
+        PauseGameEvent.RemoveAllListeners();
+        ToggleMouseStateAction.Disable();
+        Parser.Unregister(this);
+    }
+
 
 
     void Start()
@@ -131,8 +143,18 @@ public class InputSystem_PlayerController : MonoBehaviour
         DisableGameInputEvent.AddListener(DisableGameControls);
         EnableUIInputEvent.AddListener(EnableUIControls);
         DisableUIInputEvent.AddListener(DisableUIControls);
-        PauseMenuGO.SetActive(false);
+        PauseGameEvent.AddListener(PauseGame);
+
         currentKeyboard = Keyboard.current;
+        satSequence = DOTween.Sequence();
+        if (PauseMenuGO)
+        {
+            PauseMenuGO.SetActive(false);
+        }
+        if(CharMenuGO)
+        {
+            CharMenuGO.SetActive(false);
+        }
     }
 
     void Update()
@@ -234,7 +256,6 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             myControls = new GameInputControls();
         }
-        Time.timeScale = 1;
         bEnableGameInput = true;
         myControls.gameplay.Move.performed += rbMovement.OnMoveUpdate;
         myControls.gameplay.Pause.performed += OnGamePause;
@@ -255,9 +276,11 @@ public class InputSystem_PlayerController : MonoBehaviour
         myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
         myControls.gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
         myControls.gameplay.SpecialAbility.performed += OnActivateSP;
+        myControls.gameplay.SpecialAbility.canceled += OnActivateSP;
         myControls.gameplay.Enable();
-         Cursor.lockState = CursorLockMode.Locked;
-       
+        myControls.gameplay.Pause.Enable();
+        Cursor.lockState = CursorLockMode.Locked;
+
         InputSystem.pollingFrequency = 120;
 
         myControls.gameplay.Move.performed += context => LeftStickValue = context.ReadValue<Vector2>();
@@ -320,6 +343,30 @@ public class InputSystem_PlayerController : MonoBehaviour
         ActivateSpecial();
     }
 
+    public void OnActivateSupport(InputAction.CallbackContext context)
+    {
+        switch (context.phase)
+        {
+            case InputActionPhase.Performed:
+                {
+                    cameraLook.OnScanActivate();
+                }
+
+                break;
+
+            case InputActionPhase.Started:
+                {
+                  
+                }
+                break;
+            case InputActionPhase.Canceled:
+                {
+                  
+                }
+                break;
+        }
+    }
+
     void ToggleSpecial()
     {
         bActivateSpecial = !bActivateSpecial;
@@ -351,7 +398,8 @@ public class InputSystem_PlayerController : MonoBehaviour
         if (bIsGamePaused)
         {
             EnableUIControls();
-            Time.timeScale = 0.0f;
+            GetGameInstance.adjustTimeEvent.Invoke(0.0f);
+
 
         }
         else
@@ -361,7 +409,7 @@ public class InputSystem_PlayerController : MonoBehaviour
                 DisableUIControls();
             }
 
-            Time.timeScale = 1.0f;
+            GetGameInstance.adjustTimeEvent.Invoke(1.0f);
         }
     }
 

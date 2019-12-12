@@ -83,6 +83,14 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""interactions"": ""Press""
                 },
                 {
+                    ""name"": ""Support Ability"",
+                    ""type"": ""Button"",
+                    ""id"": ""0dc3e491-2c4b-4384-9d86-00b6c6d6a902"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""0f6b9c69-6b37-49f3-a1a7-6976b1b91c86"",
@@ -548,6 +556,28 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71a2e37a-5d8c-4e1f-a1d0-5ef8b7223d02"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Support Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfb6653d-b7ea-4494-88ee-cdbe2dd5af73"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Support Ability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -906,6 +936,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         m_gameplay_Sprint = m_gameplay.FindAction("Sprint", throwIfNotFound: true);
         m_gameplay_Dash = m_gameplay.FindAction("Dash", throwIfNotFound: true);
         m_gameplay_SpecialAbility = m_gameplay.FindAction("Special Ability", throwIfNotFound: true);
+        m_gameplay_SupportAbility = m_gameplay.FindAction("Support Ability", throwIfNotFound: true);
         m_gameplay_Pause = m_gameplay.FindAction("Pause", throwIfNotFound: true);
         m_gameplay_CharacterMenu = m_gameplay.FindAction("Character Menu", throwIfNotFound: true);
         m_gameplay_SelectWeaponOne = m_gameplay.FindAction("Select Weapon One", throwIfNotFound: true);
@@ -983,6 +1014,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     private readonly InputAction m_gameplay_Sprint;
     private readonly InputAction m_gameplay_Dash;
     private readonly InputAction m_gameplay_SpecialAbility;
+    private readonly InputAction m_gameplay_SupportAbility;
     private readonly InputAction m_gameplay_Pause;
     private readonly InputAction m_gameplay_CharacterMenu;
     private readonly InputAction m_gameplay_SelectWeaponOne;
@@ -1005,6 +1037,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         public InputAction @Sprint => m_Wrapper.m_gameplay_Sprint;
         public InputAction @Dash => m_Wrapper.m_gameplay_Dash;
         public InputAction @SpecialAbility => m_Wrapper.m_gameplay_SpecialAbility;
+        public InputAction @SupportAbility => m_Wrapper.m_gameplay_SupportAbility;
         public InputAction @Pause => m_Wrapper.m_gameplay_Pause;
         public InputAction @CharacterMenu => m_Wrapper.m_gameplay_CharacterMenu;
         public InputAction @SelectWeaponOne => m_Wrapper.m_gameplay_SelectWeaponOne;
@@ -1048,6 +1081,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @SpecialAbility.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
                 @SpecialAbility.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
                 @SpecialAbility.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSpecialAbility;
+                @SupportAbility.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSupportAbility;
+                @SupportAbility.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSupportAbility;
+                @SupportAbility.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSupportAbility;
                 @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
                 @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
@@ -1106,6 +1142,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @SpecialAbility.started += instance.OnSpecialAbility;
                 @SpecialAbility.performed += instance.OnSpecialAbility;
                 @SpecialAbility.canceled += instance.OnSpecialAbility;
+                @SupportAbility.started += instance.OnSupportAbility;
+                @SupportAbility.performed += instance.OnSupportAbility;
+                @SupportAbility.canceled += instance.OnSupportAbility;
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
@@ -1266,6 +1305,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnSprint(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnSpecialAbility(InputAction.CallbackContext context);
+        void OnSupportAbility(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnCharacterMenu(InputAction.CallbackContext context);
         void OnSelectWeaponOne(InputAction.CallbackContext context);

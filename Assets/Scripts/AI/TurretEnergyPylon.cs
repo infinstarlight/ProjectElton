@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretShield : MonoBehaviour, IDamageable<float>
+public class TurretEnergyPylon : MonoBehaviour, IDamageable<float>
 {
     public float CurrentHealth = 0.0f;
     public float MaxHealth = 5.0f;
@@ -55,7 +54,7 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
             bIsDisabled = true;
             myRenderer.material = hitMaterial;
             SpawnRandomPickup();
-            GetTurret.CheckShield(this);
+            GetTurret.CheckPylon(this);
         }
     }
 
@@ -70,30 +69,28 @@ public class TurretShield : MonoBehaviour, IDamageable<float>
         {
             nextFire = Time.unscaledTime + energyRegenRate;
             ++CurrentHealth;
+            Debug.Log(gameObject.name + " current health is: " + CurrentHealth);
             if (CurrentHealth >= MaxHealth)
             {
-                GetTurret.CheckShield(this);
+                GetTurret.CheckPylon(this);
                 myRenderer.material = startMaterial;
                 bIsDisabled = false;
             }
         }
     }
 
-    IEnumerator RegenEnergy()
+    public void DamageProcessor(EAmmoType damageType)
     {
-        yield return new WaitForSeconds(ShieldRenableDelay);
-        if (bIsDisabled)
+        switch (damageType)
         {
-            ++CurrentHealth;
+            case EAmmoType.Standard:
+                {
 
+                }
+                break;
         }
-        if (CurrentHealth >= MaxHealth)
-        {
-            GetTurret.SendMessage("CheckShield", this);
-            myRenderer.material = startMaterial;
-            bIsDisabled = false;
-            StopCoroutine(RegenEnergy());
-        }
-
     }
+
+
+
 }

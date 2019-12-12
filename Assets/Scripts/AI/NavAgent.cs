@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-[RequireComponent(typeof(Rigidbody), typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class NavAgent : MonoBehaviour
 {
 
@@ -38,9 +38,6 @@ public class NavAgent : MonoBehaviour
                 }
             }
         }
-
-
-        //newTravelPosition = navPoints[NavIndex].transform.position;
 
     }
 

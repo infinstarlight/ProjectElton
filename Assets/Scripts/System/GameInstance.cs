@@ -40,6 +40,10 @@ public class GameInstance : MonoBehaviour
     public bool bIsReturningToMainMenu = false;
     public bool bIsRunningOnMobile = false;
     private static BGM_Player GetBGMPlayer;
+    //Custom variable for managing Time scale
+    public float GlobalTimeScale = 1.0f;
+    [HideInInspector]
+    public UnityFloatEvent adjustTimeEvent = new UnityFloatEvent();
 
 
     void Awake()
@@ -56,11 +60,11 @@ public class GameInstance : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        //GetPlayerConfig = GetComponentInChildren<PlayerConfig>();
         GetPlayer = FindObjectOfType<Player>();
         playerUI = FindObjectOfType<ID_PlayerUI>();
         GetBGMPlayer = FindObjectOfType<BGM_Player>();
         Console.Initialize();
+
         DOTween.Init();
     }
 
@@ -116,12 +120,36 @@ public class GameInstance : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        adjustTimeEvent.AddListener(AdjustTimeScale);
+    }
+
+    private void Update()
+    {
+        if (Console.Open)
+        {
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = GlobalTimeScale;
+        }
+    }
+
+    public void AdjustTimeScale(float newValue)
+    {
+        GlobalTimeScale = newValue;
+        Time.timeScale = GlobalTimeScale;
+    }
+
     // called when the game is terminated
     void OnDisable()
     {
         // Debug.Log("OnDisable");
         SceneManager.sceneLoaded -= OnSceneLoaded;
         Parser.Unregister(this);
+        adjustTimeEvent.RemoveAllListeners();
     }
 
 

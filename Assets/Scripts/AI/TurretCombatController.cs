@@ -15,28 +15,17 @@ public class TurretCombatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // GetLine = GetComponent<LineRenderer>();
-        // GetLine.enabled = false;
+        GetLine = GetComponent<LineRenderer>();
+        GetLine.enabled = false;
     }
-
-
-    private void FixedUpdate()
+    private void Update()
     {
-
-
         if (Time.time > visionNextFire)
         {
             visionNextFire = Time.time + visionPollRate;
             Fire();
-
-
         }
     }
-
-
-
-
-
     void Fire()
     {
         GameObject hitObject = null;
@@ -48,14 +37,15 @@ public class TurretCombatController : MonoBehaviour
         {
             if (hit.collider)
             {
-                // GetLine.enabled = true;
-                // GetLine.SetPosition(0, weaponRay.origin);
-                // GetLine.SetPosition(1, hitObject.transform.position);
+                GetLine.enabled = true;
+                GetLine.SetPosition(0, weaponRay.origin);
+                
                 hitObject = hit.collider.gameObject;
 
                 {
                     if (hitObject.GetComponent<Player>())
                     {
+                        GetLine.SetPosition(1, hitObject.transform.position);
                         if (projGO)
                         {
                             Instantiate(projGO, transform.position, transform.rotation);

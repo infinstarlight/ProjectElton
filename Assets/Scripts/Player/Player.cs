@@ -56,18 +56,13 @@ public class Player : Character
 
     public void PlayerDamageTaken(float damageTaken)
     {
-        if (characterStats.bCanTakeDamage)
+        base.OnDamageApplied(damageTaken);
+        if (hurtClips.Length > 0)
         {
-            characterStats.CurrentHealth -= damageTaken;
-            PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
             playerSource.clip = hurtClips[Random.Range(0, hurtClips.Length)];
             playerSource.PlayOneShot(playerSource.clip);
-            if (characterStats.CurrentHealth <= 0)
-            {
-                characterStats.bIsDead = true;
-                OnPlayerDeath();
-            }
         }
+        PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
         PlayerStats.updateDataEvent.Invoke();
         pCon.playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }

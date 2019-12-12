@@ -19,8 +19,8 @@ public class PlayerStateScript : MonoBehaviour
     public float StyleModAmount;
     private ID_StyleImage styleImageScript;
     private ID_StyleSlider styleSliderScript;
-    public UnityEventWithFloat styleModEvent;
-    public UnityEventWithFloat playerDamageStyleEvent;
+    public UnityFloatEvent styleModEvent;
+    public UnityFloatEvent playerDamageStyleEvent;
     // Start is called before the first frame update
     void Start()
     {

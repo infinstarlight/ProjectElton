@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Character, ITracker
+public class Enemy : Character
 {
     public float StyleModAmount = 1.0f;
     public float PowerModAmount = 0.1f;
     private PlayerStateScript playerState;
 
     private AIControllerBase AIController;
+    private AINavController GetAINav;
     public EnemyUIController enemyUIController;
-    private NavPoint playerNavPoint;
+   
     public GameObject AI_Weapon;
     private EnemyWeapon myWeapon;
 
@@ -31,7 +32,7 @@ public class Enemy : Character, ITracker
         itemsGO[1] = null;
         enemyHealthBar = GetComponentInChildren<ID_EnemyHealthBar>();
 
-
+        GetAINav = GetComponentInChildren<AINavController>();
         AIController = GetComponentInChildren<AIControllerBase>();
         enemyUIController = GetComponentInChildren<EnemyUIController>();
         //        playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
@@ -49,10 +50,7 @@ public class Enemy : Character, ITracker
 
     private void Update()
     {
-        if (!playerNavPoint)
-        {
-            playerNavPoint = FindObjectOfType<Player>().gameObject.GetComponentInChildren<NavPoint>();
-        }
+       
         if (!playerState)
         {
             playerState = FindObjectOfType<PlayerStateScript>();
@@ -67,42 +65,22 @@ public class Enemy : Character, ITracker
                     AI_Weapon.GetComponent<EnemyWeapon>().StartCoroutine(AI_Weapon.GetComponent<EnemyWeapon>().AIFire());
                 }
             }
-            else
-            {
-                if (AIController.bIsHumanoid)
-                {
-                    if (AIController.myNavAgent.myNavPoints.Contains(playerNavPoint))
-                    {
-                        AIController.myNavAgent.myNavPoints.Remove(playerNavPoint);
-                    }
-                }
-
-            }
+            
         }
 
     }
-    public void OnTrackTarget()
-    {
-        if (AIController)
-        {
-            AIController.myNavAgent.bIsTrackingPlayer = true;
-            AIController.myNavAgent.myNavPoints.Add(playerNavPoint);
-            AIController.myNavMeshAgent.SetDestination(playerNavPoint.transform.position);
-        }
 
-
-    }
 
     public void OnEnemyDamageApplied(float damageTaken)
     {
         base.OnDamageApplied(damageTaken);
         if (characterStats.bCanTakeDamage)
         {
-            OnTrackTarget();
+            GetAINav.trackPlayerEvent.Invoke();
             AIEventManager.TriggerEvent("Damage");
             enemyHealthBar.healthBar.value = characterStats.healthPercentage;
             playerState.styleModEvent.Invoke(StyleModAmount);
-            playerState.SendMessageUpwards("RecoverPower", PowerModAmount);
+            //playerState.SendMessageUpwards("RecoverPower", PowerModAmount);
 
             if (characterStats.CurrentHealth <= 0)
             {

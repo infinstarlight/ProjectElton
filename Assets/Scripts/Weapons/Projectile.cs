@@ -60,7 +60,7 @@ public class Projectile : MonoBehaviour
                 {
                     hitObject.SendMessage("PlayerDamageTaken", DamageAmount);
                 }
-                if (hitObject.GetComponent<TurretShield>())
+                if (hitObject.GetComponent<TurretEnergyPylon>())
                 {
                     hitObject.SendMessage("OnDamageApplied", DamageAmount);
 
@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
         Instantiate(explosionGO, transform.position, transform.rotation);
         source.PlayOneShot(source.clip);
        
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 2f);
     }
 
 

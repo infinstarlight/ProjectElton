@@ -158,20 +158,20 @@ QualitySettings:
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.06666667, y: 0.19999999, z: 0.46666664}
     shadowmaskMode: 0
-    skinWeights: 1
+    skinWeights: 4
     textureQuality: 0
     anisotropicTextures: 1
     antiAliasing: 0
     softParticles: 0
     softVegetation: 1
-    realtimeReflectionProbes: 1
-    billboardsFaceCameraPosition: 1
+    realtimeReflectionProbes: 0
+    billboardsFaceCameraPosition: 0
     vSyncCount: 1
     lodBias: 2
     maximumLODLevel: 0
     streamingMipmapsActive: 1
     streamingMipmapsAddAllCameras: 1
-    streamingMipmapsMemoryBudget: 512
+    streamingMipmapsMemoryBudget: 1024
     streamingMipmapsRenderersPerFrame: 512
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
@@ -180,9 +180,7 @@ QualitySettings:
     asyncUploadBufferSize: 4
     asyncUploadPersistentBuffer: 0
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - Android
-    - WebGL
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Ultra
     pixelLightCount: 2
@@ -208,7 +206,7 @@ QualitySettings:
     maximumLODLevel: 0
     streamingMipmapsActive: 1
     streamingMipmapsAddAllCameras: 1
-    streamingMipmapsMemoryBudget: 1024
+    streamingMipmapsMemoryBudget: 2048
     streamingMipmapsRenderersPerFrame: 1024
     streamingMipmapsMaxLevelReduction: 2
     streamingMipmapsMaxFileIORequests: 1024
@@ -217,9 +215,7 @@ QualitySettings:
     asyncUploadBufferSize: 4
     asyncUploadPersistentBuffer: 0
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - WebGL
-    - Android
+    excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Ultimate
     pixelLightCount: 2
@@ -233,28 +229,29 @@ QualitySettings:
     shadowCascade4Split: {x: 0.06666667, y: 0.19999999, z: 0.46666664}
     shadowmaskMode: 0
     skinWeights: 255
-    textureQuality: 1
-    anisotropicTextures: 0
+    textureQuality: 0
+    anisotropicTextures: 2
     antiAliasing: 0
     softParticles: 0
     softVegetation: 1
-    realtimeReflectionProbes: 0
+    realtimeReflectionProbes: 1
     billboardsFaceCameraPosition: 0
     vSyncCount: 1
     lodBias: 2
     maximumLODLevel: 0
     streamingMipmapsActive: 1
     streamingMipmapsAddAllCameras: 1
-    streamingMipmapsMemoryBudget: 2048
+    streamingMipmapsMemoryBudget: 4096
     streamingMipmapsRenderersPerFrame: 2048
     streamingMipmapsMaxLevelReduction: 2
-    streamingMipmapsMaxFileIORequests: 2048
+    streamingMipmapsMaxFileIORequests: 1024
     particleRaycastBudget: 512
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     asyncUploadPersistentBuffer: 0
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms:
-    - WebGL
-    - Android
-  m_PerPlatformDefaultQuality: {}
+    excludedTargetPlatforms: []
+  m_PerPlatformDefaultQuality:
+    Android: 0
+    Standalone: 0
+    Windows Store Apps: 0

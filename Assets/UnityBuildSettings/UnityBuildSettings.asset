@@ -15,7 +15,7 @@ MonoBehaviour:
   actionType: 1
   actionName: UploadItch
   note: 
-  actionEnabled: 1
+  actionEnabled: 0
   filter:
     condition: 0
     clauses: []
@@ -42,8 +42,8 @@ MonoBehaviour:
     buildPath: $YEAR-$MONTH-$DAY/$BUILD/$RELEASE_TYPE/$PLATFORM/$ARCHITECTURE/$DISTRIBUTION
     openFolderPostBuild: 1
   _productParameters:
-    buildCounter: 0
-    lastGeneratedVersion: 1.0.72.917
+    buildCounter: 1
+    lastGeneratedVersion: 1.0.81.3635
     version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
@@ -167,13 +167,25 @@ MonoBehaviour:
       binaryNameFormat: '{0}.x86'
       dataDirNameFormat: '{0}_Data'
       targetGroup: 1
+    - enabled: 1
+      distributionList:
+        distributions: []
+      architectures:
+      - target: 21
+        name: Any Device
+        enabled: 1
+      variants: []
+      platformName: UWP
+      binaryNameFormat: '{0}.exe'
+      dataDirNameFormat: '{0}_Data'
+      targetGroup: 14
   _projectConfigurations:
     configSet:
-      _Buckets: 060000000a0000000c000000020000000b000000ffffffffffffffff0d000000ffffffff00000000ffffffffffffffffffffffffffffffff0900000008000000ffffffff
-      _HashCodes: b0fd2205ceda7429c98ad341afae6b7bf536ff7e45c70909b16c9b5761dffa61856b002f31a46f4066369711efcbff26b2517c2c71782d78000000000000000000000000
-      _Next: ffffffffffffffff01000000ffffffffffffffffffffffff04000000ffffffffffffffff050000000300000007000000ffffffffffffffff000000000000000000000000
-      _Count: 14
-      _Version: 14
+      _Buckets: 0e0000000a0000000c000000020000000b000000ffffffffffffffff0f0000000d00000000000000ffffffffffffffffffffffffffffffff0900000008000000ffffffff
+      _HashCodes: b0fd2205ceda7429c98ad341afae6b7bf536ff7e45c70909b16c9b5761dffa61856b002f31a46f4066369711efcbff26b2517c2c0de77735ac64f90671782d7800000000
+      _Next: ffffffffffffffff01000000ffffffffffffffffffffffff04000000ffffffffffffffff050000000300000007000000ffffffffffffffff06000000ffffffff00000000
+      _Count: 16
+      _Version: 16
       _FreeList: -1
       _FreeCount: 0
       _Keys:
@@ -190,9 +202,9 @@ MonoBehaviour:
       - DemoBuild/OSX
       - DemoBuild/Linux/Linux x64
       - DemoBuild/Linux
+      - DemoBuild/UWP/Any Device
+      - DemoBuild/UWP
       - DemoBuild
-      - 
-      - 
       - 
       _Values:
       - enabled: 0
@@ -203,12 +215,12 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DemoBuild/Android/Android (ARMv7,ETC,Internal)
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
         - DemoBuild/PC/Windows x64
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -216,7 +228,7 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DemoBuild/WebGL/WebGL
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
@@ -224,11 +236,16 @@ MonoBehaviour:
       - enabled: 1
         childKeys:
         - DemoBuild/OSX/OSX
-      - enabled: 1
+      - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
         - DemoBuild/Linux/Linux x64
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - DemoBuild/UWP/Any Device
       - enabled: 1
         childKeys:
         - DemoBuild/Android
@@ -236,10 +253,7 @@ MonoBehaviour:
         - DemoBuild/WebGL
         - DemoBuild/OSX
         - DemoBuild/Linux
-      - enabled: 1
-        childKeys: []
-      - enabled: 1
-        childKeys: []
+        - DemoBuild/UWP
       - enabled: 1
         childKeys: []
     showViewOptions: 0

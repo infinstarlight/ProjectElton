@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+﻿using UnityEngine.InputSystem;
 using UnityEngine;
-
 
 public class InputSystem_PlayerCombatController : MonoBehaviour
 {
@@ -86,24 +82,17 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     }
 
 
-
     //Thanks to the new Input System
     public void OnFire(InputAction.CallbackContext context)
     {
         switch (context.phase)
         {
             case InputActionPhase.Performed:
-                currentWeaponScript.Fire();
-                Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
-#if UNITY_WSA && !UNITY_EDITOR
-// Plugin code
- using Windows.Gaming.Input;
- // get the first gamepad
-Gamepad gamepad = Gamepad.Gamepads[0];
+                {
+                    currentWeaponScript.Fire();
+                    Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+                }
 
- public GamepadVibration vibration = new GamepadVibration();
- vibration.RightTrigger = 0.50; // sets the intensity of the right trigger to 50%
-#endif
                 break;
 
             case InputActionPhase.Started:
@@ -126,10 +115,6 @@ Gamepad gamepad = Gamepad.Gamepads[0];
             case InputActionPhase.Canceled:
                 {
                     Gamepad.current.SetMotorSpeeds(0.0f, 0.0f);
-                    #if UNITY_WSA && !UNITY_EDITOR
-// Plugin code
-    vibration.RightTrigger = 0.0;
-#endif
                     if (currentWeaponScript.bIsAutomatic)
                     {
                         bIsAutoFiring = false;
@@ -144,7 +129,6 @@ Gamepad gamepad = Gamepad.Gamepads[0];
                             currentWeaponScript.FireChargedShot();
                         }
                     }
-
 
                 }
                 break;
@@ -200,8 +184,6 @@ Gamepad gamepad = Gamepad.Gamepads[0];
         {
             weaponCount = 0;
         }
-
-
     }
 
     public void OnWeaponCycleUp(InputAction.CallbackContext context)

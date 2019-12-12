@@ -5,6 +5,7 @@ using UnityEngine;
 public class TurretRotator : MonoBehaviour
 {
     public Vector3 myVector;
+    public float RotateSpeed = 1.0f;
     public Sequence rotateSequence;
     private GameObject GetTarget;
     public Sequence targetRotateSequence;
@@ -28,7 +29,7 @@ public class TurretRotator : MonoBehaviour
     void InitSequence()
     {
           rotateSequence = DOTween.Sequence();
-        rotateSequence.Append(transform.DORotate(myVector, 1, RotateMode.Fast));
+        rotateSequence.Append(transform.DORotate(myVector, RotateSpeed, RotateMode.Fast));
         //rotateSequence.PrependInterval(1);
         rotateSequence.Play().SetLoops(-1, LoopType.Incremental);
     }

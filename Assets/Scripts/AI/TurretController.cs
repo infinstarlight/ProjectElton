@@ -5,49 +5,63 @@ using UnityEngine;
 
 public class TurretController : MonoBehaviour, IDamageable<float>
 {
+    public float CurrentHealth = 0.0f;
+    public float MaxHealth = 400.0f;
+    private float healthPercent;
     public EnemyShield myShield;
-    public List<TurretShield> GetActiveTurretShields = new List<TurretShield>();
-    public List<TurretShield> GetDisabledTurretShields = new List<TurretShield>();
-    private ID_BossHealthBar GetBossHealthBar;
-    private ID_BossNameText GetBossNameText;
-    private Sequence bossHealthEnableSequence;
+    public List<TurretEnergyPylon> GetActiveEnergyPylons = new List<TurretEnergyPylon>();
+    public List<TurretEnergyPylon> GetDisabledEnergyPylons = new List<TurretEnergyPylon>();
+
 
     private int MaxShieldCount = 0;
 
-    public float CurrentHealth = 0.0f;
-    public float MaxHealth = 400.0f;
+
     public bool bIsDead = false;
-    private bool bIsShieldDisabled = false;
+    public bool bHasShield = false;
+    public bool bIsMajorEnemy = false;
+    private bool bIsMainShieldDisabled = false;
     private TurretRotator GetRotator;
-    TurretShield[] ActiveShieldArray;
-    TurretShield[] DisabledShieldArray;
-    [SerializeField]
+
     private bool bIsRoomUnlocker = false;
     private EnemyRoomUnlocker GetRoomUnlocker;
+    private ID_BossHealthBar GetBossHealthBar;
+    private ID_BossNameText GetBossNameText;
+    private Sequence bossHealthEnableSequence;
 
 
     // Start is called before the first frame update
     void Start()
     {
         CurrentHealth = MaxHealth;
-        myShield = GetComponentInChildren<EnemyShield>();
-        MaxShieldCount = GetActiveTurretShields.Count;
-        GetBossHealthBar = GetComponentInChildren<ID_BossHealthBar>();
-        GetBossNameText = GetComponentInChildren<ID_BossNameText>();
-        bossHealthEnableSequence = DOTween.Sequence();
+        healthPercent = CurrentHealth / MaxHealth;
         GetRotator = GetComponentInChildren<TurretRotator>();
-        InitEnableSequence();
         if (bIsRoomUnlocker)
         {
             GetRoomUnlocker = FindObjectOfType<EnemyRoomUnlocker>();
         }
+        if (bIsMajorEnemy)
+        {
+            GetBossHealthBar = GetComponentInChildren<ID_BossHealthBar>();
+            GetBossNameText = GetComponentInChildren<ID_BossNameText>();
+            bossHealthEnableSequence = DOTween.Sequence();
+        }
+        if (bHasShield)
+        {
+            myShield = GetComponentInChildren<EnemyShield>();
+            MaxShieldCount = GetActiveEnergyPylons.Count;
+        }
 
+
+
+    }
+
+    private void Update()
+    {
+        ToggleShield();
     }
 
     void InitEnableSequence()
     {
-
-        //bossHealthEnableSequence.PrependInterval(1);
         bossHealthEnableSequence.Append(GetBossHealthBar.transform.DOScaleX(0, 1));
         bossHealthEnableSequence.Append(GetBossNameText.textMaterial.DOFade(0, 1));
         bossHealthEnableSequence.PrependInterval(1);
@@ -64,76 +78,137 @@ public class TurretController : MonoBehaviour, IDamageable<float>
 
 
 
-    public void CheckShield(TurretShield hitShield)
+    public void CheckPylon(TurretEnergyPylon hitPylon)
     {
+        //If the object is valid
+        if (hitPylon)
+        {
+            //If the turret shield is active
+            if (!bIsMainShieldDisabled)
+            {
+                //If the pylon that was hit is disabled
+                if (hitPylon.bIsDisabled)
+                {
+                    //And is currently listed as active
+                    if (GetActiveEnergyPylons.Contains(hitPylon))
+                    {
+                        //Remove from active list
+                        GetActiveEnergyPylons.Remove(hitPylon);
+                        //And list as disabled
+                        GetDisabledEnergyPylons.Add(hitPylon);
+                    }
+                }
+                //If the pylon is reactivated
+                if (!hitPylon.bIsDisabled)
+                {
+                    //And listed as disabled
+                    if (GetDisabledEnergyPylons.Contains(hitPylon))
+                    {
+                        //Return to active list
+                        GetActiveEnergyPylons.Add(hitPylon);
+                        GetDisabledEnergyPylons.Remove(hitPylon);
+                    }
+                }
+            }
+            //If the turret shield is disabled
+            if (bIsMainShieldDisabled)
+            {
+                //If the pylon that was hit is disabled
+                if (hitPylon.bIsDisabled)
+                {
+                    //And listed as active
+                    if (GetActiveEnergyPylons.Contains(hitPylon))
+                    {
+                        GetActiveEnergyPylons.Remove(hitPylon);
+                        GetDisabledEnergyPylons.Add(hitPylon);
+                    }
+                }
+                if (!hitPylon.bIsDisabled)
+                {
+                    if (GetDisabledEnergyPylons.Contains(hitPylon))
+                    {
+                        GetActiveEnergyPylons.Add(hitPylon);
+                        GetDisabledEnergyPylons.Remove(hitPylon);
+                    }
+                }
+            }
+        }
+    }
+    // if (!bIsShieldDisabled)
+    // {
+    //     if (GetActiveTurretShields.Contains(hitShield))
+    //     {
+    //         if (hitShield.bIsDisabled)
+    //         {
+    //             GetActiveTurretShields.Remove(hitShield);
+    //             if (!GetDisabledTurretShields.Contains(hitShield))
+    //             {
+    //                 GetDisabledTurretShields.Add(hitShield);
+    //             }
+    //             else
+    //             {
+    //                 if (!hitShield.bIsDisabled)
+    //                 {
+
+    //                     if (GetDisabledTurretShields.Contains(hitShield))
+    //                     {
+    //                         GetDisabledTurretShields.Remove(hitShield);
+    //                     }
+    //                     GetActiveTurretShields.Add(hitShield);
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // if (bIsShieldDisabled)
+    // {
+    //     if (GetDisabledTurretShields.Contains(hitShield))
+    //     {
+    //         if (!hitShield.bIsDisabled)
+    //         {
+    //             GetDisabledTurretShields.Remove(hitShield);
+    //             if (!GetActiveTurretShields.Contains(hitShield))
+    //             {
+    //                 GetActiveTurretShields.Add(hitShield);
+    //             }
+    //         }
+
+    //     }
+    //     else
+    //     {
+    //         if (hitShield.bIsDisabled)
+    //         {
+
+    //             if (GetActiveTurretShields.Contains(hitShield))
+    //             {
+    //                 GetActiveTurretShields.Remove(hitShield);
+    //             }
+    //             GetDisabledTurretShields.Add(hitShield);
+    //         }
+    //     }
+    // }
+
+
+
+    IEnumerator ShieldStatusUpdate()
+    {
+        yield return new WaitForSeconds(0.50f);
+
         ToggleShield();
-
-        if (!bIsShieldDisabled)
-        {
-            if (GetActiveTurretShields.Contains(hitShield))
-            {
-                if (hitShield.bIsDisabled)
-                {
-                    GetActiveTurretShields.Remove(hitShield);
-                    if (!GetDisabledTurretShields.Contains(hitShield))
-                    {
-                        GetDisabledTurretShields.Add(hitShield);
-                    }
-
-                }
-            }
-            else
-            {
-                if (!hitShield.bIsDisabled)
-                {
-                    if (GetDisabledTurretShields.Contains(hitShield))
-                    {
-                        GetDisabledTurretShields.Remove(hitShield);
-                    }
-                    GetActiveTurretShields.Add(hitShield);
-                }
-            }
-        }
-        if (bIsShieldDisabled)
-        {
-            if (GetDisabledTurretShields.Contains(hitShield))
-            {
-                if (!hitShield.bIsDisabled)
-                {
-                    GetDisabledTurretShields.Remove(hitShield);
-                    if (!GetActiveTurretShields.Contains(hitShield))
-                    {
-                        GetActiveTurretShields.Add(hitShield);
-                    }
-                }
-
-            }
-            else
-            {
-                if (hitShield.bIsDisabled)
-                {
-                    if (GetActiveTurretShields.Contains(hitShield))
-                    {
-                        GetActiveTurretShields.Remove(hitShield);
-                    }
-                    GetDisabledTurretShields.Add(hitShield);
-                }
-            }
-        }
 
     }
 
     void ToggleShield()
     {
-        if (GetDisabledTurretShields.Count >= MaxShieldCount)
+        if (GetDisabledEnergyPylons.Count >= MaxShieldCount)
         {
-            bIsShieldDisabled = true;
-            myShield.SendMessage("ToggleShieldStatus", bIsShieldDisabled);
+            bIsMainShieldDisabled = true;
+            myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
         }
-        if (GetActiveTurretShields.Count >= MaxShieldCount)
+        if (GetActiveEnergyPylons.Count >= MaxShieldCount)
         {
-            bIsShieldDisabled = false;
-            myShield.SendMessage("ToggleShieldStatus", bIsShieldDisabled);
+            bIsMainShieldDisabled = false;
+            myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
         }
     }
 
@@ -141,7 +216,8 @@ public class TurretController : MonoBehaviour, IDamageable<float>
     public void OnDamageApplied(float damageTaken)
     {
         CurrentHealth -= damageTaken;
-        GetBossHealthBar.healthBar.fillAmount = CurrentHealth / MaxHealth;
+        healthPercent = CurrentHealth / MaxHealth;
+        GetBossHealthBar.healthBar.DOFillAmount(healthPercent, 0.5f);
         if (CurrentHealth < 0)
         {
             Debug.Log("I have been DEFEATED!");
@@ -153,5 +229,17 @@ public class TurretController : MonoBehaviour, IDamageable<float>
         }
 
         //TODO: When attacked, rotate to face target
+    }
+
+    public void DamageProcessor(EAmmoType damageType)
+    {
+        switch (damageType)
+        {
+            case EAmmoType.Standard:
+                {
+
+                }
+                break;
+        }
     }
 }

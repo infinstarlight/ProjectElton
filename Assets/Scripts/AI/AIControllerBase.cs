@@ -7,8 +7,7 @@ using UnityEngine.AI;
 public class AIControllerBase : MonoBehaviour
 {
     private Enemy myEnemy;
-    public NavAgent myNavAgent;
-    public NavMeshAgent myNavMeshAgent;
+  
     public GameObject AIEyes;
     private float nextFire;
     public float visionPollRate;
@@ -18,15 +17,10 @@ public class AIControllerBase : MonoBehaviour
     private Player GetPlayer;
     public bool bIsHumanoid = false;
 
-    public float DistanceRemaining;
+
     public void Awake()
     {
         myEnemy = GetComponentInParent<Enemy>();
-        if (bIsHumanoid)
-        {
-            myNavAgent = GetComponentInParent<NavAgent>();
-            myNavMeshAgent = GetComponentInParent<NavMeshAgent>();
-        }
     }
 
     // Update is called once per frame
@@ -66,14 +60,7 @@ public class AIControllerBase : MonoBehaviour
                     {
                         GetPlayer = null;
                     }
-                    if (bIsHumanoid)
-                    {
-                        if (myNavAgent.bIsTrackingPlayer)
-                        {
-                            myNavAgent.bIsTrackingPlayer = false;
-
-                        }
-                    }
+                 
                 }
             }
 

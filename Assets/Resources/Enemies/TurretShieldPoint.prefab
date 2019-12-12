@@ -54,7 +54,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  energyRegenRate: 10
+  energyRegenRate: 3
 --- !u!65 &1102401538
 BoxCollider:
   m_ObjectHideFlags: 0
