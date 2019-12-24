@@ -36,7 +36,6 @@ public class PlayerUIController : MonoBehaviour
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         showInteractEvent.AddListener(ToggleInteractText);
-//        CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
         healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
         aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
         healthText = FindObjectOfType<HealthTextScript>();
@@ -53,24 +52,15 @@ public class PlayerUIController : MonoBehaviour
 
         PauseMenu = pCon.PauseMenuGO;
         CharMenu = pCon.CharMenuGO;
-        // if (PauseMenu)
-        // {
-        //     PauseMenu.SetActive(false);
-        // }
-        // if (CharMenu)
-        // {
-        //     CharMenu.SetActive(false);
-        // }
-        if(optionsMenu)
+        if (optionsMenu)
         {
             optionsMenu.SetActive(false);
         }
 
 
-
-        if (GetGameInstance.bIsRunningOnMobile)
+        if (TouchControlGO)
         {
-            if (TouchControlGO)
+            if (GetGameInstance.bIsRunningOnMobile)
             {
                 TouchControlGO.SetActive(true);
             }
@@ -79,6 +69,7 @@ public class PlayerUIController : MonoBehaviour
                 TouchControlGO.SetActive(false);
             }
         }
+
 
     }
 

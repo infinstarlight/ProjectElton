@@ -111,7 +111,7 @@ public class InputSystem_PlayerController : MonoBehaviour
             bIsDebug = false;
         }
         ToggleMouseStateAction.performed += ToggleMouseState;
-        EnhancedTouchSupport.Enable();
+        //EnhancedTouchSupport.Enable();
 
     }
 
