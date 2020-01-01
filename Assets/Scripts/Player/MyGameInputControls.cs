@@ -15,7 +15,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
     ""name"": ""GameInputControls"",
     ""maps"": [
         {
-            ""name"": ""gameplay"",
+            ""name"": ""Gameplay"",
             ""id"": ""4bc61230-eb0c-4413-8d72-0106f7a518e3"",
             ""actions"": [
                 {
@@ -96,7 +96,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""0f6b9c69-6b37-49f3-a1a7-6976b1b91c86"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Character Menu"",
@@ -104,7 +104,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""id"": ""66a2b395-0075-4d46-9e91-77bcbb5151a2"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press""
                 },
                 {
                     ""name"": ""Select Weapon One"",
@@ -169,6 +169,14 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""4242bdea-a7e2-4169-98a0-33be6b17ee34"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -222,7 +230,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""path"": ""<Pointer>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Touchscreen;Keyboard&Mouse"",
+                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -339,6 +347,17 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""8f8f31f1-9b0d-4b70-8c1f-6500d34aed88"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Character Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""63cc83d1-6d46-4ab8-ae5d-b3b028843649"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -363,7 +382,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""612a6aa1-8dc6-4a28-b5a5-3ded654448ec"",
                     ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Aim"",
@@ -548,7 +567,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""cf496eff-6355-444a-a4f5-b5f22aa0a2e4"",
+                    ""id"": ""6769a516-bd8b-49e8-9674-f3641e1fa9c9"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -578,11 +597,33 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                     ""action"": ""Support Ability"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2423b0e1-3457-4e00-8c2b-715b4830bff5"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2700f0e7-437f-4cae-9804-8c18f8e10353"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""ui"",
+            ""name"": ""UI"",
             ""id"": ""62a9018a-9185-4223-9b22-69c857fe1921"",
             ""actions"": [
                 {
@@ -926,37 +967,38 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         }
     ]
 }");
-        // gameplay
-        m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
-        m_gameplay_Move = m_gameplay.FindAction("Move", throwIfNotFound: true);
-        m_gameplay_Fire = m_gameplay.FindAction("Fire", throwIfNotFound: true);
-        m_gameplay_Aim = m_gameplay.FindAction("Aim", throwIfNotFound: true);
-        m_gameplay_Look = m_gameplay.FindAction("Look", throwIfNotFound: true);
-        m_gameplay_Jump = m_gameplay.FindAction("Jump", throwIfNotFound: true);
-        m_gameplay_Sprint = m_gameplay.FindAction("Sprint", throwIfNotFound: true);
-        m_gameplay_Dash = m_gameplay.FindAction("Dash", throwIfNotFound: true);
-        m_gameplay_SpecialAbility = m_gameplay.FindAction("Special Ability", throwIfNotFound: true);
-        m_gameplay_SupportAbility = m_gameplay.FindAction("Support Ability", throwIfNotFound: true);
-        m_gameplay_Pause = m_gameplay.FindAction("Pause", throwIfNotFound: true);
-        m_gameplay_CharacterMenu = m_gameplay.FindAction("Character Menu", throwIfNotFound: true);
-        m_gameplay_SelectWeaponOne = m_gameplay.FindAction("Select Weapon One", throwIfNotFound: true);
-        m_gameplay_SelectWeaponTwo = m_gameplay.FindAction("Select Weapon Two", throwIfNotFound: true);
-        m_gameplay_SelectWeaponThree = m_gameplay.FindAction("Select Weapon Three", throwIfNotFound: true);
-        m_gameplay_Zoom = m_gameplay.FindAction("Zoom", throwIfNotFound: true);
-        m_gameplay_Interact = m_gameplay.FindAction("Interact", throwIfNotFound: true);
-        m_gameplay_SelectPreviousWeapon = m_gameplay.FindAction("Select Previous Weapon", throwIfNotFound: true);
-        m_gameplay_SelectNextWeapon = m_gameplay.FindAction("Select Next Weapon", throwIfNotFound: true);
-        m_gameplay_ActivateSubweapon = m_gameplay.FindAction("Activate Subweapon", throwIfNotFound: true);
-        // ui
-        m_ui = asset.FindActionMap("ui", throwIfNotFound: true);
-        m_ui_Navigate = m_ui.FindAction("Navigate", throwIfNotFound: true);
-        m_ui_Submit = m_ui.FindAction("Submit", throwIfNotFound: true);
-        m_ui_Cancel = m_ui.FindAction("Cancel", throwIfNotFound: true);
-        m_ui_Point = m_ui.FindAction("Point", throwIfNotFound: true);
-        m_ui_Click = m_ui.FindAction("Click", throwIfNotFound: true);
-        m_ui_ScrollWheel = m_ui.FindAction("ScrollWheel", throwIfNotFound: true);
-        m_ui_MiddleClick = m_ui.FindAction("MiddleClick", throwIfNotFound: true);
-        m_ui_RightClick = m_ui.FindAction("RightClick", throwIfNotFound: true);
+        // Gameplay
+        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
+        m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
+        m_Gameplay_Fire = m_Gameplay.FindAction("Fire", throwIfNotFound: true);
+        m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
+        m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
+        m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
+        m_Gameplay_Sprint = m_Gameplay.FindAction("Sprint", throwIfNotFound: true);
+        m_Gameplay_Dash = m_Gameplay.FindAction("Dash", throwIfNotFound: true);
+        m_Gameplay_SpecialAbility = m_Gameplay.FindAction("Special Ability", throwIfNotFound: true);
+        m_Gameplay_SupportAbility = m_Gameplay.FindAction("Support Ability", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        m_Gameplay_CharacterMenu = m_Gameplay.FindAction("Character Menu", throwIfNotFound: true);
+        m_Gameplay_SelectWeaponOne = m_Gameplay.FindAction("Select Weapon One", throwIfNotFound: true);
+        m_Gameplay_SelectWeaponTwo = m_Gameplay.FindAction("Select Weapon Two", throwIfNotFound: true);
+        m_Gameplay_SelectWeaponThree = m_Gameplay.FindAction("Select Weapon Three", throwIfNotFound: true);
+        m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
+        m_Gameplay_Interact = m_Gameplay.FindAction("Interact", throwIfNotFound: true);
+        m_Gameplay_SelectPreviousWeapon = m_Gameplay.FindAction("Select Previous Weapon", throwIfNotFound: true);
+        m_Gameplay_SelectNextWeapon = m_Gameplay.FindAction("Select Next Weapon", throwIfNotFound: true);
+        m_Gameplay_ActivateSubweapon = m_Gameplay.FindAction("Activate Subweapon", throwIfNotFound: true);
+        m_Gameplay_Crouch = m_Gameplay.FindAction("Crouch", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
+        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
+        m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
+        m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
+        m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
+        m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1003,52 +1045,54 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         asset.Disable();
     }
 
-    // gameplay
-    private readonly InputActionMap m_gameplay;
+    // Gameplay
+    private readonly InputActionMap m_Gameplay;
     private IGameplayActions m_GameplayActionsCallbackInterface;
-    private readonly InputAction m_gameplay_Move;
-    private readonly InputAction m_gameplay_Fire;
-    private readonly InputAction m_gameplay_Aim;
-    private readonly InputAction m_gameplay_Look;
-    private readonly InputAction m_gameplay_Jump;
-    private readonly InputAction m_gameplay_Sprint;
-    private readonly InputAction m_gameplay_Dash;
-    private readonly InputAction m_gameplay_SpecialAbility;
-    private readonly InputAction m_gameplay_SupportAbility;
-    private readonly InputAction m_gameplay_Pause;
-    private readonly InputAction m_gameplay_CharacterMenu;
-    private readonly InputAction m_gameplay_SelectWeaponOne;
-    private readonly InputAction m_gameplay_SelectWeaponTwo;
-    private readonly InputAction m_gameplay_SelectWeaponThree;
-    private readonly InputAction m_gameplay_Zoom;
-    private readonly InputAction m_gameplay_Interact;
-    private readonly InputAction m_gameplay_SelectPreviousWeapon;
-    private readonly InputAction m_gameplay_SelectNextWeapon;
-    private readonly InputAction m_gameplay_ActivateSubweapon;
+    private readonly InputAction m_Gameplay_Move;
+    private readonly InputAction m_Gameplay_Fire;
+    private readonly InputAction m_Gameplay_Aim;
+    private readonly InputAction m_Gameplay_Look;
+    private readonly InputAction m_Gameplay_Jump;
+    private readonly InputAction m_Gameplay_Sprint;
+    private readonly InputAction m_Gameplay_Dash;
+    private readonly InputAction m_Gameplay_SpecialAbility;
+    private readonly InputAction m_Gameplay_SupportAbility;
+    private readonly InputAction m_Gameplay_Pause;
+    private readonly InputAction m_Gameplay_CharacterMenu;
+    private readonly InputAction m_Gameplay_SelectWeaponOne;
+    private readonly InputAction m_Gameplay_SelectWeaponTwo;
+    private readonly InputAction m_Gameplay_SelectWeaponThree;
+    private readonly InputAction m_Gameplay_Zoom;
+    private readonly InputAction m_Gameplay_Interact;
+    private readonly InputAction m_Gameplay_SelectPreviousWeapon;
+    private readonly InputAction m_Gameplay_SelectNextWeapon;
+    private readonly InputAction m_Gameplay_ActivateSubweapon;
+    private readonly InputAction m_Gameplay_Crouch;
     public struct GameplayActions
     {
         private @GameInputControls m_Wrapper;
         public GameplayActions(@GameInputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_gameplay_Move;
-        public InputAction @Fire => m_Wrapper.m_gameplay_Fire;
-        public InputAction @Aim => m_Wrapper.m_gameplay_Aim;
-        public InputAction @Look => m_Wrapper.m_gameplay_Look;
-        public InputAction @Jump => m_Wrapper.m_gameplay_Jump;
-        public InputAction @Sprint => m_Wrapper.m_gameplay_Sprint;
-        public InputAction @Dash => m_Wrapper.m_gameplay_Dash;
-        public InputAction @SpecialAbility => m_Wrapper.m_gameplay_SpecialAbility;
-        public InputAction @SupportAbility => m_Wrapper.m_gameplay_SupportAbility;
-        public InputAction @Pause => m_Wrapper.m_gameplay_Pause;
-        public InputAction @CharacterMenu => m_Wrapper.m_gameplay_CharacterMenu;
-        public InputAction @SelectWeaponOne => m_Wrapper.m_gameplay_SelectWeaponOne;
-        public InputAction @SelectWeaponTwo => m_Wrapper.m_gameplay_SelectWeaponTwo;
-        public InputAction @SelectWeaponThree => m_Wrapper.m_gameplay_SelectWeaponThree;
-        public InputAction @Zoom => m_Wrapper.m_gameplay_Zoom;
-        public InputAction @Interact => m_Wrapper.m_gameplay_Interact;
-        public InputAction @SelectPreviousWeapon => m_Wrapper.m_gameplay_SelectPreviousWeapon;
-        public InputAction @SelectNextWeapon => m_Wrapper.m_gameplay_SelectNextWeapon;
-        public InputAction @ActivateSubweapon => m_Wrapper.m_gameplay_ActivateSubweapon;
-        public InputActionMap Get() { return m_Wrapper.m_gameplay; }
+        public InputAction @Move => m_Wrapper.m_Gameplay_Move;
+        public InputAction @Fire => m_Wrapper.m_Gameplay_Fire;
+        public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
+        public InputAction @Look => m_Wrapper.m_Gameplay_Look;
+        public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
+        public InputAction @Sprint => m_Wrapper.m_Gameplay_Sprint;
+        public InputAction @Dash => m_Wrapper.m_Gameplay_Dash;
+        public InputAction @SpecialAbility => m_Wrapper.m_Gameplay_SpecialAbility;
+        public InputAction @SupportAbility => m_Wrapper.m_Gameplay_SupportAbility;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
+        public InputAction @CharacterMenu => m_Wrapper.m_Gameplay_CharacterMenu;
+        public InputAction @SelectWeaponOne => m_Wrapper.m_Gameplay_SelectWeaponOne;
+        public InputAction @SelectWeaponTwo => m_Wrapper.m_Gameplay_SelectWeaponTwo;
+        public InputAction @SelectWeaponThree => m_Wrapper.m_Gameplay_SelectWeaponThree;
+        public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
+        public InputAction @Interact => m_Wrapper.m_Gameplay_Interact;
+        public InputAction @SelectPreviousWeapon => m_Wrapper.m_Gameplay_SelectPreviousWeapon;
+        public InputAction @SelectNextWeapon => m_Wrapper.m_Gameplay_SelectNextWeapon;
+        public InputAction @ActivateSubweapon => m_Wrapper.m_Gameplay_ActivateSubweapon;
+        public InputAction @Crouch => m_Wrapper.m_Gameplay_Crouch;
+        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
@@ -1114,6 +1158,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @ActivateSubweapon.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
                 @ActivateSubweapon.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
                 @ActivateSubweapon.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnActivateSubweapon;
+                @Crouch.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
+                @Crouch.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
+                @Crouch.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnCrouch;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -1175,69 +1222,72 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 @ActivateSubweapon.started += instance.OnActivateSubweapon;
                 @ActivateSubweapon.performed += instance.OnActivateSubweapon;
                 @ActivateSubweapon.canceled += instance.OnActivateSubweapon;
+                @Crouch.started += instance.OnCrouch;
+                @Crouch.performed += instance.OnCrouch;
+                @Crouch.canceled += instance.OnCrouch;
             }
         }
     }
-    public GameplayActions @gameplay => new GameplayActions(this);
+    public GameplayActions @Gameplay => new GameplayActions(this);
 
-    // ui
-    private readonly InputActionMap m_ui;
-    private IUiActions m_UiActionsCallbackInterface;
-    private readonly InputAction m_ui_Navigate;
-    private readonly InputAction m_ui_Submit;
-    private readonly InputAction m_ui_Cancel;
-    private readonly InputAction m_ui_Point;
-    private readonly InputAction m_ui_Click;
-    private readonly InputAction m_ui_ScrollWheel;
-    private readonly InputAction m_ui_MiddleClick;
-    private readonly InputAction m_ui_RightClick;
-    public struct UiActions
+    // UI
+    private readonly InputActionMap m_UI;
+    private IUIActions m_UIActionsCallbackInterface;
+    private readonly InputAction m_UI_Navigate;
+    private readonly InputAction m_UI_Submit;
+    private readonly InputAction m_UI_Cancel;
+    private readonly InputAction m_UI_Point;
+    private readonly InputAction m_UI_Click;
+    private readonly InputAction m_UI_ScrollWheel;
+    private readonly InputAction m_UI_MiddleClick;
+    private readonly InputAction m_UI_RightClick;
+    public struct UIActions
     {
         private @GameInputControls m_Wrapper;
-        public UiActions(@GameInputControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Navigate => m_Wrapper.m_ui_Navigate;
-        public InputAction @Submit => m_Wrapper.m_ui_Submit;
-        public InputAction @Cancel => m_Wrapper.m_ui_Cancel;
-        public InputAction @Point => m_Wrapper.m_ui_Point;
-        public InputAction @Click => m_Wrapper.m_ui_Click;
-        public InputAction @ScrollWheel => m_Wrapper.m_ui_ScrollWheel;
-        public InputAction @MiddleClick => m_Wrapper.m_ui_MiddleClick;
-        public InputAction @RightClick => m_Wrapper.m_ui_RightClick;
-        public InputActionMap Get() { return m_Wrapper.m_ui; }
+        public UIActions(@GameInputControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Navigate => m_Wrapper.m_UI_Navigate;
+        public InputAction @Submit => m_Wrapper.m_UI_Submit;
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @Point => m_Wrapper.m_UI_Point;
+        public InputAction @Click => m_Wrapper.m_UI_Click;
+        public InputAction @ScrollWheel => m_Wrapper.m_UI_ScrollWheel;
+        public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
+        public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UiActions set) { return set.Get(); }
-        public void SetCallbacks(IUiActions instance)
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void SetCallbacks(IUIActions instance)
         {
-            if (m_Wrapper.m_UiActionsCallbackInterface != null)
+            if (m_Wrapper.m_UIActionsCallbackInterface != null)
             {
-                @Navigate.started -= m_Wrapper.m_UiActionsCallbackInterface.OnNavigate;
-                @Navigate.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnNavigate;
-                @Navigate.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnNavigate;
-                @Submit.started -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
-                @Submit.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
-                @Submit.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnSubmit;
-                @Cancel.started -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
-                @Cancel.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
-                @Cancel.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnCancel;
-                @Point.started -= m_Wrapper.m_UiActionsCallbackInterface.OnPoint;
-                @Point.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnPoint;
-                @Point.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnPoint;
-                @Click.started -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
-                @Click.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
-                @Click.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnClick;
-                @ScrollWheel.started -= m_Wrapper.m_UiActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnScrollWheel;
-                @ScrollWheel.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnScrollWheel;
-                @MiddleClick.started -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
-                @MiddleClick.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnMiddleClick;
-                @RightClick.started -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
-                @RightClick.performed -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
-                @RightClick.canceled -= m_Wrapper.m_UiActionsCallbackInterface.OnRightClick;
+                @Navigate.started -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
+                @Navigate.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
+                @Navigate.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnNavigate;
+                @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
+                @Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
+                @Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
+                @Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
+                @Point.started -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
+                @Point.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
+                @Point.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnPoint;
+                @Click.started -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnClick;
+                @ScrollWheel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
+                @ScrollWheel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnScrollWheel;
+                @MiddleClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
+                @MiddleClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
+                @MiddleClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMiddleClick;
+                @RightClick.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
+                @RightClick.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
+                @RightClick.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightClick;
             }
-            m_Wrapper.m_UiActionsCallbackInterface = instance;
+            m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Navigate.started += instance.OnNavigate;
@@ -1267,7 +1317,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
             }
         }
     }
-    public UiActions @ui => new UiActions(this);
+    public UIActions @UI => new UIActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1316,8 +1366,9 @@ public class @GameInputControls : IInputActionCollection, IDisposable
         void OnSelectPreviousWeapon(InputAction.CallbackContext context);
         void OnSelectNextWeapon(InputAction.CallbackContext context);
         void OnActivateSubweapon(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
     }
-    public interface IUiActions
+    public interface IUIActions
     {
         void OnNavigate(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);

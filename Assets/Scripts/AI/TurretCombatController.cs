@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class TurretCombatController : MonoBehaviour
@@ -12,23 +11,27 @@ public class TurretCombatController : MonoBehaviour
     public float visionRange = 100.0f;
     public GameObject projGO;
     private LineRenderer GetLine;
+    private GameObject hitObject = null;
+    private TurretRotator GetRotator;
     // Start is called before the first frame update
     void Start()
     {
         GetLine = GetComponent<LineRenderer>();
         GetLine.enabled = false;
+        GetRotator = GetComponentInParent<TurretRotator>();
     }
     private void Update()
     {
+        Fire();
         if (Time.time > visionNextFire)
         {
             visionNextFire = Time.time + visionPollRate;
-            Fire();
+            
         }
     }
     void Fire()
     {
-        GameObject hitObject = null;
+        
         weaponRay = new Ray(transform.position, transform.forward);
         Debug.DrawRay(weaponRay.origin, weaponRay.direction * visionRange, Color.red);
 
@@ -38,13 +41,14 @@ public class TurretCombatController : MonoBehaviour
             if (hit.collider)
             {
                 GetLine.enabled = true;
-                GetLine.SetPosition(0, weaponRay.origin);
+                GetLine.SetPosition(0, transform.forward);
                 
                 hitObject = hit.collider.gameObject;
 
                 {
                     if (hitObject.GetComponent<Player>())
                     {
+                        GetRotator.targetRotateSequence.Pause();
                         GetLine.SetPosition(1, hitObject.transform.position);
                         if (projGO)
                         {
@@ -53,28 +57,35 @@ public class TurretCombatController : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if(!GetRotator.targetRotateSequence.IsPlaying())
+                {
+                    GetRotator.targetRotateSequence.Play();
+                }
+            }
         }
     }
 
-    void OnDrawGizmos()
-    {
+    // void OnDrawGizmos()
+    // {
 
-        if (hit.collider)
-        {
-            //Draw a Ray forward from GameObject toward the hit
-            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
-            //Draw a cube that extends to where the hit exists
-            Gizmos.DrawWireSphere(transform.position + transform.forward * hit.distance, 50.0f);
-        }
-        //If there hasn't been a hit yet, draw the ray at the maximum distance
-        else
-        {
-            //Draw a Ray forward from GameObject toward the maximum distance
-            Gizmos.DrawRay(transform.position, transform.forward * visionRange);
-            //Draw a cube at the maximum distance
-            Gizmos.DrawWireSphere(transform.position + transform.forward * visionRange, 50.0f);
-        }
-    }
+    //     if (hit.collider)
+    //     {
+    //         //Draw a Ray forward from GameObject toward the hit
+    //         Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+    //         //Draw a cube that extends to where the hit exists
+    //         Gizmos.DrawWireSphere(transform.position + transform.forward * hit.distance, 50.0f);
+    //     }
+    //     //If there hasn't been a hit yet, draw the ray at the maximum distance
+    //     else
+    //     {
+    //         //Draw a Ray forward from GameObject toward the maximum distance
+    //         Gizmos.DrawRay(transform.position, transform.forward * visionRange);
+    //         //Draw a cube at the maximum distance
+    //         Gizmos.DrawWireSphere(transform.position + transform.forward * visionRange, 50.0f);
+    //     }
+    // }
 
 
 }

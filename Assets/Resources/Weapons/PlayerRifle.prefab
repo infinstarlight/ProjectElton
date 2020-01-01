@@ -191,20 +191,28 @@ MonoBehaviour:
   bIsChargeWeapon: 0
   bIsAutomatic: 1
   MaxChargeLimit: 0
-  CurrentChargeTime: 0
+  CurrentChargeAmount: 0
   ChargeModAmount: 0
+  ChargeModRate: 1
+  GamepadChargeMod: 0
   weaponRange: 200
   nextFire: 0
   fireRate: 0.2
   DamageAmount: 8
-  oldDamageAmount: 0
+  baseDamage: 5
+  damageModifer: 0
+  oldDamageModifer: 0
+  oldbaseDamage: 0
   weaponAudio: {fileID: 0}
   gunEndGO: {fileID: 0}
   WeaponSounds:
-  - {fileID: 8300000, guid: fe6b25da963b71a40ae6130491a51b45, type: 3}
-  - {fileID: 8300000, guid: 57ebd9216ba694547b32f53de48a9e85, type: 3}
+  - {fileID: 8300000, guid: 57c8d7d4207194f77ba03601d0a4bb15, type: 3}
+  - {fileID: 8300000, guid: f996ed8129b2646c7883403ffa1582af, type: 3}
   FireEffect: {fileID: 3848898404133243097, guid: ee64d15664a03954caaf64d4e6516919,
     type: 3}
+  rayOrigin: {x: 0.5, y: 0.5, z: 0}
+  bIsPlayerWeapon: 0
+  aimGO: {fileID: 0}
 --- !u!1001 &9193150938338498851
 PrefabInstance:
   m_ObjectHideFlags: 0

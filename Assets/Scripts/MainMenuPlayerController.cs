@@ -41,29 +41,29 @@ public class MainMenuPlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        myControls.ui.Enable();
-        myControls.ui.Point.Enable();
-        myControls.ui.Navigate.Enable();
-        myControls.ui.Submit.Enable();
-        myControls.ui.Cancel.Enable();
-        myControls.ui.Click.Enable();
-        myControls.ui.RightClick.Enable();
-        myControls.ui.MiddleClick.Enable();
-        myControls.ui.ScrollWheel.Enable();
+        myControls.UI.Enable();
+        myControls.UI.Point.Enable();
+        myControls.UI.Navigate.Enable();
+        myControls.UI.Submit.Enable();
+        myControls.UI.Cancel.Enable();
+        myControls.UI.Click.Enable();
+        myControls.UI.RightClick.Enable();
+        myControls.UI.MiddleClick.Enable();
+        myControls.UI.ScrollWheel.Enable();
     }
 
     void DisableControls()
     {
 
         Cursor.lockState = CursorLockMode.Locked;
-        myControls.ui.Disable();
-        myControls.ui.Point.Disable();
-        myControls.ui.Navigate.Disable();
-        myControls.ui.Submit.Disable();
-        myControls.ui.Cancel.Disable();
-        myControls.ui.Click.Disable();
-        myControls.ui.RightClick.Disable();
-        myControls.ui.MiddleClick.Disable();
-        myControls.ui.ScrollWheel.Disable();
+        myControls.UI.Disable();
+        myControls.UI.Point.Disable();
+        myControls.UI.Navigate.Disable();
+        myControls.UI.Submit.Disable();
+        myControls.UI.Cancel.Disable();
+        myControls.UI.Click.Disable();
+        myControls.UI.RightClick.Disable();
+        myControls.UI.MiddleClick.Disable();
+        myControls.UI.ScrollWheel.Disable();
     }
 }

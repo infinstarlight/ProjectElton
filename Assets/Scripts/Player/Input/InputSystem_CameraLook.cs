@@ -30,7 +30,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     float newFOV;
     public float lockOnRadius = 24f;
     private PlayerConfig GetPlayerConfig;
-    private ID_ScanPostProcess GetScanPostProcess;
+    //private ID_ScanPostProcess GetScanPostProcess;
     private Sequence activateScanSequence;
     private Sequence disableScanSequence;
     private bool bIsEffectActive = false;
@@ -40,7 +40,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     {
         GetPlayerConfig = FindObjectOfType<PlayerConfig>();
         pCon = GetComponentInParent<InputSystem_PlayerController>();
-        GetScanPostProcess = GetComponentInChildren<ID_ScanPostProcess>();
+       // GetScanPostProcess = GetComponentInChildren<ID_ScanPostProcess>();
         PlayerCamera = gameObject.GetComponent<Camera>();
         PlayerCharacter = FindObjectOfType<Player>().gameObject;
 
@@ -63,7 +63,7 @@ public class InputSystem_CameraLook : MonoBehaviour
         InitDeactivateScanSequence();
         activateScanSequence.Pause();
         disableScanSequence.Pause();
-        GetScanPostProcess.myVolume.weight = 0.0f;
+        //GetScanPostProcess.myVolume.weight = 0.0f;
     }
 
     // Update is called once per frame
@@ -95,7 +95,7 @@ public class InputSystem_CameraLook : MonoBehaviour
     }
     public void OnLockOnStop(InputAction.CallbackContext context)
     {
-        bStartLockOn = false;
+        bStartLockOn = !bStartLockOn;
         if (currentEnemy)
         {
             currentEnemy.enemyUIController.bIsTargeted = false;
@@ -136,14 +136,14 @@ public class InputSystem_CameraLook : MonoBehaviour
     void InitScanSequence()
     {
         activateScanSequence.SetAutoKill(false);
-        activateScanSequence.Append(DOTween.To(() => GetScanPostProcess.myVolume.weight, x => GetScanPostProcess.myVolume.weight = x, 1f, 2f));
+       // activateScanSequence.Append(DOTween.To(() => GetScanPostProcess.myVolume.weight, x => GetScanPostProcess.myVolume.weight = x, 1f, 2f));
 
     }
 
     void InitDeactivateScanSequence()
     {
         disableScanSequence.SetAutoKill(false);
-        disableScanSequence.Append(DOTween.To(() => GetScanPostProcess.myVolume.weight, y => GetScanPostProcess.myVolume.weight = y, 0f, 2f));
+       // disableScanSequence.Append(DOTween.To(() => GetScanPostProcess.myVolume.weight, y => GetScanPostProcess.myVolume.weight = y, 0f, 2f));
     }
 
 

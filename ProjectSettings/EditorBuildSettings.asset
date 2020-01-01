@@ -45,5 +45,5 @@ EditorBuildSettings:
     path: Assets/Dynamic/_Scenes/Chapter0/Level 0-2/Level 0-2.unity
     guid: 584abf9f627aa2d4dacfc5d1710315ea
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: fd33dcafd943f4ecb978a7861318232d,
+    com.unity.input.settings: {fileID: 11400000, guid: cfa390a3b139b49738105c5bffa1c776,
       type: 2}

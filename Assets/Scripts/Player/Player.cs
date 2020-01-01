@@ -10,11 +10,17 @@ public class Player : Character
     public InputSystem_PlayerController pCon;
 
     public float StyleDamageMod = 2.5f;
+    public float currentMoney = 0;
+    
 
     public static Player instance = null;
 
     public List<InventoryItem> ItemInventory = new List<InventoryItem>();
     public UnityEvent AddItemEvent = new UnityEvent();
+    public UnityFloatEvent HealPlayerEvent = new UnityFloatEvent();
+    public UnityFloatEvent RecoverPowerEvent = new UnityFloatEvent();
+    public UnityFloatEvent ModHealthEvent = new UnityFloatEvent();
+    public UnityFloatEvent ModMoneyEvent = new UnityFloatEvent();
 
 
     void OnEnable()
@@ -29,13 +35,26 @@ public class Player : Character
             Destroy(gameObject); // On reload, singleton already set, so destroy duplicate.
         }
 
+        if(!PlayerStats)
+        {
+            PlayerStats = GetComponent<PlayerStatsScript>();
+        }
+
 
         damageEvent.AddListener(PlayerDamageTaken);
+        HealPlayerEvent.AddListener(PlayerStats.pcStats.HealCharacter);
+        RecoverPowerEvent.AddListener(PlayerStats.RecoverPower);
+        ModHealthEvent.AddListener(PlayerStats.pcStats.ModifyHealth);
+        ModMoneyEvent.AddListener(ModMoney);
+
     }
 
     void OnDisable()
     {
         damageEvent.RemoveAllListeners();
+        HealPlayerEvent.RemoveAllListeners();
+        RecoverPowerEvent.RemoveAllListeners();
+        ModHealthEvent.RemoveAllListeners();
     }
 
 
@@ -80,6 +99,11 @@ public class Player : Character
         }
 
 
+    }
+
+    public void ModMoney(float modValue)
+    {
+        currentMoney += modValue;
     }
 
     public void AddItem(InventoryItem newItem)

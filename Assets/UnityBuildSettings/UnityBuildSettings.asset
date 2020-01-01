@@ -43,13 +43,13 @@ MonoBehaviour:
     openFolderPostBuild: 1
   _productParameters:
     buildCounter: 1
-    lastGeneratedVersion: 1.0.81.3635
+    lastGeneratedVersion: 1.0.92.4637
     version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
     releaseTypes:
     - typeName: DemoBuild
-      bundleIndentifier: 
+      bundleIndentifier: com.ESS.TheHunt
       companyName: Eternal Starlight Studios
       productName: 'Aragon: The Hunt (DEMO)'
       developmentBuild: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
         - ARMv7
         - x86
       - variantName: Texture Compression
-        selectedIndex: 0
+        selectedIndex: 2
         values:
         - ETC
         - ETC2
@@ -97,7 +97,7 @@ MonoBehaviour:
         - ATC
         - Generic
       - variantName: Build System
-        selectedIndex: 0
+        selectedIndex: 1
         values:
         - Internal
         - Gradle
@@ -167,7 +167,7 @@ MonoBehaviour:
       binaryNameFormat: '{0}.x86'
       dataDirNameFormat: '{0}_Data'
       targetGroup: 1
-    - enabled: 1
+    - enabled: 0
       distributionList:
         distributions: []
       architectures:
@@ -181,16 +181,16 @@ MonoBehaviour:
       targetGroup: 14
   _projectConfigurations:
     configSet:
-      _Buckets: 0e0000000a0000000c000000020000000b000000ffffffffffffffff0f0000000d00000000000000ffffffffffffffffffffffffffffffff0900000008000000ffffffff
-      _HashCodes: b0fd2205ceda7429c98ad341afae6b7bf536ff7e45c70909b16c9b5761dffa61856b002f31a46f4066369711efcbff26b2517c2c0de77735ac64f90671782d7800000000
-      _Next: ffffffffffffffff01000000ffffffffffffffffffffffff04000000ffffffffffffffff050000000300000007000000ffffffffffffffff06000000ffffffff00000000
-      _Count: 16
-      _Version: 16
+      _Buckets: 060000000a0000000c000000020000000b000000ffffffffffffffff0d000000ffffffffffffffffffffffffffffffffffffffffffffffff0900000008000000ffffffff
+      _HashCodes: 03a73430d386064ac98ad341afae6b7bf536ff7e45c70909b16c9b5761dffa61856b002f31a46f4066369711efcbff26b2517c2c71782d78000000000000000000000000
+      _Next: ffffffffffffffffffffffffffffffff01000000ffffffff04000000ffffffff00000000050000000300000007000000ffffffffffffffff000000000000000000000000
+      _Count: 14
+      _Version: 14
       _FreeList: -1
       _FreeCount: 0
       _Keys:
-      - DemoBuild/Android/Android (ARMv7,ETC,Internal)/Development
-      - DemoBuild/Android/Android (ARMv7,ETC,Internal)
+      - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
+      - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)
       - DemoBuild/Android
       - DemoBuild/PC/Windows x64
       - DemoBuild/PC
@@ -202,19 +202,19 @@ MonoBehaviour:
       - DemoBuild/OSX
       - DemoBuild/Linux/Linux x64
       - DemoBuild/Linux
-      - DemoBuild/UWP/Any Device
-      - DemoBuild/UWP
       - DemoBuild
       - 
+      - 
+      - 
       _Values:
-      - enabled: 0
+      - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - DemoBuild/Android/Android (ARMv7,ETC,Internal)/Development
+        - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
       - enabled: 1
         childKeys:
-        - DemoBuild/Android/Android (ARMv7,ETC,Internal)
+        - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)
       - enabled: 0
         childKeys: []
       - enabled: 1
@@ -242,18 +242,16 @@ MonoBehaviour:
         childKeys:
         - DemoBuild/Linux/Linux x64
       - enabled: 1
-        childKeys: []
-      - enabled: 1
-        childKeys:
-        - DemoBuild/UWP/Any Device
-      - enabled: 1
         childKeys:
         - DemoBuild/Android
         - DemoBuild/PC
         - DemoBuild/WebGL
         - DemoBuild/OSX
         - DemoBuild/Linux
-        - DemoBuild/UWP
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys: []
       - enabled: 1
         childKeys: []
     showViewOptions: 0

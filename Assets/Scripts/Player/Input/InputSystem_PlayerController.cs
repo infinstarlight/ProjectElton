@@ -44,7 +44,8 @@ public class InputSystem_PlayerController : MonoBehaviour
     private Camera playerCamera;
     public PlayerStatsScript playerStats;
     private Keyboard currentKeyboard;
-    private Gamepad currentGamepad;
+    public Gamepad currentGamepad;
+    private Touchscreen currentTouchscreen;
     private SaveManager GetSaveManager;
     public GameInstance GetGameInstance;
     public AudioClip[] interactSounds;
@@ -63,7 +64,7 @@ public class InputSystem_PlayerController : MonoBehaviour
     private bool bActivateSpecial = false;
     public InputAction ToggleMouseStateAction;
     private bool bEnable;
-    private PlayerInput GetPlayerInput;
+    public Player GetPlayer;
     private Sequence satSequence;
 
     [Alias("gm")]
@@ -95,11 +96,13 @@ public class InputSystem_PlayerController : MonoBehaviour
         EnableGameControls();
         bEnableGameInput = true;
         bShowPauseMenu = false;
-        HUDGO = FindObjectOfType<ID_PlayerUI>().gameObject;
+        GetPlayer = GetComponentInParent<Player>();
+        HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
         uiController = FindObjectOfType<PlayerUIController>();
-        GetSaveManager = FindObjectOfType<SaveManager>();
+        GetGameInstance = FindObjectOfType<GameInstance>();
+        GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
         source = GetComponent<AudioSource>();
         playerCamera = Camera.main;
         if (Application.isEditor || Debug.isDebugBuild)
@@ -151,20 +154,16 @@ public class InputSystem_PlayerController : MonoBehaviour
         {
             PauseMenuGO.SetActive(false);
         }
-        if(CharMenuGO)
+        if (CharMenuGO)
         {
             CharMenuGO.SetActive(false);
         }
+
     }
 
     void Update()
     {
-        var activeTouches = UnityEngine.InputSystem.EnhancedTouch.Touch.activeTouches;
-        for (var i = 0; i < activeTouches.Count; ++i)
-        {
-            Debug.Log("Active touch: " + activeTouches[i]);
-        }
-
+        CheckForNewDevice();
     }
     private void FixedUpdate()
     {
@@ -196,6 +195,7 @@ public class InputSystem_PlayerController : MonoBehaviour
 
     void CheckForNewDevice()
     {
+
         InputSystem.onDeviceChange +=
         (device, change) =>
         {
@@ -203,17 +203,31 @@ public class InputSystem_PlayerController : MonoBehaviour
             {
                 case InputDeviceChange.Added:
                     // New Device
-                    //Debug.LogWarning("New device added: " + device);
-                    InputSystem.AddDevice(device);
+                    if (device != null)
+                    {
+                        Debug.LogWarning("New device added: " + device);
+                        InputSystem.AddDevice(device);
+                        for (int i = 0; i < Gamepad.all.Count; ++i)
+                        {
+                            if (device == Gamepad.all.ToArray()[i])
+                            {
+                                currentGamepad = Gamepad.all.ToArray()[i];
+                            }
+                        }
+                        //If on touchscreen and gamepad is connected
+                        //Disable touch controls and use gamepad
+                        //Do vice versa
+                    }
+
                     break;
                 case InputDeviceChange.Disconnected:
                     // Device got unplugged
-                    //Debug.LogWarning("Device is disconnected: " + device);
+                    Debug.LogWarning("Device is disconnected: " + device);
                     //InputSystem.Dis
                     break;
                 case InputDeviceChange.Reconnected:
                     // Plugged back in
-                    //Debug.LogWarning("Device reconnected: " + device);
+                    Debug.LogWarning("Device reconnected: " + device);
                     break;
                 case InputDeviceChange.Removed:
                     // Remove from Input System entirely; by default, devices stay in the system once discovered
@@ -230,6 +244,10 @@ public class InputSystem_PlayerController : MonoBehaviour
     void EnableGameControls()
     {
         GetGameInstance = FindObjectOfType<GameInstance>();
+        if (!uiController)
+        {
+            uiController = FindObjectOfType<PlayerUIController>();
+        }
         if (!playerStats)
         {
             playerStats = GetComponentInParent<PlayerStatsScript>();
@@ -257,68 +275,106 @@ public class InputSystem_PlayerController : MonoBehaviour
             myControls = new GameInputControls();
         }
         bEnableGameInput = true;
-        myControls.gameplay.Move.performed += rbMovement.OnMoveUpdate;
-        myControls.gameplay.Pause.performed += OnGamePause;
-        myControls.gameplay.Interact.performed += OnInteractEvent;
-        myControls.gameplay.CharacterMenu.performed += OnCharMenu;
-        myControls.gameplay.Sprint.performed += rbMovement.OnSprint;
-        myControls.gameplay.Jump.performed += rbMovement.OnJump;
-        myControls.gameplay.Fire.performed += combatController.OnFire;
-        myControls.gameplay.Aim.performed += cameraLook.OnLockOn;
-        myControls.gameplay.Aim.canceled += cameraLook.OnLockOnStop;
-        myControls.gameplay.Dash.performed += rbMovement.OnSpecialAbility;
-        myControls.gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
-        myControls.gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
-        myControls.gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
-        myControls.gameplay.Zoom.performed += cameraLook.OnZoom;
-        myControls.gameplay.Look.performed += cameraLook.OnLook;
-        myControls.gameplay.SelectPreviousWeapon.performed += combatController.OnWeaponCycleDown;
-        myControls.gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
-        myControls.gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
-        myControls.gameplay.SpecialAbility.performed += OnActivateSP;
-        myControls.gameplay.SpecialAbility.canceled += OnActivateSP;
-        myControls.gameplay.Enable();
-        myControls.gameplay.Pause.Enable();
-        Cursor.lockState = CursorLockMode.Locked;
+        if (rbMovement)
+        {
+            myControls.Gameplay.Move.performed += rbMovement.OnMoveUpdate;
+        }
+
+        myControls.Gameplay.Pause.performed += OnGamePause;
+        myControls.Gameplay.Interact.performed += OnInteractEvent;
+        myControls.Gameplay.CharacterMenu.performed += OnCharMenu;
+        myControls.Gameplay.Sprint.performed += rbMovement.OnSprint;
+        myControls.Gameplay.Jump.performed += rbMovement.OnJump;
+        myControls.Gameplay.Fire.performed += combatController.OnFire;
+        myControls.Gameplay.Aim.performed += cameraLook.OnLockOn;
+        myControls.Gameplay.Aim.canceled += cameraLook.OnLockOnStop;
+        myControls.Gameplay.Dash.performed += rbMovement.OnSpecialAbility;
+        myControls.Gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
+        myControls.Gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
+        myControls.Gameplay.SelectWeaponThree.performed += combatController.OnThirdWeaponSelect;
+        myControls.Gameplay.Zoom.performed += cameraLook.OnZoom;
+        myControls.Gameplay.Look.performed += cameraLook.OnLook;
+        myControls.Gameplay.SelectPreviousWeapon.performed += combatController.OnWeaponCycleDown;
+        myControls.Gameplay.SelectNextWeapon.performed += combatController.OnWeaponCycleUp;
+        myControls.Gameplay.ActivateSubweapon.performed += combatController.OnSubFire;
+        myControls.Gameplay.SpecialAbility.performed += OnActivateSP;
+        myControls.Gameplay.SpecialAbility.canceled += OnActivateSP;
+        myControls.Gameplay.Enable();
+        myControls.Gameplay.Pause.Enable();
+        if (GetGameInstance.bIsRunningOnMobile)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
         InputSystem.pollingFrequency = 120;
 
-        myControls.gameplay.Move.performed += context => LeftStickValue = context.ReadValue<Vector2>();
-        myControls.gameplay.Move.canceled += context => LeftStickValue = Vector2.zero;
-        myControls.gameplay.Look.performed += context => RightStickValue = context.ReadValue<Vector2>();
-        myControls.gameplay.Look.canceled += context => RightStickValue = Vector2.zero;
-        myControls.gameplay.Fire.performed += context => FireButtonValue = context.ReadValue<float>() > 0.5f;
-        myControls.gameplay.Fire.canceled += context => FireButtonValue = false;
-        myControls.gameplay.Jump.performed += context => JumpButtonValue = context.ReadValue<float>() > 0.1f;
-        myControls.gameplay.Jump.canceled += context => JumpButtonValue = false;
+        myControls.Gameplay.Move.performed += context => LeftStickValue = context.ReadValue<Vector2>();
+        myControls.Gameplay.Move.canceled += context => LeftStickValue = Vector2.zero;
+        myControls.Gameplay.Look.performed += context => RightStickValue = context.ReadValue<Vector2>();
+        myControls.Gameplay.Look.canceled += context => RightStickValue = Vector2.zero;
+        myControls.Gameplay.Fire.performed += context => FireButtonValue = context.ReadValue<float>() > 0.5f;
+        myControls.Gameplay.Fire.canceled += context => FireButtonValue = false;
+        myControls.Gameplay.Jump.performed += context => JumpButtonValue = context.ReadValue<float>() > 0.1f;
+        myControls.Gameplay.Jump.canceled += context => JumpButtonValue = false;
 
-
+        if (currentKeyboard == null)
+        {
+            currentKeyboard = Keyboard.current;
+        }
+        if (currentGamepad == null && Gamepad.current != null)
+        {
+            currentGamepad = Gamepad.current;
+        }
+        if (currentTouchscreen == null)
+        {
+            currentTouchscreen = Touchscreen.current;
+        }
+        if (currentTouchscreen != null && currentGamepad == null)
+        {
+            uiController.showTouchUIEvent.Invoke();
+        }
+        if (currentGamepad != null && currentTouchscreen == null)
+        {
+            uiController.showTouchUIEvent.Invoke();
+        }
     }
 
     void DisableGameControls()
     {
         bEnableGameInput = false;
-        myControls.gameplay.Disable();
+        myControls.Gameplay.Disable();
+        if (currentTouchscreen != null && currentGamepad == null)
+        {
+            uiController.showTouchUIEvent.Invoke();
+        }
+        if (currentGamepad != null && currentTouchscreen == null)
+        {
+            uiController.showTouchUIEvent.Invoke();
+        }
 
     }
 
     void EnableUIControls()
     {
-        myControls.ui.Enable();
-        myControls.ui.Point.Enable();
-        myControls.ui.Navigate.Enable();
-        myControls.ui.Submit.Enable();
-        myControls.ui.Cancel.Enable();
-        myControls.ui.Click.Enable();
-        myControls.ui.RightClick.Enable();
-        myControls.ui.MiddleClick.Enable();
-        myControls.ui.ScrollWheel.Enable();
+        myControls.UI.Enable();
+        myControls.UI.Point.Enable();
+        myControls.UI.Navigate.Enable();
+        myControls.UI.Submit.Enable();
+        myControls.UI.Cancel.Enable();
+        myControls.UI.Click.Enable();
+        myControls.UI.RightClick.Enable();
+        myControls.UI.MiddleClick.Enable();
+        myControls.UI.ScrollWheel.Enable();
     }
 
     void DisableUIControls()
     {
-        myControls.ui.Disable();
-        myControls.ui.Point.Disable();
+        myControls.UI.Disable();
+        myControls.UI.Point.Disable();
         EnableGameControls();
     }
 
@@ -356,12 +412,12 @@ public class InputSystem_PlayerController : MonoBehaviour
 
             case InputActionPhase.Started:
                 {
-                  
+
                 }
                 break;
             case InputActionPhase.Canceled:
                 {
-                  
+
                 }
                 break;
         }

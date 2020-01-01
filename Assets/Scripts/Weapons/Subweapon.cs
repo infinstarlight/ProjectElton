@@ -21,8 +21,9 @@ public class Subweapon : Weapon
     public UnityEvent deactivateEvent = new UnityEvent();
     public bool bCanConsumeAmmo = false;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        gunEndGO = GetComponentInChildren<ID_gunEnd>().gameObject;
         CurrentAmmo = MaxAmmo;
     }
 

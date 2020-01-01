@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine;
 
-public class MainMenuController : MonoBehaviour
+public class MainMenuController : MonoBehaviour, IUIManager
 {
     private GameObject PlayerGO;
     private GameObject PlayerUIGO;
@@ -21,7 +21,6 @@ public class MainMenuController : MonoBehaviour
 
     void Awake()
     {
-        // Debug.Log(Application.persistentDataPath);
         GetSceneFade = FindObjectOfType<SceneFadeTransition>();
         GameManagerGO = FindObjectOfType<GameInstance>().gameObject;
         GetGameInstance = GameManagerGO.GetComponent<GameInstance>();
@@ -72,6 +71,11 @@ public class MainMenuController : MonoBehaviour
 
     }
 
+    public void SwitchCategory(GameObject targetGO)
+    {
+
+    }
+
     public void StartNewGame()
     {
         Destroy(MusicPlayerGO);
@@ -115,4 +119,21 @@ public class MainMenuController : MonoBehaviour
         }
 
     }
+
+    public void SwitchMenu(GameObject currentMenu, GameObject newMenu)
+    {
+        if(currentMenu && newMenu)
+        {
+            if(currentMenu.activeSelf)
+            {
+                currentMenu.SetActive(false);
+                newMenu.SetActive(true);
+            }
+            else
+            {
+                currentMenu.SetActive(true);
+                newMenu.SetActive(false);
+            }
+        }
+    } 
 }

@@ -22,5 +22,7 @@ public class PlayerData
        position[1] = player.transform.position.y;
        position[2] = player.transform.position.z;
     }
+
+  
     
 }

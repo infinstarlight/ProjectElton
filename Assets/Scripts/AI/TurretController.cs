@@ -200,16 +200,20 @@ public class TurretController : MonoBehaviour, IDamageable<float>
 
     void ToggleShield()
     {
-        if (GetDisabledEnergyPylons.Count >= MaxShieldCount)
+        if (bHasShield)
         {
-            bIsMainShieldDisabled = true;
-            myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
+            if (GetDisabledEnergyPylons.Count >= MaxShieldCount)
+            {
+                bIsMainShieldDisabled = true;
+                myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
+            }
+            if (GetActiveEnergyPylons.Count >= MaxShieldCount)
+            {
+                bIsMainShieldDisabled = false;
+                myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
+            }
         }
-        if (GetActiveEnergyPylons.Count >= MaxShieldCount)
-        {
-            bIsMainShieldDisabled = false;
-            myShield.SendMessage("ToggleShieldStatus", bIsMainShieldDisabled);
-        }
+
     }
 
 

@@ -151,23 +151,26 @@ MonoBehaviour:
   CurrentChargeAmount: 0
   ChargeModAmount: 0
   ChargeModRate: 1
+  GamepadChargeMod: 0
   weaponRange: 50
   nextFire: 0
   fireRate: 0.8
   DamageAmount: 6
-  oldDamageAmount: 0
+  baseDamage: 5
+  damageModifer: 0
+  oldDamageModifer: 0
+  oldbaseDamage: 0
   weaponAudio: {fileID: 0}
   gunEndGO: {fileID: 0}
   WeaponSounds:
   - {fileID: 8300000, guid: fe6b25da963b71a40ae6130491a51b45, type: 3}
-  - {fileID: 8300000, guid: 5c85a9f531dd83b418b5e7c67489ebad, type: 3}
+  - {fileID: 8300000, guid: bc93e7c15e1774473bbc38f4cb27c820, type: 3}
   FireEffect: {fileID: 3848898404133243097, guid: 3c1912ef84c486b439c1e5287a25a48d,
     type: 3}
   rayOrigin: {x: 0.5, y: 0.5, z: 0}
   bIsPlayerWeapon: 0
   aimGO: {fileID: 0}
   GetAICon: {fileID: 0}
-  ShotWaitPeriod: 3
   AIEyes: {fileID: 0}
 --- !u!1 &4026539492584651207
 GameObject:

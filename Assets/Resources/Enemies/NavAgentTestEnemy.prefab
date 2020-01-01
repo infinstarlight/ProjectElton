@@ -272,6 +272,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -437,20 +438,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStats: {fileID: 0}
   hurtClips:
-  - {fileID: 8300000, guid: 899df4e18cc76504eb9a20541de68109, type: 3}
-  - {fileID: 8300000, guid: c566df3b65f0e574ab0edaaeb68fca72, type: 3}
-  - {fileID: 8300000, guid: 03947a00fe3f076429e3dd99a76391ca, type: 3}
-  deathClip: {fileID: 8300000, guid: 0b1bc5491bb28444ca1e7df3a26347dc, type: 3}
+  - {fileID: 8300000, guid: dd10272e30e684ab8b3a57e0e2733a01, type: 3}
+  - {fileID: 8300000, guid: 985d409a5c9cf4c7b9a7fe2b5644ca9d, type: 3}
+  - {fileID: 8300000, guid: 666585c3fc12f4f01ab3a1cc2cf0aa26, type: 3}
+  deathClip: {fileID: 8300000, guid: 276a9a89e684c4b99b0e71c265f7758c, type: 3}
   DeathVFX: {fileID: 5527279094547357325, guid: 3cb2503db42ec654d80629eb71c32110,
     type: 3}
   bShouldDestroyOnDeath: 1
   DestroyDelay: 3
+  MovementMultiplier: 1
+  MovementMultiplierMod: 0
   damageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  damageProcessEvent:
     m_PersistentCalls:
       m_Calls: []
   StyleModAmount: 1
   PowerModAmount: 0.1
   enemyUIController: {fileID: 0}
+  dropMoneyGO: {fileID: 8244754411626477874, guid: b0c2aa8ff8a8747e1b91db94d11f04c6,
+    type: 3}
   AI_Weapon: {fileID: 7837896779041405099}
   itemsGO:
   - {fileID: 0}
@@ -492,7 +500,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!114 &2578673211751269754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1158,15 +1166,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7879ef6d65dd31143a5e2cd434b1b4d5, type: 3}
---- !u!4 &7837896779041405102 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4026539492209056180, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-    type: 3}
-  m_PrefabInstance: {fileID: 6567631177652576538}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7837896779041405099 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4026539492209056177, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6567631177652576538}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7837896779041405102 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4026539492209056180, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
     type: 3}
   m_PrefabInstance: {fileID: 6567631177652576538}
   m_PrefabAsset: {fileID: 0}

@@ -325,7 +325,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8520466008630187160}
-  - component: {fileID: 918332254732250127}
   - component: {fileID: 5214238611276122250}
   m_Layer: 0
   m_Name: GameManager
@@ -353,18 +352,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &918332254732250127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3988738972537100895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d359cb9ec5744bdebc8db86341db745, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5214238611276122250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +366,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bIsReturningToMainMenu: 0
   bIsRunningOnMobile: 0
+  GlobalTimeScale: 1
+  adjustTimeEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7227610685964343572
 GameObject:
   m_ObjectHideFlags: 0

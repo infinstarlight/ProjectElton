@@ -11,13 +11,13 @@ public class DebugController : MonoBehaviour
     public bool bEnableFPSLimit = false;
     public int testFrameRate = 30;
     private ID_DebugCanvas debugCanvas;
-    private GameObject debugCanvasGO;
+
     private GameObject graphyGO;
     // Start is called before the first frame update
     void Start()
     {
         debugCanvas = FindObjectOfType<ID_DebugCanvas>();
-//        debugCanvasGO = debugCanvas.gameObject;
+        //debugCanvasGO = debugCanvas.gameObject;
         if (Debug.isDebugBuild || Application.isEditor)
         {
             bIsDebug = true;
@@ -35,14 +35,7 @@ public class DebugController : MonoBehaviour
 #endif
             }
 
-            if (bShowFPS)
-            {
-                debugCanvasGO.SetActive(true);
-            }
-        }
-        else
-        {
-            debugCanvasGO.SetActive(false);
+
         }
     }
 
@@ -76,7 +69,7 @@ public class DebugController : MonoBehaviour
             if (Keyboard.current.homeKey.wasPressedThisFrame)
             {
                 bEnableFPSLimit = !bEnableFPSLimit;
-                
+
             }
             if (bShowFPS)
             {
@@ -84,12 +77,12 @@ public class DebugController : MonoBehaviour
                 {
                     graphyGO.SetActive(true);
                 }
-               // debugCanvasGO.SetActive(true);
+                // debugCanvasGO.SetActive(true);
 
             }
             else
             {
-//                debugCanvasGO.SetActive(false);
+                //                debugCanvasGO.SetActive(false);
                 if (graphyGO)
                 {
                     graphyGO.SetActive(false);

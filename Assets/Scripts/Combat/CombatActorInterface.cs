@@ -1,5 +1,9 @@
 ﻿using UnityEngine.Events;
 using UnityEngine;
+[System.Serializable]
+public class UnityIntEvent : UnityEvent<int>
+{
+}
 
 [System.Serializable]
 public class UnityFloatEvent : UnityEvent<float>

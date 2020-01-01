@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Item : MonoBehaviour
 {
@@ -11,7 +9,8 @@ public class Item : MonoBehaviour
         SubweaponAmmo,
         PowerUp,
         HealthUpgrade,
-        SubweaponAmmoUpgrade
+        SubweaponAmmoUpgrade,
+        MoneyPickup
     }
     public float ValueMod = 0;
     public Player GetPlayer;
@@ -32,10 +31,8 @@ public class Item : MonoBehaviour
     {
         if (CurrentItemType == ItemType.HealthPickup)
         {
-            GetPlayer.SendMessage("HealCharacter", ValueMod);
-            //GetPlayer.characterStats.HealCharacter(RecoverAmount);
+            GetPlayer.HealPlayerEvent.Invoke(ValueMod);
             GetPlayer.PlayerStats.updateDataEvent.Invoke();
-            //GetPlayer.PlayerStats.UpdateHealthText();
             itemSource.PlayOneShot(itemSource.clip);
         }
 
@@ -45,7 +42,7 @@ public class Item : MonoBehaviour
     {
         if (CurrentItemType == ItemType.AragonPickup)
         {
-            GetPlayer.PlayerStats.SendMessage("RecoverPower", ValueMod);
+            GetPlayer.RecoverPowerEvent.Invoke(ValueMod);
             GetPlayer.PlayerStats.updateDataEvent.Invoke();
             itemSource.PlayOneShot(itemSource.clip);
         }
@@ -55,7 +52,7 @@ public class Item : MonoBehaviour
     {
         if (CurrentItemType == ItemType.SubweaponAmmo)
         {
-            GetPlayer.pCon.combatController.currentSubWeapon.SendMessage("ModifyAmmo", ValueMod);
+            GetPlayer.pCon.combatController.currentSubWeaponGO.SendMessage("ModifyAmmo", ValueMod);
             itemSource.PlayOneShot(itemSource.clip);
         }
     }
@@ -64,10 +61,18 @@ public class Item : MonoBehaviour
     {
         if (CurrentItemType == ItemType.HealthUpgrade)
         {
-            GetPlayer.SendMessage("ModifyHealth", ValueMod);
+            GetPlayer.ModHealthEvent.Invoke(ValueMod);
             GetPlayer.PlayerStats.updateDataEvent.Invoke();
-            //SaveSystem.SavePlayer(GetPlayer);
             SaveManager.SavePlayerData();
+        }
+    }
+
+    public void ModifyMoney()
+    {
+        if (CurrentItemType == ItemType.MoneyPickup)
+        {
+            GetPlayer.ModMoneyEvent.Invoke((int)ValueMod);
+            GetPlayer.PlayerStats.updateDataEvent.Invoke();
         }
     }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class PlayerWeapon : Weapon
@@ -15,7 +14,7 @@ public class PlayerWeapon : Weapon
     {
         PlayerCamera = Camera.main;
         cameraGO = PlayerCamera.gameObject;
-        
+
         aimGO = cameraGO;
         aimGO = cameraGO;
         bIsPlayerWeapon = true;
@@ -27,6 +26,15 @@ public class PlayerWeapon : Weapon
         {
             PlayerCamera = Camera.main;
         }
+        if (bIsChargeWeapon)
+        {
+            if (Gamepad.current != null)
+            {
+                GamepadChargeMod = Gamepad.current.rightTrigger.ReadValue();
+            }
+
+        }
+
     }
 
 

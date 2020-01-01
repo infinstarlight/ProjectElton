@@ -2,7 +2,7 @@
     "name": "GameInputControls",
     "maps": [
         {
-            "name": "gameplay",
+            "name": "Gameplay",
             "id": "4bc61230-eb0c-4413-8d72-0106f7a518e3",
             "actions": [
                 {
@@ -83,7 +83,7 @@
                     "id": "0f6b9c69-6b37-49f3-a1a7-6976b1b91c86",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Character Menu",
@@ -91,7 +91,7 @@
                     "id": "66a2b395-0075-4d46-9e91-77bcbb5151a2",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Select Weapon One",
@@ -156,6 +156,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "4242bdea-a7e2-4169-98a0-33be6b17ee34",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -209,7 +217,7 @@
                     "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Touchscreen;Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -326,6 +334,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8f8f31f1-9b0d-4b70-8c1f-6500d34aed88",
+                    "path": "<DualShockGamepad>/touchpadButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Character Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "63cc83d1-6d46-4ab8-ae5d-b3b028843649",
                     "path": "<Keyboard>/1",
                     "interactions": "",
@@ -350,7 +369,7 @@
                     "name": "",
                     "id": "612a6aa1-8dc6-4a28-b5a5-3ded654448ec",
                     "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Aim",
@@ -535,7 +554,7 @@
                 },
                 {
                     "name": "",
-                    "id": "cf496eff-6355-444a-a4f5-b5f22aa0a2e4",
+                    "id": "6769a516-bd8b-49e8-9674-f3641e1fa9c9",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
@@ -565,11 +584,33 @@
                     "action": "Support Ability",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2423b0e1-3457-4e00-8c2b-715b4830bff5",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2700f0e7-437f-4cae-9804-8c18f8e10353",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "ui",
+            "name": "UI",
             "id": "62a9018a-9185-4223-9b22-69c857fe1921",
             "actions": [
                 {

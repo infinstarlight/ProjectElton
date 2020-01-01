@@ -55,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -255,7 +256,7 @@ MonoBehaviour:
   PushbackForce: 10
   oldVelocity: {x: 0, y: 0, z: 0}
   DamageAmount: 15
-  explosionGO: {fileID: 7332580293262548717, guid: 3b2d436ebe97c4b44a21dc87cfbe53a6,
+  explosionGO: {fileID: 5204121151071732956, guid: e92dca7efb06c481f818ae36b2561cba,
     type: 3}
   PushbackVector: {x: 0, y: 1, z: -1}
   bIsPlayerProjectile: 1

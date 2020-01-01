@@ -45,14 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0dbd8cf504b3da408610670bf967b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myNavAgent: {fileID: 0}
-  myNavMeshAgent: {fileID: 0}
   AIEyes: {fileID: 2032805966976793705}
   visionPollRate: 0.25
   visionRange: 200
   bIsPlayerVisible: 0
   bIsHumanoid: 1
-  DistanceRemaining: 0
 --- !u!1 &3537588186565128717
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1512,7 @@ NavMeshAgent:
   m_Height: 1.85
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 3
 --- !u!136 &1459138872
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1640,18 +1637,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterStats: {fileID: 0}
   hurtClips:
-  - {fileID: 8300000, guid: 8df249cd3aa450343a70c8b05806bf31, type: 3}
-  - {fileID: 8300000, guid: 7723b84e09f0af342ad7e295a19b379f, type: 3}
-  deathClip: {fileID: 8300000, guid: 62da329cb62cdcd4eb1f86e42768edcf, type: 3}
+  - {fileID: 8300000, guid: bfd8155cd8071486f81a825e6d3fbc20, type: 3}
+  - {fileID: 8300000, guid: 58c5796eb116f4c2a9135aa53b36da7a, type: 3}
+  deathClip: {fileID: 8300000, guid: 995bd4bcaff964f2ea65ba0c7acbdd23, type: 3}
   DeathVFX: {fileID: 5527279094547357325, guid: 3cb2503db42ec654d80629eb71c32110,
     type: 3}
   bShouldDestroyOnDeath: 1
   DestroyDelay: 3
+  MovementMultiplier: 1
+  MovementMultiplierMod: 0
   damageEvent:
     m_PersistentCalls:
       m_Calls: []
+  damageProcessEvent:
+    m_PersistentCalls:
+      m_Calls: []
   StyleModAmount: 1
+  PowerModAmount: 0.1
   enemyUIController: {fileID: 0}
+  dropMoneyGO: {fileID: 8244754411626477874, guid: b0c2aa8ff8a8747e1b91db94d11f04c6,
+    type: 3}
   AI_Weapon: {fileID: 4026539492530608962}
   itemsGO:
   - {fileID: 0}
@@ -1673,7 +1678,6 @@ MonoBehaviour:
   healthPercentage: 0
   bIsDead: 0
   bCanTakeDamage: 1
-  currentCharacterStyle: 0
   CharacterName: 
 --- !u!1 &3538111153025787973
 GameObject:
@@ -2783,6 +2787,7 @@ SkinnedMeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3659,11 +3664,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyShotgun
       objectReference: {fileID: 0}
-    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
-        type: 3}
-      propertyPath: AIEyes
-      value: 
-      objectReference: {fileID: 2032805966976793705}
     - target: {fileID: 4026539492209056180, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3719,6 +3719,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7879645427735496868, guid: 7879ef6d65dd31143a5e2cd434b1b4d5,
+        type: 3}
+      propertyPath: AIEyes
+      value: 
+      objectReference: {fileID: 2032805966976793705}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7879ef6d65dd31143a5e2cd434b1b4d5, type: 3}
 --- !u!1 &4026539492530608962 stripped
@@ -3890,12 +3895,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 5679567390652042455, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+    - target: {fileID: 5679567389633209809, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 5679567389633209809, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+    - target: {fileID: 5679567390068461947, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5679567390652042455, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
       value: 11
@@ -3906,11 +3916,6 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5679567390986584160, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5679567390068461947, guid: 7ca26769c0e15c34bb9c16d14de4af4d,
         type: 3}
       propertyPath: m_Layer
       value: 11
@@ -3935,11 +3940,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1813860930}
     m_Modifications:
-    - target: {fileID: 7350270549714412313, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
-        type: 3}
-      propertyPath: m_Name
-      value: AIEyes
-      objectReference: {fileID: 0}
     - target: {fileID: 1636391212923211885, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3994,6 +3994,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7350270549714412313, guid: 94c852c3232e8cc4d9c1e97b9a9e7495,
+        type: 3}
+      propertyPath: m_Name
+      value: AIEyes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94c852c3232e8cc4d9c1e97b9a9e7495, type: 3}

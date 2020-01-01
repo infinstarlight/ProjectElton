@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Popcron.Console;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class MyConsoleCommands
@@ -66,17 +67,7 @@ public class GameInstance : MonoBehaviour
         Console.Initialize();
 
         DOTween.Init();
-    }
 
-
-    // called first
-    void OnEnable()
-    {
-        //        Debug.Log("OnEnable called");
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        GetBGMPlayer = FindObjectOfType<BGM_Player>();
-        Parser.Register(this, "instance");
-        Console.Open = false;
 #if UNITY_STANDALONE
         bIsRunningOnMobile = false;
 
@@ -88,6 +79,18 @@ public class GameInstance : MonoBehaviour
         bIsRunningOnMobile = true;
 
 #endif
+    }
+
+
+    // called first
+    void OnEnable()
+    {
+        //        Debug.Log("OnEnable called");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        GetBGMPlayer = FindObjectOfType<BGM_Player>();
+        Parser.Register(this, "instance");
+        Console.Open = false;
+
     }
 
     // called second
@@ -135,6 +138,17 @@ public class GameInstance : MonoBehaviour
         {
             Time.timeScale = GlobalTimeScale;
         }
+
+        if (Keyboard.current.f12Key.wasPressedThisFrame)
+        {
+            bIsRunningOnMobile = !bIsRunningOnMobile;
+            if(GetPlayer)
+            {
+                GetPlayer.PlayerStats.updateDataEvent.Invoke();    
+            }
+            
+        }
+
     }
 
     public void AdjustTimeScale(float newValue)

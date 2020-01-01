@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public enum EWeaponType
@@ -40,6 +40,7 @@ public class Weapon : MonoBehaviour
     //How fast can this weapon charge
     public float ChargeModAmount = 0.01f;
     public float ChargeModRate = 1;
+    public float GamepadChargeMod = 0.0f;
 
     public WaitForSeconds chargeLength = new WaitForSeconds(s_MaxChargeTime);
 
@@ -213,6 +214,20 @@ public class Weapon : MonoBehaviour
         if (CurrentChargeAmount <= MaxChargeLimit)
         {
             CurrentChargeAmount += ChargeModAmount;
+        }
+        if (bIsPlayerWeapon)
+        {
+            if (CurrentChargeAmount <= MaxChargeLimit)
+            {
+                CurrentChargeAmount += ChargeModAmount;
+            }
+            if (Gamepad.current != null)
+            {
+                if (CurrentChargeAmount <= MaxChargeLimit)
+                {
+                    CurrentChargeAmount += ChargeModAmount * GamepadChargeMod;
+                }
+            }
         }
 
         yield return ChargeModRate;

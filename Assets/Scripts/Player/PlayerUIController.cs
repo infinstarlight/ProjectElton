@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerUIController : MonoBehaviour
 {
-    private InputSystem_PlayerController pCon;
+    private InputSystem_PlayerControllerV2 pCon;
     private PlayerStatsScript statsScript;
     private GameObject PauseMenu;
     private GameObject CharMenu;
@@ -19,55 +19,54 @@ public class PlayerUIController : MonoBehaviour
     private ID_InteractText interactText;
     public bool bShowInteractText;
     private GameObject optionsMenu;
+    private GameObject moneyText;
+    public float currentMoneyUI = 0.0f;
     private Player GetPlayer;
 
     private GameInstance GetGameInstance;
     private SaveManager GetSaveManager;
     private HealthTextScript healthText;
     public UnityEvent showInteractEvent = new UnityEvent();
+    public UnityEvent showTouchUIEvent = new UnityEvent();
+
+    private void OnDisable()
+    {
+        showTouchUIEvent.RemoveAllListeners();
+        showInteractEvent.RemoveAllListeners();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+
         GetGameInstance = FindObjectOfType<GameInstance>();
         GetTouchUI = FindObjectOfType<ID_TouchUI>();
         GetPlayer = FindObjectOfType<Player>();
-        pCon = FindObjectOfType<InputSystem_PlayerController>();
+        //pCon = FindObjectOfType<InputSystem_PlayerController>();
+        pCon = FindObjectOfType<InputSystem_PlayerControllerV2>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         showInteractEvent.AddListener(ToggleInteractText);
+        showTouchUIEvent.AddListener(ShowTouchUI);
         healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
         aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
         healthText = FindObjectOfType<HealthTextScript>();
         statsScript = FindObjectOfType<PlayerStatsScript>();
         interactText = FindObjectOfType<ID_InteractText>();
+        moneyText = FindObjectOfType<ID_PlayerMoney>().gameObject;
         TouchControlGO = GetTouchUI.gameObject;
-
         if (GetGameInstance)
         {
             GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
         }
 
-
+        ShowTouchUI();
 
         PauseMenu = pCon.PauseMenuGO;
         CharMenu = pCon.CharMenuGO;
         if (optionsMenu)
         {
             optionsMenu.SetActive(false);
-        }
-
-
-        if (TouchControlGO)
-        {
-            if (GetGameInstance.bIsRunningOnMobile)
-            {
-                TouchControlGO.SetActive(true);
-            }
-            else
-            {
-                TouchControlGO.SetActive(false);
-            }
         }
 
 
@@ -108,6 +107,41 @@ public class PlayerUIController : MonoBehaviour
         if (aragonBar)
         {
             aragonBar.aragonSlider.value = pCon.playerStats.PowerGaugePercentage;
+        }
+        if (moneyText)
+        {
+            currentMoneyUI = pCon.GetPlayer.currentMoney;
+            moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
+        }
+        ShowTouchUI();
+
+    }
+
+    void ShowTouchUI()
+    {
+        if (GetGameInstance.bIsRunningOnMobile)
+        {
+            ToggleTouchUI(true);
+        }
+        else
+        {
+            ToggleTouchUI(false);
+        }
+
+    }
+
+    void ToggleTouchUI(bool bEnable)
+    {
+
+        if (bEnable)
+        {
+            TouchControlGO.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            TouchControlGO.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

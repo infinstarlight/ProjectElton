@@ -151,13 +151,13 @@ public class PlayerStatsScript : MonoBehaviour
 
     void ActivateAragon()
     {
-        GetPlayerController.combatController.currentWeapon.SendMessage("ModifyDamage", DamageMultiplierAmount);
+        GetPlayerController.combatController.currentWeaponGO.SendMessage("ModifyDamage", DamageMultiplierAmount);
         //StartCoroutine(RegenHealth());
         bStartHealthRegen = true;
     }
     void DeactivateAragon()
     {
-        GetPlayerController.combatController.currentWeapon.SendMessage("RevertDamage");
+        GetPlayerController.combatController.currentWeaponGO.SendMessage("RevertDamage");
         //StartCoroutine(RegenHealth());
         bStartHealthRegen = false;
     }

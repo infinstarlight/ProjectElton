@@ -11,7 +11,8 @@ public class Enemy : Character
     private AIControllerBase AIController;
     private AINavController GetAINav;
     public EnemyUIController enemyUIController;
-   
+    public GameObject dropMoneyGO;
+
     public GameObject AI_Weapon;
     private EnemyWeapon myWeapon;
 
@@ -50,7 +51,7 @@ public class Enemy : Character
 
     private void Update()
     {
-       
+
         if (!playerState)
         {
             playerState = FindObjectOfType<PlayerStateScript>();
@@ -65,7 +66,7 @@ public class Enemy : Character
                     AI_Weapon.GetComponent<EnemyWeapon>().StartCoroutine(AI_Weapon.GetComponent<EnemyWeapon>().AIFire());
                 }
             }
-            
+
         }
 
     }
@@ -85,6 +86,7 @@ public class Enemy : Character
             if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();
+                SpawnRandomPickup();
             }
         }
 
@@ -93,17 +95,16 @@ public class Enemy : Character
     public void OnEnemyDeath()
     {
         base.OnDeath();
-        SpawnRandomPickup();
-        Destroy(gameObject, DestroyDelay);
-
-        if (bShouldDestroyOnDeath)
-        {
-
-        }
+        
     }
 
     public void SpawnRandomPickup()
     {
+        if (dropMoneyGO)
+        {
+            Instantiate(dropMoneyGO, transform.position, transform.rotation);
+        }
         Instantiate(itemsGO[Random.Range(0, itemsGO.Length)], transform.position, transform.rotation);
+        Destroy(gameObject, DestroyDelay);
     }
 }

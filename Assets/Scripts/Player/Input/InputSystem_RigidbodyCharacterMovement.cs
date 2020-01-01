@@ -165,6 +165,7 @@ public class InputSystem_RigidbodyCharacterMovement : MonoBehaviour
         moveVector = context.ReadValue<Vector2>();
         MoveRight(moveVector.x);
         MoveUp(moveVector.y);
+      //  Debug.Log(moveVector);
     }
 
 

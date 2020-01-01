@@ -4,8 +4,8 @@ using UnityEngine;
 public class InputSystem_PlayerCombatController : MonoBehaviour
 {
     public PlayerStatsScript playerStats;
-    public GameObject currentWeapon;
-    public GameObject currentSubWeapon;
+    public GameObject currentWeaponGO;
+    public GameObject currentSubWeaponGO;
     private AudioSource styleAudioSource;
     public AudioClip[] styleClips;
 
@@ -24,12 +24,12 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     {
         styleAudioSource = GetComponent<AudioSource>();
         playerStats = GetComponentInParent<PlayerStatsScript>();
-        currentWeapon = Weapons[0];
+        currentWeaponGO = Weapons[0];
         Weapons[1].gameObject.SetActive(false);
         Weapons[2].gameObject.SetActive(false);
-        currentWeaponScript = currentWeapon.GetComponent<PlayerWeapon>();
-        currentSubWeapon = GetComponentInChildren<Subweapon>().gameObject;
-        currentSubweaponScript = currentSubWeapon.GetComponent<Subweapon>();
+        currentWeaponScript = currentWeaponGO.GetComponent<PlayerWeapon>();
+        currentSubWeaponGO = GetComponentInChildren<Subweapon>().gameObject;
+        currentSubweaponScript = currentSubWeaponGO.GetComponent<Subweapon>();
 
     }
 
@@ -37,11 +37,11 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
     void Update()
     {
         //If we can get the right GameObject, but not the right PlayerScript reference
-        if (currentWeapon.GetComponent<PlayerWeapon>())
+        if (currentWeaponGO.GetComponent<PlayerWeapon>())
         {
             if (currentWeaponScript == null)
             {
-                currentWeaponScript = currentWeapon.GetComponent<PlayerWeapon>();
+                currentWeaponScript = currentWeaponGO.GetComponent<PlayerWeapon>();
             }
             if (currentWeaponScript.bIsAutomatic && bIsAutoFiring)
             {
@@ -52,11 +52,11 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 currentWeaponScript.StartCoroutine(currentWeaponScript.ChargeShot());
             }
         }
-        if (currentSubWeapon.GetComponent<Subweapon>())
+        if (currentSubWeaponGO.GetComponent<Subweapon>())
         {
             if (!currentSubweaponScript)
             {
-                currentSubweaponScript = currentSubWeapon.GetComponent<Subweapon>();
+                currentSubweaponScript = currentSubWeaponGO.GetComponent<Subweapon>();
             }
         }
 
@@ -89,8 +89,16 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
         {
             case InputActionPhase.Performed:
                 {
-                    currentWeaponScript.Fire();
-                    Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+                    if (!currentWeaponScript.bIsChargeWeapon)
+                    {
+                        currentWeaponScript.Fire();
+                    }
+
+                    if (Gamepad.current != null)
+                    {
+                        Gamepad.current.SetMotorSpeeds(0.25f, 0.75f);
+                    }
+
                 }
 
                 break;
@@ -114,7 +122,11 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
                 break;
             case InputActionPhase.Canceled:
                 {
-                    Gamepad.current.SetMotorSpeeds(0.0f, 0.0f);
+                    if (Gamepad.current != null)
+                    {
+                        Gamepad.current.SetMotorSpeeds(0.0f, 0.0f);
+                    }
+
                     if (currentWeaponScript.bIsAutomatic)
                     {
                         bIsAutoFiring = false;
@@ -158,13 +170,13 @@ public class InputSystem_PlayerCombatController : MonoBehaviour
 
     void WeaponSelect(int weaponDesired)
     {
-        if (currentWeapon != Weapons[weaponDesired])
+        if (currentWeaponGO != Weapons[weaponDesired])
         {
-            currentWeapon.SetActive(false);
+            currentWeaponGO.SetActive(false);
         }
         Weapons[weaponDesired].SetActive(true);
         currentWeaponScript = Weapons[weaponDesired].GetComponent<PlayerWeapon>();
-        currentWeapon = Weapons[weaponDesired];
+        currentWeaponGO = Weapons[weaponDesired];
     }
 
     void CycleWeapon(bool bShouldCycleUp)

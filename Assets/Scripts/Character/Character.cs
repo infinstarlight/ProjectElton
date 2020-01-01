@@ -39,9 +39,12 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
             characterStats.bCanTakeDamage = false;
             source.clip = deathClip;
             source.PlayOneShot(source.clip);
-
+            
             GameObject deathVX = Instantiate(DeathVFX, transform.position, transform.rotation);
-
+            if(bShouldDestroyOnDeath)
+            {
+                Destroy(gameObject,DestroyDelay);
+            }
             //TODO: Disable player input on death
         }
 

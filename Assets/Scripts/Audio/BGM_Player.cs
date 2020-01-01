@@ -8,7 +8,7 @@ public class BGM_Player : MonoBehaviour
 {
     private static BGM_Player instance = null;
     public static BGM_Player Instance { get { return instance; } }
-    public  AudioSource source;
+    public AudioSource source;
     public AudioClip[] Playlist;
     private int NextTrackNum = 0;
 
@@ -33,16 +33,7 @@ public class BGM_Player : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (source)
-        {
-            GetMusicPlaylist = FindObjectOfType<MusicPlaylist>();
-            if (GetMusicPlaylist)
-            {
-                Playlist = GetMusicPlaylist.Tracks;
-                PlayFirstTrack();
-            }
-
-        }
+        FindMusicPlaylist();
 
     }
 
@@ -98,10 +89,10 @@ public class BGM_Player : MonoBehaviour
         audioSource.Stop();
     }
 
-    public  void CallFadeOut()
+    public void CallFadeOut()
     {
-       
-        StartCoroutine(FadeOut(source,1.0f));
+
+        StartCoroutine(FadeOut(source, 1.0f));
     }
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
     {
@@ -171,6 +162,10 @@ public class BGM_Player : MonoBehaviour
     }
     void PlayFirstTrack()
     {
+        if(!GetMusicPlaylist)
+        {
+            FindMusicPlaylist();
+        }
         if (bShouldFadeIn)
         {
             StartCoroutine(FadeIn(source, FadeTime));
@@ -182,6 +177,20 @@ public class BGM_Player : MonoBehaviour
         NextTrackNum = 0;
         source.clip = Playlist[NextTrackNum];
         source.Play();
+    }
+
+    void FindMusicPlaylist()
+    {
+        if (source)
+        {
+            GetMusicPlaylist = FindObjectOfType<MusicPlaylist>();
+            if (GetMusicPlaylist)
+            {
+                Playlist = GetMusicPlaylist.Tracks;
+                PlayFirstTrack();
+            }
+
+        }
     }
 
     // void OnGUI()
