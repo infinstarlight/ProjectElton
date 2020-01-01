@@ -7,11 +7,11 @@ public class Player : Character
 {
     public PlayerStatsScript PlayerStats;
     private AudioSource playerSource;
-    public InputSystem_PlayerController pCon;
+    public InputSystem_PlayerControllerV2 pCon;
 
     public float StyleDamageMod = 2.5f;
     public float currentMoney = 0;
-    
+
 
     public static Player instance = null;
 
@@ -35,16 +35,17 @@ public class Player : Character
             Destroy(gameObject); // On reload, singleton already set, so destroy duplicate.
         }
 
-        if(!PlayerStats)
+        if (!PlayerStats)
         {
             PlayerStats = GetComponent<PlayerStatsScript>();
         }
 
 
         damageEvent.AddListener(PlayerDamageTaken);
-        HealPlayerEvent.AddListener(PlayerStats.pcStats.HealCharacter);
+
         RecoverPowerEvent.AddListener(PlayerStats.RecoverPower);
         ModHealthEvent.AddListener(PlayerStats.pcStats.ModifyHealth);
+        HealPlayerEvent.AddListener(PlayerStats.pcStats.HealCharacter);
         ModMoneyEvent.AddListener(ModMoney);
 
     }
@@ -63,12 +64,13 @@ public class Player : Character
     {
 
         bShouldDestroyOnDeath = false;
-        pCon = GetComponentInChildren<InputSystem_PlayerController>();
+        pCon = GetComponentInChildren<InputSystem_PlayerControllerV2>();
         playerSource = GetComponent<AudioSource>();
         PlayerStats = GetComponent<PlayerStatsScript>();
 
         PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
         PlayerStats.updateDataEvent.Invoke();
+        
 
     }
 

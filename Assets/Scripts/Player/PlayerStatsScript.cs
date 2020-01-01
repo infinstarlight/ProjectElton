@@ -30,7 +30,7 @@ public class PlayerStatsScript : MonoBehaviour
     Keyboard currentKeyboard;
     private PlayerStateScript GetPlayerState;
     private PlayerUIController GetPlayerUI;
-    private InputSystem_PlayerController GetPlayerController;
+    private InputSystem_PlayerControllerV2 GetPlayerController;
     public UnityEvent updateDataEvent = new UnityEvent();
     public float CurrentPower = 0.0f;
     public float MaxPower = 0.0f;
@@ -55,7 +55,7 @@ public class PlayerStatsScript : MonoBehaviour
     void Awake()
     {
         GetPlayerUI = FindObjectOfType<PlayerUIController>();
-        GetPlayerController = GetComponentInChildren<InputSystem_PlayerController>();
+        GetPlayerController = GetComponentInChildren<InputSystem_PlayerControllerV2>();
         GetPlayerState = GetComponentInChildren<PlayerStateScript>();
         pcStats = GetComponent<CharacterStats>();
 
