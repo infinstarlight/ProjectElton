@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18011706, g: 0.22551754, b: 0.3066923, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -71,7 +71,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-    m_MixedBakeMode: 2
+    m_MixedBakeMode: 1
     m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
@@ -97,8 +97,9 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingDataAsset: {fileID: 112000000, guid: 508bb6c0209ead64ea43e970472ce449,
+    type: 2}
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -127,7 +128,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208658
+  m_Name: pb_Mesh143242
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1504,6 +1505,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209274882}
   m_CullTransparentMesh: 0
+--- !u!114 &229615046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8334a49e76cafef4da22976db1613959, type: 3}
+  m_Name: Default Aura Quality Settings
+  m_EditorClassIdentifier: 
+  displayVolumetricLightingBuffer: 0
+  frustumGridResolution: {x: 160, y: 88, z: 128}
+  enableAutomaticStereoResizing: 1
+  farClipPlaneDistance: 128
+  depthBiasCoefficient: 0.35
+  enableVolumes: 1
+  enableVolumesTexture2DMask: 1
+  enableVolumesTexture3DMask: 1
+  enableVolumesNoiseMask: 1
+  enableAmbientLighting: 1
+  enableDirectionalLights: 1
+  enableDirectionalLightsShadows: 1
+  enableSpotLights: 1
+  enableSpotLightsShadows: 1
+  enablePointLights: 1
+  enablePointLightsShadows: 1
+  enableLightsCookies: 1
+  enableDithering: 1
+  texture3DFiltering: 1
+  EXPERIMENTAL_enableDenoisingFilter: 0
+  EXPERIMENTAL_denoisingFilterRange: 0
+  EXPERIMENTAL_enableBlurFilter: 0
+  EXPERIMENTAL_blurFilterRange: 0
+  EXPERIMENTAL_blurFilterType: 0
+  EXPERIMENTAL_blurFilterGaussianDeviation: 0.0025
+  enableTemporalReprojection: 1
+  temporalReprojectionFactor: 0.95
+  enableOcclusionCulling: 1
+  debugOcclusionCulling: 0
+  occlusionCullingAccuracy: 0
+  enableLightProbes: 0
 --- !u!1 &247000622
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,7 +2296,7 @@ PrefabInstance:
     - target: {fileID: 8520466008630187160, guid: 10a0de80c725e7343ac9d40d9f869541,
         type: 3}
       propertyPath: m_RootOrder
-      value: 24
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 8520466008630187160, guid: 10a0de80c725e7343ac9d40d9f869541,
         type: 3}
@@ -3262,7 +3306,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208080
+  m_Name: pb_Mesh142682
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3425,7 +3469,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208574
+  m_Name: pb_Mesh143164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4146,7 +4190,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208334
+  m_Name: pb_Mesh142928
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4479,7 +4523,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh207988
+  m_Name: pb_Mesh142592
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5805,7 +5849,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208512
+  m_Name: pb_Mesh143102
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6984,7 +7028,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208412
+  m_Name: pb_Mesh143004
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7301,63 +7345,20 @@ RectTransform:
   - {fileID: 2088833781}
   - {fileID: 382908364}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1436138212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8334a49e76cafef4da22976db1613959, type: 3}
-  m_Name: Default Aura Quality Settings
-  m_EditorClassIdentifier: 
-  displayVolumetricLightingBuffer: 0
-  frustumGridResolution: {x: 160, y: 88, z: 128}
-  enableAutomaticStereoResizing: 1
-  farClipPlaneDistance: 128
-  depthBiasCoefficient: 0.35
-  enableVolumes: 1
-  enableVolumesTexture2DMask: 1
-  enableVolumesTexture3DMask: 1
-  enableVolumesNoiseMask: 1
-  enableAmbientLighting: 1
-  enableDirectionalLights: 1
-  enableDirectionalLightsShadows: 1
-  enableSpotLights: 1
-  enableSpotLightsShadows: 1
-  enablePointLights: 1
-  enablePointLightsShadows: 1
-  enableLightsCookies: 1
-  enableDithering: 1
-  texture3DFiltering: 1
-  EXPERIMENTAL_enableDenoisingFilter: 0
-  EXPERIMENTAL_denoisingFilterRange: 0
-  EXPERIMENTAL_enableBlurFilter: 0
-  EXPERIMENTAL_blurFilterRange: 0
-  EXPERIMENTAL_blurFilterType: 0
-  EXPERIMENTAL_blurFilterGaussianDeviation: 0.0025
-  enableTemporalReprojection: 1
-  temporalReprojectionFactor: 0.95
-  enableOcclusionCulling: 1
-  debugOcclusionCulling: 0
-  occlusionCullingAccuracy: 0
-  enableLightProbes: 0
 --- !u!43 &1439168346
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208152
+  m_Name: pb_Mesh142754
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7988,7 +7989,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1.5009872, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &1564275321
 GameObject:
@@ -8255,7 +8256,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh208092
+  m_Name: pb_Mesh142694
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9544,6 +9545,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 447044703294394007, guid: 7c16911fd111647eb8578f16216314ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 447044703331405018, guid: 7c16911fd111647eb8578f16216314ba,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -9954,6 +9960,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4623272951088673884, guid: 7c16911fd111647eb8578f16216314ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5223682391306079534, guid: 7c16911fd111647eb8578f16216314ba,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -10052,7 +10063,7 @@ PrefabInstance:
     - target: {fileID: 5648207179947856980, guid: 7c16911fd111647eb8578f16216314ba,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5648207179947856980, guid: 7c16911fd111647eb8578f16216314ba,
         type: 3}
@@ -11066,32 +11077,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037208101}
   m_CullTransparentMesh: 0
---- !u!114 &2040847118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59306422a2ca4454aabce3daa79c3334, type: 3}
-  m_Name: New Aura Base Settings
-  m_EditorClassIdentifier: 
-  useDensity: 1
-  density: 0.25
-  useScattering: 1
-  scattering: 0.5
-  useAmbientLighting: 1
-  ambientLightingStrength: 1
-  useColor: 0
-  color: {r: 0, g: 0.5, b: 0.5, a: 0.5}
-  colorStrength: 1
-  useTint: 0
-  tint: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  tintStrength: 1
-  useExtinction: 0
-  extinction: 0.75
 --- !u!1 &2088833780
 GameObject:
   m_ObjectHideFlags: 0
@@ -11293,17 +11278,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 347925002, guid: 31ce13f77f7262c428275883075e74da, type: 3}
-      propertyPath: MaxPower
-      value: 0
+    - target: {fileID: 347924999, guid: 31ce13f77f7262c428275883075e74da, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 347925001, guid: 31ce13f77f7262c428275883075e74da, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 347925002, guid: 31ce13f77f7262c428275883075e74da, type: 3}
-      propertyPath: bIsPowerGaugeEnabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2097382817, guid: 31ce13f77f7262c428275883075e74da, type: 3}
-      propertyPath: m_Name
-      value: PlayerState
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2665550599686178577, guid: 31ce13f77f7262c428275883075e74da,
         type: 3}
@@ -11367,13 +11352,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2665550600011087267, guid: 31ce13f77f7262c428275883075e74da,
         type: 3}
-      propertyPath: frustumSettings.baseSettings
-      value: 
-      objectReference: {fileID: 2040847118}
-    - target: {fileID: 2665550600011087267, guid: 31ce13f77f7262c428275883075e74da,
-        type: 3}
       propertyPath: frustumSettings.qualitySettings
       value: 
-      objectReference: {fileID: 1436138212}
+      objectReference: {fileID: 229615046}
+    - target: {fileID: 6372147268020513984, guid: 31ce13f77f7262c428275883075e74da,
+        type: 3}
+      propertyPath: saveIdentification
+      value: InputSystemTestScene-Trish_PlayerCharacter-e3a62
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372147268020513984, guid: 31ce13f77f7262c428275883075e74da,
+        type: 3}
+      propertyPath: sceneName
+      value: InputSystemTestScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372147268020513984, guid: 31ce13f77f7262c428275883075e74da,
+        type: 3}
+      propertyPath: manualSaveLoad
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ce13f77f7262c428275883075e74da, type: 3}

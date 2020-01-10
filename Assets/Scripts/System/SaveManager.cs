@@ -12,7 +12,7 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        
+
     }
 
     void Start()
@@ -52,7 +52,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log(savedDT);
         if (GetPlayer)
         {
-            GetPlayer.PlayerStats.pcStats.CurrentHealth = data.health;
+            GetPlayer.PlayerStats.CurrentHealth = data.health;
             GetPlayer.gameObject.transform.position = savedPosition;
             GetPlayer.PlayerStats.updateDataEvent.Invoke();
 

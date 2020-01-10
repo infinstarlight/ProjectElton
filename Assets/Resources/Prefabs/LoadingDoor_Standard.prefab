@@ -392,9 +392,9 @@ MonoBehaviour:
   newSceneName: 
   lastSceneName: 
   doorSounds:
-  - {fileID: 8300000, guid: b019b06b35fd640a4994b08650d46f10, type: 3}
-  - {fileID: 8300000, guid: 5d5d2ccd882594fa980ed69f54e235e7, type: 3}
-  - {fileID: 8300000, guid: 66025763806e848d7b15130ec3b504af, type: 3}
+  - {fileID: 8300000, guid: 1979af360dc56444e917e37e5ad0c266, type: 3}
+  - {fileID: 8300000, guid: c5ac43276ecbe448b9d5fcc23865af42, type: 3}
+  - {fileID: 8300000, guid: a3f7557a9f36d40cbb7080e560e1dfde, type: 3}
   bIsLocked: 0
   bShouldLoadNewScene: 0
   desiredAmmoType: 1

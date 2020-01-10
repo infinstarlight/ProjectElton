@@ -18,6 +18,7 @@ public class Enemy : Character
 
     public GameObject[] itemsGO = new GameObject[2];
     private ID_EnemyHealthBar enemyHealthBar;
+    public float MoneyToAdd = 15.0f;
 
 
     void EnemyAwake()
@@ -81,8 +82,6 @@ public class Enemy : Character
             AIEventManager.TriggerEvent("Damage");
             enemyHealthBar.healthBar.value = characterStats.healthPercentage;
             playerState.styleModEvent.Invoke(StyleModAmount);
-            //playerState.SendMessageUpwards("RecoverPower", PowerModAmount);
-
             if (characterStats.CurrentHealth <= 0)
             {
                 OnEnemyDeath();
@@ -95,15 +94,11 @@ public class Enemy : Character
     public void OnEnemyDeath()
     {
         base.OnDeath();
-        
+        playerState.PlayerRef.ModMoneyEvent.Invoke(MoneyToAdd);
     }
 
     public void SpawnRandomPickup()
     {
-        if (dropMoneyGO)
-        {
-            Instantiate(dropMoneyGO, transform.position, transform.rotation);
-        }
         Instantiate(itemsGO[Random.Range(0, itemsGO.Length)], transform.position, transform.rotation);
         Destroy(gameObject, DestroyDelay);
     }

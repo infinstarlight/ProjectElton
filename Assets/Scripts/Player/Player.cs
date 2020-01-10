@@ -25,6 +25,10 @@ public class Player : Character
 
     void OnEnable()
     {
+        pCon = GetComponentInChildren<InputSystem_PlayerControllerV2>();
+        playerSource = GetComponent<AudioSource>();
+        PlayerStats = GetComponent<PlayerStatsScript>();
+
         if (instance == null)
         {
             instance = this; // In first scene, make us the singleton.
@@ -34,20 +38,9 @@ public class Player : Character
         {
             Destroy(gameObject); // On reload, singleton already set, so destroy duplicate.
         }
-
-        if (!PlayerStats)
-        {
-            PlayerStats = GetComponent<PlayerStatsScript>();
-        }
-
-
         damageEvent.AddListener(PlayerDamageTaken);
-
         RecoverPowerEvent.AddListener(PlayerStats.RecoverPower);
-        ModHealthEvent.AddListener(PlayerStats.pcStats.ModifyHealth);
-        HealPlayerEvent.AddListener(PlayerStats.pcStats.HealCharacter);
         ModMoneyEvent.AddListener(ModMoney);
-
     }
 
     void OnDisable()
@@ -64,13 +57,11 @@ public class Player : Character
     {
 
         bShouldDestroyOnDeath = false;
-        pCon = GetComponentInChildren<InputSystem_PlayerControllerV2>();
-        playerSource = GetComponent<AudioSource>();
-        PlayerStats = GetComponent<PlayerStatsScript>();
-
         PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
-        PlayerStats.updateDataEvent.Invoke();
-        
+        //PlayerStats.updateDataEvent.Invoke();
+        ModHealthEvent.AddListener(PlayerStats.ModifyHealth);
+        HealPlayerEvent.AddListener(PlayerStats.HealCharacter);
+
 
     }
 
@@ -106,6 +97,7 @@ public class Player : Character
     public void ModMoney(float modValue)
     {
         currentMoney += modValue;
+        PlayerStats.updateDataEvent.Invoke();
     }
 
     public void AddItem(InventoryItem newItem)

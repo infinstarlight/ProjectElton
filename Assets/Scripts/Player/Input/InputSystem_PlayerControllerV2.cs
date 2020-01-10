@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Events;
 using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Interactions;
+using Lowscope.Saving;
 using Popcron.Console;
 using DG.Tweening;
 using UnityEngine;
@@ -9,27 +9,6 @@ using UnityEngine;
 
 public class InputSystem_PlayerControllerV2 : MonoBehaviour
 {
-
-    /// <summary>
-    /// Retrieve current state of left stick.
-    /// </summary>
-    public Vector2 LeftStickValue { get; private set; }
-
-    /// <summary>
-    /// Retrieve current state of right stick.
-    /// </summary>
-    public Vector2 RightStickValue { get; private set; }
-
-    /// <summary>
-    /// Retrieve state of fire button.
-    /// </summary>
-    public bool FireButtonValue { get; private set; }
-
-    /// <summary>
-    /// Retrieve state of Jump button.
-    /// </summary>
-    public bool JumpButtonValue { get; private set; }
-
 
     public InputSystem_CameraLook cameraLook;
     public InputSystem_PlayerCombatController combatController;
@@ -66,6 +45,8 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     private bool bEnable;
     public Player GetPlayer;
     private Sequence satSequence;
+    public InputSystemPlayerInput GetPlayerInput;
+
 
     [Alias("gm")]
     [Command("GodMode")]
@@ -96,6 +77,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         EnableGameControls();
         bEnableGameInput = true;
         bShowPauseMenu = false;
+
         GetPlayer = GetComponentInParent<Player>();
         HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
@@ -164,6 +146,11 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     void Update()
     {
         CheckForNewDevice();
+        if (Keyboard.current.numpad0Key.wasPressedThisFrame)
+        {
+            SaveMaster.SyncLoad();
+        }
+
     }
     private void FixedUpdate()
     {
@@ -244,6 +231,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     void EnableGameControls()
     {
         GetGameInstance = FindObjectOfType<GameInstance>();
+        GetPlayerInput = GetComponent<InputSystemPlayerInput>();
         if (!uiController)
         {
             uiController = FindObjectOfType<PlayerUIController>();
@@ -277,8 +265,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         myControls.Gameplay.Pause.performed += OnGamePause;
         myControls.Gameplay.Interact.performed += OnInteractEvent;
         myControls.Gameplay.CharacterMenu.performed += OnCharMenu;
-        // myControls.Gameplay.Sprint.performed += rbMovement.OnSprint;
-        // myControls.Gameplay.Jump.performed += rbMovement.OnJump;
+        myControls.Gameplay.Move.performed += GetPlayerInput.OnMoveUpdate;
         myControls.Gameplay.Fire.performed += combatController.OnFire;
         // myControls.Gameplay.Aim.performed += cameraLook.OnLockOn;
         // myControls.Gameplay.Aim.canceled += cameraLook.OnLockOnStop;
@@ -306,15 +293,6 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
         InputSystem.pollingFrequency = 120;
 
-        myControls.Gameplay.Move.performed += context => LeftStickValue = context.ReadValue<Vector2>();
-        myControls.Gameplay.Move.canceled += context => LeftStickValue = Vector2.zero;
-        myControls.Gameplay.Look.performed += context => RightStickValue = context.ReadValue<Vector2>();
-        myControls.Gameplay.Look.canceled += context => RightStickValue = Vector2.zero;
-        myControls.Gameplay.Fire.performed += context => FireButtonValue = context.ReadValue<float>() > 0.5f;
-        myControls.Gameplay.Fire.canceled += context => FireButtonValue = false;
-        myControls.Gameplay.Jump.performed += context => JumpButtonValue = context.ReadValue<float>() > 0.1f;
-        myControls.Gameplay.Jump.canceled += context => JumpButtonValue = false;
-
         if (currentKeyboard == null)
         {
             currentKeyboard = Keyboard.current;
@@ -339,6 +317,10 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void DisableGameControls()
     {
+        if (Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
         bEnableGameInput = false;
         myControls.Gameplay.Disable();
         if (currentTouchscreen != null && currentGamepad == null)
@@ -354,6 +336,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void EnableUIControls()
     {
+        myControls.Gameplay.Look.Disable();
         myControls.UI.Enable();
         myControls.UI.Point.Enable();
         myControls.UI.Navigate.Enable();
@@ -504,7 +487,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
                 }
                 else
                 {
-                    source.PlayOneShot(interactSounds[0]);
+                    //source.PlayOneShot(interactSounds[0]);
                 }
             }
 

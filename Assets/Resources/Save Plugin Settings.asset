@@ -26,9 +26,9 @@ MonoBehaviour:
   componentGuidLength: 5
   loadDefaultSlotOnStart: 1
   defaultSlot: 0
-  useHotkeys: 0
+  useHotkeys: 1
   saveAndWriteToDiskKey: 283
   syncSaveGameKey: 285
   syncLoadGameKey: 286
   wipeActiveSceneData: 287
-  showSaveFileUtilityLog: 0
+  showSaveFileUtilityLog: 1

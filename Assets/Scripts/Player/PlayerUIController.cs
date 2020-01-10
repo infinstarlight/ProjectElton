@@ -15,6 +15,7 @@ public class PlayerUIController : MonoBehaviour
     private ID_TouchUI GetTouchUI;
 
     private ID_PlayerHealthSlider healthBar;
+    private AragonTextScript aragonText;
     private ID_PlayerAragonSlider aragonBar;
     private ID_InteractText interactText;
     public bool bShowInteractText;
@@ -40,20 +41,20 @@ public class PlayerUIController : MonoBehaviour
     {
 
         GetGameInstance = FindObjectOfType<GameInstance>();
-        GetTouchUI = FindObjectOfType<ID_TouchUI>();
+        GetTouchUI = GetComponentInChildren<ID_TouchUI>();
         GetPlayer = FindObjectOfType<Player>();
-        //pCon = FindObjectOfType<InputSystem_PlayerController>();
-        pCon = FindObjectOfType<InputSystem_PlayerControllerV2>();
-        styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+        pCon = GetPlayer.pCon;
+        styleSliderScript = GetComponentInChildren<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         showInteractEvent.AddListener(ToggleInteractText);
         showTouchUIEvent.AddListener(ShowTouchUI);
-        healthBar = FindObjectOfType<ID_PlayerHealthSlider>();
-        aragonBar = FindObjectOfType<ID_PlayerAragonSlider>();
-        healthText = FindObjectOfType<HealthTextScript>();
-        statsScript = FindObjectOfType<PlayerStatsScript>();
-        interactText = FindObjectOfType<ID_InteractText>();
-        moneyText = FindObjectOfType<ID_PlayerMoney>().gameObject;
+        healthBar = GetComponentInChildren<ID_PlayerHealthSlider>();
+        aragonBar = GetComponentInChildren<ID_PlayerAragonSlider>();
+        healthText = GetComponentInChildren<HealthTextScript>();
+        aragonText = GetComponentInChildren<AragonTextScript>();
+        statsScript = GetComponentInChildren<PlayerStatsScript>();
+        interactText = GetComponentInChildren<ID_InteractText>();
+        moneyText = GetComponentInChildren<ID_PlayerMoney>().gameObject;
         TouchControlGO = GetTouchUI.gameObject;
         if (GetGameInstance)
         {
@@ -69,7 +70,7 @@ public class PlayerUIController : MonoBehaviour
             optionsMenu.SetActive(false);
         }
 
-
+        GetPlayer.PlayerStats.updateDataEvent.Invoke();
     }
 
 
@@ -77,7 +78,7 @@ public class PlayerUIController : MonoBehaviour
     {
         if (!styleSliderScript)
         {
-            styleSliderScript = FindObjectOfType<ID_StyleSlider>();
+            styleSliderScript = GetComponentInChildren<ID_StyleSlider>();
         }
         if (!GetGameInstance)
         {
@@ -98,22 +99,30 @@ public class PlayerUIController : MonoBehaviour
 
         if (healthBar)
         {
-            healthBar.healthSlider.value = pCon.playerStats.playerHealthPercentage;
+            healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
         }
         if (healthText)
         {
-            healthText.TextMesh.text = pCon.playerStats.pcStats.CurrentHealth.ToString();
+            healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
         }
         if (aragonBar)
         {
-            aragonBar.aragonSlider.value = pCon.playerStats.PowerGaugePercentage;
+            aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
+        }
+        if (aragonText)
+        {
+            aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
         }
         if (moneyText)
         {
             currentMoneyUI = pCon.GetPlayer.currentMoney;
             moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
         }
-        ShowTouchUI();
+        // if (GetGameInstance.bIsRunningOnMobile)
+        // {
+        //     ShowTouchUI();
+        // }
+
 
     }
 
@@ -132,17 +141,27 @@ public class PlayerUIController : MonoBehaviour
 
     void ToggleTouchUI(bool bEnable)
     {
+        if (TouchControlGO)
+        {
+            if (bEnable)
+            {
+                TouchControlGO.SetActive(true);
+                if (Mouse.current != null)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
 
-        if (bEnable)
-        {
-            TouchControlGO.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                TouchControlGO.SetActive(false);
+                if (Mouse.current != null)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+            }
         }
-        else
-        {
-            TouchControlGO.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+
     }
 
     public void ShowOptions()
@@ -211,11 +230,5 @@ public class PlayerUIController : MonoBehaviour
                 interactText.myAnimator.SetBool("bShowText", false);
             }
         }
-    }
-
-    public void OnPointerUpdate(InputAction.CallbackContext context)
-    {
-        var moveValue = context.ReadValue<Vector2>();
-        // Debug.Log(moveValue);
     }
 }

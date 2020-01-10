@@ -18,9 +18,9 @@ public class EnemyWeapon : Weapon
     }
 
 
-  public IEnumerator AIFire()
-   {
-       Fire();
-       yield return fireRate;
-   }
+    public IEnumerator AIFire()
+    {
+        Fire();
+        yield return fireRate;
+    }
 }

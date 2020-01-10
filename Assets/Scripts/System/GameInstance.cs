@@ -139,14 +139,19 @@ public class GameInstance : MonoBehaviour
             Time.timeScale = GlobalTimeScale;
         }
 
+        // if (Keyboard.current.pKey.wasPressedThisFrame)
+        // {
+        //     Debug.Log(SceneManager.GetActiveScene().name);
+        // }
+
         if (Keyboard.current.f12Key.wasPressedThisFrame)
         {
             bIsRunningOnMobile = !bIsRunningOnMobile;
-            if(GetPlayer)
+            if (GetPlayer)
             {
-                GetPlayer.PlayerStats.updateDataEvent.Invoke();    
+                GetPlayer.PlayerStats.updateDataEvent.Invoke();
             }
-            
+
         }
 
     }

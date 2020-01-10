@@ -13,6 +13,7 @@ public class PlayerStateScript : MonoBehaviour
     public float StyleDecRate = 1.0f;
 
     public float DifficultyMod = 1.0f;
+    public Player PlayerRef;
 
 
     public float StylePercent;
@@ -24,6 +25,7 @@ public class PlayerStateScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerRef = GetComponentInParent<InputSystem_PlayerControllerV2>().GetComponentInParent<Player>();
         styleImageScript = FindObjectOfType<ID_StyleImage>();
         styleSliderScript = FindObjectOfType<ID_StyleSlider>();
         styleModEvent.AddListener(ModStyle);
@@ -90,7 +92,7 @@ public class PlayerStateScript : MonoBehaviour
         StyleModAmount = ModAmount;
         CurrentStyleAmount -= StyleModAmount;
         StylePercent = CurrentStyleAmount / MaxStyleAmount;
-       
+
     }
 
     public IEnumerator DecreaseStyleOverTime()

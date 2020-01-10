@@ -27,6 +27,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7521257361064515416, guid: 84efd18008a824c5284e5e1f3582a1ba,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0d03074696dcc0347bd60989d3e767cc, type: 2}
     - target: {fileID: 7521257361064515417, guid: 84efd18008a824c5284e5e1f3582a1ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -85,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 7521257361064515419, guid: 84efd18008a824c5284e5e1f3582a1ba,
         type: 3}
       propertyPath: m_Name
-      value: LevelTransition (1)
+      value: LevelTransition (1) Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7521257361064515422, guid: 84efd18008a824c5284e5e1f3582a1ba,
         type: 3}

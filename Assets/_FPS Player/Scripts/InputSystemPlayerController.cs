@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InputSystemStatus { idle, moving, crouching, sliding, climbingLadder, wallRunning, grabbedLedge, climbingLedge, vaulting }
+public enum InputSystemStatus { idle, moving, crouching, sliding, climbingLadder, wallRunning, grabbedLedge, climbingLedge, vaulting, elevator }
 
 public class InputSystemPlayerController : MonoBehaviour
 {

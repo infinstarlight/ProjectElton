@@ -10,12 +10,12 @@ public class DamageVolume : MonoBehaviour
     private GameObject hitObject;
     private float nextFire = 0.0f;
 
-    private void Update() 
+    private void Update()
     {
-        if(bStartDamageEvent)
+        if (bStartDamageEvent)
         {
             StartCoroutine(DamageOverTime());
-        }    
+        }
     }
 
 
@@ -58,7 +58,7 @@ public class DamageVolume : MonoBehaviour
             nextFire = Time.time + DamageRate;
             if (bStartDamageEvent)
             {
-                hitObject.SendMessage("PlayerDamageTaken", DamageAmount);
+                hitObject.GetComponent<Player>().damageEvent.Invoke(DamageAmount);
             }
         }
     }

@@ -18,7 +18,7 @@ public class CharacterStats : MonoBehaviour
 
     public string CharacterName;
 
-    void Awake()
+    public void Awake()
     {
         CurrentHealth = MaxHealth;
 
@@ -29,12 +29,7 @@ public class CharacterStats : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        healthPercentage = CurrentHealth / MaxHealth;
-        //Debug.Log(healthPercentage + "of: " + gameObject.name);
-    }
+
 
     public void HealCharacter(float ModAmount)
     {
@@ -54,5 +49,5 @@ public class CharacterStats : MonoBehaviour
         MaxHealth += ModAmount;
         CurrentHealth = MaxHealth;
     }
-    
+
 }

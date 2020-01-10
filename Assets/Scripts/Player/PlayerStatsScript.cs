@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class PlayerStatsScript : MonoBehaviour
+public class PlayerStatsScript : CharacterStats
 {
     public enum ECharacterActions
     {
@@ -20,7 +20,6 @@ public class PlayerStatsScript : MonoBehaviour
         Aragon,
         Berserk
     }
-    public CharacterStats pcStats;
     public Player player;
     public ECharacterActions currentCharacterAction;
     public ESpecialAbility currentSpecialAbility;
@@ -51,17 +50,12 @@ public class PlayerStatsScript : MonoBehaviour
     public UnityFloatEvent modPowerEvent = new UnityFloatEvent();
     private bool bEnableGodMode = false;
 
-
-    void Awake()
+    private void OnEnable()
     {
         GetPlayerUI = FindObjectOfType<PlayerUIController>();
         GetPlayerController = GetComponentInChildren<InputSystem_PlayerControllerV2>();
         GetPlayerState = GetComponentInChildren<PlayerStateScript>();
-        pcStats = GetComponent<CharacterStats>();
-
         player = GetComponent<Player>();
-
-
     }
 
 
@@ -91,7 +85,7 @@ public class PlayerStatsScript : MonoBehaviour
         CurrentPower = MaxPower;
 
         PowerGaugePercentage = CurrentPower / MaxPower;
-        playerHealthPercentage = pcStats.CurrentHealth / pcStats.MaxHealth;
+        playerHealthPercentage = CurrentHealth / MaxHealth;
     }
 
     // Update is called once per frame
@@ -164,10 +158,10 @@ public class PlayerStatsScript : MonoBehaviour
 
     public IEnumerator RegenHealth()
     {
-        pcStats.CurrentHealth += HealthRegenAmount;
-        if (pcStats.CurrentHealth >= pcStats.MaxHealth)
+        CurrentHealth += HealthRegenAmount;
+        if (CurrentHealth >= MaxHealth)
         {
-            pcStats.CurrentHealth = pcStats.MaxHealth;
+            CurrentHealth = MaxHealth;
         }
         yield return HealthRegenRate;
     }
@@ -213,14 +207,19 @@ public class PlayerStatsScript : MonoBehaviour
         if (bEnableGodMode)
         {
             Debug.Log("God mode enabled");
-            pcStats.bCanTakeDamage = false;
+            bCanTakeDamage = false;
         }
         else
         {
             Debug.Log("God mode disabled");
-            pcStats.bCanTakeDamage = false;
+            bCanTakeDamage = false;
         }
+    }
 
+    public void ModifyPlayerHealth(float ModAmount)
+    {
+        MaxHealth += ModAmount;
+        CurrentHealth = MaxHealth;
     }
 
 }

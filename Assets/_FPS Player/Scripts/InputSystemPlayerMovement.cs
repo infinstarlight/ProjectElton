@@ -11,7 +11,7 @@ public class InputSystemPlayerMovement : MonoBehaviour
     [SerializeField]
     private float myJumpSpeed = 8.0f;
     [SerializeField]
-    private float isGravity = 20.0f;
+    public float isGravity = 20.0f;
     [SerializeField]
     private float isAntiBumpFactor = .75f;
     [HideInInspector]

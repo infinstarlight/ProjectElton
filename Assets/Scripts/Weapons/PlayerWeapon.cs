@@ -6,6 +6,8 @@ public class PlayerWeapon : Weapon
 
     private Camera PlayerCamera;
     private GameObject cameraGO;
+    public int CurrentLevel = 1;
+    private int MaxLevel = 5;
 
 
 

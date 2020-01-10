@@ -204,17 +204,6 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4f2283ac-df6a-473d-b4fb-e765c5e8bed7"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""96529613-4d73-4758-a3fa-319e1201a66b"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
@@ -612,7 +601,7 @@ public class @GameInputControls : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2700f0e7-437f-4cae-9804-8c18f8e10353"",
-                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

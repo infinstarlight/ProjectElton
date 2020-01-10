@@ -18,20 +18,14 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
     public float MovementMultiplierMod = 0.0f;
     public UnityFloatEvent damageEvent = new UnityFloatEvent();
     public UnityEAmmoEvent damageProcessEvent = new UnityEAmmoEvent();
-    
+
 
     public void Awake()
     {
         characterStats = GetComponent<CharacterStats>();
         source = GetComponent<AudioSource>();
-    }
-
-    private void Start() 
-    {
         damageProcessEvent.AddListener(DamageProcessor);
     }
-
-
     public void OnDeath()
     {
         if (characterStats.bIsDead)
@@ -39,15 +33,21 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
             characterStats.bCanTakeDamage = false;
             source.clip = deathClip;
             source.PlayOneShot(source.clip);
-            
+
             GameObject deathVX = Instantiate(DeathVFX, transform.position, transform.rotation);
-            if(bShouldDestroyOnDeath)
+            if (bShouldDestroyOnDeath)
             {
-                Destroy(gameObject,DestroyDelay);
+                StartCoroutine(DestroyAfterDelay());
             }
             //TODO: Disable player input on death
         }
 
+    }
+
+    IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(DestroyDelay);
+        Destroy(gameObject);
     }
 
     public void OnDamageApplied(float damageTaken)
@@ -61,7 +61,7 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
                 source.PlayOneShot(source.clip);
             }
             characterStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
-            
+
             if (characterStats.CurrentHealth <= 0)
             {
                 characterStats.bIsDead = true;
@@ -77,36 +77,36 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
 
     public void DamageProcessor(EAmmoType damageType)
     {
-        switch(damageType)
+        switch (damageType)
         {
             case EAmmoType.Standard:
-            {
+                {
 
-            }
-            break;
+                }
+                break;
             case EAmmoType.Ice:
-            {
-                if(MovementMultiplier >= 0)
                 {
-                    MovementMultiplier -= MovementMultiplierMod;
+                    if (MovementMultiplier >= 0)
+                    {
+                        MovementMultiplier -= MovementMultiplierMod;
+                    }
+                    if (MovementMultiplier <= 0)
+                    {
+                        OnFreezeEvent();
+                    }
                 }
-                if(MovementMultiplier <= 0)
-                {
-                    OnFreezeEvent();
-                }
-            }
-            break;
+                break;
         }
     }
 
     IEnumerator FreezeTimer()
     {
-        while(MovementMultiplier < 1.0f)
+        while (MovementMultiplier < 1.0f)
         {
             MovementMultiplier += 0.01f;
-             yield return new WaitForSeconds(0.50f);
+            yield return new WaitForSeconds(0.50f);
         }
-        if(MovementMultiplier >= 1.0f)
+        if (MovementMultiplier >= 1.0f)
         {
             MovementMultiplier = 1.0f;
             StopCoroutine(FreezeTimer());
