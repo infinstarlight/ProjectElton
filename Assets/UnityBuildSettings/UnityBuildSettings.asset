@@ -15,11 +15,11 @@ MonoBehaviour:
   actionType: 1
   actionName: UploadItch
   note: 
-  actionEnabled: 0
+  actionEnabled: 1
   filter:
     condition: 0
     clauses: []
-  pathToButlerExe: C:\Users\Eddie\Documents\Butler\butler.exe
+  pathToButlerExe: C:\Users\Etern\Butler\butler.exe
   nameOfItchUser: sleeplessstarlight
   nameOfItchGame: TheHunt
   useGeneratedBuildVersion: 1
@@ -43,15 +43,15 @@ MonoBehaviour:
     openFolderPostBuild: 1
   _productParameters:
     buildCounter: 1
-    lastGeneratedVersion: 1.0.92.4637
+    lastGeneratedVersion: 1.0.121.863
     version: 1.0.$DAYSSINCE("September 17, 2019").$SECONDS
     autoGenerate: 1
   _releaseTypeList:
     releaseTypes:
-    - typeName: DemoBuild
+    - typeName: AlphaBuild
       bundleIndentifier: com.ESS.TheHunt
       companyName: Eternal Starlight Studios
-      productName: 'Aragon: The Hunt (DEMO)'
+      productName: 'Aragon: The Hunt (Alpha)'
       developmentBuild: 0
       allowDebugging: 0
       enableHeadlessMode: 0
@@ -62,12 +62,19 @@ MonoBehaviour:
         - fileGUID: 5fd80a9172cbc7145a53a2b5171ec893
         - fileGUID: 9a78fd9253e3ddd479f1f74219d823e1
         - fileGUID: c9f920b8d2c624584974a3673c467a78
-        - fileGUID: 98992d4c416a741beb31629ef8625509
+        - fileGUID: 3e53051dd4a56644182185b20ec25c38
+        - fileGUID: 6e2407ef1d9fe364c972f934d5a3d167
         - fileGUID: 998f5da11d91d4046aecca60196cb1fd
-        - fileGUID: 9c9fe2f3b738542f58554a7e2f39c168
+        - fileGUID: 434aa80db66943e40abadb385c0a0195
         - fileGUID: 894d8fbb8fee444d8af212eebb78b1f1
         - fileGUID: 4f48b21e7808aea4fba574ad1d3b9acd
         - fileGUID: afab274f11ee8d5478efee73b442fc05
+        - fileGUID: 9c9fe2f3b738542f58554a7e2f39c168
+        - fileGUID: 98992d4c416a741beb31629ef8625509
+        - fileGUID: 584abf9f627aa2d4dacfc5d1710315ea
+        - fileGUID: fa253c4405fb3f24d8a96b863f25c216
+        - fileGUID: 5ff766255c5a84c4ca2edecab8b79db0
+        - fileGUID: 7bb659bdb33744a328ea2ebdae5e55dc
   _platformList:
     platforms:
     - enabled: 1
@@ -181,28 +188,28 @@ MonoBehaviour:
       targetGroup: 14
   _projectConfigurations:
     configSet:
-      _Buckets: 060000000a0000000c000000020000000b000000ffffffffffffffff0d000000ffffffffffffffffffffffffffffffffffffffffffffffff0900000008000000ffffffff
-      _HashCodes: 03a73430d386064ac98ad341afae6b7bf536ff7e45c70909b16c9b5761dffa61856b002f31a46f4066369711efcbff26b2517c2c71782d78000000000000000000000000
-      _Next: ffffffffffffffffffffffffffffffff01000000ffffffff04000000ffffffff00000000050000000300000007000000ffffffffffffffff000000000000000000000000
+      _Buckets: 0d000000ffffffff020000000a00000007000000ffffffffffffffff0c00000005000000ffffffff01000000090000000b00000004000000ffffffffffffffff06000000
+      _HashCodes: 08acef4c4e829b261680536d7af0df3816d3885624557e3292044754d4fe9c0b240734675224e8010d50b512449dd1258383557712ef2c05000000000000000000000000
+      _Next: ffffffffffffffff00000000ffffffffffffffffffffffffffffffffffffffffffffffff08000000ffffffff03000000ffffffffffffffff000000000000000000000000
       _Count: 14
       _Version: 14
       _FreeList: -1
       _FreeCount: 0
       _Keys:
-      - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
-      - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)
-      - DemoBuild/Android
-      - DemoBuild/PC/Windows x64
-      - DemoBuild/PC
-      - DemoBuild/WebGL/WebGL/Development
-      - DemoBuild/WebGL/WebGL
-      - DemoBuild/WebGL
-      - DemoBuild/OSX/OSX/Development
-      - DemoBuild/OSX/OSX
-      - DemoBuild/OSX
-      - DemoBuild/Linux/Linux x64
-      - DemoBuild/Linux
-      - DemoBuild
+      - AlphaBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
+      - AlphaBuild/Android/Android (ARMv7,ASTC,Gradle)
+      - AlphaBuild/Android
+      - AlphaBuild/PC/Windows x64
+      - AlphaBuild/PC
+      - AlphaBuild/WebGL/WebGL/Development
+      - AlphaBuild/WebGL/WebGL
+      - AlphaBuild/WebGL
+      - AlphaBuild/OSX/OSX/Development
+      - AlphaBuild/OSX/OSX
+      - AlphaBuild/OSX
+      - AlphaBuild/Linux/Linux x64
+      - AlphaBuild/Linux
+      - AlphaBuild
       - 
       - 
       - 
@@ -211,43 +218,43 @@ MonoBehaviour:
         childKeys: []
       - enabled: 1
         childKeys:
-        - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
+        - AlphaBuild/Android/Android (ARMv7,ASTC,Gradle)/Development
       - enabled: 1
         childKeys:
-        - DemoBuild/Android/Android (ARMv7,ASTC,Gradle)
+        - AlphaBuild/Android/Android (ARMv7,ASTC,Gradle)
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - AlphaBuild/PC/Windows x64
+      - enabled: 1
+        childKeys: []
+      - enabled: 1
+        childKeys:
+        - AlphaBuild/WebGL/WebGL/Development
+      - enabled: 1
+        childKeys:
+        - AlphaBuild/WebGL/WebGL
       - enabled: 0
         childKeys: []
       - enabled: 1
         childKeys:
-        - DemoBuild/PC/Windows x64
-      - enabled: 0
+        - AlphaBuild/OSX/OSX/Development
+      - enabled: 1
+        childKeys:
+        - AlphaBuild/OSX/OSX
+      - enabled: 1
         childKeys: []
       - enabled: 1
         childKeys:
-        - DemoBuild/WebGL/WebGL/Development
+        - AlphaBuild/Linux/Linux x64
       - enabled: 1
         childKeys:
-        - DemoBuild/WebGL/WebGL
-      - enabled: 0
-        childKeys: []
-      - enabled: 1
-        childKeys:
-        - DemoBuild/OSX/OSX/Development
-      - enabled: 1
-        childKeys:
-        - DemoBuild/OSX/OSX
-      - enabled: 0
-        childKeys: []
-      - enabled: 1
-        childKeys:
-        - DemoBuild/Linux/Linux x64
-      - enabled: 1
-        childKeys:
-        - DemoBuild/Android
-        - DemoBuild/PC
-        - DemoBuild/WebGL
-        - DemoBuild/OSX
-        - DemoBuild/Linux
+        - AlphaBuild/Android
+        - AlphaBuild/PC
+        - AlphaBuild/WebGL
+        - AlphaBuild/OSX
+        - AlphaBuild/Linux
       - enabled: 1
         childKeys: []
       - enabled: 1

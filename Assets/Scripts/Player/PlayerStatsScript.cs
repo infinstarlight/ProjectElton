@@ -86,6 +86,7 @@ public class PlayerStatsScript : CharacterStats
 
         PowerGaugePercentage = CurrentPower / MaxPower;
         playerHealthPercentage = CurrentHealth / MaxHealth;
+        //updateDataEvent.Invoke();
     }
 
     // Update is called once per frame

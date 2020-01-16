@@ -602,17 +602,17 @@ MonoBehaviour:
   healthPercentage: 0
   bIsDead: 0
   bCanTakeDamage: 1
-  CharacterName: 
+  CharacterName: Trish
   player: {fileID: 0}
-  currentCharacterAction: 0
-  currentSpecialAbility: 0
+  currentCharacterAction: 1
+  currentSpecialAbility: 1
   updateDataEvent:
     m_PersistentCalls:
       m_Calls: []
   CurrentPower: 0
   MaxPower: 100
   PowerGaugePercentage: 0
-  bIsPowerGaugeEnabled: 0
+  bIsPowerGaugeEnabled: 1
   playerHealthPercentage: 0
   PowerConsumeAmount: 0.15
   PowerConsumeRate: 1

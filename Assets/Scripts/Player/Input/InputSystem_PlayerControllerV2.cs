@@ -40,6 +40,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     public UnityEvent EnableUIInputEvent = new UnityEvent();
     public UnityEvent DisableUIInputEvent = new UnityEvent();
     public UnityEvent PauseGameEvent = new UnityEvent();
+    [SerializeField]
     private bool bActivateSpecial = false;
     public InputAction ToggleMouseStateAction;
     private bool bEnable;
@@ -74,14 +75,15 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void Awake()
     {
-        EnableGameControls();
-        bEnableGameInput = true;
-        bShowPauseMenu = false;
-
         GetPlayer = GetComponentInParent<Player>();
         HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
+        EnableGameControls();
+        bEnableGameInput = true;
+        bShowPauseMenu = false;
+
+
         uiController = FindObjectOfType<PlayerUIController>();
         GetGameInstance = FindObjectOfType<GameInstance>();
         GetSaveManager = GetGameInstance.gameObject.GetComponentInChildren<SaveManager>();
@@ -104,7 +106,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     private void OnEnable()
     {
         Parser.Register(this, "player");
-        EnableUIControls();
+        //EnableUIControls();
         ToggleMouseStateAction.Enable();
     }
 
@@ -115,7 +117,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         DisableGameInputEvent.RemoveAllListeners();
         EnableUIInputEvent.RemoveAllListeners();
         DisableUIInputEvent.RemoveAllListeners();
-        PauseGameEvent.RemoveAllListeners();
+        //  PauseGameEvent.RemoveAllListeners();
         ToggleMouseStateAction.Disable();
         Parser.Unregister(this);
     }
@@ -128,7 +130,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         DisableGameInputEvent.AddListener(DisableGameControls);
         EnableUIInputEvent.AddListener(EnableUIControls);
         DisableUIInputEvent.AddListener(DisableUIControls);
-        PauseGameEvent.AddListener(PauseGame);
+        //PauseGameEvent.AddListener(PauseGame);
 
         currentKeyboard = Keyboard.current;
         satSequence = DOTween.Sequence();
@@ -336,7 +338,6 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void EnableUIControls()
     {
-        myControls.Gameplay.Look.Disable();
         myControls.UI.Enable();
         myControls.UI.Point.Enable();
         myControls.UI.Navigate.Enable();
@@ -346,6 +347,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         myControls.UI.RightClick.Enable();
         myControls.UI.MiddleClick.Enable();
         myControls.UI.ScrollWheel.Enable();
+        myControls.Gameplay.Disable();
     }
 
     void DisableUIControls()
@@ -421,19 +423,17 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     }
 
 
-    public void PauseGame()
+    public void PauseGame(bool bPauseState)
     {
         if (Cursor.lockState != CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        bIsGamePaused = !bIsGamePaused;
+        bIsGamePaused = bPauseState;
         if (bIsGamePaused)
         {
             EnableUIControls();
             GetGameInstance.adjustTimeEvent.Invoke(0.0f);
-
-
         }
         else
         {
@@ -449,16 +449,18 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     public void ShowMenu(GameObject menuGO)
     {
         Cursor.lockState = CursorLockMode.None;
-        PauseGame();
+
         if (menuGO)
         {
             if (!menuGO.activeSelf)
             {
+                PauseGame(true);
                 HUDGO.SetActive(false);
                 menuGO.SetActive(true);
             }
             else
             {
+                PauseGame(false);
                 HUDGO.SetActive(true);
                 menuGO.SetActive(false);
             }

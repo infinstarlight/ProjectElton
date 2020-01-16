@@ -150,14 +150,14 @@ public class InputSystem_PlayerController : MonoBehaviour
 
         currentKeyboard = Keyboard.current;
         satSequence = DOTween.Sequence();
-        if (PauseMenuGO)
-        {
-            PauseMenuGO.SetActive(false);
-        }
-        if (CharMenuGO)
-        {
-            CharMenuGO.SetActive(false);
-        }
+        // if (PauseMenuGO)
+        // {
+        //     PauseMenuGO.SetActive(false);
+        // }
+        // if (CharMenuGO)
+        // {
+        //     CharMenuGO.SetActive(false);
+        // }
 
     }
 

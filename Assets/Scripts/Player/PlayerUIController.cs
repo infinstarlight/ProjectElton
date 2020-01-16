@@ -7,10 +7,14 @@ using UnityEngine;
 public class PlayerUIController : MonoBehaviour
 {
     private InputSystem_PlayerControllerV2 pCon;
-    private PlayerStatsScript statsScript;
     private GameObject PauseMenu;
     private GameObject CharMenu;
     private GameObject TouchControlGO;
+    private ID_MapScreen GetMapScreen;
+    private ID_InventoryScreen GetInventoryScreen;
+    private ID_TrishScreen GetTrishScreen;
+    private ID_StatsScreen GetStatsScreen;
+    private ID_AbilitiesScreen GetAbilitiesScreen;
     private ID_StyleSlider styleSliderScript;
     private ID_TouchUI GetTouchUI;
 
@@ -23,12 +27,27 @@ public class PlayerUIController : MonoBehaviour
     private GameObject moneyText;
     public float currentMoneyUI = 0.0f;
     private Player GetPlayer;
+    private PlayerStateScript GetPlayerState;
 
     private GameInstance GetGameInstance;
     private SaveManager GetSaveManager;
     private HealthTextScript healthText;
     public UnityEvent showInteractEvent = new UnityEvent();
     public UnityEvent showTouchUIEvent = new UnityEvent();
+
+    private void Awake()
+    {
+        GetPlayer = FindObjectOfType<Player>();
+        pCon = GetPlayer.pCon;
+        GetPlayerState = FindObjectOfType<PlayerStateScript>();
+        PauseMenu = FindObjectOfType<ID_PauseMenu>().gameObject;
+        CharMenu = FindObjectOfType<ID_CharMenu>().gameObject;
+        GetMapScreen = CharMenu.GetComponentInChildren<ID_MapScreen>();
+        GetInventoryScreen = CharMenu.GetComponentInChildren<ID_InventoryScreen>();
+        GetTrishScreen = CharMenu.GetComponentInChildren<ID_TrishScreen>();
+        GetStatsScreen = CharMenu.GetComponentInChildren<ID_StatsScreen>();
+        GetAbilitiesScreen = CharMenu.GetComponentInChildren<ID_AbilitiesScreen>();
+    }
 
     private void OnDisable()
     {
@@ -39,11 +58,9 @@ public class PlayerUIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         GetGameInstance = FindObjectOfType<GameInstance>();
         GetTouchUI = GetComponentInChildren<ID_TouchUI>();
-        GetPlayer = FindObjectOfType<Player>();
-        pCon = GetPlayer.pCon;
+
         styleSliderScript = GetComponentInChildren<ID_StyleSlider>();
         optionsMenu = FindObjectOfType<ID_OptionsMenu>().gameObject;
         showInteractEvent.AddListener(ToggleInteractText);
@@ -52,7 +69,6 @@ public class PlayerUIController : MonoBehaviour
         aragonBar = GetComponentInChildren<ID_PlayerAragonSlider>();
         healthText = GetComponentInChildren<HealthTextScript>();
         aragonText = GetComponentInChildren<AragonTextScript>();
-        statsScript = GetComponentInChildren<PlayerStatsScript>();
         interactText = GetComponentInChildren<ID_InteractText>();
         moneyText = GetComponentInChildren<ID_PlayerMoney>().gameObject;
         TouchControlGO = GetTouchUI.gameObject;
@@ -63,14 +79,21 @@ public class PlayerUIController : MonoBehaviour
 
         ShowTouchUI();
 
-        PauseMenu = pCon.PauseMenuGO;
-        CharMenu = pCon.CharMenuGO;
+
+        if (CharMenu)
+        {
+            CharMenu.SetActive(false);
+        }
+        if (PauseMenu)
+        {
+            PauseMenu.SetActive(false);
+        }
         if (optionsMenu)
         {
             optionsMenu.SetActive(false);
         }
 
-        GetPlayer.PlayerStats.updateDataEvent.Invoke();
+        UpdateUIData();
     }
 
 
@@ -90,34 +113,39 @@ public class PlayerUIController : MonoBehaviour
     public void UpdateUIData()
     {
         //TODO: Maybe move this to SendMessage on enemy
-        if (styleSliderScript)
-        {
-            styleSliderScript.styleSlider.value = pCon.playerState.StylePercent;
-        }
-
+        // if (styleSliderScript)
+        // {
+        //     styleSliderScript.styleSlider.value = GetPlayerState.StylePercent;
+        // }
+        styleSliderScript.styleSlider.value = GetPlayerState.StylePercent;
+        healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
+        healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
+        aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
+        currentMoneyUI = GetPlayer.currentMoney;
+        moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
         //TODO: Move this to UpdateHealthText function
 
-        if (healthBar)
-        {
-            healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
-        }
-        if (healthText)
-        {
-            healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
-        }
-        if (aragonBar)
-        {
-            aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
-        }
-        if (aragonText)
-        {
-            aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
-        }
-        if (moneyText)
-        {
-            currentMoneyUI = pCon.GetPlayer.currentMoney;
-            moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
-        }
+        // if (healthBar)
+        // {
+        //     healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
+        // }
+        // if (healthText)
+        // {
+        //     healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
+        // }
+        // if (aragonBar)
+        // {
+        //     aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
+        // }
+        // if (aragonText)
+        // {
+        //     aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
+        // }
+        // if (moneyText)
+        // {
+        //     currentMoneyUI = GetPlayer.currentMoney;
+        //     moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
+        // }
         // if (GetGameInstance.bIsRunningOnMobile)
         // {
         //     ShowTouchUI();
@@ -168,7 +196,7 @@ public class PlayerUIController : MonoBehaviour
     {
         if (Time.timeScale >= 1)
         {
-            pCon.PauseGame();
+            pCon.PauseGame(true);
 
         }
         // if (optionsMenu)
