@@ -37,8 +37,8 @@ public static class BuildConstants
     public static readonly System.DateTime buildDate = new System.DateTime(637147425412600209);
     public const string version = "1.0.121.863";
     public const ReleaseType releaseType = ReleaseType.AlphaBuild;
-    public const Platform platform = Platform.Android;
-    public const Architecture architecture = Architecture.Android;
-    public const Distribution distribution = Distribution.Development;
+    public const Platform platform = Platform.PC;
+    public const Architecture architecture = Architecture.Windows_x64;
+    public const Distribution distribution = Distribution.None;
 }
 
