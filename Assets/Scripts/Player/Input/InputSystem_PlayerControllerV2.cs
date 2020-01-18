@@ -147,7 +147,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void Update()
     {
-        CheckForNewDevice();
+        //CheckForNewDevice();
         if (Keyboard.current.numpad0Key.wasPressedThisFrame)
         {
             SaveMaster.SyncLoad();
@@ -407,6 +407,11 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         bActivateSpecial = !bActivateSpecial;
     }
 
+    void TogglePause()
+    {
+        bIsGamePaused = !bIsGamePaused;
+    }
+
     void ActivateSpecial()
     {
         ToggleSpecial();
@@ -448,22 +453,26 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     public void ShowMenu(GameObject menuGO)
     {
-        Cursor.lockState = CursorLockMode.None;
+        TogglePause();
+        if (!bIsGamePaused)
+        {
+            HUDGO.SetActive(false);
+            menuGO.SetActive(true);
+        }
+        if (bIsGamePaused)
+        {
+            HUDGO.SetActive(true);
+            menuGO.SetActive(false);
+        }
+    }
 
+    public void HideMenu(GameObject menuGO)
+    {
         if (menuGO)
         {
-            if (!menuGO.activeSelf)
-            {
-                PauseGame(true);
-                HUDGO.SetActive(false);
-                menuGO.SetActive(true);
-            }
-            else
-            {
-                PauseGame(false);
-                HUDGO.SetActive(true);
-                menuGO.SetActive(false);
-            }
+            PauseGame(false);
+            HUDGO.SetActive(true);
+            menuGO.SetActive(false);
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Lowscope.Saving.Data;
+using System.Runtime.InteropServices;
 
 namespace Lowscope.Saving.Core
 {
@@ -12,11 +13,11 @@ namespace Lowscope.Saving.Core
 
         // Saving with WebGL requires a seperate DLL, which is included in the plugin.
 #if UNITY_WEBGL
-    [DllImport("__Internal")]
-    private static extern void SyncFiles();
+        [DllImport("__Internal")]
+        private static extern void SyncFiles();
 
-    [DllImport("__Internal")]
-    private static extern void WindowAlert(string message);
+        [DllImport("__Internal")]
+        private static extern void WindowAlert(string message);
 #endif
 
         private static string fileExtentionName { get { return SaveSettings.Get().fileExtensionName; } }
