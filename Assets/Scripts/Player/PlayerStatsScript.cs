@@ -181,6 +181,7 @@ public class PlayerStatsScript : CharacterStats
     {
         CurrentPower -= PowerConsumeAmount;
         PowerGaugePercentage = CurrentPower / MaxPower;
+        //  Debug.Log("Current power percent is: " + PowerGaugePercentage);
         updateDataEvent.Invoke();
         yield return PowerConsumeRate;
         if (CurrentPower <= 0)

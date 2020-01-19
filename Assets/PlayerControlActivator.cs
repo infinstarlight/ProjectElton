@@ -6,27 +6,27 @@ public class PlayerControlActivator : MonoBehaviour
 {
 
     public bool bShouldToggleInput = false;
-    public bool bIsPlayerActive = false;
     private GameObject playerGO;
     private Player player;
     InputSystemPlayerMovement GetInput;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        playerGO = FindObjectOfType<Player>().gameObject;
+        player = playerGO.GetComponent<Player>();
+        GetInput = playerGO.GetComponent<InputSystemPlayerMovement>();
+
 
     }
-
-    // private void OnDisable()
-    // {
-    //     player.pCon.EnableGameInputEvent.Invoke();
-    // }
 
     private void OnTriggerStay(Collider other)
     {
         if (bShouldToggleInput)
         {
             //player.pCon.DisableGameInputEvent.Invoke();
-            GetInput.ForceMove(Vector3.zero, 0, 0, false);
+            //            GetInput.ForceMove(Vector3.zero, 0, 0, false);
         }
     }
 
@@ -36,18 +36,12 @@ public class PlayerControlActivator : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Player>())
             {
-                playerGO = other.gameObject;
-                player = playerGO.GetComponent<Player>();
-                GetInput = playerGO.GetComponent<InputSystemPlayerMovement>();
                 if (bShouldToggleInput)
                 {
-                    player.pCon.DisableGameInputEvent.Invoke();
-                    GetInput.ForceMove(Vector3.zero, 0, 0, false);
+                    GetInput.bPlayerControl = false;
+                    GetInput.ForceMove(Vector3.zero, 0, 1, false);
                 }
-                else
-                {
-                    player.pCon.EnableGameInputEvent.Invoke();
-                }
+
             }
         }
     }

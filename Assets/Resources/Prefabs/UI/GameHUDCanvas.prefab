@@ -6061,7 +6061,6 @@ GameObject:
   - component: {fileID: 2538452228165498749}
   - component: {fileID: 3836675476905835372}
   - component: {fileID: 3999209593717208061}
-  - component: {fileID: 1064618345700206033}
   - component: {fileID: 8633467058889639237}
   m_Layer: 5
   m_Name: PlayerAragonText
@@ -6207,19 +6206,6 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &1064618345700206033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8871146573454307662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cda614d19b979b499b4cee60edd84fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextMesh: {fileID: 0}
 --- !u!114 &8633467058889639237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6307,12 +6293,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: befd5e490c1066748a075795c8e93233, type: 3}
---- !u!4 &7967556259067842143 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2537316078684501382, guid: befd5e490c1066748a075795c8e93233,
-    type: 3}
-  m_PrefabInstance: {fileID: 5594642489723960281}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4123908396498126121 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8403498538717691632, guid: befd5e490c1066748a075795c8e93233,
@@ -6325,6 +6305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87f1cc43f296bbb47ae34bad407e072c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7967556259067842143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2537316078684501382, guid: befd5e490c1066748a075795c8e93233,
+    type: 3}
+  m_PrefabInstance: {fileID: 5594642489723960281}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9140972932136703586
 PrefabInstance:
   m_ObjectHideFlags: 0

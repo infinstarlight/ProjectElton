@@ -34,6 +34,7 @@ public class InputSystemPlayerMovement : MonoBehaviour
     {
         // Saving component references to improve performance.
         IS_Controller = GetComponent<CharacterController>();
+        bPlayerControl = true;
     }
 
 
@@ -60,43 +61,51 @@ public class InputSystemPlayerMovement : MonoBehaviour
 
     public void Move(Vector2 input, bool sprint, bool crouching)
     {
-        if (myForceTime > 0)
-            return;
-
-        float speed = (!sprint) ? myWalkSpeed : myRunSpeed;
-        if (crouching) speed = myCrouchSpeed;
-
-        if (bIsGrounded)
+        if (bPlayerControl)
         {
-            myMoveDirection = new Vector3(input.x, -isAntiBumpFactor, input.y);
-            myMoveDirection = transform.TransformDirection(myMoveDirection) * speed;
-            UpdateJump();
+            if (myForceTime > 0)
+                return;
+
+            float speed = (!sprint) ? myWalkSpeed : myRunSpeed;
+            if (crouching) speed = myCrouchSpeed;
+
+            if (bIsGrounded)
+            {
+                myMoveDirection = new Vector3(input.x, -isAntiBumpFactor, input.y);
+                myMoveDirection = transform.TransformDirection(myMoveDirection) * speed;
+                UpdateJump();
+            }
+
+            // Apply gravity
+            myMoveDirection.y -= isGravity * Time.deltaTime;
+            // Move the controller, and set grounded true or false depending on whether we're standing on something
+            bIsGrounded = (IS_Controller.Move(myMoveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
         }
 
-        // Apply gravity
-        myMoveDirection.y -= isGravity * Time.deltaTime;
-        // Move the controller, and set grounded true or false depending on whether we're standing on something
-        bIsGrounded = (IS_Controller.Move(myMoveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
     }
 
     public void Move(Vector3 direction, float speed, float appliedGravity)
     {
-        if (myForceTime > 0)
-            return;
-
-        Vector3 move = direction * speed;
-        if (appliedGravity > 0)
+        if (bPlayerControl)
         {
-            myMoveDirection.x = move.x;
-            myMoveDirection.y -= isGravity * Time.deltaTime * appliedGravity;
-            myMoveDirection.z = move.z;
+            if (myForceTime > 0)
+                return;
+
+            Vector3 move = direction * speed;
+            if (appliedGravity > 0)
+            {
+                myMoveDirection.x = move.x;
+                myMoveDirection.y -= isGravity * Time.deltaTime * appliedGravity;
+                myMoveDirection.z = move.z;
+            }
+            else
+                myMoveDirection = move;
+
+            UpdateJump();
+
+            bIsGrounded = (IS_Controller.Move(myMoveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
         }
-        else
-            myMoveDirection = move;
 
-        UpdateJump();
-
-        bIsGrounded = (IS_Controller.Move(myMoveDirection * Time.deltaTime) & CollisionFlags.Below) != 0;
     }
 
     public void Jump(Vector3 dir, float mult)

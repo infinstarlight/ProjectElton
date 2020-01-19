@@ -1,5 +1,4 @@
 ﻿using UnityEngine.Events;
-using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.InputSystem;
 using Lowscope.Saving;
 using Popcron.Console;
@@ -47,6 +46,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     public Player GetPlayer;
     private Sequence satSequence;
     public InputSystemPlayerInput GetPlayerInput;
+    private InputSystemPlayerMovement GetMovement;
 
 
     [Alias("gm")]
@@ -76,6 +76,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     void Awake()
     {
         GetPlayer = GetComponentInParent<Player>();
+
         HUDGO = FindObjectOfType<ID_PlayerHUD>().gameObject;
         CharMenuGO = FindObjectOfType<ID_CharMenu>().gameObject;
         PauseMenuGO = FindObjectOfType<ID_PauseMenu>().gameObject;
@@ -232,8 +233,20 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
 
     void EnableGameControls()
     {
-        GetGameInstance = FindObjectOfType<GameInstance>();
-        GetPlayerInput = GetComponent<InputSystemPlayerInput>();
+        if (!GetGameInstance)
+        {
+            GetGameInstance = FindObjectOfType<GameInstance>();
+        }
+        if (!GetPlayerInput)
+        {
+            GetPlayerInput = GetComponent<InputSystemPlayerInput>();
+        }
+        if (!GetMovement)
+        {
+            GetMovement = GetComponentInParent<InputSystemPlayerMovement>();
+        }
+
+
         if (!uiController)
         {
             uiController = FindObjectOfType<PlayerUIController>();
@@ -262,6 +275,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
             myControls = new GameInputControls();
         }
         bEnableGameInput = true;
+        GetMovement.bPlayerControl = bEnableGameInput;
 
 
         myControls.Gameplay.Pause.performed += OnGamePause;
@@ -451,18 +465,39 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         }
     }
 
+    void CheckMenuStatus()
+    {
+        if (PauseMenuGO.activeSelf)
+        {
+            CharMenuGO.SetActive(false);
+        }
+        if (CharMenuGO.activeSelf)
+        {
+            PauseMenuGO.SetActive(false);
+        }
+    }
+
     public void ShowMenu(GameObject menuGO)
     {
         TogglePause();
+        CheckMenuStatus();
         if (!bIsGamePaused)
         {
-            HUDGO.SetActive(false);
-            menuGO.SetActive(true);
+            if (!menuGO.activeSelf)
+            {
+                HUDGO.SetActive(false);
+                menuGO.SetActive(true);
+            }
+
         }
         if (bIsGamePaused)
         {
-            HUDGO.SetActive(true);
-            menuGO.SetActive(false);
+            if (!HUDGO.activeSelf)
+            {
+                HUDGO.SetActive(true);
+                menuGO.SetActive(false);
+            }
+
         }
     }
 

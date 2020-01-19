@@ -112,46 +112,13 @@ public class PlayerUIController : MonoBehaviour
 
     public void UpdateUIData()
     {
-        //TODO: Maybe move this to SendMessage on enemy
-        // if (styleSliderScript)
-        // {
-        //     styleSliderScript.styleSlider.value = GetPlayerState.StylePercent;
-        // }
         styleSliderScript.styleSlider.value = GetPlayerState.StylePercent;
         healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
         healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
         aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
+        aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
         currentMoneyUI = GetPlayer.currentMoney;
         moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
-        //TODO: Move this to UpdateHealthText function
-
-        // if (healthBar)
-        // {
-        //     healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
-        // }
-        // if (healthText)
-        // {
-        //     healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
-        // }
-        // if (aragonBar)
-        // {
-        //     aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
-        // }
-        // if (aragonText)
-        // {
-        //     aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
-        // }
-        // if (moneyText)
-        // {
-        //     currentMoneyUI = GetPlayer.currentMoney;
-        //     moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
-        // }
-        // if (GetGameInstance.bIsRunningOnMobile)
-        // {
-        //     ShowTouchUI();
-        // }
-
-
     }
 
     void ShowTouchUI()
