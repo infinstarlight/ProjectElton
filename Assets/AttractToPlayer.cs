@@ -30,6 +30,7 @@ public class AttractToPlayer : MonoBehaviour
             if (other.gameObject.GetComponent<Player>())
             {
                 attractSequence.Play();
+                GetItem.ActivateItem();
             }
         }
     }
@@ -40,8 +41,8 @@ public class AttractToPlayer : MonoBehaviour
         {
             if (other.gameObject.GetComponent<Player>())
             {
-                GetItem.ModifyMoney();
-                Destroy(gameObject);
+                //GetItem.ModifyMoney();
+                
 
             }
         }

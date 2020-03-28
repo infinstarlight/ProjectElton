@@ -33,7 +33,7 @@ public class CharacterStats : MonoBehaviour
 
     public void HealCharacter(float ModAmount)
     {
-        if (CurrentHealth < MaxHealth)
+        if (CurrentHealth != MaxHealth)
         {
             CurrentHealth += ModAmount;
         }
