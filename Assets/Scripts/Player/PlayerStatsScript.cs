@@ -35,7 +35,6 @@ public class PlayerStatsScript : CharacterStats
     public float MaxPower = 0.0f;
     public float PowerGaugePercentage = 0.0f;
     public bool bIsPowerGaugeEnabled = false;
-    public float playerHealthPercentage = 0.0f;
     public float PowerConsumeAmount = 0.0f;
     public float PowerConsumeRate = 0.0f;
     public float DamageMultiplierAmount = 0.0f;
@@ -85,7 +84,7 @@ public class PlayerStatsScript : CharacterStats
         CurrentPower = MaxPower;
 
         PowerGaugePercentage = CurrentPower / MaxPower;
-        playerHealthPercentage = CurrentHealth / MaxHealth;
+        healthPercentage = CurrentHealth / MaxHealth;
         //updateDataEvent.Invoke();
     }
 
@@ -155,6 +154,11 @@ public class PlayerStatsScript : CharacterStats
         GetPlayerController.combatController.currentWeaponGO.SendMessage("RevertDamage");
         //StartCoroutine(RegenHealth());
         bStartHealthRegen = false;
+    }
+
+    public void HealPlayer(float modAmount)
+    {
+        base.HealCharacter(modAmount);
     }
 
     public IEnumerator RegenHealth()

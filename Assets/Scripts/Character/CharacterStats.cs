@@ -36,10 +36,12 @@ public class CharacterStats : MonoBehaviour
         if (CurrentHealth != MaxHealth)
         {
             CurrentHealth += ModAmount;
+            healthPercentage = CurrentHealth / MaxHealth;
         }
         else
         {
             CurrentHealth = MaxHealth;
+            healthPercentage = CurrentHealth / MaxHealth;
         }
 
     }

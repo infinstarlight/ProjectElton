@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4729747429194237285}
   - component: {fileID: 4729747429194237311}
   m_Layer: 0
-  m_Name: HealthItem
+  m_Name: SmallHealthPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,6 +58,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -121,7 +122,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 594cdba125af21e41935311d18b4bef3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b6d018cff97da4314ba8acd3f17dfcf0, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

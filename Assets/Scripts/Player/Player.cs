@@ -41,6 +41,8 @@ public class Player : Character
         damageEvent.AddListener(PlayerDamageTaken);
         RecoverPowerEvent.AddListener(PlayerStats.RecoverPower);
         ModMoneyEvent.AddListener(ModMoney);
+        ModHealthEvent.AddListener(PlayerStats.ModifyHealth);
+        HealPlayerEvent.AddListener(PlayerStats.HealCharacter);
     }
 
     void OnDisable()
@@ -55,14 +57,8 @@ public class Player : Character
     // Start is called before the first frame update
     void Start()
     {
-
         bShouldDestroyOnDeath = false;
-        PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
-        //PlayerStats.updateDataEvent.Invoke();
-        ModHealthEvent.AddListener(PlayerStats.ModifyHealth);
-        HealPlayerEvent.AddListener(PlayerStats.HealCharacter);
-
-
+        PlayerStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
     }
 
 
@@ -74,7 +70,7 @@ public class Player : Character
             playerSource.clip = hurtClips[Random.Range(0, hurtClips.Length)];
             playerSource.PlayOneShot(playerSource.clip);
         }
-        PlayerStats.playerHealthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
+        PlayerStats.healthPercentage = characterStats.CurrentHealth / characterStats.MaxHealth;
         PlayerStats.updateDataEvent.Invoke();
         pCon.playerState.playerDamageStyleEvent.Invoke(StyleDamageMod);
     }

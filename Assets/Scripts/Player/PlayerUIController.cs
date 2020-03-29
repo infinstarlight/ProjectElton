@@ -24,7 +24,7 @@ public class PlayerUIController : MonoBehaviour
     private ID_InteractText interactText;
     public bool bShowInteractText;
     private GameObject optionsMenu;
-    private GameObject moneyText;
+    private ID_PlayerMoney moneyText;
     public float currentMoneyUI = 0.0f;
     private Player GetPlayer;
     private PlayerStateScript GetPlayerState;
@@ -70,7 +70,7 @@ public class PlayerUIController : MonoBehaviour
         healthText = GetComponentInChildren<HealthTextScript>();
         aragonText = GetComponentInChildren<AragonTextScript>();
         interactText = GetComponentInChildren<ID_InteractText>();
-        moneyText = GetComponentInChildren<ID_PlayerMoney>().gameObject;
+        moneyText = GetComponentInChildren<ID_PlayerMoney>();
         TouchControlGO = GetTouchUI.gameObject;
         if (GetGameInstance)
         {
@@ -113,12 +113,12 @@ public class PlayerUIController : MonoBehaviour
     public void UpdateUIData()
     {
         styleSliderScript.styleSlider.value = GetPlayerState.StylePercent;
-        healthBar.healthSlider.value = GetPlayer.PlayerStats.playerHealthPercentage;
+        healthBar.healthSlider.value = GetPlayer.PlayerStats.healthPercentage;
         healthText.TextMesh.text = GetPlayer.PlayerStats.CurrentHealth.ToString();
         aragonBar.aragonSlider.value = GetPlayer.PlayerStats.PowerGaugePercentage;
         aragonText.TextMesh.text = GetPlayer.PlayerStats.CurrentPower.ToString();
         currentMoneyUI = GetPlayer.currentMoney;
-        moneyText.GetComponent<ID_PlayerMoney>().textObject.text = currentMoneyUI.ToString();
+        moneyText.textObject.text = currentMoneyUI.ToString();
     }
 
     void ShowTouchUI()

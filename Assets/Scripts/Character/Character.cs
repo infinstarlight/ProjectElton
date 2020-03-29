@@ -26,6 +26,11 @@ public class Character : MonoBehaviour, IKillable, IDamageable<float>
         source = GetComponent<AudioSource>();
         damageProcessEvent.AddListener(DamageProcessor);
     }
+
+    // private void Start()
+    // {
+
+    // }
     public void OnDeath()
     {
         if (characterStats.bIsDead)

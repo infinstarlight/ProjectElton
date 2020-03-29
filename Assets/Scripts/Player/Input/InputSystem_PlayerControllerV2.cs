@@ -9,7 +9,7 @@ using UnityEngine;
 public class InputSystem_PlayerControllerV2 : MonoBehaviour
 {
 
-    public InputSystem_CameraLook cameraLook;
+  
     public InputSystem_PlayerCombatController combatController;
     private GameInputControls myControls;
     public PlayerStateScript playerState;
@@ -47,6 +47,17 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
     private Sequence satSequence;
     public InputSystemPlayerInput GetPlayerInput;
     private InputSystemPlayerMovement GetMovement;
+    private InputSystemCameraMovement GetCameraMovement;
+    Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+    GameObject currentEnemy = null;
+    RaycastHit LockOnHit;
+    private Ray lockOnRay;
+    [SerializeField]
+    private float lockOnRadius = 100f;
+    [SerializeField]
+    private float lockOnRange = 200f;
+    [SerializeField]
+    private bool bStartLockOn = false;
 
 
     [Alias("gm")]
@@ -99,8 +110,9 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
             bIsDebug = false;
         }
         ToggleMouseStateAction.performed += ToggleMouseState;
-        
+        GetCameraMovement = playerCamera.GetComponent<InputSystemCameraMovement>();
         //EnhancedTouchSupport.Enable();
+        lockOnRay = playerCamera.ViewportPointToRay(rayOrigin);
 
     }
 
@@ -154,9 +166,19 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         {
             SaveMaster.SyncLoad();
         }
+        if (bStartLockOn)
+        {
+            CheckForLockOn();
+            // LockOn();
+        }
 
     }
     private void FixedUpdate()
+    {
+        CheckForInteractionPoint();
+    }
+
+    void CheckForInteractionPoint()
     {
         Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
         GameObject hitObject = null;
@@ -181,6 +203,97 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
             }
 
         }
+    }
+
+    void CheckForLockOn()
+    {
+        // Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+        GameObject hitObject = null;
+        // Vector3 playerPostion = transform.position + playerCamera.transform.forward;
+        // RaycastHit LockOnHit;
+        // actual Ray
+        Ray ray = playerCamera.ViewportPointToRay(rayOrigin);
+
+        if (Physics.SphereCast(ray.origin, lockOnRadius, ray.direction, out LockOnHit, lockOnRange))
+        {
+            if (LockOnHit.collider)
+            {
+                hitObject = LockOnHit.collider.gameObject;
+                {
+
+                    if (hitObject.GetComponent<Character>() != null || hitObject.GetComponent<IDamageable<float>>() != null)
+                    {
+                        playerCamera.transform.LookAt(hitObject.transform);
+                        GetCameraMovement.ModifyCameraClamp(new Vector2(30, 90));
+                        Debug.Log("Locking on to target!");
+                    }
+                    else
+                    {
+                        GetCameraMovement.ResetCameraClamp();
+                        Debug.Log("Lock on target not valid!");
+                    }
+                }
+            }
+        }
+        // if (Physics.Raycast(ray, out hit, InteractRange))
+        // {
+        //     if (hit.collider)
+        //     {
+        //         hitObject = hit.collider.gameObject;
+        //         if (hitObject.GetComponent<Character>() != null || hitObject.GetComponent<IDamageable<float>>() != null)
+        //         {
+        //             playerCamera.transform.LookAt(hitObject.transform);
+        //             GetCameraMovement.ModifyCameraClamp(new Vector2(30, 90));
+        //         }
+        //         else
+        //         {
+        //             // uiController.bShowInteractText = false;
+        //             // uiController.showInteractEvent.Invoke();
+        //             GetCameraMovement.ResetCameraClamp();
+        //         }
+        //     }
+
+        // }
+    }
+
+    void LockOn()
+    {
+
+        if (bStartLockOn)
+        {
+            Debug.DrawRay(lockOnRay.origin, lockOnRay.direction * 5000.0f, Color.blue);
+
+
+            // actual Ray
+
+            // if (Physics.Raycast(lockOnRay, out LockOnHit, lockOnRange))
+            // {
+            //     if (LockOnHit.collider)
+            //     {
+            //         currentEnemy = LockOnHit.collider.gameObject.GetComponent<Enemy>();
+            //         if (currentEnemy)
+            //         {
+            //             transform.LookAt(currentEnemy.gameObject.transform);
+            //             currentEnemy.enemyUIController.bIsTargeted = true;
+            //             Debug.Log("Hit: " + currentEnemy.name);
+            //         }
+            //     }
+            // }
+            if (Physics.SphereCast(lockOnRay.origin, 5000.0f, lockOnRay.direction, out LockOnHit, 5000.0f))
+            {
+                if (LockOnHit.collider)
+                {
+
+                    if (currentEnemy.GetComponent<Character>() != null || currentEnemy.GetComponent<IDamageable<float>>() != null)
+                    {
+                        transform.LookAt(currentEnemy.gameObject.transform);
+                        //currentEnemy.enemyUIController.bIsTargeted = true;
+                        Debug.Log("Hit: " + currentEnemy.name);
+                    }
+                }
+            }
+        }
+
     }
 
 
@@ -260,12 +373,6 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         {
             playerState = GetComponentInChildren<PlayerStateScript>();
         }
-
-
-        if (!cameraLook)
-        {
-            cameraLook = GetComponentInChildren<InputSystem_CameraLook>();
-        }
         if (!combatController)
         {
             combatController = GetComponent<InputSystem_PlayerCombatController>();
@@ -284,8 +391,8 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         myControls.Gameplay.CharacterMenu.performed += OnCharMenu;
         myControls.Gameplay.Move.performed += GetPlayerInput.OnMoveUpdate;
         myControls.Gameplay.Fire.performed += combatController.OnFire;
-        // myControls.Gameplay.Aim.performed += cameraLook.OnLockOn;
-        // myControls.Gameplay.Aim.canceled += cameraLook.OnLockOnStop;
+        myControls.Gameplay.Aim.performed += OnAimEvent;
+        myControls.Gameplay.Aim.canceled += OnAimEvent;
         //  myControls.Gameplay.Dash.performed += rbMovement.OnSpecialAbility;
         myControls.Gameplay.SelectWeaponOne.performed += combatController.OnPrimaryWeaponSelect;
         myControls.Gameplay.SelectWeaponTwo.performed += combatController.OnSecondWeaponSelect;
@@ -372,6 +479,14 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         EnableGameControls();
     }
 
+    public void OnAimEvent(InputAction.CallbackContext context)
+    {
+
+        bStartLockOn = !bStartLockOn;
+
+
+    }
+
     public void OnGamePause(InputAction.CallbackContext context)
     {
         ShowMenu(PauseMenuGO);
@@ -399,7 +514,7 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
         {
             case InputActionPhase.Performed:
                 {
-                    cameraLook.OnScanActivate();
+                    //cameraLook.OnScanActivate();
                 }
 
                 break;
@@ -539,6 +654,29 @@ public class InputSystem_PlayerControllerV2 : MonoBehaviour
             }
 
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (bStartLockOn)
+        {
+            if (LockOnHit.collider)
+            {
+                //Draw a Ray forward from GameObject toward the hit
+                Gizmos.DrawRay(transform.position, transform.forward * LockOnHit.distance);
+                //Draw a cube that extends to where the hit exists
+                Gizmos.DrawWireSphere(transform.position + transform.forward * LockOnHit.distance, lockOnRadius);
+            }
+            //If there hasn't been a hit yet, draw the ray at the maximum distance
+            else
+            {
+                //Draw a Ray forward from GameObject toward the maximum distance
+                Gizmos.DrawRay(transform.position, transform.forward * lockOnRange);
+                //Draw a cube at the maximum distance
+                Gizmos.DrawWireSphere(transform.position + transform.forward * lockOnRange, lockOnRadius);
+            }
+        }
+
     }
 
 

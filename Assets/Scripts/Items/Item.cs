@@ -48,7 +48,7 @@ public class Item : MonoBehaviour
                 ModifyMoney();
                 break;
             default:
-                
+
                 break;
         }
     }
@@ -57,10 +57,13 @@ public class Item : MonoBehaviour
     {
         if (CurrentItemType == ItemType.HealthPickup)
         {
-            GetPlayer.HealPlayerEvent.Invoke(ValueMod);
-            GetPlayer.PlayerStats.updateDataEvent.Invoke();
+            if (GetPlayer)
+            {
+                GetPlayer.HealPlayerEvent.Invoke(ValueMod);
+                GetPlayer.PlayerStats.updateDataEvent.Invoke();
+            }
             itemSource.PlayOneShot(itemSource.clip);
-            Destroy(gameObject,1f);
+            Destroy(gameObject, 2f);
         }
 
     }
@@ -103,6 +106,7 @@ public class Item : MonoBehaviour
         {
             GetPlayer.ModMoneyEvent.Invoke((int)ValueMod);
             GetPlayer.PlayerStats.updateDataEvent.Invoke();
+            itemSource.PlayOneShot(itemSource.clip);
             Destroy(gameObject, 1f);
         }
     }

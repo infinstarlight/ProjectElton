@@ -131,9 +131,9 @@ namespace MultiBuild {
         public static BuildTargetGroup GroupForTarget(BuildTarget t) {
             // Can't believe Unity doesn't have a method for this already
             switch (t) {
-            case BuildTarget.StandaloneLinux:
+            //case BuildTarget.StandaloneLinux:
             case BuildTarget.StandaloneLinux64:
-            case BuildTarget.StandaloneLinuxUniversal:
+            //case BuildTarget.StandaloneLinuxUniversal:
             case BuildTarget.StandaloneOSX:
             case BuildTarget.StandaloneWindows:
             case BuildTarget.StandaloneWindows64:
@@ -146,23 +146,19 @@ namespace MultiBuild {
                 return BuildTargetGroup.WebGL;
             case BuildTarget.WSAPlayer:
                 return BuildTargetGroup.WSA;
-            case BuildTarget.Tizen:
-                return BuildTargetGroup.Tizen;
             case BuildTarget.PS4:
                 return BuildTargetGroup.PS4;
             case BuildTarget.XboxOne:
                 return BuildTargetGroup.XboxOne;
-            case BuildTarget.WiiU:
-                return BuildTargetGroup.WiiU;
             case BuildTarget.tvOS:
                 return BuildTargetGroup.tvOS;
-#if UNITY_5_5_OR_NEWER
-            case BuildTarget.N3DS:
-                return BuildTargetGroup.N3DS;
-#else
-            case BuildTarget.Nintendo3DS:
-                return BuildTargetGroup.Nintendo3DS;
-#endif
+// #if UNITY_5_5_OR_NEWER
+//             case BuildTarget.N3DS:
+//                 return BuildTargetGroup.N3DS;
+// #else
+//             case BuildTarget.Nintendo3DS:
+//                 return BuildTargetGroup.Nintendo3DS;
+// #endif
 #if UNITY_5_6_OR_NEWER
             case BuildTarget.Switch:
                 return BuildTargetGroup.Switch;
@@ -184,8 +180,8 @@ namespace MultiBuild {
                 return BuildTarget.StandaloneOSX;
             case Target.MacUniversal:
                 return BuildTarget.StandaloneOSX;
-            case Target.Linux32:
-                return BuildTarget.StandaloneLinux;
+            // case Target.Linux32:
+            //     return BuildTarget.StandaloneLinux;
             case Target.Linux64:
                 return BuildTarget.StandaloneLinux64;
             case Target.iOS:
@@ -196,23 +192,19 @@ namespace MultiBuild {
                 return BuildTarget.WebGL;
             case Target.WinStore:
                 return BuildTarget.WSAPlayer;
-            case Target.Tizen:
-                return BuildTarget.Tizen;
             case Target.PS4:
                 return BuildTarget.PS4;
             case Target.XboxOne:
                 return BuildTarget.XboxOne;
-            case Target.WiiU:
-                return BuildTarget.WiiU;
             case Target.tvOS:
                 return BuildTarget.tvOS;
-#if UNITY_5_5_OR_NEWER
-            case Target.Nintendo3DS:
-                return BuildTarget.N3DS;
-#else
-            case Target.Nintendo3DS:
-                return BuildTarget.Nintendo3DS;
-#endif
+// #if UNITY_5_5_OR_NEWER
+//             case Target.Nintendo3DS:
+//                 return BuildTarget.N3DS;
+// #else
+//             case Target.Nintendo3DS:
+//                 return BuildTarget.Nintendo3DS;
+// #endif
 #if UNITY_5_6_OR_NEWER
             case Target.Switch:
                 return BuildTarget.Switch;

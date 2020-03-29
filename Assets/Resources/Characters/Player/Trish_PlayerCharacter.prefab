@@ -613,7 +613,6 @@ MonoBehaviour:
   MaxPower: 100
   PowerGaugePercentage: 0
   bIsPowerGaugeEnabled: 1
-  playerHealthPercentage: 0
   PowerConsumeAmount: 0.15
   PowerConsumeRate: 1
   DamageMultiplierAmount: 2
@@ -1028,6 +1027,9 @@ MonoBehaviour:
   m_DeviceRegainedEvent:
     m_PersistentCalls:
       m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -1320,6 +1322,7 @@ MonoBehaviour:
   PauseGameEvent:
     m_PersistentCalls:
       m_Calls: []
+  bActivateSpecial: 0
   ToggleMouseStateAction:
     m_Name: Toggle Mouse State
     m_Type: 0

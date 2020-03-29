@@ -110,7 +110,6 @@ public class InputSystemPlayerInput : MonoBehaviour
         myControls.Gameplay.Crouch.performed += OnCrouch;
         myControls.Gameplay.Crouch.canceled += OnCrouch;
         currentKeyboard = Keyboard.current;
-        // InputSystem.pollingFrequency = 120;
         playerMovement = GetComponentInParent<InputSystemPlayerMovement>();
     }
 
